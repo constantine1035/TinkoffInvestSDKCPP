@@ -1,16 +1,23 @@
-//
-// Created by Elisey Muxin on 15.02.2024.
-//
+#pragma once
 
-#ifndef TINKOFFINVESTSDKCPP_SERVICES_BASED_SERVICE_H_
-#define TINKOFFINVESTSDKCPP_SERVICES_BASED_SERVICE_H_
+#include <grpc/grpc.h>
+#include <grpc++/client_context.h>
 
+#include <string>
+#include <memory>
 
+namespace tinkoff_invest_sdk_cpp_based_service {
 
-class based_service {
+// Based class for all services.
+class BasedService {
+public:
+    explicit BasedService(const std::string &token);
 
+    virtual ~BasedService() = default;
+
+protected:
+    std::string token_;
+
+    std::shared_ptr<ClientContext> MakeContext();
 };
-
-
-
-#endif //TINKOFFINVESTSDKCPP_SERVICES_BASED_SERVICE_H_
+} // namespace tinkoff_invest_sdk_cpp_based_service
