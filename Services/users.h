@@ -1,6 +1,6 @@
 #pragma once
 
-#include "commontypes.h"
+#include "reply.h"
 #include "customservice.h"
 #include <grpcpp/grpcpp.h>
 #include "../protofiles/users.pb.h"
@@ -11,8 +11,8 @@ using namespace tinkoff::public_::invest::api::contract::v1;
 
 class TINKOFFINVESTSDK_EXPORT Users : public CustomService {
 public:
-    Users(std::shared_ptr<Channel> channel, const std::string &token);
-    ~Users();
+    Users(std::shared_ptr<Channel> channel, const std::string &token)
+    ~Users() = default;
 
     // Метод получения счетов пользователя: тело запроса — GetAccountsRequest, тело ответа — GetAccountsResponse
     ServiceReply GetAccounts();
@@ -24,5 +24,5 @@ public:
     ServiceReply GetInfo();
 
 private:
-    std::unique_ptr<UsersService::Stub> m_usersService;
+    std::unique_ptr<UsersService::Stub> users_service_;
 };
