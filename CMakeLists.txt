@@ -14,7 +14,9 @@ add_library(tink_grpc_proto
         ${OUTPUT_PB_HEADERS}
         ${OUTPUT_GRPC_SOURCES}
         ${OUTPUT_GRPC_HEADERS}
-        )
+        services/instruments_service.cpp
+        services/instruments_service.h
+)
 
 target_link_libraries(tink_grpc_proto
         ${_REFLECTION}
@@ -27,7 +29,9 @@ include_directories("${CMAKE_CURRENT_BINARY_DIR}")
 file(GLOB SERVICES_IMP "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/services/*.cpp")
 file(GLOB SERVICES_HDR "${CMAKE_CURRENT_SOURCE_DIR}/*.h" "${CMAKE_CURRENT_SOURCE_DIR}/services/*.h")
 
-add_library(${PROJECT_NAME} SHARED ${SERVICES_IMP} ${SERVICES_HDR})
+add_library(${PROJECT_NAME} SHARED ${SERVICES_IMP} ${SERVICES_HDR}
+        services/instruments_service.cpp
+        services/instruments_service.h)
 
 generate_export_header(${PROJECT_NAME})
 
