@@ -1,0 +1,16 @@
+//
+// Created by Elisey Muxin on 15.02.2024.
+//
+
+#ifndef TINKOFFINVESTSDKCPP_SERVICES_BASED_SERVICE_H_
+#define TINKOFFINVESTSDKCPP_SERVICES_BASED_SERVICE_H_
+
+
+
+class based_service {
+
+};
+
+
+
+#endif //TINKOFFINVESTSDKCPP_SERVICES_BASED_SERVICE_H_
