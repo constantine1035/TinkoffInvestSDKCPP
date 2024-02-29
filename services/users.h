@@ -9,7 +9,7 @@ using grpc::Channel;
 
 using namespace tinkoff::public_::invest::api::contract::v1;
 
-class TINKOFFINVESTSDK_EXPORT Users : public CustomService {
+class Users : public CustomService {
 public:
     Users(std::shared_ptr<Channel> channel, const std::string &token)
     ~Users() = default;
