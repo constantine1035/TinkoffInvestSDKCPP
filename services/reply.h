@@ -6,7 +6,7 @@
 
 using grpc::Status;
 
-class TINKOFFINVESTSDK_EXPORT ServiceReply{
+class ServiceReply{
 public:
         ServiceReply();
 

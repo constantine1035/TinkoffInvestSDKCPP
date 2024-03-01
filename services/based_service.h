@@ -6,6 +6,8 @@
 #include <string>
 #include <memory>
 
+using namespace grpc;
+
 namespace tinkoff_invest_sdk_cpp_based_service {
 
 // Based class for all services.
