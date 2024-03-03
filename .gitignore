@@ -32,5 +32,10 @@ a.out
 cmake-build-debug/
 cmake-build-*
 
+#vcpkg files
+vcpkg.json
+CMakePresets.json
+package.json
+vcpkg-configuration.json
 
 .DS_Store

@@ -5,31 +5,29 @@ project(TinkoffInvestSDKCPP)
 include(GenerateExportHeader)
 include(cmake/common.cmake)
 
-file(GLOB INVEST_API_PROTOS "${CMAKE_CURRENT_SOURCE_DIR}/investAPI/src/docs/contracts/*.proto")
-
-
-
-add_library(tink_grpc_proto
-        ${OUTPUT_PB_SOURCES}
-        ${OUTPUT_PB_HEADERS}
-        ${OUTPUT_GRPC_SOURCES}
-        ${OUTPUT_GRPC_HEADERS}
-        )
-
-target_link_libraries(tink_grpc_proto
-        ${_REFLECTION}
-        ${_GRPC_GRPCPP}
-        ${_PROTOBUF_LIBPROTOBUF}
-        )
-
 include_directories("${CMAKE_CURRENT_BINARY_DIR}")
+
+file(GLOB PB_IMP "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/protofiles/*.cc")
+file(GLOB PB_HDR "${CMAKE_CURRENT_SOURCE_DIR}/*.h" "${CMAKE_CURRENT_SOURCE_DIR}/protofiles/*.h")
+file(GLOB GRPC_IMP "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/protofiles/*.cc")
+file(GLOB GRPC_HDR "${CMAKE_CURRENT_SOURCE_DIR}/*.h" "${CMAKE_CURRENT_SOURCE_DIR}/protofiles/*.h")
 
 file(GLOB SERVICES_IMP "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/services/*.cpp")
 file(GLOB SERVICES_HDR "${CMAKE_CURRENT_SOURCE_DIR}/*.h" "${CMAKE_CURRENT_SOURCE_DIR}/services/*.h")
 
-add_library(${PROJECT_NAME} SHARED ${SERVICES_IMP} ${SERVICES_HDR})
+add_library(tink_grpc_proto
+        ${PB_IMP}
+        ${PB_HDR}
+        ${GRPC_IMP}
+        ${GRPC_HDR}
+)
 
-generate_export_header(${PROJECT_NAME})
+target_link_libraries(tink_grpc_proto
+        ${_REFLECTION}
+        ${_GRPC_GRPCPP}
+        ${_PROTOBUF_LIBPROTOBUF})
+
+add_library(${PROJECT_NAME} SHARED ${SERVICES_IMP} ${SERVICES_HDR})
 
 target_include_directories(${PROJECT_NAME}
         PUBLIC
@@ -45,4 +43,6 @@ target_link_libraries(${PROJECT_NAME}
         ${_REFLECTION}
         ${_GRPC_GRPCPP}
         ${_PROTOBUF_LIBPROTOBUF}
-        )
+)
+
+generate_export_header(${PROJECT_NAME})

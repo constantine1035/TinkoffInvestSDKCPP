@@ -1,10 +1,12 @@
 #pragma once
 
-#include <grpc/grpc.h>
-#include <grpc++/client_context.h>
+#include <grpcpp/client_context.h>
+#include "google/protobuf/message.h"
 
 #include <string>
 #include <memory>
+
+using grpc::ClientContext;
 
 namespace tinkoff_invest_sdk_cpp_based_service {
 

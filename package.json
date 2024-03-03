@@ -1,0 +1,25 @@
+{
+  "name": "tinkoffinvestsdkcpp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://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@github.com/constantine1035/TinkoffInvestSDKCPP"
+  },
+  "dependencies": [
+    {
+      "name": "grpc",
+      "version>=": "1.51.1#1",
+      "$comment": "  # this is heuristically generated, and may not be correct\n\n  find_package(gRPC CONFIG REQUIRED)\n\n  # note: 7 additional targets are not displayed.\n\n  target_link_libraries(main PRIVATE gRPC::gpr gRPC::grpc gRPC::grpc++ gRPC::grpc++_alts)\n"
+    },
+    {
+      "name": "protobuf",
+      "version>=": "3.21.12#1"
+    },
+    {
+      "name": "abseil",
+      "version>=": "20230802.1"
+    }
+  ]
+}
