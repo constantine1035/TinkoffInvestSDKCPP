@@ -1,6 +1,5 @@
 #pragma once
 
-#include <grpc/grpc.h>
 #include <grpc++/client_context.h>
 
 #include <string>
@@ -18,6 +17,6 @@ public:
 protected:
     std::string token_;
 
-    std::shared_ptr<ClientContext> MakeContext();
+    std::shared_ptr<grpc::ClientContext> MakeContext();
 };
 } // namespace tinkoff_invest_sdk_cpp_based_service

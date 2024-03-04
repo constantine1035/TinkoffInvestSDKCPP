@@ -1,23 +1,26 @@
 #pragma once
 
 #include "reply.h"
-#include "customservice.h"
-#include <grpcpp/grpcpp.h>
-#include "../protofiles/users.pb.h"
+#include "based_service.h"
+#include <grpc++/grpc++.h>
+#include "users.pb.h"
+#include "common.pb.h"
+#include "users.grpc.pb.h"
 
 using grpc::Channel;
+using tinkoff_invest_sdk_cpp_based_service::BasedService;
 
 using namespace tinkoff::public_::invest::api::contract::v1;
 
-class Users : public CustomService {
+class Users : public BasedService {
 public:
-    Users(std::shared_ptr<Channel> channel, const std::string &token)
+    Users(std::shared_ptr<Channel> channel, const std::string &token);
     ~Users() = default;
 
     // Метод получения счетов пользователя: тело запроса — GetAccountsRequest, тело ответа — GetAccountsResponse
     ServiceReply GetAccounts();
     // Расчёт маржинальных показателей по счёту: тело запроса — GetMarginAttributesRequest, тело ответа — GetMarginAttributesResponse
-    ServiceReply GetMarginAttributes(const std::string &accountId);
+    ServiceReply GetMarginAttributes(const std::string &account_id);
     // Запрос тарифа пользователя: тело запроса — GetUserTariffRequest, тело ответа — GetUserTariffResponse
     ServiceReply GetUserTariff();
     // Метод получения информации о пользователе: тело запроса — GetInfoRequest, тело ответа — GetInfoResponse

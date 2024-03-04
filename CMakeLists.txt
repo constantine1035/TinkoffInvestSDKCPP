@@ -1,48 +1,68 @@
-cmake_minimum_required(VERSION 3.8)
-
+cmake_minimum_required(VERSION 3.5)
 project(TinkoffInvestSDKCPP)
 
-include(GenerateExportHeader)
-include(cmake/common.cmake)
+# Укажите версию CMake
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-file(GLOB INVEST_API_PROTOS "${CMAKE_CURRENT_SOURCE_DIR}/investAPI/src/docs/contracts/*.proto")
+# Найдите gRPC
+find_package(gRPC REQUIRED)
+find_package(Protobuf REQUIRED)
 
+# Укажите путь к протофайлам
+set(PROTO_FILES_PATH ${CMAKE_CURRENT_SOURCE_DIR}/protofiles)
 
+# Укажите протофайлы для компиляции
+set(PROTO_FILES
+        ${PROTO_FILES_PATH}/common.proto
+        ${PROTO_FILES_PATH}/instruments.proto
+        ${PROTO_FILES_PATH}/marketdata.proto
+        ${PROTO_FILES_PATH}/operations.proto
+        ${PROTO_FILES_PATH}/orders.proto
+        ${PROTO_FILES_PATH}/sandbox.proto
+        ${PROTO_FILES_PATH}/stoporders.proto
+        ${PROTO_FILES_PATH}/users.proto
+        # Укажите здесь все ваши протофайлы
+)
 
-add_library(tink_grpc_proto
-        ${OUTPUT_PB_SOURCES}
-        ${OUTPUT_PB_HEADERS}
-        ${OUTPUT_GRPC_SOURCES}
-        ${OUTPUT_GRPC_HEADERS}
-        )
+set(gRPC_CPP_PLUGIN /Users/admin/CLionProjects/TinkoffInvest/cmake-build-debug/vcpkg_installed/arm64-osx/tools/grpc/grpc_cpp_plugin)
 
-target_link_libraries(tink_grpc_proto
-        ${_REFLECTION}
-        ${_GRPC_GRPCPP}
-        ${_PROTOBUF_LIBPROTOBUF}
-        )
+# Сгенерировать протофайлы
+foreach(PROTO_FILE ${PROTO_FILES})
+    get_filename_component(PROTO_FILE_NAME ${PROTO_FILE} NAME_WE)
+    set(PROTO_GEN_FOLDER ${CMAKE_CURRENT_SOURCE_DIR}/protofiles)
 
-include_directories("${CMAKE_CURRENT_BINARY_DIR}")
+    # Генерация C++ кода
+    execute_process(COMMAND ${Protobuf_PROTOC_EXECUTABLE}
+            --cpp_out=${PROTO_GEN_FOLDER}
+            --grpc_out=${PROTO_GEN_FOLDER}
+            --plugin=protoc-gen-grpc=${gRPC_CPP_PLUGIN}
+            -I ${PROTO_FILES_PATH}
+            ${PROTO_FILE}
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    )
 
-file(GLOB SERVICES_IMP "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/services/*.cpp")
-file(GLOB SERVICES_HDR "${CMAKE_CURRENT_SOURCE_DIR}/*.h" "${CMAKE_CURRENT_SOURCE_DIR}/services/*.h")
+    # Добавить сгенерированные файлы в цель компиляции
+    include_directories(${PROTO_GEN_FOLDER})
+    list(APPEND GENERATED_PROTO_SOURCES "${PROTO_GEN_FOLDER}/${PROTO_FILE_NAME}.pb.cc" "${PROTO_GEN_FOLDER}/${PROTO_FILE_NAME}.grpc.pb.cc")
+    list(APPEND GENERATED_PROTO_HEADERS "${PROTO_GEN_FOLDER}/${PROTO_FILE_NAME}.pb.h" "${PROTO_GEN_FOLDER}/${PROTO_FILE_NAME}.grpc.pb.h")
+endforeach()
 
-add_library(${PROJECT_NAME} SHARED ${SERVICES_IMP} ${SERVICES_HDR})
+# Укажите исполняемый файл и его исходные файлы
+add_executable(TinkoffInvestSDKCPP
+        ./services/based_service.h
+        ./services/based_service.cpp
+        ./services/reply.h
+        ./services/reply.cpp
+        ./services/users.h
+        ./services/users.cpp
+        ${GENERATED_PROTO_SOURCES}
+        ${GENERATED_PROTO_HEADERS}
+)
 
-generate_export_header(${PROJECT_NAME})
-
-target_include_directories(${PROJECT_NAME}
-        PUBLIC
-        ${CMAKE_CURRENT_BINARY_DIR}
-        ${CMAKE_CURRENT_SOURCE_DIR}
-        ${CMAKE_CURRENT_BINARY_DIR}/services
-        ${CMAKE_CURRENT_SOURCE_DIR}/services
-        )
-
-target_link_libraries(${PROJECT_NAME}
-        PRIVATE
-        tink_grpc_proto
-        ${_REFLECTION}
-        ${_GRPC_GRPCPP}
-        ${_PROTOBUF_LIBPROTOBUF}
-        )
+# Укажите, что необходимо подключить библиотеки gRPC и protobuf
+target_link_libraries(TinkoffInvestSDKCPP
+        gRPC::grpc++
+        gRPC::grpc
+        protobuf::libprotobuf
+)
