@@ -50,6 +50,9 @@ endforeach()
 
 # Укажите исполняемый файл и его исходные файлы
 add_executable(TinkoffInvestSDKCPP
+        main.cpp
+        client.h
+        client.cpp
         ./services/based_service.h
         ./services/based_service.cpp
         ./services/reply.h

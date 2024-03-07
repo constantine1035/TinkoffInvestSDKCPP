@@ -1,6 +1,6 @@
 #pragma once
 
-#include <grpcpp/grpcpp.h>
+#include <grpc++/grpc++.h>
 #include <functional>
 #include "google/protobuf/message.h"
 
@@ -12,11 +12,11 @@ public:
 
         ServiceReply(const std::shared_ptr<google::protobuf::Message> proto_msg, const Status& status, const std::string& error_message = "");
         
-        int accountCount();
+        int AccountCount();
         
-        const std::string accountID(const int i);
+        const std::string AccountID(const int i);
         
-        const std::string accountName(const int i);
+        const std::string AccountName(const int i);
         
         const std::shared_ptr<google::protobuf::Message> ptr();
 
