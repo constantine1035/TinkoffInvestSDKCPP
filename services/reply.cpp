@@ -10,7 +10,7 @@ ServiceReply::ServiceReply(const std::shared_ptr<google::protobuf::Message> prot
         reply_ptr_(proto_msg), status_(status), error_message_(error_message) {}
 
 const std::string ServiceReply::AccountID(const int i) {
-    auto response = dynamic_cast<GetAccountsResponse *>(ptr().get());
+    auto response = dynamic_cast<GetAccountsResponse*>(ptr().get());
     if (response && i < response->accounts_size()) {
         return response->accounts(i).id();
     } else {
@@ -19,7 +19,7 @@ const std::string ServiceReply::AccountID(const int i) {
 }
 
 const std::string ServiceReply::AccountName(const int i) {
-    auto response = dynamic_cast<GetAccountsResponse *>(ptr().get());
+    auto response = dynamic_cast<GetAccountsResponse*>(ptr().get());
     if (response && i < response->accounts_size()) {
         return response->accounts(i).name();
     } else {
@@ -28,7 +28,7 @@ const std::string ServiceReply::AccountName(const int i) {
 }
 
 int ServiceReply::AccountCount() {
-    auto response = dynamic_cast<GetAccountsResponse *>(ptr().get());
+    auto response = dynamic_cast<GetAccountsResponse*>(ptr().get());
     if (response) {
         return response->accounts_size();
     } else {

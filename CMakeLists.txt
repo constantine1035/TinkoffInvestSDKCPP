@@ -25,7 +25,7 @@ set(PROTO_FILES
         # Укажите здесь все ваши протофайлы
 )
 
-set(gRPC_CPP_PLUGIN /Users/admin/CLionProjects/TinkoffInvest/cmake-build-debug/vcpkg_installed/arm64-osx/tools/grpc/grpc_cpp_plugin)
+set(gRPC_CPP_PLUGIN ${CMAKE_CURRENT_BINARY_DIR}/vcpkg_installed/arm64-osx/tools/grpc/grpc_cpp_plugin)
 
 # Сгенерировать протофайлы
 foreach(PROTO_FILE ${PROTO_FILES})
@@ -59,6 +59,8 @@ add_executable(TinkoffInvestSDKCPP
         ./services/reply.cpp
         ./services/users.h
         ./services/users.cpp
+        ./services/orders.h
+        ./services/orders.cpp
         ${GENERATED_PROTO_SOURCES}
         ${GENERATED_PROTO_HEADERS}
 )

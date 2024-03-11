@@ -12,9 +12,9 @@ ServiceReply Users::GetAccounts() {
     return ServiceReply::PrepareServiceAnswer<GetAccountsResponse>(status, reply);
 }
 
-ServiceReply Users::GetMarginAttributes(const std::string &accountId) {
+ServiceReply Users::GetMarginAttributes(const std::string &account_id) {
     GetMarginAttributesRequest request;
-    request.set_account_id(accountId);
+    request.set_account_id(account_id);
     GetMarginAttributesResponse reply;
     Status status = users_service_->GetMarginAttributes(MakeContext().get(), request, &reply);
     return ServiceReply::PrepareServiceAnswer<GetMarginAttributesResponse>(status, reply);
