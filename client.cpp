@@ -4,9 +4,9 @@
 #include "services/users.h"
 //#include "instruments.h"  TBD
 //#include "operations.h"  TBD
-//#include "orders.h"  TBD
+#include "services/orders.h"
 //#include "ordersstream.h"  TBD
-//#include "stoporders.h"  TBD
+#include "services/stoporders.h"
 //#include "sandbox.h"   TBD
 //#include "marketdata.h"  TBD
 //#include "marketdatastream.h"  TBD
@@ -57,11 +57,11 @@
 InvestApiClient::InvestApiClient(const std::string &host, const std::string &pass)
 {
     auto channel = grpc::CreateChannel(host, grpc::SslCredentials(
-#ifdef _WIN32
-       getSslOptions()
-#else
+//#ifdef _WIN32
+//       getSslOptions()
+//#else
        grpc::SslCredentialsOptions()
-#endif
+//#endif
     ));
 
     services_["users"] = std::make_shared<Users>(channel, pass);
@@ -69,8 +69,8 @@ InvestApiClient::InvestApiClient(const std::string &host, const std::string &pas
 //    services_["marketdata"] = std::make_shared<MarketData>(channel, pass);  TBD
 //    services_["instruments"] = std::make_shared<Instruments>(channel, pass);  TBD
 //    services_["operations"] = std::make_shared<Operations>(channel, pass);  TBD
-//    services_["orders"] = std::make_shared<Orders>(channel, pass);  TBD
-//    services_["stoporders"] = std::make_shared<StopOrders>(channel, pass);  TBD
+    services_["orders"] = std::make_shared<Orders>(channel, pass);
+    services_["stoporders"] = std::make_shared<StopOrders>(channel, pass);
 //    services_["marketdatastream"] = std::make_shared<MarketDataStream>(channel, pass);  TBD
 //    services_["ordersstream"] = std::make_shared<OrdersStream>(channel, pass);  TBD
 }
