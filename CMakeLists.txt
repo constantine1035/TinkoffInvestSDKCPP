@@ -61,6 +61,8 @@ add_executable(TinkoffInvestSDKCPP
         ./services/users.cpp
         ./services/orders.h
         ./services/orders.cpp
+        ./services/stoporders.h
+        ./services/stoporders.cpp
         ${GENERATED_PROTO_SOURCES}
         ${GENERATED_PROTO_HEADERS}
 )
