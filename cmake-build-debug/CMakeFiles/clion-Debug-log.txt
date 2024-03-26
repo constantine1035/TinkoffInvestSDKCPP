@@ -1,1 +1,0 @@
-CMakeLists.txt not found in /Users/ilukatsk/Documents/Projects/Kursach/TinkoffInvestSDKCPP Select CMakeLists.txt
