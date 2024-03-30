@@ -1,14 +1,12 @@
 #pragma once
 
 #include <grpcpp/client_context.h>
-#include "google/protobuf/message.h"
-
-#include <string>
 #include <memory>
-
-using grpc::ClientContext;
+#include <string>
 
 namespace tinkoff_invest_sdk_cpp_based_service {
+
+using grpc::ClientContext;
 
 // Based class for all services.
 class BasedService {
