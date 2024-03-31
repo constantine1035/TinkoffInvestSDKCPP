@@ -5,6 +5,7 @@
 namespace tinkoff_invest_sdk_cpp_market_data_subscription_service {
 
 using grpc::ClientReaderWriter;
+using grpc::ClientAsyncReaderWriter;
 using grpc::Status;
 
 MarketDataStream::MarketDataStream(const std::string &token, std::shared_ptr<grpc::Channel> channel) :
@@ -42,7 +43,7 @@ bool MarketDataStream::SubscribeCandles(const std::vector<std::pair<std::string,
     return status.ok();
 }
 
-bool MarketDataStream::UnSubscribeCandles() {
+bool MarketDataStream::UnsubscribeCandles() {
     std::shared_ptr<ClientReaderWriter<MarketDataRequest, MarketDataResponse> > stream(
         service_->MarketDataStream(MakeContext().get()));
 
@@ -97,7 +98,7 @@ bool MarketDataStream::SubscribeOrderBook(const std::vector<std::pair<std::strin
     return status.ok();
 }
 
-bool MarketDataStream::UnSubscribeOrderBook() {
+bool MarketDataStream::UnsubscribeOrderBook() {
     std::shared_ptr<ClientReaderWriter<MarketDataRequest, MarketDataResponse> > stream(
         service_->MarketDataStream(MakeContext().get()));
 
@@ -121,8 +122,219 @@ bool MarketDataStream::UnSubscribeOrderBook() {
     return status.ok();
 }
 
-bool MarketDataStream::SubscribeTrades(const std::vector<std::string> &instruments_ids) {
+bool MarketDataStream::SubscribeTrades(const std::vector<std::string> &instrument_ids) {
+    std::shared_ptr<ClientReaderWriter<MarketDataRequest, MarketDataResponse> > stream(
+        service_->MarketDataStream(MakeContext().get()));
 
+    MarketDataRequest request;
+
+    auto sub = new SubscribeTradesRequest();
+    sub->set_subscription_action(SubscriptionAction::SUBSCRIPTION_ACTION_SUBSCRIBE);
+    for (const auto &instrument_id: instrument_ids) {
+        auto order_book_instrument = sub->add_instruments();
+        order_book_instrument->set_instrument_id(instrument_id);
+    }
+
+    request.set_allocated_subscribe_trades_request(sub);
+
+    std::thread writer([stream, request]() {
+        stream->Write(request);
+        stream->WritesDone();
+    });
+
+    MarketDataResponse reply;
+    while (stream->Read(&reply)) {
+    }
+    writer.join();
+
+    Status status = stream->Finish();
+    return status.ok();
+}
+
+bool MarketDataStream::UnsubscribeTrades() {
+    std::shared_ptr<ClientReaderWriter<MarketDataRequest, MarketDataResponse> > stream(
+        service_->MarketDataStream(MakeContext().get()));
+
+    MarketDataRequest request;
+
+    auto sub = new SubscribeTradesRequest();
+    sub->set_subscription_action(SubscriptionAction::SUBSCRIPTION_ACTION_UNSUBSCRIBE);
+    request.set_allocated_subscribe_trades_request(sub);
+
+    std::thread writer([stream, request]() {
+        stream->Write(request);
+        stream->WritesDone();
+    });
+
+    MarketDataResponse reply;
+    while (stream->Read(&reply)) {
+    }
+    writer.join();
+
+    Status status = stream->Finish();
+    return status.ok();
+}
+
+bool MarketDataStream::SubscribeInfo(const std::vector<std::string> &instrument_ids) {
+    std::shared_ptr<ClientReaderWriter<MarketDataRequest, MarketDataResponse> > stream(
+        service_->MarketDataStream(MakeContext().get()));
+
+    MarketDataRequest request;
+
+    auto sub = new SubscribeInfoRequest();
+    sub->set_subscription_action(SubscriptionAction::SUBSCRIPTION_ACTION_SUBSCRIBE);
+    for (const auto &instrument_id: instrument_ids) {
+        auto order_book_instrument = sub->add_instruments();
+        order_book_instrument->set_instrument_id(instrument_id);
+    }
+
+    request.set_allocated_subscribe_trades_request(sub);
+
+    std::thread writer([stream, request]() {
+        stream->Write(request);
+        stream->WritesDone();
+    });
+
+    MarketDataResponse reply;
+    while (stream->Read(&reply)) {
+    }
+    writer.join();
+
+    Status status = stream->Finish();
+    return status.ok();
+}
+
+bool MarketDataStream::UnsubscribeInfo() {
+    std::shared_ptr<ClientReaderWriter<MarketDataRequest, MarketDataResponse> > stream(
+        service_->MarketDataStream(MakeContext().get()));
+
+    MarketDataRequest request;
+
+    auto sub = new SubscribeInfoRequest();
+    sub->set_subscription_action(SubscriptionAction::SUBSCRIPTION_ACTION_UNSUBSCRIBE);
+    request.set_allocated_subscribe_trades_request(sub);
+
+    std::thread writer([stream, request]() {
+        stream->Write(request);
+        stream->WritesDone();
+    });
+
+    MarketDataResponse reply;
+    while (stream->Read(&reply)) {
+    }
+    writer.join();
+
+    Status status = stream->Finish();
+    return status.ok();
+}
+
+bool MarketDataStream::SubscribeLastPrice(const std::vector<std::string> &instrument_ids) {
+    std::shared_ptr<ClientReaderWriter<MarketDataRequest, MarketDataResponse> > stream(
+        service_->MarketDataStream(MakeContext().get()));
+
+    MarketDataRequest request;
+
+    auto sub = new SubscribeLastPriceRequest();
+    sub->set_subscription_action(SubscriptionAction::SUBSCRIPTION_ACTION_SUBSCRIBE);
+    for (const auto &instrument_id: instrument_ids) {
+        auto order_book_instrument = sub->add_instruments();
+        order_book_instrument->set_instrument_id(instrument_id);
+    }
+
+    request.set_allocated_subscribe_trades_request(sub);
+
+    std::thread writer([stream, request]() {
+        stream->Write(request);
+        stream->WritesDone();
+    });
+
+    MarketDataResponse reply;
+    while (stream->Read(&reply)) {
+    }
+    writer.join();
+
+    Status status = stream->Finish();
+    return status.ok();
+}
+
+bool MarketDataStream::UnsubscribeLastPrice() {
+    std::shared_ptr<ClientReaderWriter<MarketDataRequest, MarketDataResponse> > stream(
+        service_->MarketDataStream(MakeContext().get()));
+
+    MarketDataRequest request;
+
+    auto sub = new SubscribeInfoRequest();
+    sub->set_subscription_action(SubscriptionAction::SUBSCRIPTION_ACTION_UNSUBSCRIBE);
+    request.set_allocated_subscribe_trades_request(sub);
+
+    std::thread writer([stream, request]() {
+        stream->Write(request);
+        stream->WritesDone();
+    });
+
+    MarketDataResponse reply;
+    while (stream->Read(&reply)) {
+    }
+    writer.join();
+
+    Status status = stream->Finish();
+    return status.ok();
+}
+
+void MarketDataStream::SubscribeCandlesAsync(const std::vector<std::pair<std::string,SubscriptionInterval>> &candle_instruments) {
+    std::shared_ptr<ClientAsyncReaderWriter<MarketDataRequest, MarketDataResponse> > stream(
+        service_->AsyncMarketDataStream(MakeContext().get(), GetQueue().get(), nullptr));
+
+    MarketDataRequest request;
+
+    auto sub = new SubscribeCandlesRequest();
+    sub->set_subscription_action(SubscriptionAction::SUBSCRIPTION_ACTION_SUBSCRIBE);
+    for (const auto &[instrument_id, interval]: candle_instruments) {
+        auto candle_instrument = sub->add_instruments();
+        candle_instrument->set_instrument_id(instrument_id);
+        candle_instrument->set_interval(interval);
+    }
+
+    request.set_allocated_subscribe_candles_request(sub);
+
+    std::thread writer([stream, request]() {
+        stream->Write(request);
+        stream->WritesDone(nullptr);
+    });
+
+    MarketDataResponse reply;
+    while (stream->Read(&reply)) {
+    }
+    writer.join();
+
+    Status status;
+    stream->Finish(&status, nullptr);
+    // return status.ok();
+}
+
+bool MarketDataStream::UnsubscribeCandles() {
+    std::shared_ptr<ClientReaderWriter<MarketDataRequest, MarketDataResponse> > stream(
+        service_->MarketDataStream(MakeContext().get()));
+
+    MarketDataRequest request;
+
+    auto sub = new SubscribeCandlesRequest();
+    sub->set_subscription_action(SubscriptionAction::SUBSCRIPTION_ACTION_UNSUBSCRIBE);
+
+    request.set_allocated_subscribe_candles_request(sub);
+
+    std::thread writer([stream, request]() {
+        stream->Write(request);
+        stream->WritesDone();
+    });
+
+    MarketDataResponse reply;
+    while (stream->Read(&reply)) {
+    }
+    writer.join();
+
+    Status status = stream->Finish();
+    return status.ok();
 }
 
 } // tinkoff_invest_sdk_cpp_market_data_subscription_service
