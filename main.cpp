@@ -4,7 +4,7 @@
 
 int main()
 {
-    InvestApiClient client("invest-public-api.tinkoff.ru:443", "t.9DjFbOC06vcgI55ijIJJTganmdmcMw2NOk1xplPO-NkKMUWHjIy8eamhr1rmdVt5YoDMYYWArqCZyrD_oGodNQ");
+    InvestApiClient client("invest-public-api.tinkoff.ru:443", "t.9DjFbOC06vcgI5xplPO-NkKMUWHjIy8eamhr1rmdVt5YoDMYYWArqCZyrD_oGodNQ");
 //    InvestApiClient client("invest-public-api.tinkoff.ru:443", "t.xkHLcK7d-Bjz8YVC2UCnI6nOU0FQoXAVC0BI7S4hsCGMnJdOQtFB3QYVEv4xGnNH2fZ_cSLY6QaInRLcPSMayg");
 
 

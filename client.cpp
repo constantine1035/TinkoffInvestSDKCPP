@@ -54,15 +54,14 @@
 //}
 //#endif               IDK WHAT IS IT something for windows
 
-InvestApiClient::InvestApiClient(const std::string &host, const std::string &pass)
-{
-    auto channel = grpc::CreateChannel(host, grpc::SslCredentials(
+InvestApiClient::InvestApiClient(const std::string& host, const std::string& pass) {
+    auto channel = grpc::CreateChannel(host, grpc::SslCredentials(grpc::SslCredentialsOptions()));
 //#ifdef _WIN32
 //       getSslOptions()
 //#else
-       grpc::SslCredentialsOptions()
+//       grpc::SslCredentialsOptions()
 //#endif
-    ));
+
 
     services_["users"] = std::make_shared<Users>(channel, pass);
 //    services_["sandbox"] = std::make_shared<Sandbox>(channel, pass);  TBD
