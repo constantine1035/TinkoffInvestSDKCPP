@@ -26,6 +26,7 @@ set(PROTO_FILES
 )
 
 set(gRPC_CPP_PLUGIN ${CMAKE_CURRENT_BINARY_DIR}/vcpkg_installed/arm64-osx/tools/grpc/grpc_cpp_plugin)
+#set(gRPC_CPP_PLUGIN /opt/homebrew/Cellar/grpc/1.62.1_1/bin/grpc_cpp_plugin)
 
 # Сгенерировать протофайлы
 foreach(PROTO_FILE ${PROTO_FILES})
@@ -50,9 +51,9 @@ endforeach()
 
 # Укажите исполняемый файл и его исходные файлы
 add_executable(TinkoffInvestSDKCPP
-        main.cpp
-        client.h
-        client.cpp
+        #main.cpp
+        #client.h
+        #client.cpp
         ./services/based_service.h
         ./services/based_service.cpp
         ./services/reply.h
@@ -61,8 +62,10 @@ add_executable(TinkoffInvestSDKCPP
         ./services/users.cpp
         ./services/orders.h
         ./services/orders.cpp
-        ./services/stoporders.h
-        ./services/stoporders.cpp
+        ./services/instruments.h
+        ./services/instruments.cpp
+        ./services/operations.h
+        ./services/operations.cpp
         ${GENERATED_PROTO_SOURCES}
         ${GENERATED_PROTO_HEADERS}
 )
