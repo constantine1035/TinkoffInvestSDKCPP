@@ -10,7 +10,7 @@ find_package(gRPC REQUIRED)
 find_package(Protobuf REQUIRED)
 
 # Укажите путь к протофайлам
-set(PROTO_FILES_PATH ${CMAKE_CURRENT_SOURCE_DIR}/protofiles)
+set(PROTO_FILES_PATH ${CMAKE_CURRENT_SOURCE_DIR}/third-party/investAPI/src/docs/contracts)
 
 # Укажите протофайлы для компиляции
 set(PROTO_FILES
