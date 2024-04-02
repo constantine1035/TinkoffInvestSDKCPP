@@ -187,8 +187,7 @@ bool MarketDataStream::SubscribeInfo(const std::vector<std::string> &instrument_
         auto order_book_instrument = sub->add_instruments();
         order_book_instrument->set_instrument_id(instrument_id);
     }
-
-    request.set_allocated_subscribe_trades_request(sub);
+    request.set_allocated_subscribe_info_request(sub);
 
     std::thread writer([stream, request]() {
         stream->Write(request);
@@ -212,7 +211,7 @@ bool MarketDataStream::UnsubscribeInfo() {
 
     auto sub = new SubscribeInfoRequest();
     sub->set_subscription_action(SubscriptionAction::SUBSCRIPTION_ACTION_UNSUBSCRIBE);
-    request.set_allocated_subscribe_trades_request(sub);
+    request.set_allocated_subscribe_info_request(sub);
 
     std::thread writer([stream, request]() {
         stream->Write(request);
@@ -241,7 +240,7 @@ bool MarketDataStream::SubscribeLastPrice(const std::vector<std::string> &instru
         order_book_instrument->set_instrument_id(instrument_id);
     }
 
-    request.set_allocated_subscribe_trades_request(sub);
+    request.set_allocated_subscribe_last_price_request(sub);
 
     std::thread writer([stream, request]() {
         stream->Write(request);
@@ -263,9 +262,9 @@ bool MarketDataStream::UnsubscribeLastPrice() {
 
     MarketDataRequest request;
 
-    auto sub = new SubscribeInfoRequest();
+    auto sub = new SubscribeLastPriceRequest();
     sub->set_subscription_action(SubscriptionAction::SUBSCRIPTION_ACTION_UNSUBSCRIBE);
-    request.set_allocated_subscribe_trades_request(sub);
+    request.set_allocated_subscribe_last_price_request(sub);
 
     std::thread writer([stream, request]() {
         stream->Write(request);
@@ -312,7 +311,7 @@ void MarketDataStream::SubscribeCandlesAsync(const std::vector<std::pair<std::st
     // return status.ok();
 }
 
-bool MarketDataStream::UnsubscribeCandles() {
+void MarketDataStream::UnsubscribeCandlesAsync() {
     std::shared_ptr<ClientReaderWriter<MarketDataRequest, MarketDataResponse> > stream(
         service_->MarketDataStream(MakeContext().get()));
 
@@ -334,7 +333,6 @@ bool MarketDataStream::UnsubscribeCandles() {
     writer.join();
 
     Status status = stream->Finish();
-    return status.ok();
 }
 
 } // tinkoff_invest_sdk_cpp_market_data_subscription_service

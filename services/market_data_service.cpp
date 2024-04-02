@@ -68,7 +68,7 @@ ServiceReply MarketData::GetTradingStatus(const std::string &instruments_id) {
 ServiceReply MarketData::GetTradingStatuses(const std::vector<std::string> &instruments_ids) {
     GetTradingStatusesRequest request;
     for (const auto &el : instruments_ids) {
-        request.set_instrument_id(el);
+        request.add_instrument_id(el);
     }
 
     GetTradingStatusesResponse reply;
@@ -94,9 +94,8 @@ ServiceReply MarketData::GetLastTrades(const std::string &instrument_id, int64_t
 ServiceReply MarketData::GetClosePrices(const std::vector<std::string> &instruments_ids) {
     GetClosePricesRequest request;
     for (const auto &el : instruments_ids) {
-        InstrumentClosePriceRequest instrument_request;
-        instrument_request.set_instrument_id(el);
-        request.add_close_price(instrument_request);
+        auto instrument_request = request.add_instruments();
+        instrument_request->set_instrument_id(el);
     }
 
     GetClosePricesResponse reply;

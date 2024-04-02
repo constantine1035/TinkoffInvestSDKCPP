@@ -17,9 +17,9 @@
 # See cmake_externalproject/CMakeLists.txt for all-in-one cmake build
 # that automatically builds all the dependencies before building route_guide.
 
-cmake_minimum_required(VERSION 3.5.1)
+cmake_minimum_required(VERSION 3.8)
 
-set (CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 
 if(MSVC)
     add_definitions(-D_WIN32_WINNT=0x600)
@@ -28,7 +28,7 @@ endif()
 find_package(Threads REQUIRED)
 
 set(GRPC_AS_SUBMODULE false)
-set(GRPC_FETCHCONTENT true)
+set(GRPC_FETCHCONTENT false)
 
 if(GRPC_AS_SUBMODULE)
     # One way to build a projects that uses gRPC is to just include the
@@ -118,6 +118,8 @@ else()
     message(STATUS "Using gRPC ${gRPC_VERSION}")
 
     set(_GRPC_GRPCPP gRPC::grpc++)
+
+
     if(CMAKE_CROSSCOMPILING)
         find_program(_GRPC_CPP_PLUGIN_EXECUTABLE grpc_cpp_plugin)
     else()
