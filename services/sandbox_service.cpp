@@ -11,17 +11,17 @@ Sandbox::Sandbox(std::shared_ptr<Channel> channel) :
 
 ServiceReply Sandbox::OpenSandboxAccount(const std::string &account_id) {
     OpenSandboxAccountRequest request;
-    request.set_account_id(account_id);
+    request.set_name(account_id);
     OpenSandboxAccountResponse reply;
     Status status = service_->OpenSandboxAccount(MakeContext().get(), request, &reply);
-    return ServiceReply::prepareServiceAnswer<OpenSandboxAccountResponse>(status, reply);
+    return ServiceReply::PrepareServiceAnswer<OpenSandboxAccountResponse>(status, reply);
 }
 
 ServiceReply Sandbox::GetSandboxAccounts() {
     GetAccountsRequest request;
     GetAccountsResponse reply;
     Status status = service_->GetSandboxAccounts(MakeContext().get(), request, &reply);
-    return ServiceReply::prepareServiceAnswer<GetAccountsResponse>(status, reply);
+    return ServiceReply::PrepareServiceAnswer<GetAccountsResponse>(status, reply);
 }
 
 ServiceReply Sandbox::CloseSandboxAccount(const std::string &account_id) {
@@ -29,7 +29,7 @@ ServiceReply Sandbox::CloseSandboxAccount(const std::string &account_id) {
     request.set_account_id(account_id);
     CloseSandboxAccountResponse reply;
     Status status = service_->CloseSandboxAccount(MakeContext().get(), request, &reply);
-    return ServiceReply::prepareServiceAnswer<CloseSandboxAccountResponse>(status, reply);
+    return ServiceReply::PrepareServiceAnswer<CloseSandboxAccountResponse>(status, reply);
 }
 
 // post sandbox order.
@@ -41,7 +41,7 @@ ServiceReply Sandbox::GetSandboxOrders(const std::string &account_id) {
     request.set_account_id(account_id);
     GetOrdersResponse reply;
     Status status = service_->GetSandboxOrders(MakeContext().get(), request, &reply);
-    return ServiceReply::prepareServiceAnswer<GetOrdersResponse>(status, reply);
+    return ServiceReply::PrepareServiceAnswer<GetOrdersResponse>(status, reply);
 }
 
 ServiceReply Sandbox::CancelSandboxOrder(const std::string &account_id, const std::string &order_id) {
@@ -50,7 +50,7 @@ ServiceReply Sandbox::CancelSandboxOrder(const std::string &account_id, const st
     request.set_order_id(order_id);
     CancelOrderResponse reply;
     Status status = service_->CancelSandboxOrder(MakeContext().get(), request, &reply);
-    return ServiceReply::prepareServiceAnswer<CancelOrderResponse>(status, reply);
+    return ServiceReply::PrepareServiceAnswer<CancelOrderResponse>(status, reply);
 }
 
 ServiceReply Sandbox::GetSandboxOrderState(const std::string &account_id, const std::string &order_id) {
@@ -59,7 +59,7 @@ ServiceReply Sandbox::GetSandboxOrderState(const std::string &account_id, const 
     request.set_order_id(order_id);
     OrderState reply;
     Status status = service_->GetSandboxOrderState(MakeContext().get(), request, &reply);
-    return ServiceReply::prepareServiceAnswer<OrderState>(status, reply);
+    return ServiceReply::PrepareServiceAnswer<OrderState>(status, reply);
 }
 
 ServiceReply Sandbox::GetSandboxPositions(const std::string &account_id) {
@@ -67,7 +67,7 @@ ServiceReply Sandbox::GetSandboxPositions(const std::string &account_id) {
     request.set_account_id(account_id);
     PositionsResponse reply;
     Status status = service_->GetSandboxPositions(MakeContext().get(), request, &reply);
-    return ServiceReply::prepareServiceAnswer<PositionsResponse>(status, reply);
+    return ServiceReply::PrepareServiceAnswer<PositionsResponse>(status, reply);
 }
 
 // get sandbox operations
@@ -79,7 +79,7 @@ ServiceReply Sandbox::GetSandboxPortfolio(const std::string &account_id, ) {
     request.set_account_id(account_id);
     PortfolioResponse reply;
     Status status = service_->GetSandboxPortfolio(MakeContext().get(), request, &reply);
-    return ServiceReply::prepareServiceAnswer<PortfolioResponse>(status, reply);
+    return ServiceReply::PrepareServiceAnswer<PortfolioResponse>(status, reply);
 }
 
 ServiceReply Sandbox::SandboxPayIn(const std::string &account_id, const std::string &currency, int64_t units, int32_t nano) {
@@ -92,7 +92,7 @@ ServiceReply Sandbox::SandboxPayIn(const std::string &account_id, const std::str
     request.set_allocated_amount(amount);
     SandboxPayInResponse reply;
     Status status = service_->SandboxPayIn(MakeContext().get(), request, &reply);
-    return ServiceReply::prepareServiceAnswer<SandboxPayInResponse>(status, reply);
+    return ServiceReply::PrepareServiceAnswer<SandboxPayInResponse>(status, reply);
 }
 
 // et....

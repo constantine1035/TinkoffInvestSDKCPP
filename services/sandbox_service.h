@@ -1,6 +1,7 @@
 #pragma once
 
 #include "based_service.h"
+#include "reply.h"
 #include "protofiles/sandbox.grpc.pb.h"
 #include <grpcpp/grpcpp.h>
 #include <memory>
@@ -32,10 +33,10 @@ public:
     ServiceReply CloseSandboxAccount(const std::string &account_id);
 
     //
-    ServiceReply PostSandboxOrder(); 1111
+    // ServiceReply PostSandboxOrder(); 1111
 
     //
-    ServiceReply ReplaceSandboxOrder(); 1111
+    // ServiceReply ReplaceSandboxOrder(); 1111
 
     //
     ServiceReply GetSandboxOrders(const std::string &account_id);
@@ -50,10 +51,10 @@ public:
     ServiceReply GetSandboxPositions(const std::string &account_id);
 
     //
-    ServiceReply GetSandboxOperations(const std::string &account_id, ); 1111
+    // ServiceReply GetSandboxOperations(const std::string &account_id, ); 1111
 
     //
-    ServiceReply GetSandboxOperationsByCursor(); 1111
+    // ServiceReply GetSandboxOperationsByCursor(); 1111
 
     //
     ServiceReply GetSandboxPortfolio(const std::string &account_id, );
@@ -62,7 +63,7 @@ public:
     ServiceReply SandboxPayIn(const std::string &account_id, const std::string &currency, int64_t units, int32_t nano);
 
     //
-    ServiceReply EtSandboxWithdrawLimits(const std::string &account_id, ); 1111
+    //ServiceReply EtSandboxWithdrawLimits(const std::string &account_id, ); 1111
 
 protected:
     std::unique_ptr<SandboxService::Stub> service_;
