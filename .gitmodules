@@ -1,0 +1,3 @@
+[submodule "third-party/RussianInvestments/investAPI"]
+	path = third-party/RussianInvestments/investAPI
+	url = https://github.com/RussianInvestments/investAPI.git

@@ -1,0 +1,41 @@
+# C/C++ build outputs
+.build/
+build/
+bins
+gens
+libs
+objs
+
+a.out
+*.out
+*.a
+*.o
+
+# profiler output
+*.prof
+
+# Git generated files for conflicting
+*.orig
+
+# IDE specific folder for JetBrains IDEs
+.idea/
+
+# cmake build files
+**/cmake/build/
+
+# Visual Studio Code artifacts
+.cache/*
+.vscode/*
+.history/
+
+# Clion artifacts
+cmake-build-debug/
+cmake-build-*
+
+#vcpkg files
+vcpkg.json
+CMakePresets.json
+package.json
+vcpkg-configuration.json
+
+.DS_Store
