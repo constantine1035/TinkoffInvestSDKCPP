@@ -56,8 +56,21 @@ ServiceReply Instruments::GetBondCoupons(std::string figi, int64_t fromseconds, 
     return ServiceReply::PrepareServiceAnswer<GetBondCouponsResponse>(status, response);
 }
 
-ServiceReply Instruments::GetBondEvents(std::string instrument_id, GetBjiifhhw type, int64_t fromseconds, int32_t fromnanos, int64_t toseconds, int32_t tonanos) {
-    // TODO Type for type field does not exist within a proto file
+ServiceReply Instruments::GetBondEvents(std::string instrument_id, GetBondEventsRequest_EventType type, int64_t fromseconds, int32_t fromnanos, int64_t toseconds, int32_t tonanos) {
+    GetBondEventsRequest request;
+    GetBondEventsResponse response;
+    google::protobuf::Timestamp from;
+    google::protobuf::Timestamp to;
+    from.set_seconds(fromseconds);
+    from.set_nanos(fromnanos);
+    to.set_seconds(toseconds);
+    to.set_nanos(tonanos);
+    request.set_allocated_from(&from);
+    request.set_allocated_to(&to);
+    request.set_type(type);
+    request.set_instrument_id(instrument_id);
+    Status status = instruments_service_->GetBondEvents(MakeContext().get(), request, &response);
+    return ServiceReply::PrepareServiceAnswer<GetBondEventsResponse>(status, response);
 }
 
 ServiceReply Instruments::CurrencyBy(InstrumentIdType id_type, std::string class_code, std::string id) {
@@ -160,7 +173,10 @@ ServiceReply Instruments::Shares(InstrumentStatus instrument_status) {
 }
 
 ServiceReply Instruments::Indicatives() {
-    // TODO Indicatives request is not included in proto file
+    IndicativesRequest request;
+    IndicativesResponse response;
+    Status status = instruments_service_->Indicatives(MakeContext().get(), request, &response);
+    return ServiceReply::PrepareServiceAnswer<IndicativesResponse>(status, response);
 }
 
 ServiceReply Instruments::GetAccruedInterests(std::string figi, int64_t fromseconds, int32_t fromnanos, int64_t toseconds, int32_t tonanos) {
@@ -179,11 +195,11 @@ ServiceReply Instruments::GetAccruedInterests(std::string figi, int64_t fromseco
     return ServiceReply::PrepareServiceAnswer<GetAccruedInterestsResponse>(status, response);
 }
 
-ServiceReply Instruments::GetFuturesMargin(std::string figi) {
+ServiceReply Instruments::GetFuturesMargin(std::string figi, std::string instrument_id) {
     GetFuturesMarginRequest request;
     GetFuturesMarginResponse response;
     request.set_figi(figi);
-    // TODO Documentation says that GetFuturesMarginRequest also includes Instrument Id field, however there is no corresponding set_ method
+    request.set_instrument_id(instrument_id);
     Status status = instruments_service_->GetFuturesMargin(MakeContext().get(), request, &response);
     return ServiceReply::PrepareServiceAnswer<GetFuturesMarginResponse>(status, response);
 }
@@ -266,8 +282,12 @@ ServiceReply Instruments::FindInstrument(std::string query, InstrumentType instr
     return ServiceReply::PrepareServiceAnswer<FindInstrumentResponse>(status, response);
 }
 
-ServiceReply Instruments::GetBrands(int) {
-    // TODO Couldn't figure out, where paging is defined
+ServiceReply Instruments::GetBrands(Page paging) {
+    GetBrandsRequest request;
+    GetBrandsResponse response;
+    request.set_allocated_paging(&paging);
+    Status status = instruments_service_->GetBrands(MakeContext().get(), request, &response);
+    return ServiceReply::PrepareServiceAnswer<GetBrandsResponse>(status, response);
 }
 
 ServiceReply Instruments::GetBrandBy(std::string id) {
@@ -279,17 +299,43 @@ ServiceReply Instruments::GetBrandBy(std::string id) {
 }
 
 ServiceReply Instruments::GetAssetFundamentals(std::vector<std::string> assets) {
-    // TODO GetAssetFundamentalsRequest isn't defined
+    GetAssetFundamentalsRequest request;
+    GetAssetFundamentalsResponse response;
+    for (auto asset : assets) {
+        request.add_assets(asset);
+    }
+    Status status = instruments_service_->GetAssetFundamentals(MakeContext().get(), request, &response);
+    return ServiceReply::PrepareServiceAnswer<GetAssetFundamentalsResponse>(status, response);
 }
 
 ServiceReply Instruments::GetAssetReports(std::string instrument_id, int64_t fromseconds, int32_t fromnanos, int64_t toseconds, int32_t tonanos) {
-    // TODO GetAssetReportsRequest isn't defined
+    GetAssetReportsRequest request;
+    GetAssetReportsResponse response;
+    google::protobuf::Timestamp from;
+    google::protobuf::Timestamp to;
+    from.set_seconds(fromseconds);
+    from.set_nanos(fromnanos);
+    to.set_seconds(toseconds);
+    to.set_nanos(tonanos);
+    request.set_allocated_from(&from);
+    request.set_allocated_to(&to);
+    request.set_instrument_id(instrument_id);
+    Status status = instruments_service_->GetAssetReports(MakeContext().get(), request, &response);
+    return ServiceReply::PrepareServiceAnswer<GetAssetReportsResponse>(status, response);
 }
 
-ServiceReply Instruments::GetConsensusForecasts(int paging) {
-    // TODO GetConsensusForecastsRequest isn't defined
+ServiceReply Instruments::GetConsensusForecasts(Page paging) {
+    GetConsensusForecastsRequest request;
+    GetConsensusForecastsResponse response;
+    request.set_allocated_paging(&paging);
+    Status status = instruments_service_->GetConsensusForecasts(MakeContext().get(), request, &response);
+    return ServiceReply::PrepareServiceAnswer<GetConsensusForecastsResponse>(status, response);
 }
 
 ServiceReply Instruments::GetForecastBy(std::string instrument_id) {
-    // TODO GetForecastRequest isn't defined
+    GetForecastRequest request;
+    GetForecastResponse response;
+    request.set_instrument_id(instrument_id);
+    Status status = instruments_service_->GetForecastBy(MakeContext().get(), request, &response);
+    return ServiceReply::PrepareServiceAnswer<GetForecastResponse>(status, response);
 }

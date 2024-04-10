@@ -63,15 +63,27 @@ namespace invest {
 namespace api {
 namespace contract {
 namespace v1 {
+class BrandData;
+struct BrandDataDefaultTypeInternal;
+extern BrandDataDefaultTypeInternal _BrandData_default_instance_;
 class MoneyValue;
 struct MoneyValueDefaultTypeInternal;
 extern MoneyValueDefaultTypeInternal _MoneyValue_default_instance_;
+class Page;
+struct PageDefaultTypeInternal;
+extern PageDefaultTypeInternal _Page_default_instance_;
+class PageResponse;
+struct PageResponseDefaultTypeInternal;
+extern PageResponseDefaultTypeInternal _PageResponse_default_instance_;
 class Ping;
 struct PingDefaultTypeInternal;
 extern PingDefaultTypeInternal _Ping_default_instance_;
 class Quotation;
 struct QuotationDefaultTypeInternal;
 extern QuotationDefaultTypeInternal _Quotation_default_instance_;
+class ResponseMetadata;
+struct ResponseMetadataDefaultTypeInternal;
+extern ResponseMetadataDefaultTypeInternal _ResponseMetadata_default_instance_;
 }  // namespace v1
 }  // namespace contract
 }  // namespace api
@@ -99,6 +111,8 @@ enum InstrumentType : int {
   INSTRUMENT_TYPE_SP = 6,
   INSTRUMENT_TYPE_OPTION = 7,
   INSTRUMENT_TYPE_CLEARING_CERTIFICATE = 8,
+  INSTRUMENT_TYPE_INDEX = 9,
+  INSTRUMENT_TYPE_COMMODITY = 10,
   InstrumentType_INT_MIN_SENTINEL_DO_NOT_USE_ =
       std::numeric_limits<::int32_t>::min(),
   InstrumentType_INT_MAX_SENTINEL_DO_NOT_USE_ =
@@ -108,8 +122,8 @@ enum InstrumentType : int {
 bool InstrumentType_IsValid(int value);
 extern const uint32_t InstrumentType_internal_data_[];
 constexpr InstrumentType InstrumentType_MIN = static_cast<InstrumentType>(0);
-constexpr InstrumentType InstrumentType_MAX = static_cast<InstrumentType>(8);
-constexpr int InstrumentType_ARRAYSIZE = 8 + 1;
+constexpr InstrumentType InstrumentType_MAX = static_cast<InstrumentType>(10);
+constexpr int InstrumentType_ARRAYSIZE = 10 + 1;
 const ::google::protobuf::EnumDescriptor*
 InstrumentType_descriptor();
 template <typename T>
@@ -122,7 +136,7 @@ const std::string& InstrumentType_Name(T value) {
 template <>
 inline const std::string& InstrumentType_Name(InstrumentType value) {
   return ::google::protobuf::internal::NameOfDenseEnum<InstrumentType_descriptor,
-                                                 0, 8>(
+                                                 0, 10>(
       static_cast<int>(value));
 }
 inline bool InstrumentType_Parse(absl::string_view name, InstrumentType* value) {
@@ -176,6 +190,40 @@ inline const std::string& SecurityTradingStatus_Name(SecurityTradingStatus value
 inline bool SecurityTradingStatus_Parse(absl::string_view name, SecurityTradingStatus* value) {
   return ::google::protobuf::internal::ParseNamedEnum<SecurityTradingStatus>(
       SecurityTradingStatus_descriptor(), name, value);
+}
+enum PriceType : int {
+  PRICE_TYPE_UNSPECIFIED = 0,
+  PRICE_TYPE_POINT = 1,
+  PRICE_TYPE_CURRENCY = 2,
+  PriceType_INT_MIN_SENTINEL_DO_NOT_USE_ =
+      std::numeric_limits<::int32_t>::min(),
+  PriceType_INT_MAX_SENTINEL_DO_NOT_USE_ =
+      std::numeric_limits<::int32_t>::max(),
+};
+
+bool PriceType_IsValid(int value);
+extern const uint32_t PriceType_internal_data_[];
+constexpr PriceType PriceType_MIN = static_cast<PriceType>(0);
+constexpr PriceType PriceType_MAX = static_cast<PriceType>(2);
+constexpr int PriceType_ARRAYSIZE = 2 + 1;
+const ::google::protobuf::EnumDescriptor*
+PriceType_descriptor();
+template <typename T>
+const std::string& PriceType_Name(T value) {
+  static_assert(std::is_same<T, PriceType>::value ||
+                    std::is_integral<T>::value,
+                "Incorrect type passed to PriceType_Name().");
+  return PriceType_Name(static_cast<PriceType>(value));
+}
+template <>
+inline const std::string& PriceType_Name(PriceType value) {
+  return ::google::protobuf::internal::NameOfDenseEnum<PriceType_descriptor,
+                                                 0, 2>(
+      static_cast<int>(value));
+}
+inline bool PriceType_Parse(absl::string_view name, PriceType* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<PriceType>(
+      PriceType_descriptor(), name, value);
 }
 
 // ===================================================================
@@ -363,6 +411,392 @@ class Quotation final :
                               ::google::protobuf::Arena* arena, const Impl_& from);
     ::int64_t units_;
     ::int32_t nano_;
+    mutable ::google::protobuf::internal::CachedSize _cached_size_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_common_2eproto;
+};// -------------------------------------------------------------------
+
+class PageResponse final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:tinkoff.public_.invest.api.contract.v1.PageResponse) */ {
+ public:
+  inline PageResponse() : PageResponse(nullptr) {}
+  ~PageResponse() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR PageResponse(::google::protobuf::internal::ConstantInitialized);
+
+  inline PageResponse(const PageResponse& from)
+      : PageResponse(nullptr, from) {}
+  PageResponse(PageResponse&& from) noexcept
+    : PageResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline PageResponse& operator=(const PageResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PageResponse& operator=(PageResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetArena() == from.GetArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const PageResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const PageResponse* internal_default_instance() {
+    return reinterpret_cast<const PageResponse*>(
+               &_PageResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(PageResponse& a, PageResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(PageResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetArena() != nullptr &&
+        GetArena() == other->GetArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetArena() == other->GetArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(PageResponse* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  PageResponse* New(::google::protobuf::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<PageResponse>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const PageResponse& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom( const PageResponse& from) {
+    PageResponse::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::google::protobuf::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  ::google::protobuf::internal::CachedSize* AccessCachedSize() const final;
+  void SharedCtor(::google::protobuf::Arena* arena);
+  void SharedDtor();
+  void InternalSwap(PageResponse* other);
+
+  private:
+  friend class ::google::protobuf::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "tinkoff.public_.invest.api.contract.v1.PageResponse";
+  }
+  protected:
+  explicit PageResponse(::google::protobuf::Arena* arena);
+  PageResponse(::google::protobuf::Arena* arena, const PageResponse& from);
+  public:
+
+  static const ClassData _class_data_;
+  const ::google::protobuf::Message::ClassData*GetClassData() const final;
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kLimitFieldNumber = 1,
+    kPageNumberFieldNumber = 2,
+    kTotalCountFieldNumber = 3,
+  };
+  // int32 limit = 1;
+  void clear_limit() ;
+  ::int32_t limit() const;
+  void set_limit(::int32_t value);
+
+  private:
+  ::int32_t _internal_limit() const;
+  void _internal_set_limit(::int32_t value);
+
+  public:
+  // int32 page_number = 2;
+  void clear_page_number() ;
+  ::int32_t page_number() const;
+  void set_page_number(::int32_t value);
+
+  private:
+  ::int32_t _internal_page_number() const;
+  void _internal_set_page_number(::int32_t value);
+
+  public:
+  // int32 total_count = 3;
+  void clear_total_count() ;
+  ::int32_t total_count() const;
+  void set_total_count(::int32_t value);
+
+  private:
+  ::int32_t _internal_total_count() const;
+  void _internal_set_total_count(::int32_t value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:tinkoff.public_.invest.api.contract.v1.PageResponse)
+ private:
+  class _Internal;
+
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      2, 3, 0,
+      0, 2>
+      _table_;
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+
+        inline explicit constexpr Impl_(
+            ::google::protobuf::internal::ConstantInitialized) noexcept;
+        inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                              ::google::protobuf::Arena* arena);
+        inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                              ::google::protobuf::Arena* arena, const Impl_& from);
+    ::int32_t limit_;
+    ::int32_t page_number_;
+    ::int32_t total_count_;
+    mutable ::google::protobuf::internal::CachedSize _cached_size_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_common_2eproto;
+};// -------------------------------------------------------------------
+
+class Page final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:tinkoff.public_.invest.api.contract.v1.Page) */ {
+ public:
+  inline Page() : Page(nullptr) {}
+  ~Page() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR Page(::google::protobuf::internal::ConstantInitialized);
+
+  inline Page(const Page& from)
+      : Page(nullptr, from) {}
+  Page(Page&& from) noexcept
+    : Page() {
+    *this = ::std::move(from);
+  }
+
+  inline Page& operator=(const Page& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Page& operator=(Page&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetArena() == from.GetArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const Page& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Page* internal_default_instance() {
+    return reinterpret_cast<const Page*>(
+               &_Page_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(Page& a, Page& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Page* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetArena() != nullptr &&
+        GetArena() == other->GetArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetArena() == other->GetArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Page* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  Page* New(::google::protobuf::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<Page>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const Page& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom( const Page& from) {
+    Page::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::google::protobuf::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  ::google::protobuf::internal::CachedSize* AccessCachedSize() const final;
+  void SharedCtor(::google::protobuf::Arena* arena);
+  void SharedDtor();
+  void InternalSwap(Page* other);
+
+  private:
+  friend class ::google::protobuf::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "tinkoff.public_.invest.api.contract.v1.Page";
+  }
+  protected:
+  explicit Page(::google::protobuf::Arena* arena);
+  Page(::google::protobuf::Arena* arena, const Page& from);
+  public:
+
+  static const ClassData _class_data_;
+  const ::google::protobuf::Message::ClassData*GetClassData() const final;
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kLimitFieldNumber = 1,
+    kPageNumberFieldNumber = 2,
+  };
+  // int32 limit = 1;
+  void clear_limit() ;
+  ::int32_t limit() const;
+  void set_limit(::int32_t value);
+
+  private:
+  ::int32_t _internal_limit() const;
+  void _internal_set_limit(::int32_t value);
+
+  public:
+  // int32 page_number = 2;
+  void clear_page_number() ;
+  ::int32_t page_number() const;
+  void set_page_number(::int32_t value);
+
+  private:
+  ::int32_t _internal_page_number() const;
+  void _internal_set_page_number(::int32_t value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:tinkoff.public_.invest.api.contract.v1.Page)
+ private:
+  class _Internal;
+
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      1, 2, 0,
+      0, 2>
+      _table_;
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+
+        inline explicit constexpr Impl_(
+            ::google::protobuf::internal::ConstantInitialized) noexcept;
+        inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                              ::google::protobuf::Arena* arena);
+        inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                              ::google::protobuf::Arena* arena, const Impl_& from);
+    ::int32_t limit_;
+    ::int32_t page_number_;
     mutable ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
@@ -575,6 +1009,422 @@ class MoneyValue final :
   friend struct ::TableStruct_common_2eproto;
 };// -------------------------------------------------------------------
 
+class BrandData final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:tinkoff.public_.invest.api.contract.v1.BrandData) */ {
+ public:
+  inline BrandData() : BrandData(nullptr) {}
+  ~BrandData() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR BrandData(::google::protobuf::internal::ConstantInitialized);
+
+  inline BrandData(const BrandData& from)
+      : BrandData(nullptr, from) {}
+  BrandData(BrandData&& from) noexcept
+    : BrandData() {
+    *this = ::std::move(from);
+  }
+
+  inline BrandData& operator=(const BrandData& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline BrandData& operator=(BrandData&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetArena() == from.GetArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const BrandData& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const BrandData* internal_default_instance() {
+    return reinterpret_cast<const BrandData*>(
+               &_BrandData_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  friend void swap(BrandData& a, BrandData& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(BrandData* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetArena() != nullptr &&
+        GetArena() == other->GetArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetArena() == other->GetArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(BrandData* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  BrandData* New(::google::protobuf::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<BrandData>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const BrandData& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom( const BrandData& from) {
+    BrandData::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::google::protobuf::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  ::google::protobuf::internal::CachedSize* AccessCachedSize() const final;
+  void SharedCtor(::google::protobuf::Arena* arena);
+  void SharedDtor();
+  void InternalSwap(BrandData* other);
+
+  private:
+  friend class ::google::protobuf::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "tinkoff.public_.invest.api.contract.v1.BrandData";
+  }
+  protected:
+  explicit BrandData(::google::protobuf::Arena* arena);
+  BrandData(::google::protobuf::Arena* arena, const BrandData& from);
+  public:
+
+  static const ClassData _class_data_;
+  const ::google::protobuf::Message::ClassData*GetClassData() const final;
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kLogoNameFieldNumber = 1,
+    kLogoBaseColorFieldNumber = 2,
+    kTextColorFieldNumber = 3,
+  };
+  // string logo_name = 1;
+  void clear_logo_name() ;
+  const std::string& logo_name() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_logo_name(Arg_&& arg, Args_... args);
+  std::string* mutable_logo_name();
+  PROTOBUF_NODISCARD std::string* release_logo_name();
+  void set_allocated_logo_name(std::string* value);
+
+  private:
+  const std::string& _internal_logo_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_logo_name(
+      const std::string& value);
+  std::string* _internal_mutable_logo_name();
+
+  public:
+  // string logo_base_color = 2;
+  void clear_logo_base_color() ;
+  const std::string& logo_base_color() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_logo_base_color(Arg_&& arg, Args_... args);
+  std::string* mutable_logo_base_color();
+  PROTOBUF_NODISCARD std::string* release_logo_base_color();
+  void set_allocated_logo_base_color(std::string* value);
+
+  private:
+  const std::string& _internal_logo_base_color() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_logo_base_color(
+      const std::string& value);
+  std::string* _internal_mutable_logo_base_color();
+
+  public:
+  // string text_color = 3;
+  void clear_text_color() ;
+  const std::string& text_color() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_text_color(Arg_&& arg, Args_... args);
+  std::string* mutable_text_color();
+  PROTOBUF_NODISCARD std::string* release_text_color();
+  void set_allocated_text_color(std::string* value);
+
+  private:
+  const std::string& _internal_text_color() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_text_color(
+      const std::string& value);
+  std::string* _internal_mutable_text_color();
+
+  public:
+  // @@protoc_insertion_point(class_scope:tinkoff.public_.invest.api.contract.v1.BrandData)
+ private:
+  class _Internal;
+
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      2, 3, 0,
+      91, 2>
+      _table_;
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+
+        inline explicit constexpr Impl_(
+            ::google::protobuf::internal::ConstantInitialized) noexcept;
+        inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                              ::google::protobuf::Arena* arena);
+        inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                              ::google::protobuf::Arena* arena, const Impl_& from);
+    ::google::protobuf::internal::ArenaStringPtr logo_name_;
+    ::google::protobuf::internal::ArenaStringPtr logo_base_color_;
+    ::google::protobuf::internal::ArenaStringPtr text_color_;
+    mutable ::google::protobuf::internal::CachedSize _cached_size_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_common_2eproto;
+};// -------------------------------------------------------------------
+
+class ResponseMetadata final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:tinkoff.public_.invest.api.contract.v1.ResponseMetadata) */ {
+ public:
+  inline ResponseMetadata() : ResponseMetadata(nullptr) {}
+  ~ResponseMetadata() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR ResponseMetadata(::google::protobuf::internal::ConstantInitialized);
+
+  inline ResponseMetadata(const ResponseMetadata& from)
+      : ResponseMetadata(nullptr, from) {}
+  ResponseMetadata(ResponseMetadata&& from) noexcept
+    : ResponseMetadata() {
+    *this = ::std::move(from);
+  }
+
+  inline ResponseMetadata& operator=(const ResponseMetadata& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ResponseMetadata& operator=(ResponseMetadata&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetArena() == from.GetArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const ResponseMetadata& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ResponseMetadata* internal_default_instance() {
+    return reinterpret_cast<const ResponseMetadata*>(
+               &_ResponseMetadata_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  friend void swap(ResponseMetadata& a, ResponseMetadata& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ResponseMetadata* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetArena() != nullptr &&
+        GetArena() == other->GetArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetArena() == other->GetArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ResponseMetadata* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  ResponseMetadata* New(::google::protobuf::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ResponseMetadata>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const ResponseMetadata& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom( const ResponseMetadata& from) {
+    ResponseMetadata::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::google::protobuf::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  ::google::protobuf::internal::CachedSize* AccessCachedSize() const final;
+  void SharedCtor(::google::protobuf::Arena* arena);
+  void SharedDtor();
+  void InternalSwap(ResponseMetadata* other);
+
+  private:
+  friend class ::google::protobuf::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "tinkoff.public_.invest.api.contract.v1.ResponseMetadata";
+  }
+  protected:
+  explicit ResponseMetadata(::google::protobuf::Arena* arena);
+  ResponseMetadata(::google::protobuf::Arena* arena, const ResponseMetadata& from);
+  public:
+
+  static const ClassData _class_data_;
+  const ::google::protobuf::Message::ClassData*GetClassData() const final;
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kTrackingIdFieldNumber = 42,
+    kServerTimeFieldNumber = 43,
+  };
+  // string tracking_id = 42;
+  void clear_tracking_id() ;
+  const std::string& tracking_id() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_tracking_id(Arg_&& arg, Args_... args);
+  std::string* mutable_tracking_id();
+  PROTOBUF_NODISCARD std::string* release_tracking_id();
+  void set_allocated_tracking_id(std::string* value);
+
+  private:
+  const std::string& _internal_tracking_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_tracking_id(
+      const std::string& value);
+  std::string* _internal_mutable_tracking_id();
+
+  public:
+  // .google.protobuf.Timestamp server_time = 43;
+  bool has_server_time() const;
+  void clear_server_time() ;
+  const ::google::protobuf::Timestamp& server_time() const;
+  PROTOBUF_NODISCARD ::google::protobuf::Timestamp* release_server_time();
+  ::google::protobuf::Timestamp* mutable_server_time();
+  void set_allocated_server_time(::google::protobuf::Timestamp* value);
+  void unsafe_arena_set_allocated_server_time(::google::protobuf::Timestamp* value);
+  ::google::protobuf::Timestamp* unsafe_arena_release_server_time();
+
+  private:
+  const ::google::protobuf::Timestamp& _internal_server_time() const;
+  ::google::protobuf::Timestamp* _internal_mutable_server_time();
+
+  public:
+  // @@protoc_insertion_point(class_scope:tinkoff.public_.invest.api.contract.v1.ResponseMetadata)
+ private:
+  class _Internal;
+
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      1, 2, 1,
+      75, 7>
+      _table_;
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+
+        inline explicit constexpr Impl_(
+            ::google::protobuf::internal::ConstantInitialized) noexcept;
+        inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                              ::google::protobuf::Arena* arena);
+        inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                              ::google::protobuf::Arena* arena, const Impl_& from);
+    ::google::protobuf::internal::HasBits<1> _has_bits_;
+    mutable ::google::protobuf::internal::CachedSize _cached_size_;
+    ::google::protobuf::internal::ArenaStringPtr tracking_id_;
+    ::google::protobuf::Timestamp* server_time_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_common_2eproto;
+};// -------------------------------------------------------------------
+
 class Ping final :
     public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:tinkoff.public_.invest.api.contract.v1.Ping) */ {
  public:
@@ -707,8 +1557,25 @@ class Ping final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kStreamIdFieldNumber = 2,
     kTimeFieldNumber = 1,
   };
+  // string stream_id = 2;
+  void clear_stream_id() ;
+  const std::string& stream_id() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_stream_id(Arg_&& arg, Args_... args);
+  std::string* mutable_stream_id();
+  PROTOBUF_NODISCARD std::string* release_stream_id();
+  void set_allocated_stream_id(std::string* value);
+
+  private:
+  const std::string& _internal_stream_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_stream_id(
+      const std::string& value);
+  std::string* _internal_mutable_stream_id();
+
+  public:
   // .google.protobuf.Timestamp time = 1;
   bool has_time() const;
   void clear_time() ;
@@ -730,8 +1597,8 @@ class Ping final :
 
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      0, 1, 1,
-      0, 2>
+      1, 2, 1,
+      61, 2>
       _table_;
   friend class ::google::protobuf::MessageLite;
   friend class ::google::protobuf::Arena;
@@ -749,6 +1616,7 @@ class Ping final :
                               ::google::protobuf::Arena* arena, const Impl_& from);
     ::google::protobuf::internal::HasBits<1> _has_bits_;
     mutable ::google::protobuf::internal::CachedSize _cached_size_;
+    ::google::protobuf::internal::ArenaStringPtr stream_id_;
     ::google::protobuf::Timestamp* time_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
@@ -1016,6 +1884,493 @@ inline void Ping::set_allocated_time(::google::protobuf::Timestamp* value) {
   // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.Ping.time)
 }
 
+// string stream_id = 2;
+inline void Ping::clear_stream_id() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.stream_id_.ClearToEmpty();
+}
+inline const std::string& Ping::stream_id() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.Ping.stream_id)
+  return _internal_stream_id();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void Ping::set_stream_id(Arg_&& arg,
+                                                     Args_... args) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.stream_id_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:tinkoff.public_.invest.api.contract.v1.Ping.stream_id)
+}
+inline std::string* Ping::mutable_stream_id() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_stream_id();
+  // @@protoc_insertion_point(field_mutable:tinkoff.public_.invest.api.contract.v1.Ping.stream_id)
+  return _s;
+}
+inline const std::string& Ping::_internal_stream_id() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  return _impl_.stream_id_.Get();
+}
+inline void Ping::_internal_set_stream_id(const std::string& value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.stream_id_.Set(value, GetArena());
+}
+inline std::string* Ping::_internal_mutable_stream_id() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  return _impl_.stream_id_.Mutable( GetArena());
+}
+inline std::string* Ping::release_stream_id() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  // @@protoc_insertion_point(field_release:tinkoff.public_.invest.api.contract.v1.Ping.stream_id)
+  return _impl_.stream_id_.Release();
+}
+inline void Ping::set_allocated_stream_id(std::string* value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.stream_id_.SetAllocated(value, GetArena());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.stream_id_.IsDefault()) {
+          _impl_.stream_id_.Set("", GetArena());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.Ping.stream_id)
+}
+
+// -------------------------------------------------------------------
+
+// Page
+
+// int32 limit = 1;
+inline void Page::clear_limit() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.limit_ = 0;
+}
+inline ::int32_t Page::limit() const {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.Page.limit)
+  return _internal_limit();
+}
+inline void Page::set_limit(::int32_t value) {
+  _internal_set_limit(value);
+  // @@protoc_insertion_point(field_set:tinkoff.public_.invest.api.contract.v1.Page.limit)
+}
+inline ::int32_t Page::_internal_limit() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  return _impl_.limit_;
+}
+inline void Page::_internal_set_limit(::int32_t value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.limit_ = value;
+}
+
+// int32 page_number = 2;
+inline void Page::clear_page_number() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.page_number_ = 0;
+}
+inline ::int32_t Page::page_number() const {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.Page.page_number)
+  return _internal_page_number();
+}
+inline void Page::set_page_number(::int32_t value) {
+  _internal_set_page_number(value);
+  // @@protoc_insertion_point(field_set:tinkoff.public_.invest.api.contract.v1.Page.page_number)
+}
+inline ::int32_t Page::_internal_page_number() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  return _impl_.page_number_;
+}
+inline void Page::_internal_set_page_number(::int32_t value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.page_number_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// PageResponse
+
+// int32 limit = 1;
+inline void PageResponse::clear_limit() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.limit_ = 0;
+}
+inline ::int32_t PageResponse::limit() const {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.PageResponse.limit)
+  return _internal_limit();
+}
+inline void PageResponse::set_limit(::int32_t value) {
+  _internal_set_limit(value);
+  // @@protoc_insertion_point(field_set:tinkoff.public_.invest.api.contract.v1.PageResponse.limit)
+}
+inline ::int32_t PageResponse::_internal_limit() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  return _impl_.limit_;
+}
+inline void PageResponse::_internal_set_limit(::int32_t value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.limit_ = value;
+}
+
+// int32 page_number = 2;
+inline void PageResponse::clear_page_number() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.page_number_ = 0;
+}
+inline ::int32_t PageResponse::page_number() const {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.PageResponse.page_number)
+  return _internal_page_number();
+}
+inline void PageResponse::set_page_number(::int32_t value) {
+  _internal_set_page_number(value);
+  // @@protoc_insertion_point(field_set:tinkoff.public_.invest.api.contract.v1.PageResponse.page_number)
+}
+inline ::int32_t PageResponse::_internal_page_number() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  return _impl_.page_number_;
+}
+inline void PageResponse::_internal_set_page_number(::int32_t value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.page_number_ = value;
+}
+
+// int32 total_count = 3;
+inline void PageResponse::clear_total_count() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.total_count_ = 0;
+}
+inline ::int32_t PageResponse::total_count() const {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.PageResponse.total_count)
+  return _internal_total_count();
+}
+inline void PageResponse::set_total_count(::int32_t value) {
+  _internal_set_total_count(value);
+  // @@protoc_insertion_point(field_set:tinkoff.public_.invest.api.contract.v1.PageResponse.total_count)
+}
+inline ::int32_t PageResponse::_internal_total_count() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  return _impl_.total_count_;
+}
+inline void PageResponse::_internal_set_total_count(::int32_t value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.total_count_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// ResponseMetadata
+
+// string tracking_id = 42;
+inline void ResponseMetadata::clear_tracking_id() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.tracking_id_.ClearToEmpty();
+}
+inline const std::string& ResponseMetadata::tracking_id() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.ResponseMetadata.tracking_id)
+  return _internal_tracking_id();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void ResponseMetadata::set_tracking_id(Arg_&& arg,
+                                                     Args_... args) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.tracking_id_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:tinkoff.public_.invest.api.contract.v1.ResponseMetadata.tracking_id)
+}
+inline std::string* ResponseMetadata::mutable_tracking_id() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_tracking_id();
+  // @@protoc_insertion_point(field_mutable:tinkoff.public_.invest.api.contract.v1.ResponseMetadata.tracking_id)
+  return _s;
+}
+inline const std::string& ResponseMetadata::_internal_tracking_id() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  return _impl_.tracking_id_.Get();
+}
+inline void ResponseMetadata::_internal_set_tracking_id(const std::string& value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.tracking_id_.Set(value, GetArena());
+}
+inline std::string* ResponseMetadata::_internal_mutable_tracking_id() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  return _impl_.tracking_id_.Mutable( GetArena());
+}
+inline std::string* ResponseMetadata::release_tracking_id() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  // @@protoc_insertion_point(field_release:tinkoff.public_.invest.api.contract.v1.ResponseMetadata.tracking_id)
+  return _impl_.tracking_id_.Release();
+}
+inline void ResponseMetadata::set_allocated_tracking_id(std::string* value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.tracking_id_.SetAllocated(value, GetArena());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.tracking_id_.IsDefault()) {
+          _impl_.tracking_id_.Set("", GetArena());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.ResponseMetadata.tracking_id)
+}
+
+// .google.protobuf.Timestamp server_time = 43;
+inline bool ResponseMetadata::has_server_time() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.server_time_ != nullptr);
+  return value;
+}
+inline const ::google::protobuf::Timestamp& ResponseMetadata::_internal_server_time() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  const ::google::protobuf::Timestamp* p = _impl_.server_time_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::protobuf::Timestamp&>(::google::protobuf::_Timestamp_default_instance_);
+}
+inline const ::google::protobuf::Timestamp& ResponseMetadata::server_time() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.ResponseMetadata.server_time)
+  return _internal_server_time();
+}
+inline void ResponseMetadata::unsafe_arena_set_allocated_server_time(::google::protobuf::Timestamp* value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.server_time_);
+  }
+  _impl_.server_time_ = reinterpret_cast<::google::protobuf::Timestamp*>(value);
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tinkoff.public_.invest.api.contract.v1.ResponseMetadata.server_time)
+}
+inline ::google::protobuf::Timestamp* ResponseMetadata::release_server_time() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::google::protobuf::Timestamp* released = _impl_.server_time_;
+  _impl_.server_time_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old = reinterpret_cast<::google::protobuf::MessageLite*>(released);
+  released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+  if (GetArena() == nullptr) {
+    delete old;
+  }
+#else   // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArena() != nullptr) {
+    released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return released;
+}
+inline ::google::protobuf::Timestamp* ResponseMetadata::unsafe_arena_release_server_time() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  // @@protoc_insertion_point(field_release:tinkoff.public_.invest.api.contract.v1.ResponseMetadata.server_time)
+
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::google::protobuf::Timestamp* temp = _impl_.server_time_;
+  _impl_.server_time_ = nullptr;
+  return temp;
+}
+inline ::google::protobuf::Timestamp* ResponseMetadata::_internal_mutable_server_time() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_._has_bits_[0] |= 0x00000001u;
+  if (_impl_.server_time_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::protobuf::Timestamp>(GetArena());
+    _impl_.server_time_ = reinterpret_cast<::google::protobuf::Timestamp*>(p);
+  }
+  return _impl_.server_time_;
+}
+inline ::google::protobuf::Timestamp* ResponseMetadata::mutable_server_time() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  ::google::protobuf::Timestamp* _msg = _internal_mutable_server_time();
+  // @@protoc_insertion_point(field_mutable:tinkoff.public_.invest.api.contract.v1.ResponseMetadata.server_time)
+  return _msg;
+}
+inline void ResponseMetadata::set_allocated_server_time(::google::protobuf::Timestamp* value) {
+  ::google::protobuf::Arena* message_arena = GetArena();
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (message_arena == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.server_time_);
+  }
+
+  if (value != nullptr) {
+    ::google::protobuf::Arena* submessage_arena = reinterpret_cast<::google::protobuf::MessageLite*>(value)->GetArena();
+    if (message_arena != submessage_arena) {
+      value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+
+  _impl_.server_time_ = reinterpret_cast<::google::protobuf::Timestamp*>(value);
+  // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.ResponseMetadata.server_time)
+}
+
+// -------------------------------------------------------------------
+
+// BrandData
+
+// string logo_name = 1;
+inline void BrandData::clear_logo_name() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.logo_name_.ClearToEmpty();
+}
+inline const std::string& BrandData::logo_name() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.BrandData.logo_name)
+  return _internal_logo_name();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void BrandData::set_logo_name(Arg_&& arg,
+                                                     Args_... args) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.logo_name_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:tinkoff.public_.invest.api.contract.v1.BrandData.logo_name)
+}
+inline std::string* BrandData::mutable_logo_name() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_logo_name();
+  // @@protoc_insertion_point(field_mutable:tinkoff.public_.invest.api.contract.v1.BrandData.logo_name)
+  return _s;
+}
+inline const std::string& BrandData::_internal_logo_name() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  return _impl_.logo_name_.Get();
+}
+inline void BrandData::_internal_set_logo_name(const std::string& value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.logo_name_.Set(value, GetArena());
+}
+inline std::string* BrandData::_internal_mutable_logo_name() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  return _impl_.logo_name_.Mutable( GetArena());
+}
+inline std::string* BrandData::release_logo_name() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  // @@protoc_insertion_point(field_release:tinkoff.public_.invest.api.contract.v1.BrandData.logo_name)
+  return _impl_.logo_name_.Release();
+}
+inline void BrandData::set_allocated_logo_name(std::string* value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.logo_name_.SetAllocated(value, GetArena());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.logo_name_.IsDefault()) {
+          _impl_.logo_name_.Set("", GetArena());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.BrandData.logo_name)
+}
+
+// string logo_base_color = 2;
+inline void BrandData::clear_logo_base_color() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.logo_base_color_.ClearToEmpty();
+}
+inline const std::string& BrandData::logo_base_color() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.BrandData.logo_base_color)
+  return _internal_logo_base_color();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void BrandData::set_logo_base_color(Arg_&& arg,
+                                                     Args_... args) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.logo_base_color_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:tinkoff.public_.invest.api.contract.v1.BrandData.logo_base_color)
+}
+inline std::string* BrandData::mutable_logo_base_color() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_logo_base_color();
+  // @@protoc_insertion_point(field_mutable:tinkoff.public_.invest.api.contract.v1.BrandData.logo_base_color)
+  return _s;
+}
+inline const std::string& BrandData::_internal_logo_base_color() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  return _impl_.logo_base_color_.Get();
+}
+inline void BrandData::_internal_set_logo_base_color(const std::string& value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.logo_base_color_.Set(value, GetArena());
+}
+inline std::string* BrandData::_internal_mutable_logo_base_color() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  return _impl_.logo_base_color_.Mutable( GetArena());
+}
+inline std::string* BrandData::release_logo_base_color() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  // @@protoc_insertion_point(field_release:tinkoff.public_.invest.api.contract.v1.BrandData.logo_base_color)
+  return _impl_.logo_base_color_.Release();
+}
+inline void BrandData::set_allocated_logo_base_color(std::string* value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.logo_base_color_.SetAllocated(value, GetArena());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.logo_base_color_.IsDefault()) {
+          _impl_.logo_base_color_.Set("", GetArena());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.BrandData.logo_base_color)
+}
+
+// string text_color = 3;
+inline void BrandData::clear_text_color() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.text_color_.ClearToEmpty();
+}
+inline const std::string& BrandData::text_color() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.BrandData.text_color)
+  return _internal_text_color();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void BrandData::set_text_color(Arg_&& arg,
+                                                     Args_... args) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.text_color_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:tinkoff.public_.invest.api.contract.v1.BrandData.text_color)
+}
+inline std::string* BrandData::mutable_text_color() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_text_color();
+  // @@protoc_insertion_point(field_mutable:tinkoff.public_.invest.api.contract.v1.BrandData.text_color)
+  return _s;
+}
+inline const std::string& BrandData::_internal_text_color() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  return _impl_.text_color_.Get();
+}
+inline void BrandData::_internal_set_text_color(const std::string& value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.text_color_.Set(value, GetArena());
+}
+inline std::string* BrandData::_internal_mutable_text_color() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  return _impl_.text_color_.Mutable( GetArena());
+}
+inline std::string* BrandData::release_text_color() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  // @@protoc_insertion_point(field_release:tinkoff.public_.invest.api.contract.v1.BrandData.text_color)
+  return _impl_.text_color_.Release();
+}
+inline void BrandData::set_allocated_text_color(std::string* value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.text_color_.SetAllocated(value, GetArena());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.text_color_.IsDefault()) {
+          _impl_.text_color_.Set("", GetArena());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.BrandData.text_color)
+}
+
 #ifdef __GNUC__
 #pragma GCC diagnostic pop
 #endif  // __GNUC__
@@ -1043,6 +2398,12 @@ struct is_proto_enum<::tinkoff::public_::invest::api::contract::v1::SecurityTrad
 template <>
 inline const EnumDescriptor* GetEnumDescriptor<::tinkoff::public_::invest::api::contract::v1::SecurityTradingStatus>() {
   return ::tinkoff::public_::invest::api::contract::v1::SecurityTradingStatus_descriptor();
+}
+template <>
+struct is_proto_enum<::tinkoff::public_::invest::api::contract::v1::PriceType> : std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor<::tinkoff::public_::invest::api::contract::v1::PriceType>() {
+  return ::tinkoff::public_::invest::api::contract::v1::PriceType_descriptor();
 }
 
 }  // namespace protobuf

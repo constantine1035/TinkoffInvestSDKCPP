@@ -37,6 +37,7 @@
 #include "google/protobuf/generated_enum_reflection.h"
 #include "google/protobuf/unknown_field_set.h"
 #include "google/protobuf/timestamp.pb.h"
+#include "google/api/field_behavior.pb.h"
 #include "common.pb.h"
 // @@protoc_insertion_point(includes)
 
@@ -918,7 +919,7 @@ class GetMarginAttributesRequest final :
   enum : int {
     kAccountIdFieldNumber = 1,
   };
-  // string account_id = 1;
+  // string account_id = 1 [(.google.api.field_behavior) = REQUIRED];
   void clear_account_id() ;
   const std::string& account_id() const;
   template <typename Arg_ = const std::string&, typename... Args_>
@@ -2828,7 +2829,7 @@ inline void Account::_internal_set_access_level(::tinkoff::public_::invest::api:
 
 // GetMarginAttributesRequest
 
-// string account_id = 1;
+// string account_id = 1 [(.google.api.field_behavior) = REQUIRED];
 inline void GetMarginAttributesRequest::clear_account_id() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.account_id_.ClearToEmpty();

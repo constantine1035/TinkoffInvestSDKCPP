@@ -15,13 +15,13 @@
 #include <grpcpp/completion_queue.h>
 #include <grpcpp/support/message_allocator.h>
 #include <grpcpp/support/method_handler.h>
-#include <grpcpp/impl/codegen/proto_utils.h>
+#include <grpcpp/impl/proto_utils.h>
 #include <grpcpp/impl/rpc_method.h>
 #include <grpcpp/support/server_callback.h>
-#include <grpcpp/impl/codegen/server_callback_handlers.h>
+#include <grpcpp/impl/server_callback_handlers.h>
 #include <grpcpp/server_context.h>
 #include <grpcpp/impl/service_type.h>
-#include <grpcpp/impl/codegen/status.h>
+#include <grpcpp/support/status.h>
 #include <grpcpp/support/stub_options.h>
 #include <grpcpp/support/sync_stream.h>
 
@@ -71,6 +71,14 @@ class InstrumentsService final {
     }
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetBondCouponsResponse>> PrepareAsyncGetBondCoupons(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBondCouponsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetBondCouponsResponse>>(PrepareAsyncGetBondCouponsRaw(context, request, cq));
+    }
+    // Метод получения событий по облигации
+    virtual ::grpc::Status GetBondEvents(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBondEventsRequest& request, ::tinkoff::public_::invest::api::contract::v1::GetBondEventsResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetBondEventsResponse>> AsyncGetBondEvents(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBondEventsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetBondEventsResponse>>(AsyncGetBondEventsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetBondEventsResponse>> PrepareAsyncGetBondEvents(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBondEventsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetBondEventsResponse>>(PrepareAsyncGetBondEventsRaw(context, request, cq));
     }
     // Метод получения валюты по её идентификатору.
     virtual ::grpc::Status CurrencyBy(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest& request, ::tinkoff::public_::invest::api::contract::v1::CurrencyResponse* response) = 0;
@@ -159,6 +167,14 @@ class InstrumentsService final {
     }
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::SharesResponse>> PrepareAsyncShares(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::SharesResponse>>(PrepareAsyncSharesRaw(context, request, cq));
+    }
+    // Метод получения индикативных инструментов (индексов, товаров и др.)
+    virtual ::grpc::Status Indicatives(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::IndicativesRequest& request, ::tinkoff::public_::invest::api::contract::v1::IndicativesResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::IndicativesResponse>> AsyncIndicatives(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::IndicativesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::IndicativesResponse>>(AsyncIndicativesRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::IndicativesResponse>> PrepareAsyncIndicatives(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::IndicativesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::IndicativesResponse>>(PrepareAsyncIndicativesRaw(context, request, cq));
     }
     // Метод получения накопленного купонного дохода по облигации.
     virtual ::grpc::Status GetAccruedInterests(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsRequest& request, ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsResponse* response) = 0;
@@ -256,6 +272,38 @@ class InstrumentsService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::Brand>> PrepareAsyncGetBrandBy(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBrandRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::Brand>>(PrepareAsyncGetBrandByRaw(context, request, cq));
     }
+    // Метод получения фундаментальных показателей по активу
+    virtual ::grpc::Status GetAssetFundamentals(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsRequest& request, ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsResponse>> AsyncGetAssetFundamentals(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsResponse>>(AsyncGetAssetFundamentalsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsResponse>> PrepareAsyncGetAssetFundamentals(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsResponse>>(PrepareAsyncGetAssetFundamentalsRaw(context, request, cq));
+    }
+    // Метод получения расписания выхода отчетностей эмитентов
+    virtual ::grpc::Status GetAssetReports(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsRequest& request, ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsResponse>> AsyncGetAssetReports(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsResponse>>(AsyncGetAssetReportsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsResponse>> PrepareAsyncGetAssetReports(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsResponse>>(PrepareAsyncGetAssetReportsRaw(context, request, cq));
+    }
+    // Метод получения мнения аналитиков по инструменту
+    virtual ::grpc::Status GetConsensusForecasts(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsRequest& request, ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsResponse>> AsyncGetConsensusForecasts(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsResponse>>(AsyncGetConsensusForecastsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsResponse>> PrepareAsyncGetConsensusForecasts(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsResponse>>(PrepareAsyncGetConsensusForecastsRaw(context, request, cq));
+    }
+    // Метод получения прогнозов инвестдомов по инструменту
+    virtual ::grpc::Status GetForecastBy(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetForecastRequest& request, ::tinkoff::public_::invest::api::contract::v1::GetForecastResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetForecastResponse>> AsyncGetForecastBy(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetForecastRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetForecastResponse>>(AsyncGetForecastByRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetForecastResponse>> PrepareAsyncGetForecastBy(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetForecastRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetForecastResponse>>(PrepareAsyncGetForecastByRaw(context, request, cq));
+    }
     class async_interface {
      public:
       virtual ~async_interface() {}
@@ -271,6 +319,9 @@ class InstrumentsService final {
       // Метод получения графика выплат купонов по облигации.
       virtual void GetBondCoupons(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBondCouponsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetBondCouponsResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void GetBondCoupons(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBondCouponsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetBondCouponsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Метод получения событий по облигации
+      virtual void GetBondEvents(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBondEventsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetBondEventsResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetBondEvents(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBondEventsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetBondEventsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Метод получения валюты по её идентификатору.
       virtual void CurrencyBy(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest* request, ::tinkoff::public_::invest::api::contract::v1::CurrencyResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void CurrencyBy(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest* request, ::tinkoff::public_::invest::api::contract::v1::CurrencyResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -304,6 +355,9 @@ class InstrumentsService final {
       // Метод получения списка акций.
       virtual void Shares(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest* request, ::tinkoff::public_::invest::api::contract::v1::SharesResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void Shares(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest* request, ::tinkoff::public_::invest::api::contract::v1::SharesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Метод получения индикативных инструментов (индексов, товаров и др.)
+      virtual void Indicatives(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::IndicativesRequest* request, ::tinkoff::public_::invest::api::contract::v1::IndicativesResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void Indicatives(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::IndicativesRequest* request, ::tinkoff::public_::invest::api::contract::v1::IndicativesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Метод получения накопленного купонного дохода по облигации.
       virtual void GetAccruedInterests(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void GetAccruedInterests(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -340,6 +394,18 @@ class InstrumentsService final {
       // Метод получения бренда по его идентификатору.
       virtual void GetBrandBy(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBrandRequest* request, ::tinkoff::public_::invest::api::contract::v1::Brand* response, std::function<void(::grpc::Status)>) = 0;
       virtual void GetBrandBy(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBrandRequest* request, ::tinkoff::public_::invest::api::contract::v1::Brand* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Метод получения фундаментальных показателей по активу
+      virtual void GetAssetFundamentals(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetAssetFundamentals(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Метод получения расписания выхода отчетностей эмитентов
+      virtual void GetAssetReports(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetAssetReports(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Метод получения мнения аналитиков по инструменту
+      virtual void GetConsensusForecasts(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetConsensusForecasts(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Метод получения прогнозов инвестдомов по инструменту
+      virtual void GetForecastBy(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetForecastRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetForecastResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetForecastBy(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetForecastRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetForecastResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
@@ -353,6 +419,8 @@ class InstrumentsService final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::BondsResponse>* PrepareAsyncBondsRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetBondCouponsResponse>* AsyncGetBondCouponsRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBondCouponsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetBondCouponsResponse>* PrepareAsyncGetBondCouponsRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBondCouponsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetBondEventsResponse>* AsyncGetBondEventsRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBondEventsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetBondEventsResponse>* PrepareAsyncGetBondEventsRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBondEventsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::CurrencyResponse>* AsyncCurrencyByRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::CurrencyResponse>* PrepareAsyncCurrencyByRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::CurrenciesResponse>* AsyncCurrenciesRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -375,6 +443,8 @@ class InstrumentsService final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::ShareResponse>* PrepareAsyncShareByRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::SharesResponse>* AsyncSharesRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::SharesResponse>* PrepareAsyncSharesRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::IndicativesResponse>* AsyncIndicativesRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::IndicativesRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::IndicativesResponse>* PrepareAsyncIndicativesRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::IndicativesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsResponse>* AsyncGetAccruedInterestsRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsResponse>* PrepareAsyncGetAccruedInterestsRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetFuturesMarginResponse>* AsyncGetFuturesMarginRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetFuturesMarginRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -399,6 +469,14 @@ class InstrumentsService final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetBrandsResponse>* PrepareAsyncGetBrandsRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBrandsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::Brand>* AsyncGetBrandByRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBrandRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::Brand>* PrepareAsyncGetBrandByRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBrandRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsResponse>* AsyncGetAssetFundamentalsRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsResponse>* PrepareAsyncGetAssetFundamentalsRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsResponse>* AsyncGetAssetReportsRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsResponse>* PrepareAsyncGetAssetReportsRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsResponse>* AsyncGetConsensusForecastsRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsResponse>* PrepareAsyncGetConsensusForecastsRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetForecastResponse>* AsyncGetForecastByRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetForecastRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetForecastResponse>* PrepareAsyncGetForecastByRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetForecastRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -430,6 +508,13 @@ class InstrumentsService final {
     }
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetBondCouponsResponse>> PrepareAsyncGetBondCoupons(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBondCouponsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetBondCouponsResponse>>(PrepareAsyncGetBondCouponsRaw(context, request, cq));
+    }
+    ::grpc::Status GetBondEvents(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBondEventsRequest& request, ::tinkoff::public_::invest::api::contract::v1::GetBondEventsResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetBondEventsResponse>> AsyncGetBondEvents(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBondEventsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetBondEventsResponse>>(AsyncGetBondEventsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetBondEventsResponse>> PrepareAsyncGetBondEvents(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBondEventsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetBondEventsResponse>>(PrepareAsyncGetBondEventsRaw(context, request, cq));
     }
     ::grpc::Status CurrencyBy(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest& request, ::tinkoff::public_::invest::api::contract::v1::CurrencyResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::CurrencyResponse>> AsyncCurrencyBy(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest& request, ::grpc::CompletionQueue* cq) {
@@ -507,6 +592,13 @@ class InstrumentsService final {
     }
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::SharesResponse>> PrepareAsyncShares(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::SharesResponse>>(PrepareAsyncSharesRaw(context, request, cq));
+    }
+    ::grpc::Status Indicatives(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::IndicativesRequest& request, ::tinkoff::public_::invest::api::contract::v1::IndicativesResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::IndicativesResponse>> AsyncIndicatives(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::IndicativesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::IndicativesResponse>>(AsyncIndicativesRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::IndicativesResponse>> PrepareAsyncIndicatives(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::IndicativesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::IndicativesResponse>>(PrepareAsyncIndicativesRaw(context, request, cq));
     }
     ::grpc::Status GetAccruedInterests(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsRequest& request, ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsResponse>> AsyncGetAccruedInterests(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsRequest& request, ::grpc::CompletionQueue* cq) {
@@ -592,6 +684,34 @@ class InstrumentsService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::Brand>> PrepareAsyncGetBrandBy(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBrandRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::Brand>>(PrepareAsyncGetBrandByRaw(context, request, cq));
     }
+    ::grpc::Status GetAssetFundamentals(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsRequest& request, ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsResponse>> AsyncGetAssetFundamentals(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsResponse>>(AsyncGetAssetFundamentalsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsResponse>> PrepareAsyncGetAssetFundamentals(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsResponse>>(PrepareAsyncGetAssetFundamentalsRaw(context, request, cq));
+    }
+    ::grpc::Status GetAssetReports(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsRequest& request, ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsResponse>> AsyncGetAssetReports(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsResponse>>(AsyncGetAssetReportsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsResponse>> PrepareAsyncGetAssetReports(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsResponse>>(PrepareAsyncGetAssetReportsRaw(context, request, cq));
+    }
+    ::grpc::Status GetConsensusForecasts(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsRequest& request, ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsResponse>> AsyncGetConsensusForecasts(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsResponse>>(AsyncGetConsensusForecastsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsResponse>> PrepareAsyncGetConsensusForecasts(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsResponse>>(PrepareAsyncGetConsensusForecastsRaw(context, request, cq));
+    }
+    ::grpc::Status GetForecastBy(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetForecastRequest& request, ::tinkoff::public_::invest::api::contract::v1::GetForecastResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetForecastResponse>> AsyncGetForecastBy(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetForecastRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetForecastResponse>>(AsyncGetForecastByRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetForecastResponse>> PrepareAsyncGetForecastBy(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetForecastRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetForecastResponse>>(PrepareAsyncGetForecastByRaw(context, request, cq));
+    }
     class async final :
       public StubInterface::async_interface {
      public:
@@ -603,6 +723,8 @@ class InstrumentsService final {
       void Bonds(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest* request, ::tinkoff::public_::invest::api::contract::v1::BondsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void GetBondCoupons(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBondCouponsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetBondCouponsResponse* response, std::function<void(::grpc::Status)>) override;
       void GetBondCoupons(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBondCouponsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetBondCouponsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void GetBondEvents(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBondEventsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetBondEventsResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetBondEvents(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBondEventsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetBondEventsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void CurrencyBy(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest* request, ::tinkoff::public_::invest::api::contract::v1::CurrencyResponse* response, std::function<void(::grpc::Status)>) override;
       void CurrencyBy(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest* request, ::tinkoff::public_::invest::api::contract::v1::CurrencyResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void Currencies(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest* request, ::tinkoff::public_::invest::api::contract::v1::CurrenciesResponse* response, std::function<void(::grpc::Status)>) override;
@@ -625,6 +747,8 @@ class InstrumentsService final {
       void ShareBy(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest* request, ::tinkoff::public_::invest::api::contract::v1::ShareResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void Shares(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest* request, ::tinkoff::public_::invest::api::contract::v1::SharesResponse* response, std::function<void(::grpc::Status)>) override;
       void Shares(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest* request, ::tinkoff::public_::invest::api::contract::v1::SharesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void Indicatives(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::IndicativesRequest* request, ::tinkoff::public_::invest::api::contract::v1::IndicativesResponse* response, std::function<void(::grpc::Status)>) override;
+      void Indicatives(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::IndicativesRequest* request, ::tinkoff::public_::invest::api::contract::v1::IndicativesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void GetAccruedInterests(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsResponse* response, std::function<void(::grpc::Status)>) override;
       void GetAccruedInterests(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void GetFuturesMargin(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetFuturesMarginRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetFuturesMarginResponse* response, std::function<void(::grpc::Status)>) override;
@@ -649,6 +773,14 @@ class InstrumentsService final {
       void GetBrands(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBrandsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetBrandsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void GetBrandBy(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBrandRequest* request, ::tinkoff::public_::invest::api::contract::v1::Brand* response, std::function<void(::grpc::Status)>) override;
       void GetBrandBy(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBrandRequest* request, ::tinkoff::public_::invest::api::contract::v1::Brand* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void GetAssetFundamentals(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetAssetFundamentals(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void GetAssetReports(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetAssetReports(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void GetConsensusForecasts(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetConsensusForecasts(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void GetForecastBy(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetForecastRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetForecastResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetForecastBy(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetForecastRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetForecastResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
       explicit async(Stub* stub): stub_(stub) { }
@@ -668,6 +800,8 @@ class InstrumentsService final {
     ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::BondsResponse>* PrepareAsyncBondsRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetBondCouponsResponse>* AsyncGetBondCouponsRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBondCouponsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetBondCouponsResponse>* PrepareAsyncGetBondCouponsRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBondCouponsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetBondEventsResponse>* AsyncGetBondEventsRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBondEventsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetBondEventsResponse>* PrepareAsyncGetBondEventsRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBondEventsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::CurrencyResponse>* AsyncCurrencyByRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::CurrencyResponse>* PrepareAsyncCurrencyByRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::CurrenciesResponse>* AsyncCurrenciesRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -690,6 +824,8 @@ class InstrumentsService final {
     ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::ShareResponse>* PrepareAsyncShareByRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::SharesResponse>* AsyncSharesRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::SharesResponse>* PrepareAsyncSharesRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::IndicativesResponse>* AsyncIndicativesRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::IndicativesRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::IndicativesResponse>* PrepareAsyncIndicativesRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::IndicativesRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsResponse>* AsyncGetAccruedInterestsRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsResponse>* PrepareAsyncGetAccruedInterestsRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetFuturesMarginResponse>* AsyncGetFuturesMarginRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetFuturesMarginRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -714,10 +850,19 @@ class InstrumentsService final {
     ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetBrandsResponse>* PrepareAsyncGetBrandsRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBrandsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::Brand>* AsyncGetBrandByRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBrandRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::Brand>* PrepareAsyncGetBrandByRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBrandRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsResponse>* AsyncGetAssetFundamentalsRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsResponse>* PrepareAsyncGetAssetFundamentalsRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsResponse>* AsyncGetAssetReportsRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsResponse>* PrepareAsyncGetAssetReportsRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsResponse>* AsyncGetConsensusForecastsRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsResponse>* PrepareAsyncGetConsensusForecastsRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetForecastResponse>* AsyncGetForecastByRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetForecastRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetForecastResponse>* PrepareAsyncGetForecastByRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetForecastRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_TradingSchedules_;
     const ::grpc::internal::RpcMethod rpcmethod_BondBy_;
     const ::grpc::internal::RpcMethod rpcmethod_Bonds_;
     const ::grpc::internal::RpcMethod rpcmethod_GetBondCoupons_;
+    const ::grpc::internal::RpcMethod rpcmethod_GetBondEvents_;
     const ::grpc::internal::RpcMethod rpcmethod_CurrencyBy_;
     const ::grpc::internal::RpcMethod rpcmethod_Currencies_;
     const ::grpc::internal::RpcMethod rpcmethod_EtfBy_;
@@ -729,6 +874,7 @@ class InstrumentsService final {
     const ::grpc::internal::RpcMethod rpcmethod_OptionsBy_;
     const ::grpc::internal::RpcMethod rpcmethod_ShareBy_;
     const ::grpc::internal::RpcMethod rpcmethod_Shares_;
+    const ::grpc::internal::RpcMethod rpcmethod_Indicatives_;
     const ::grpc::internal::RpcMethod rpcmethod_GetAccruedInterests_;
     const ::grpc::internal::RpcMethod rpcmethod_GetFuturesMargin_;
     const ::grpc::internal::RpcMethod rpcmethod_GetInstrumentBy_;
@@ -741,6 +887,10 @@ class InstrumentsService final {
     const ::grpc::internal::RpcMethod rpcmethod_FindInstrument_;
     const ::grpc::internal::RpcMethod rpcmethod_GetBrands_;
     const ::grpc::internal::RpcMethod rpcmethod_GetBrandBy_;
+    const ::grpc::internal::RpcMethod rpcmethod_GetAssetFundamentals_;
+    const ::grpc::internal::RpcMethod rpcmethod_GetAssetReports_;
+    const ::grpc::internal::RpcMethod rpcmethod_GetConsensusForecasts_;
+    const ::grpc::internal::RpcMethod rpcmethod_GetForecastBy_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -756,6 +906,8 @@ class InstrumentsService final {
     virtual ::grpc::Status Bonds(::grpc::ServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest* request, ::tinkoff::public_::invest::api::contract::v1::BondsResponse* response);
     // Метод получения графика выплат купонов по облигации.
     virtual ::grpc::Status GetBondCoupons(::grpc::ServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBondCouponsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetBondCouponsResponse* response);
+    // Метод получения событий по облигации
+    virtual ::grpc::Status GetBondEvents(::grpc::ServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBondEventsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetBondEventsResponse* response);
     // Метод получения валюты по её идентификатору.
     virtual ::grpc::Status CurrencyBy(::grpc::ServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest* request, ::tinkoff::public_::invest::api::contract::v1::CurrencyResponse* response);
     // Метод получения списка валют.
@@ -778,6 +930,8 @@ class InstrumentsService final {
     virtual ::grpc::Status ShareBy(::grpc::ServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest* request, ::tinkoff::public_::invest::api::contract::v1::ShareResponse* response);
     // Метод получения списка акций.
     virtual ::grpc::Status Shares(::grpc::ServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest* request, ::tinkoff::public_::invest::api::contract::v1::SharesResponse* response);
+    // Метод получения индикативных инструментов (индексов, товаров и др.)
+    virtual ::grpc::Status Indicatives(::grpc::ServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::IndicativesRequest* request, ::tinkoff::public_::invest::api::contract::v1::IndicativesResponse* response);
     // Метод получения накопленного купонного дохода по облигации.
     virtual ::grpc::Status GetAccruedInterests(::grpc::ServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsResponse* response);
     // Метод получения размера гарантийного обеспечения по фьючерсам.
@@ -802,6 +956,14 @@ class InstrumentsService final {
     virtual ::grpc::Status GetBrands(::grpc::ServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBrandsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetBrandsResponse* response);
     // Метод получения бренда по его идентификатору.
     virtual ::grpc::Status GetBrandBy(::grpc::ServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBrandRequest* request, ::tinkoff::public_::invest::api::contract::v1::Brand* response);
+    // Метод получения фундаментальных показателей по активу
+    virtual ::grpc::Status GetAssetFundamentals(::grpc::ServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsResponse* response);
+    // Метод получения расписания выхода отчетностей эмитентов
+    virtual ::grpc::Status GetAssetReports(::grpc::ServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsResponse* response);
+    // Метод получения мнения аналитиков по инструменту
+    virtual ::grpc::Status GetConsensusForecasts(::grpc::ServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsResponse* response);
+    // Метод получения прогнозов инвестдомов по инструменту
+    virtual ::grpc::Status GetForecastBy(::grpc::ServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetForecastRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetForecastResponse* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_TradingSchedules : public BaseClass {
@@ -884,12 +1046,32 @@ class InstrumentsService final {
     }
   };
   template <class BaseClass>
+  class WithAsyncMethod_GetBondEvents : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_GetBondEvents() {
+      ::grpc::Service::MarkMethodAsync(4);
+    }
+    ~WithAsyncMethod_GetBondEvents() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetBondEvents(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetBondEventsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetBondEventsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetBondEvents(::grpc::ServerContext* context, ::tinkoff::public_::invest::api::contract::v1::GetBondEventsRequest* request, ::grpc::ServerAsyncResponseWriter< ::tinkoff::public_::invest::api::contract::v1::GetBondEventsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithAsyncMethod_CurrencyBy : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_CurrencyBy() {
-      ::grpc::Service::MarkMethodAsync(4);
+      ::grpc::Service::MarkMethodAsync(5);
     }
     ~WithAsyncMethod_CurrencyBy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -900,7 +1082,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestCurrencyBy(::grpc::ServerContext* context, ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest* request, ::grpc::ServerAsyncResponseWriter< ::tinkoff::public_::invest::api::contract::v1::CurrencyResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -909,7 +1091,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_Currencies() {
-      ::grpc::Service::MarkMethodAsync(5);
+      ::grpc::Service::MarkMethodAsync(6);
     }
     ~WithAsyncMethod_Currencies() override {
       BaseClassMustBeDerivedFromService(this);
@@ -920,7 +1102,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestCurrencies(::grpc::ServerContext* context, ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest* request, ::grpc::ServerAsyncResponseWriter< ::tinkoff::public_::invest::api::contract::v1::CurrenciesResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -929,7 +1111,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_EtfBy() {
-      ::grpc::Service::MarkMethodAsync(6);
+      ::grpc::Service::MarkMethodAsync(7);
     }
     ~WithAsyncMethod_EtfBy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -940,7 +1122,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestEtfBy(::grpc::ServerContext* context, ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest* request, ::grpc::ServerAsyncResponseWriter< ::tinkoff::public_::invest::api::contract::v1::EtfResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -949,7 +1131,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_Etfs() {
-      ::grpc::Service::MarkMethodAsync(7);
+      ::grpc::Service::MarkMethodAsync(8);
     }
     ~WithAsyncMethod_Etfs() override {
       BaseClassMustBeDerivedFromService(this);
@@ -960,7 +1142,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestEtfs(::grpc::ServerContext* context, ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest* request, ::grpc::ServerAsyncResponseWriter< ::tinkoff::public_::invest::api::contract::v1::EtfsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(8, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -969,7 +1151,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_FutureBy() {
-      ::grpc::Service::MarkMethodAsync(8);
+      ::grpc::Service::MarkMethodAsync(9);
     }
     ~WithAsyncMethod_FutureBy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -980,7 +1162,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestFutureBy(::grpc::ServerContext* context, ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest* request, ::grpc::ServerAsyncResponseWriter< ::tinkoff::public_::invest::api::contract::v1::FutureResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(8, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(9, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -989,7 +1171,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_Futures() {
-      ::grpc::Service::MarkMethodAsync(9);
+      ::grpc::Service::MarkMethodAsync(10);
     }
     ~WithAsyncMethod_Futures() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1000,7 +1182,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestFutures(::grpc::ServerContext* context, ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest* request, ::grpc::ServerAsyncResponseWriter< ::tinkoff::public_::invest::api::contract::v1::FuturesResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(9, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1009,7 +1191,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_OptionBy() {
-      ::grpc::Service::MarkMethodAsync(10);
+      ::grpc::Service::MarkMethodAsync(11);
     }
     ~WithAsyncMethod_OptionBy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1020,7 +1202,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestOptionBy(::grpc::ServerContext* context, ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest* request, ::grpc::ServerAsyncResponseWriter< ::tinkoff::public_::invest::api::contract::v1::OptionResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(11, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1029,7 +1211,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_Options() {
-      ::grpc::Service::MarkMethodAsync(11);
+      ::grpc::Service::MarkMethodAsync(12);
     }
     ~WithAsyncMethod_Options() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1040,7 +1222,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestOptions(::grpc::ServerContext* context, ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest* request, ::grpc::ServerAsyncResponseWriter< ::tinkoff::public_::invest::api::contract::v1::OptionsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(11, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(12, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1049,7 +1231,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_OptionsBy() {
-      ::grpc::Service::MarkMethodAsync(12);
+      ::grpc::Service::MarkMethodAsync(13);
     }
     ~WithAsyncMethod_OptionsBy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1060,7 +1242,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestOptionsBy(::grpc::ServerContext* context, ::tinkoff::public_::invest::api::contract::v1::FilterOptionsRequest* request, ::grpc::ServerAsyncResponseWriter< ::tinkoff::public_::invest::api::contract::v1::OptionsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(12, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(13, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1069,7 +1251,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_ShareBy() {
-      ::grpc::Service::MarkMethodAsync(13);
+      ::grpc::Service::MarkMethodAsync(14);
     }
     ~WithAsyncMethod_ShareBy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1080,7 +1262,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestShareBy(::grpc::ServerContext* context, ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest* request, ::grpc::ServerAsyncResponseWriter< ::tinkoff::public_::invest::api::contract::v1::ShareResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(13, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(14, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1089,7 +1271,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_Shares() {
-      ::grpc::Service::MarkMethodAsync(14);
+      ::grpc::Service::MarkMethodAsync(15);
     }
     ~WithAsyncMethod_Shares() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1100,7 +1282,27 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestShares(::grpc::ServerContext* context, ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest* request, ::grpc::ServerAsyncResponseWriter< ::tinkoff::public_::invest::api::contract::v1::SharesResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(14, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(15, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_Indicatives : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_Indicatives() {
+      ::grpc::Service::MarkMethodAsync(16);
+    }
+    ~WithAsyncMethod_Indicatives() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Indicatives(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::IndicativesRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::IndicativesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestIndicatives(::grpc::ServerContext* context, ::tinkoff::public_::invest::api::contract::v1::IndicativesRequest* request, ::grpc::ServerAsyncResponseWriter< ::tinkoff::public_::invest::api::contract::v1::IndicativesResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(16, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1109,7 +1311,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetAccruedInterests() {
-      ::grpc::Service::MarkMethodAsync(15);
+      ::grpc::Service::MarkMethodAsync(17);
     }
     ~WithAsyncMethod_GetAccruedInterests() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1120,7 +1322,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetAccruedInterests(::grpc::ServerContext* context, ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsRequest* request, ::grpc::ServerAsyncResponseWriter< ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(15, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(17, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1129,7 +1331,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetFuturesMargin() {
-      ::grpc::Service::MarkMethodAsync(16);
+      ::grpc::Service::MarkMethodAsync(18);
     }
     ~WithAsyncMethod_GetFuturesMargin() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1140,7 +1342,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetFuturesMargin(::grpc::ServerContext* context, ::tinkoff::public_::invest::api::contract::v1::GetFuturesMarginRequest* request, ::grpc::ServerAsyncResponseWriter< ::tinkoff::public_::invest::api::contract::v1::GetFuturesMarginResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(16, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(18, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1149,7 +1351,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetInstrumentBy() {
-      ::grpc::Service::MarkMethodAsync(17);
+      ::grpc::Service::MarkMethodAsync(19);
     }
     ~WithAsyncMethod_GetInstrumentBy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1160,7 +1362,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetInstrumentBy(::grpc::ServerContext* context, ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest* request, ::grpc::ServerAsyncResponseWriter< ::tinkoff::public_::invest::api::contract::v1::InstrumentResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(17, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(19, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1169,7 +1371,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetDividends() {
-      ::grpc::Service::MarkMethodAsync(18);
+      ::grpc::Service::MarkMethodAsync(20);
     }
     ~WithAsyncMethod_GetDividends() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1180,7 +1382,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetDividends(::grpc::ServerContext* context, ::tinkoff::public_::invest::api::contract::v1::GetDividendsRequest* request, ::grpc::ServerAsyncResponseWriter< ::tinkoff::public_::invest::api::contract::v1::GetDividendsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(18, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(20, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1189,7 +1391,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetAssetBy() {
-      ::grpc::Service::MarkMethodAsync(19);
+      ::grpc::Service::MarkMethodAsync(21);
     }
     ~WithAsyncMethod_GetAssetBy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1200,7 +1402,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetAssetBy(::grpc::ServerContext* context, ::tinkoff::public_::invest::api::contract::v1::AssetRequest* request, ::grpc::ServerAsyncResponseWriter< ::tinkoff::public_::invest::api::contract::v1::AssetResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(19, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(21, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1209,7 +1411,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetAssets() {
-      ::grpc::Service::MarkMethodAsync(20);
+      ::grpc::Service::MarkMethodAsync(22);
     }
     ~WithAsyncMethod_GetAssets() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1220,7 +1422,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetAssets(::grpc::ServerContext* context, ::tinkoff::public_::invest::api::contract::v1::AssetsRequest* request, ::grpc::ServerAsyncResponseWriter< ::tinkoff::public_::invest::api::contract::v1::AssetsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(20, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(22, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1229,7 +1431,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetFavorites() {
-      ::grpc::Service::MarkMethodAsync(21);
+      ::grpc::Service::MarkMethodAsync(23);
     }
     ~WithAsyncMethod_GetFavorites() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1240,7 +1442,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetFavorites(::grpc::ServerContext* context, ::tinkoff::public_::invest::api::contract::v1::GetFavoritesRequest* request, ::grpc::ServerAsyncResponseWriter< ::tinkoff::public_::invest::api::contract::v1::GetFavoritesResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(21, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(23, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1249,7 +1451,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_EditFavorites() {
-      ::grpc::Service::MarkMethodAsync(22);
+      ::grpc::Service::MarkMethodAsync(24);
     }
     ~WithAsyncMethod_EditFavorites() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1260,7 +1462,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestEditFavorites(::grpc::ServerContext* context, ::tinkoff::public_::invest::api::contract::v1::EditFavoritesRequest* request, ::grpc::ServerAsyncResponseWriter< ::tinkoff::public_::invest::api::contract::v1::EditFavoritesResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(22, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(24, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1269,7 +1471,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetCountries() {
-      ::grpc::Service::MarkMethodAsync(23);
+      ::grpc::Service::MarkMethodAsync(25);
     }
     ~WithAsyncMethod_GetCountries() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1280,7 +1482,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetCountries(::grpc::ServerContext* context, ::tinkoff::public_::invest::api::contract::v1::GetCountriesRequest* request, ::grpc::ServerAsyncResponseWriter< ::tinkoff::public_::invest::api::contract::v1::GetCountriesResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(23, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(25, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1289,7 +1491,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_FindInstrument() {
-      ::grpc::Service::MarkMethodAsync(24);
+      ::grpc::Service::MarkMethodAsync(26);
     }
     ~WithAsyncMethod_FindInstrument() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1300,7 +1502,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestFindInstrument(::grpc::ServerContext* context, ::tinkoff::public_::invest::api::contract::v1::FindInstrumentRequest* request, ::grpc::ServerAsyncResponseWriter< ::tinkoff::public_::invest::api::contract::v1::FindInstrumentResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(24, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(26, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1309,7 +1511,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetBrands() {
-      ::grpc::Service::MarkMethodAsync(25);
+      ::grpc::Service::MarkMethodAsync(27);
     }
     ~WithAsyncMethod_GetBrands() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1320,7 +1522,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetBrands(::grpc::ServerContext* context, ::tinkoff::public_::invest::api::contract::v1::GetBrandsRequest* request, ::grpc::ServerAsyncResponseWriter< ::tinkoff::public_::invest::api::contract::v1::GetBrandsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(25, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(27, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1329,7 +1531,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetBrandBy() {
-      ::grpc::Service::MarkMethodAsync(26);
+      ::grpc::Service::MarkMethodAsync(28);
     }
     ~WithAsyncMethod_GetBrandBy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1340,10 +1542,90 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetBrandBy(::grpc::ServerContext* context, ::tinkoff::public_::invest::api::contract::v1::GetBrandRequest* request, ::grpc::ServerAsyncResponseWriter< ::tinkoff::public_::invest::api::contract::v1::Brand>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(26, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(28, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_TradingSchedules<WithAsyncMethod_BondBy<WithAsyncMethod_Bonds<WithAsyncMethod_GetBondCoupons<WithAsyncMethod_CurrencyBy<WithAsyncMethod_Currencies<WithAsyncMethod_EtfBy<WithAsyncMethod_Etfs<WithAsyncMethod_FutureBy<WithAsyncMethod_Futures<WithAsyncMethod_OptionBy<WithAsyncMethod_Options<WithAsyncMethod_OptionsBy<WithAsyncMethod_ShareBy<WithAsyncMethod_Shares<WithAsyncMethod_GetAccruedInterests<WithAsyncMethod_GetFuturesMargin<WithAsyncMethod_GetInstrumentBy<WithAsyncMethod_GetDividends<WithAsyncMethod_GetAssetBy<WithAsyncMethod_GetAssets<WithAsyncMethod_GetFavorites<WithAsyncMethod_EditFavorites<WithAsyncMethod_GetCountries<WithAsyncMethod_FindInstrument<WithAsyncMethod_GetBrands<WithAsyncMethod_GetBrandBy<Service > > > > > > > > > > > > > > > > > > > > > > > > > > > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_GetAssetFundamentals : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_GetAssetFundamentals() {
+      ::grpc::Service::MarkMethodAsync(29);
+    }
+    ~WithAsyncMethod_GetAssetFundamentals() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetAssetFundamentals(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetAssetFundamentals(::grpc::ServerContext* context, ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsRequest* request, ::grpc::ServerAsyncResponseWriter< ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(29, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_GetAssetReports : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_GetAssetReports() {
+      ::grpc::Service::MarkMethodAsync(30);
+    }
+    ~WithAsyncMethod_GetAssetReports() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetAssetReports(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetAssetReports(::grpc::ServerContext* context, ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsRequest* request, ::grpc::ServerAsyncResponseWriter< ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(30, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_GetConsensusForecasts : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_GetConsensusForecasts() {
+      ::grpc::Service::MarkMethodAsync(31);
+    }
+    ~WithAsyncMethod_GetConsensusForecasts() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetConsensusForecasts(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetConsensusForecasts(::grpc::ServerContext* context, ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsRequest* request, ::grpc::ServerAsyncResponseWriter< ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(31, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_GetForecastBy : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_GetForecastBy() {
+      ::grpc::Service::MarkMethodAsync(32);
+    }
+    ~WithAsyncMethod_GetForecastBy() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetForecastBy(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetForecastRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetForecastResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetForecastBy(::grpc::ServerContext* context, ::tinkoff::public_::invest::api::contract::v1::GetForecastRequest* request, ::grpc::ServerAsyncResponseWriter< ::tinkoff::public_::invest::api::contract::v1::GetForecastResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(32, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_TradingSchedules<WithAsyncMethod_BondBy<WithAsyncMethod_Bonds<WithAsyncMethod_GetBondCoupons<WithAsyncMethod_GetBondEvents<WithAsyncMethod_CurrencyBy<WithAsyncMethod_Currencies<WithAsyncMethod_EtfBy<WithAsyncMethod_Etfs<WithAsyncMethod_FutureBy<WithAsyncMethod_Futures<WithAsyncMethod_OptionBy<WithAsyncMethod_Options<WithAsyncMethod_OptionsBy<WithAsyncMethod_ShareBy<WithAsyncMethod_Shares<WithAsyncMethod_Indicatives<WithAsyncMethod_GetAccruedInterests<WithAsyncMethod_GetFuturesMargin<WithAsyncMethod_GetInstrumentBy<WithAsyncMethod_GetDividends<WithAsyncMethod_GetAssetBy<WithAsyncMethod_GetAssets<WithAsyncMethod_GetFavorites<WithAsyncMethod_EditFavorites<WithAsyncMethod_GetCountries<WithAsyncMethod_FindInstrument<WithAsyncMethod_GetBrands<WithAsyncMethod_GetBrandBy<WithAsyncMethod_GetAssetFundamentals<WithAsyncMethod_GetAssetReports<WithAsyncMethod_GetConsensusForecasts<WithAsyncMethod_GetForecastBy<Service > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > AsyncService;
   template <class BaseClass>
   class WithCallbackMethod_TradingSchedules : public BaseClass {
    private:
@@ -1453,18 +1735,45 @@ class InstrumentsService final {
       ::grpc::CallbackServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetBondCouponsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetBondCouponsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
+  class WithCallbackMethod_GetBondEvents : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetBondEvents() {
+      ::grpc::Service::MarkMethodCallback(4,
+          new ::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::GetBondEventsRequest, ::tinkoff::public_::invest::api::contract::v1::GetBondEventsResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBondEventsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetBondEventsResponse* response) { return this->GetBondEvents(context, request, response); }));}
+    void SetMessageAllocatorFor_GetBondEvents(
+        ::grpc::MessageAllocator< ::tinkoff::public_::invest::api::contract::v1::GetBondEventsRequest, ::tinkoff::public_::invest::api::contract::v1::GetBondEventsResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::GetBondEventsRequest, ::tinkoff::public_::invest::api::contract::v1::GetBondEventsResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetBondEvents() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetBondEvents(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetBondEventsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetBondEventsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetBondEvents(
+      ::grpc::CallbackServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetBondEventsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetBondEventsResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithCallbackMethod_CurrencyBy : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_CurrencyBy() {
-      ::grpc::Service::MarkMethodCallback(4,
+      ::grpc::Service::MarkMethodCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest, ::tinkoff::public_::invest::api::contract::v1::CurrencyResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest* request, ::tinkoff::public_::invest::api::contract::v1::CurrencyResponse* response) { return this->CurrencyBy(context, request, response); }));}
     void SetMessageAllocatorFor_CurrencyBy(
         ::grpc::MessageAllocator< ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest, ::tinkoff::public_::invest::api::contract::v1::CurrencyResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest, ::tinkoff::public_::invest::api::contract::v1::CurrencyResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1485,13 +1794,13 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_Currencies() {
-      ::grpc::Service::MarkMethodCallback(5,
+      ::grpc::Service::MarkMethodCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest, ::tinkoff::public_::invest::api::contract::v1::CurrenciesResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest* request, ::tinkoff::public_::invest::api::contract::v1::CurrenciesResponse* response) { return this->Currencies(context, request, response); }));}
     void SetMessageAllocatorFor_Currencies(
         ::grpc::MessageAllocator< ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest, ::tinkoff::public_::invest::api::contract::v1::CurrenciesResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest, ::tinkoff::public_::invest::api::contract::v1::CurrenciesResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1512,13 +1821,13 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_EtfBy() {
-      ::grpc::Service::MarkMethodCallback(6,
+      ::grpc::Service::MarkMethodCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest, ::tinkoff::public_::invest::api::contract::v1::EtfResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest* request, ::tinkoff::public_::invest::api::contract::v1::EtfResponse* response) { return this->EtfBy(context, request, response); }));}
     void SetMessageAllocatorFor_EtfBy(
         ::grpc::MessageAllocator< ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest, ::tinkoff::public_::invest::api::contract::v1::EtfResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest, ::tinkoff::public_::invest::api::contract::v1::EtfResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1539,13 +1848,13 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_Etfs() {
-      ::grpc::Service::MarkMethodCallback(7,
+      ::grpc::Service::MarkMethodCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest, ::tinkoff::public_::invest::api::contract::v1::EtfsResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest* request, ::tinkoff::public_::invest::api::contract::v1::EtfsResponse* response) { return this->Etfs(context, request, response); }));}
     void SetMessageAllocatorFor_Etfs(
         ::grpc::MessageAllocator< ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest, ::tinkoff::public_::invest::api::contract::v1::EtfsResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(8);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest, ::tinkoff::public_::invest::api::contract::v1::EtfsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1566,13 +1875,13 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_FutureBy() {
-      ::grpc::Service::MarkMethodCallback(8,
+      ::grpc::Service::MarkMethodCallback(9,
           new ::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest, ::tinkoff::public_::invest::api::contract::v1::FutureResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest* request, ::tinkoff::public_::invest::api::contract::v1::FutureResponse* response) { return this->FutureBy(context, request, response); }));}
     void SetMessageAllocatorFor_FutureBy(
         ::grpc::MessageAllocator< ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest, ::tinkoff::public_::invest::api::contract::v1::FutureResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(8);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(9);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest, ::tinkoff::public_::invest::api::contract::v1::FutureResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1593,13 +1902,13 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_Futures() {
-      ::grpc::Service::MarkMethodCallback(9,
+      ::grpc::Service::MarkMethodCallback(10,
           new ::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest, ::tinkoff::public_::invest::api::contract::v1::FuturesResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest* request, ::tinkoff::public_::invest::api::contract::v1::FuturesResponse* response) { return this->Futures(context, request, response); }));}
     void SetMessageAllocatorFor_Futures(
         ::grpc::MessageAllocator< ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest, ::tinkoff::public_::invest::api::contract::v1::FuturesResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(9);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(10);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest, ::tinkoff::public_::invest::api::contract::v1::FuturesResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1620,13 +1929,13 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_OptionBy() {
-      ::grpc::Service::MarkMethodCallback(10,
+      ::grpc::Service::MarkMethodCallback(11,
           new ::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest, ::tinkoff::public_::invest::api::contract::v1::OptionResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest* request, ::tinkoff::public_::invest::api::contract::v1::OptionResponse* response) { return this->OptionBy(context, request, response); }));}
     void SetMessageAllocatorFor_OptionBy(
         ::grpc::MessageAllocator< ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest, ::tinkoff::public_::invest::api::contract::v1::OptionResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(10);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(11);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest, ::tinkoff::public_::invest::api::contract::v1::OptionResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1647,13 +1956,13 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_Options() {
-      ::grpc::Service::MarkMethodCallback(11,
+      ::grpc::Service::MarkMethodCallback(12,
           new ::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest, ::tinkoff::public_::invest::api::contract::v1::OptionsResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest* request, ::tinkoff::public_::invest::api::contract::v1::OptionsResponse* response) { return this->Options(context, request, response); }));}
     void SetMessageAllocatorFor_Options(
         ::grpc::MessageAllocator< ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest, ::tinkoff::public_::invest::api::contract::v1::OptionsResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(11);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(12);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest, ::tinkoff::public_::invest::api::contract::v1::OptionsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1674,13 +1983,13 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_OptionsBy() {
-      ::grpc::Service::MarkMethodCallback(12,
+      ::grpc::Service::MarkMethodCallback(13,
           new ::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::FilterOptionsRequest, ::tinkoff::public_::invest::api::contract::v1::OptionsResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::FilterOptionsRequest* request, ::tinkoff::public_::invest::api::contract::v1::OptionsResponse* response) { return this->OptionsBy(context, request, response); }));}
     void SetMessageAllocatorFor_OptionsBy(
         ::grpc::MessageAllocator< ::tinkoff::public_::invest::api::contract::v1::FilterOptionsRequest, ::tinkoff::public_::invest::api::contract::v1::OptionsResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(12);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(13);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::FilterOptionsRequest, ::tinkoff::public_::invest::api::contract::v1::OptionsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1701,13 +2010,13 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_ShareBy() {
-      ::grpc::Service::MarkMethodCallback(13,
+      ::grpc::Service::MarkMethodCallback(14,
           new ::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest, ::tinkoff::public_::invest::api::contract::v1::ShareResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest* request, ::tinkoff::public_::invest::api::contract::v1::ShareResponse* response) { return this->ShareBy(context, request, response); }));}
     void SetMessageAllocatorFor_ShareBy(
         ::grpc::MessageAllocator< ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest, ::tinkoff::public_::invest::api::contract::v1::ShareResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(13);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(14);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest, ::tinkoff::public_::invest::api::contract::v1::ShareResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1728,13 +2037,13 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_Shares() {
-      ::grpc::Service::MarkMethodCallback(14,
+      ::grpc::Service::MarkMethodCallback(15,
           new ::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest, ::tinkoff::public_::invest::api::contract::v1::SharesResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest* request, ::tinkoff::public_::invest::api::contract::v1::SharesResponse* response) { return this->Shares(context, request, response); }));}
     void SetMessageAllocatorFor_Shares(
         ::grpc::MessageAllocator< ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest, ::tinkoff::public_::invest::api::contract::v1::SharesResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(14);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(15);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest, ::tinkoff::public_::invest::api::contract::v1::SharesResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1750,18 +2059,45 @@ class InstrumentsService final {
       ::grpc::CallbackServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::SharesResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
+  class WithCallbackMethod_Indicatives : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_Indicatives() {
+      ::grpc::Service::MarkMethodCallback(16,
+          new ::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::IndicativesRequest, ::tinkoff::public_::invest::api::contract::v1::IndicativesResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::IndicativesRequest* request, ::tinkoff::public_::invest::api::contract::v1::IndicativesResponse* response) { return this->Indicatives(context, request, response); }));}
+    void SetMessageAllocatorFor_Indicatives(
+        ::grpc::MessageAllocator< ::tinkoff::public_::invest::api::contract::v1::IndicativesRequest, ::tinkoff::public_::invest::api::contract::v1::IndicativesResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(16);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::IndicativesRequest, ::tinkoff::public_::invest::api::contract::v1::IndicativesResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_Indicatives() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Indicatives(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::IndicativesRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::IndicativesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* Indicatives(
+      ::grpc::CallbackServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::IndicativesRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::IndicativesResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithCallbackMethod_GetAccruedInterests : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_GetAccruedInterests() {
-      ::grpc::Service::MarkMethodCallback(15,
+      ::grpc::Service::MarkMethodCallback(17,
           new ::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsRequest, ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsResponse* response) { return this->GetAccruedInterests(context, request, response); }));}
     void SetMessageAllocatorFor_GetAccruedInterests(
         ::grpc::MessageAllocator< ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsRequest, ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(15);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(17);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsRequest, ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1782,13 +2118,13 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_GetFuturesMargin() {
-      ::grpc::Service::MarkMethodCallback(16,
+      ::grpc::Service::MarkMethodCallback(18,
           new ::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::GetFuturesMarginRequest, ::tinkoff::public_::invest::api::contract::v1::GetFuturesMarginResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetFuturesMarginRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetFuturesMarginResponse* response) { return this->GetFuturesMargin(context, request, response); }));}
     void SetMessageAllocatorFor_GetFuturesMargin(
         ::grpc::MessageAllocator< ::tinkoff::public_::invest::api::contract::v1::GetFuturesMarginRequest, ::tinkoff::public_::invest::api::contract::v1::GetFuturesMarginResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(16);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(18);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::GetFuturesMarginRequest, ::tinkoff::public_::invest::api::contract::v1::GetFuturesMarginResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1809,13 +2145,13 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_GetInstrumentBy() {
-      ::grpc::Service::MarkMethodCallback(17,
+      ::grpc::Service::MarkMethodCallback(19,
           new ::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest, ::tinkoff::public_::invest::api::contract::v1::InstrumentResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest* request, ::tinkoff::public_::invest::api::contract::v1::InstrumentResponse* response) { return this->GetInstrumentBy(context, request, response); }));}
     void SetMessageAllocatorFor_GetInstrumentBy(
         ::grpc::MessageAllocator< ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest, ::tinkoff::public_::invest::api::contract::v1::InstrumentResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(17);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(19);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest, ::tinkoff::public_::invest::api::contract::v1::InstrumentResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1836,13 +2172,13 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_GetDividends() {
-      ::grpc::Service::MarkMethodCallback(18,
+      ::grpc::Service::MarkMethodCallback(20,
           new ::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::GetDividendsRequest, ::tinkoff::public_::invest::api::contract::v1::GetDividendsResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetDividendsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetDividendsResponse* response) { return this->GetDividends(context, request, response); }));}
     void SetMessageAllocatorFor_GetDividends(
         ::grpc::MessageAllocator< ::tinkoff::public_::invest::api::contract::v1::GetDividendsRequest, ::tinkoff::public_::invest::api::contract::v1::GetDividendsResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(18);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(20);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::GetDividendsRequest, ::tinkoff::public_::invest::api::contract::v1::GetDividendsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1863,13 +2199,13 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_GetAssetBy() {
-      ::grpc::Service::MarkMethodCallback(19,
+      ::grpc::Service::MarkMethodCallback(21,
           new ::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::AssetRequest, ::tinkoff::public_::invest::api::contract::v1::AssetResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::AssetRequest* request, ::tinkoff::public_::invest::api::contract::v1::AssetResponse* response) { return this->GetAssetBy(context, request, response); }));}
     void SetMessageAllocatorFor_GetAssetBy(
         ::grpc::MessageAllocator< ::tinkoff::public_::invest::api::contract::v1::AssetRequest, ::tinkoff::public_::invest::api::contract::v1::AssetResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(19);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(21);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::AssetRequest, ::tinkoff::public_::invest::api::contract::v1::AssetResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1890,13 +2226,13 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_GetAssets() {
-      ::grpc::Service::MarkMethodCallback(20,
+      ::grpc::Service::MarkMethodCallback(22,
           new ::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::AssetsRequest, ::tinkoff::public_::invest::api::contract::v1::AssetsResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::AssetsRequest* request, ::tinkoff::public_::invest::api::contract::v1::AssetsResponse* response) { return this->GetAssets(context, request, response); }));}
     void SetMessageAllocatorFor_GetAssets(
         ::grpc::MessageAllocator< ::tinkoff::public_::invest::api::contract::v1::AssetsRequest, ::tinkoff::public_::invest::api::contract::v1::AssetsResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(20);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(22);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::AssetsRequest, ::tinkoff::public_::invest::api::contract::v1::AssetsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1917,13 +2253,13 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_GetFavorites() {
-      ::grpc::Service::MarkMethodCallback(21,
+      ::grpc::Service::MarkMethodCallback(23,
           new ::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::GetFavoritesRequest, ::tinkoff::public_::invest::api::contract::v1::GetFavoritesResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetFavoritesRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetFavoritesResponse* response) { return this->GetFavorites(context, request, response); }));}
     void SetMessageAllocatorFor_GetFavorites(
         ::grpc::MessageAllocator< ::tinkoff::public_::invest::api::contract::v1::GetFavoritesRequest, ::tinkoff::public_::invest::api::contract::v1::GetFavoritesResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(21);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(23);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::GetFavoritesRequest, ::tinkoff::public_::invest::api::contract::v1::GetFavoritesResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1944,13 +2280,13 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_EditFavorites() {
-      ::grpc::Service::MarkMethodCallback(22,
+      ::grpc::Service::MarkMethodCallback(24,
           new ::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::EditFavoritesRequest, ::tinkoff::public_::invest::api::contract::v1::EditFavoritesResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::EditFavoritesRequest* request, ::tinkoff::public_::invest::api::contract::v1::EditFavoritesResponse* response) { return this->EditFavorites(context, request, response); }));}
     void SetMessageAllocatorFor_EditFavorites(
         ::grpc::MessageAllocator< ::tinkoff::public_::invest::api::contract::v1::EditFavoritesRequest, ::tinkoff::public_::invest::api::contract::v1::EditFavoritesResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(22);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(24);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::EditFavoritesRequest, ::tinkoff::public_::invest::api::contract::v1::EditFavoritesResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1971,13 +2307,13 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_GetCountries() {
-      ::grpc::Service::MarkMethodCallback(23,
+      ::grpc::Service::MarkMethodCallback(25,
           new ::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::GetCountriesRequest, ::tinkoff::public_::invest::api::contract::v1::GetCountriesResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetCountriesRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetCountriesResponse* response) { return this->GetCountries(context, request, response); }));}
     void SetMessageAllocatorFor_GetCountries(
         ::grpc::MessageAllocator< ::tinkoff::public_::invest::api::contract::v1::GetCountriesRequest, ::tinkoff::public_::invest::api::contract::v1::GetCountriesResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(23);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(25);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::GetCountriesRequest, ::tinkoff::public_::invest::api::contract::v1::GetCountriesResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1998,13 +2334,13 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_FindInstrument() {
-      ::grpc::Service::MarkMethodCallback(24,
+      ::grpc::Service::MarkMethodCallback(26,
           new ::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::FindInstrumentRequest, ::tinkoff::public_::invest::api::contract::v1::FindInstrumentResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::FindInstrumentRequest* request, ::tinkoff::public_::invest::api::contract::v1::FindInstrumentResponse* response) { return this->FindInstrument(context, request, response); }));}
     void SetMessageAllocatorFor_FindInstrument(
         ::grpc::MessageAllocator< ::tinkoff::public_::invest::api::contract::v1::FindInstrumentRequest, ::tinkoff::public_::invest::api::contract::v1::FindInstrumentResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(24);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(26);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::FindInstrumentRequest, ::tinkoff::public_::invest::api::contract::v1::FindInstrumentResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -2025,13 +2361,13 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_GetBrands() {
-      ::grpc::Service::MarkMethodCallback(25,
+      ::grpc::Service::MarkMethodCallback(27,
           new ::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::GetBrandsRequest, ::tinkoff::public_::invest::api::contract::v1::GetBrandsResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBrandsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetBrandsResponse* response) { return this->GetBrands(context, request, response); }));}
     void SetMessageAllocatorFor_GetBrands(
         ::grpc::MessageAllocator< ::tinkoff::public_::invest::api::contract::v1::GetBrandsRequest, ::tinkoff::public_::invest::api::contract::v1::GetBrandsResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(25);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(27);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::GetBrandsRequest, ::tinkoff::public_::invest::api::contract::v1::GetBrandsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -2052,13 +2388,13 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_GetBrandBy() {
-      ::grpc::Service::MarkMethodCallback(26,
+      ::grpc::Service::MarkMethodCallback(28,
           new ::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::GetBrandRequest, ::tinkoff::public_::invest::api::contract::v1::Brand>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetBrandRequest* request, ::tinkoff::public_::invest::api::contract::v1::Brand* response) { return this->GetBrandBy(context, request, response); }));}
     void SetMessageAllocatorFor_GetBrandBy(
         ::grpc::MessageAllocator< ::tinkoff::public_::invest::api::contract::v1::GetBrandRequest, ::tinkoff::public_::invest::api::contract::v1::Brand>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(26);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(28);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::GetBrandRequest, ::tinkoff::public_::invest::api::contract::v1::Brand>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -2073,7 +2409,115 @@ class InstrumentsService final {
     virtual ::grpc::ServerUnaryReactor* GetBrandBy(
       ::grpc::CallbackServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetBrandRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::Brand* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_TradingSchedules<WithCallbackMethod_BondBy<WithCallbackMethod_Bonds<WithCallbackMethod_GetBondCoupons<WithCallbackMethod_CurrencyBy<WithCallbackMethod_Currencies<WithCallbackMethod_EtfBy<WithCallbackMethod_Etfs<WithCallbackMethod_FutureBy<WithCallbackMethod_Futures<WithCallbackMethod_OptionBy<WithCallbackMethod_Options<WithCallbackMethod_OptionsBy<WithCallbackMethod_ShareBy<WithCallbackMethod_Shares<WithCallbackMethod_GetAccruedInterests<WithCallbackMethod_GetFuturesMargin<WithCallbackMethod_GetInstrumentBy<WithCallbackMethod_GetDividends<WithCallbackMethod_GetAssetBy<WithCallbackMethod_GetAssets<WithCallbackMethod_GetFavorites<WithCallbackMethod_EditFavorites<WithCallbackMethod_GetCountries<WithCallbackMethod_FindInstrument<WithCallbackMethod_GetBrands<WithCallbackMethod_GetBrandBy<Service > > > > > > > > > > > > > > > > > > > > > > > > > > > CallbackService;
+  template <class BaseClass>
+  class WithCallbackMethod_GetAssetFundamentals : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetAssetFundamentals() {
+      ::grpc::Service::MarkMethodCallback(29,
+          new ::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsRequest, ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsResponse* response) { return this->GetAssetFundamentals(context, request, response); }));}
+    void SetMessageAllocatorFor_GetAssetFundamentals(
+        ::grpc::MessageAllocator< ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsRequest, ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(29);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsRequest, ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetAssetFundamentals() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetAssetFundamentals(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetAssetFundamentals(
+      ::grpc::CallbackServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_GetAssetReports : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetAssetReports() {
+      ::grpc::Service::MarkMethodCallback(30,
+          new ::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsRequest, ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsResponse* response) { return this->GetAssetReports(context, request, response); }));}
+    void SetMessageAllocatorFor_GetAssetReports(
+        ::grpc::MessageAllocator< ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsRequest, ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(30);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsRequest, ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetAssetReports() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetAssetReports(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetAssetReports(
+      ::grpc::CallbackServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_GetConsensusForecasts : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetConsensusForecasts() {
+      ::grpc::Service::MarkMethodCallback(31,
+          new ::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsRequest, ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsResponse* response) { return this->GetConsensusForecasts(context, request, response); }));}
+    void SetMessageAllocatorFor_GetConsensusForecasts(
+        ::grpc::MessageAllocator< ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsRequest, ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(31);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsRequest, ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetConsensusForecasts() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetConsensusForecasts(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetConsensusForecasts(
+      ::grpc::CallbackServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_GetForecastBy : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetForecastBy() {
+      ::grpc::Service::MarkMethodCallback(32,
+          new ::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::GetForecastRequest, ::tinkoff::public_::invest::api::contract::v1::GetForecastResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetForecastRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetForecastResponse* response) { return this->GetForecastBy(context, request, response); }));}
+    void SetMessageAllocatorFor_GetForecastBy(
+        ::grpc::MessageAllocator< ::tinkoff::public_::invest::api::contract::v1::GetForecastRequest, ::tinkoff::public_::invest::api::contract::v1::GetForecastResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(32);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::GetForecastRequest, ::tinkoff::public_::invest::api::contract::v1::GetForecastResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetForecastBy() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetForecastBy(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetForecastRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetForecastResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetForecastBy(
+      ::grpc::CallbackServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetForecastRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetForecastResponse* /*response*/)  { return nullptr; }
+  };
+  typedef WithCallbackMethod_TradingSchedules<WithCallbackMethod_BondBy<WithCallbackMethod_Bonds<WithCallbackMethod_GetBondCoupons<WithCallbackMethod_GetBondEvents<WithCallbackMethod_CurrencyBy<WithCallbackMethod_Currencies<WithCallbackMethod_EtfBy<WithCallbackMethod_Etfs<WithCallbackMethod_FutureBy<WithCallbackMethod_Futures<WithCallbackMethod_OptionBy<WithCallbackMethod_Options<WithCallbackMethod_OptionsBy<WithCallbackMethod_ShareBy<WithCallbackMethod_Shares<WithCallbackMethod_Indicatives<WithCallbackMethod_GetAccruedInterests<WithCallbackMethod_GetFuturesMargin<WithCallbackMethod_GetInstrumentBy<WithCallbackMethod_GetDividends<WithCallbackMethod_GetAssetBy<WithCallbackMethod_GetAssets<WithCallbackMethod_GetFavorites<WithCallbackMethod_EditFavorites<WithCallbackMethod_GetCountries<WithCallbackMethod_FindInstrument<WithCallbackMethod_GetBrands<WithCallbackMethod_GetBrandBy<WithCallbackMethod_GetAssetFundamentals<WithCallbackMethod_GetAssetReports<WithCallbackMethod_GetConsensusForecasts<WithCallbackMethod_GetForecastBy<Service > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_TradingSchedules : public BaseClass {
@@ -2144,12 +2588,29 @@ class InstrumentsService final {
     }
   };
   template <class BaseClass>
+  class WithGenericMethod_GetBondEvents : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_GetBondEvents() {
+      ::grpc::Service::MarkMethodGeneric(4);
+    }
+    ~WithGenericMethod_GetBondEvents() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetBondEvents(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetBondEventsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetBondEventsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
   class WithGenericMethod_CurrencyBy : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_CurrencyBy() {
-      ::grpc::Service::MarkMethodGeneric(4);
+      ::grpc::Service::MarkMethodGeneric(5);
     }
     ~WithGenericMethod_CurrencyBy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2166,7 +2627,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_Currencies() {
-      ::grpc::Service::MarkMethodGeneric(5);
+      ::grpc::Service::MarkMethodGeneric(6);
     }
     ~WithGenericMethod_Currencies() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2183,7 +2644,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_EtfBy() {
-      ::grpc::Service::MarkMethodGeneric(6);
+      ::grpc::Service::MarkMethodGeneric(7);
     }
     ~WithGenericMethod_EtfBy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2200,7 +2661,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_Etfs() {
-      ::grpc::Service::MarkMethodGeneric(7);
+      ::grpc::Service::MarkMethodGeneric(8);
     }
     ~WithGenericMethod_Etfs() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2217,7 +2678,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_FutureBy() {
-      ::grpc::Service::MarkMethodGeneric(8);
+      ::grpc::Service::MarkMethodGeneric(9);
     }
     ~WithGenericMethod_FutureBy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2234,7 +2695,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_Futures() {
-      ::grpc::Service::MarkMethodGeneric(9);
+      ::grpc::Service::MarkMethodGeneric(10);
     }
     ~WithGenericMethod_Futures() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2251,7 +2712,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_OptionBy() {
-      ::grpc::Service::MarkMethodGeneric(10);
+      ::grpc::Service::MarkMethodGeneric(11);
     }
     ~WithGenericMethod_OptionBy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2268,7 +2729,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_Options() {
-      ::grpc::Service::MarkMethodGeneric(11);
+      ::grpc::Service::MarkMethodGeneric(12);
     }
     ~WithGenericMethod_Options() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2285,7 +2746,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_OptionsBy() {
-      ::grpc::Service::MarkMethodGeneric(12);
+      ::grpc::Service::MarkMethodGeneric(13);
     }
     ~WithGenericMethod_OptionsBy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2302,7 +2763,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_ShareBy() {
-      ::grpc::Service::MarkMethodGeneric(13);
+      ::grpc::Service::MarkMethodGeneric(14);
     }
     ~WithGenericMethod_ShareBy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2319,7 +2780,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_Shares() {
-      ::grpc::Service::MarkMethodGeneric(14);
+      ::grpc::Service::MarkMethodGeneric(15);
     }
     ~WithGenericMethod_Shares() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2331,12 +2792,29 @@ class InstrumentsService final {
     }
   };
   template <class BaseClass>
+  class WithGenericMethod_Indicatives : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_Indicatives() {
+      ::grpc::Service::MarkMethodGeneric(16);
+    }
+    ~WithGenericMethod_Indicatives() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Indicatives(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::IndicativesRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::IndicativesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
   class WithGenericMethod_GetAccruedInterests : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetAccruedInterests() {
-      ::grpc::Service::MarkMethodGeneric(15);
+      ::grpc::Service::MarkMethodGeneric(17);
     }
     ~WithGenericMethod_GetAccruedInterests() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2353,7 +2831,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetFuturesMargin() {
-      ::grpc::Service::MarkMethodGeneric(16);
+      ::grpc::Service::MarkMethodGeneric(18);
     }
     ~WithGenericMethod_GetFuturesMargin() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2370,7 +2848,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetInstrumentBy() {
-      ::grpc::Service::MarkMethodGeneric(17);
+      ::grpc::Service::MarkMethodGeneric(19);
     }
     ~WithGenericMethod_GetInstrumentBy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2387,7 +2865,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetDividends() {
-      ::grpc::Service::MarkMethodGeneric(18);
+      ::grpc::Service::MarkMethodGeneric(20);
     }
     ~WithGenericMethod_GetDividends() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2404,7 +2882,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetAssetBy() {
-      ::grpc::Service::MarkMethodGeneric(19);
+      ::grpc::Service::MarkMethodGeneric(21);
     }
     ~WithGenericMethod_GetAssetBy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2421,7 +2899,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetAssets() {
-      ::grpc::Service::MarkMethodGeneric(20);
+      ::grpc::Service::MarkMethodGeneric(22);
     }
     ~WithGenericMethod_GetAssets() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2438,7 +2916,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetFavorites() {
-      ::grpc::Service::MarkMethodGeneric(21);
+      ::grpc::Service::MarkMethodGeneric(23);
     }
     ~WithGenericMethod_GetFavorites() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2455,7 +2933,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_EditFavorites() {
-      ::grpc::Service::MarkMethodGeneric(22);
+      ::grpc::Service::MarkMethodGeneric(24);
     }
     ~WithGenericMethod_EditFavorites() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2472,7 +2950,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetCountries() {
-      ::grpc::Service::MarkMethodGeneric(23);
+      ::grpc::Service::MarkMethodGeneric(25);
     }
     ~WithGenericMethod_GetCountries() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2489,7 +2967,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_FindInstrument() {
-      ::grpc::Service::MarkMethodGeneric(24);
+      ::grpc::Service::MarkMethodGeneric(26);
     }
     ~WithGenericMethod_FindInstrument() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2506,7 +2984,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetBrands() {
-      ::grpc::Service::MarkMethodGeneric(25);
+      ::grpc::Service::MarkMethodGeneric(27);
     }
     ~WithGenericMethod_GetBrands() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2523,13 +3001,81 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetBrandBy() {
-      ::grpc::Service::MarkMethodGeneric(26);
+      ::grpc::Service::MarkMethodGeneric(28);
     }
     ~WithGenericMethod_GetBrandBy() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
     ::grpc::Status GetBrandBy(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetBrandRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::Brand* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_GetAssetFundamentals : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_GetAssetFundamentals() {
+      ::grpc::Service::MarkMethodGeneric(29);
+    }
+    ~WithGenericMethod_GetAssetFundamentals() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetAssetFundamentals(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_GetAssetReports : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_GetAssetReports() {
+      ::grpc::Service::MarkMethodGeneric(30);
+    }
+    ~WithGenericMethod_GetAssetReports() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetAssetReports(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_GetConsensusForecasts : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_GetConsensusForecasts() {
+      ::grpc::Service::MarkMethodGeneric(31);
+    }
+    ~WithGenericMethod_GetConsensusForecasts() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetConsensusForecasts(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_GetForecastBy : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_GetForecastBy() {
+      ::grpc::Service::MarkMethodGeneric(32);
+    }
+    ~WithGenericMethod_GetForecastBy() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetForecastBy(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetForecastRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetForecastResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2615,12 +3161,32 @@ class InstrumentsService final {
     }
   };
   template <class BaseClass>
+  class WithRawMethod_GetBondEvents : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_GetBondEvents() {
+      ::grpc::Service::MarkMethodRaw(4);
+    }
+    ~WithRawMethod_GetBondEvents() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetBondEvents(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetBondEventsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetBondEventsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetBondEvents(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithRawMethod_CurrencyBy : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_CurrencyBy() {
-      ::grpc::Service::MarkMethodRaw(4);
+      ::grpc::Service::MarkMethodRaw(5);
     }
     ~WithRawMethod_CurrencyBy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2631,7 +3197,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestCurrencyBy(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2640,7 +3206,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_Currencies() {
-      ::grpc::Service::MarkMethodRaw(5);
+      ::grpc::Service::MarkMethodRaw(6);
     }
     ~WithRawMethod_Currencies() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2651,7 +3217,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestCurrencies(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2660,7 +3226,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_EtfBy() {
-      ::grpc::Service::MarkMethodRaw(6);
+      ::grpc::Service::MarkMethodRaw(7);
     }
     ~WithRawMethod_EtfBy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2671,7 +3237,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestEtfBy(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2680,7 +3246,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_Etfs() {
-      ::grpc::Service::MarkMethodRaw(7);
+      ::grpc::Service::MarkMethodRaw(8);
     }
     ~WithRawMethod_Etfs() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2691,7 +3257,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestEtfs(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(8, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2700,7 +3266,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_FutureBy() {
-      ::grpc::Service::MarkMethodRaw(8);
+      ::grpc::Service::MarkMethodRaw(9);
     }
     ~WithRawMethod_FutureBy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2711,7 +3277,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestFutureBy(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(8, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(9, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2720,7 +3286,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_Futures() {
-      ::grpc::Service::MarkMethodRaw(9);
+      ::grpc::Service::MarkMethodRaw(10);
     }
     ~WithRawMethod_Futures() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2731,7 +3297,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestFutures(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(9, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2740,7 +3306,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_OptionBy() {
-      ::grpc::Service::MarkMethodRaw(10);
+      ::grpc::Service::MarkMethodRaw(11);
     }
     ~WithRawMethod_OptionBy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2751,7 +3317,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestOptionBy(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(11, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2760,7 +3326,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_Options() {
-      ::grpc::Service::MarkMethodRaw(11);
+      ::grpc::Service::MarkMethodRaw(12);
     }
     ~WithRawMethod_Options() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2771,7 +3337,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestOptions(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(11, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(12, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2780,7 +3346,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_OptionsBy() {
-      ::grpc::Service::MarkMethodRaw(12);
+      ::grpc::Service::MarkMethodRaw(13);
     }
     ~WithRawMethod_OptionsBy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2791,7 +3357,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestOptionsBy(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(12, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(13, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2800,7 +3366,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_ShareBy() {
-      ::grpc::Service::MarkMethodRaw(13);
+      ::grpc::Service::MarkMethodRaw(14);
     }
     ~WithRawMethod_ShareBy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2811,7 +3377,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestShareBy(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(13, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(14, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2820,7 +3386,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_Shares() {
-      ::grpc::Service::MarkMethodRaw(14);
+      ::grpc::Service::MarkMethodRaw(15);
     }
     ~WithRawMethod_Shares() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2831,7 +3397,27 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestShares(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(14, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(15, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_Indicatives : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_Indicatives() {
+      ::grpc::Service::MarkMethodRaw(16);
+    }
+    ~WithRawMethod_Indicatives() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Indicatives(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::IndicativesRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::IndicativesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestIndicatives(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(16, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2840,7 +3426,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetAccruedInterests() {
-      ::grpc::Service::MarkMethodRaw(15);
+      ::grpc::Service::MarkMethodRaw(17);
     }
     ~WithRawMethod_GetAccruedInterests() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2851,7 +3437,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetAccruedInterests(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(15, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(17, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2860,7 +3446,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetFuturesMargin() {
-      ::grpc::Service::MarkMethodRaw(16);
+      ::grpc::Service::MarkMethodRaw(18);
     }
     ~WithRawMethod_GetFuturesMargin() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2871,7 +3457,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetFuturesMargin(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(16, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(18, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2880,7 +3466,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetInstrumentBy() {
-      ::grpc::Service::MarkMethodRaw(17);
+      ::grpc::Service::MarkMethodRaw(19);
     }
     ~WithRawMethod_GetInstrumentBy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2891,7 +3477,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetInstrumentBy(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(17, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(19, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2900,7 +3486,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetDividends() {
-      ::grpc::Service::MarkMethodRaw(18);
+      ::grpc::Service::MarkMethodRaw(20);
     }
     ~WithRawMethod_GetDividends() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2911,7 +3497,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetDividends(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(18, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(20, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2920,7 +3506,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetAssetBy() {
-      ::grpc::Service::MarkMethodRaw(19);
+      ::grpc::Service::MarkMethodRaw(21);
     }
     ~WithRawMethod_GetAssetBy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2931,7 +3517,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetAssetBy(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(19, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(21, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2940,7 +3526,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetAssets() {
-      ::grpc::Service::MarkMethodRaw(20);
+      ::grpc::Service::MarkMethodRaw(22);
     }
     ~WithRawMethod_GetAssets() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2951,7 +3537,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetAssets(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(20, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(22, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2960,7 +3546,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetFavorites() {
-      ::grpc::Service::MarkMethodRaw(21);
+      ::grpc::Service::MarkMethodRaw(23);
     }
     ~WithRawMethod_GetFavorites() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2971,7 +3557,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetFavorites(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(21, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(23, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2980,7 +3566,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_EditFavorites() {
-      ::grpc::Service::MarkMethodRaw(22);
+      ::grpc::Service::MarkMethodRaw(24);
     }
     ~WithRawMethod_EditFavorites() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2991,7 +3577,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestEditFavorites(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(22, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(24, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -3000,7 +3586,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetCountries() {
-      ::grpc::Service::MarkMethodRaw(23);
+      ::grpc::Service::MarkMethodRaw(25);
     }
     ~WithRawMethod_GetCountries() override {
       BaseClassMustBeDerivedFromService(this);
@@ -3011,7 +3597,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetCountries(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(23, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(25, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -3020,7 +3606,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_FindInstrument() {
-      ::grpc::Service::MarkMethodRaw(24);
+      ::grpc::Service::MarkMethodRaw(26);
     }
     ~WithRawMethod_FindInstrument() override {
       BaseClassMustBeDerivedFromService(this);
@@ -3031,7 +3617,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestFindInstrument(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(24, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(26, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -3040,7 +3626,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetBrands() {
-      ::grpc::Service::MarkMethodRaw(25);
+      ::grpc::Service::MarkMethodRaw(27);
     }
     ~WithRawMethod_GetBrands() override {
       BaseClassMustBeDerivedFromService(this);
@@ -3051,7 +3637,7 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetBrands(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(25, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(27, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -3060,7 +3646,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetBrandBy() {
-      ::grpc::Service::MarkMethodRaw(26);
+      ::grpc::Service::MarkMethodRaw(28);
     }
     ~WithRawMethod_GetBrandBy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -3071,7 +3657,87 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetBrandBy(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(26, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(28, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_GetAssetFundamentals : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_GetAssetFundamentals() {
+      ::grpc::Service::MarkMethodRaw(29);
+    }
+    ~WithRawMethod_GetAssetFundamentals() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetAssetFundamentals(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetAssetFundamentals(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(29, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_GetAssetReports : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_GetAssetReports() {
+      ::grpc::Service::MarkMethodRaw(30);
+    }
+    ~WithRawMethod_GetAssetReports() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetAssetReports(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetAssetReports(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(30, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_GetConsensusForecasts : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_GetConsensusForecasts() {
+      ::grpc::Service::MarkMethodRaw(31);
+    }
+    ~WithRawMethod_GetConsensusForecasts() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetConsensusForecasts(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetConsensusForecasts(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(31, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_GetForecastBy : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_GetForecastBy() {
+      ::grpc::Service::MarkMethodRaw(32);
+    }
+    ~WithRawMethod_GetForecastBy() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetForecastBy(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetForecastRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetForecastResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetForecastBy(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(32, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -3163,12 +3829,34 @@ class InstrumentsService final {
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
+  class WithRawCallbackMethod_GetBondEvents : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetBondEvents() {
+      ::grpc::Service::MarkMethodRawCallback(4,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetBondEvents(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetBondEvents() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetBondEvents(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetBondEventsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetBondEventsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetBondEvents(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithRawCallbackMethod_CurrencyBy : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_CurrencyBy() {
-      ::grpc::Service::MarkMethodRawCallback(4,
+      ::grpc::Service::MarkMethodRawCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CurrencyBy(context, request, response); }));
@@ -3190,7 +3878,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_Currencies() {
-      ::grpc::Service::MarkMethodRawCallback(5,
+      ::grpc::Service::MarkMethodRawCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Currencies(context, request, response); }));
@@ -3212,7 +3900,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_EtfBy() {
-      ::grpc::Service::MarkMethodRawCallback(6,
+      ::grpc::Service::MarkMethodRawCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->EtfBy(context, request, response); }));
@@ -3234,7 +3922,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_Etfs() {
-      ::grpc::Service::MarkMethodRawCallback(7,
+      ::grpc::Service::MarkMethodRawCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Etfs(context, request, response); }));
@@ -3256,7 +3944,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_FutureBy() {
-      ::grpc::Service::MarkMethodRawCallback(8,
+      ::grpc::Service::MarkMethodRawCallback(9,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->FutureBy(context, request, response); }));
@@ -3278,7 +3966,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_Futures() {
-      ::grpc::Service::MarkMethodRawCallback(9,
+      ::grpc::Service::MarkMethodRawCallback(10,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Futures(context, request, response); }));
@@ -3300,7 +3988,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_OptionBy() {
-      ::grpc::Service::MarkMethodRawCallback(10,
+      ::grpc::Service::MarkMethodRawCallback(11,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->OptionBy(context, request, response); }));
@@ -3322,7 +4010,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_Options() {
-      ::grpc::Service::MarkMethodRawCallback(11,
+      ::grpc::Service::MarkMethodRawCallback(12,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Options(context, request, response); }));
@@ -3344,7 +4032,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_OptionsBy() {
-      ::grpc::Service::MarkMethodRawCallback(12,
+      ::grpc::Service::MarkMethodRawCallback(13,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->OptionsBy(context, request, response); }));
@@ -3366,7 +4054,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_ShareBy() {
-      ::grpc::Service::MarkMethodRawCallback(13,
+      ::grpc::Service::MarkMethodRawCallback(14,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ShareBy(context, request, response); }));
@@ -3388,7 +4076,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_Shares() {
-      ::grpc::Service::MarkMethodRawCallback(14,
+      ::grpc::Service::MarkMethodRawCallback(15,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Shares(context, request, response); }));
@@ -3405,12 +4093,34 @@ class InstrumentsService final {
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
+  class WithRawCallbackMethod_Indicatives : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_Indicatives() {
+      ::grpc::Service::MarkMethodRawCallback(16,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Indicatives(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_Indicatives() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Indicatives(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::IndicativesRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::IndicativesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* Indicatives(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithRawCallbackMethod_GetAccruedInterests : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_GetAccruedInterests() {
-      ::grpc::Service::MarkMethodRawCallback(15,
+      ::grpc::Service::MarkMethodRawCallback(17,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetAccruedInterests(context, request, response); }));
@@ -3432,7 +4142,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_GetFuturesMargin() {
-      ::grpc::Service::MarkMethodRawCallback(16,
+      ::grpc::Service::MarkMethodRawCallback(18,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetFuturesMargin(context, request, response); }));
@@ -3454,7 +4164,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_GetInstrumentBy() {
-      ::grpc::Service::MarkMethodRawCallback(17,
+      ::grpc::Service::MarkMethodRawCallback(19,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetInstrumentBy(context, request, response); }));
@@ -3476,7 +4186,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_GetDividends() {
-      ::grpc::Service::MarkMethodRawCallback(18,
+      ::grpc::Service::MarkMethodRawCallback(20,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetDividends(context, request, response); }));
@@ -3498,7 +4208,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_GetAssetBy() {
-      ::grpc::Service::MarkMethodRawCallback(19,
+      ::grpc::Service::MarkMethodRawCallback(21,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetAssetBy(context, request, response); }));
@@ -3520,7 +4230,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_GetAssets() {
-      ::grpc::Service::MarkMethodRawCallback(20,
+      ::grpc::Service::MarkMethodRawCallback(22,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetAssets(context, request, response); }));
@@ -3542,7 +4252,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_GetFavorites() {
-      ::grpc::Service::MarkMethodRawCallback(21,
+      ::grpc::Service::MarkMethodRawCallback(23,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetFavorites(context, request, response); }));
@@ -3564,7 +4274,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_EditFavorites() {
-      ::grpc::Service::MarkMethodRawCallback(22,
+      ::grpc::Service::MarkMethodRawCallback(24,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->EditFavorites(context, request, response); }));
@@ -3586,7 +4296,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_GetCountries() {
-      ::grpc::Service::MarkMethodRawCallback(23,
+      ::grpc::Service::MarkMethodRawCallback(25,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetCountries(context, request, response); }));
@@ -3608,7 +4318,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_FindInstrument() {
-      ::grpc::Service::MarkMethodRawCallback(24,
+      ::grpc::Service::MarkMethodRawCallback(26,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->FindInstrument(context, request, response); }));
@@ -3630,7 +4340,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_GetBrands() {
-      ::grpc::Service::MarkMethodRawCallback(25,
+      ::grpc::Service::MarkMethodRawCallback(27,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetBrands(context, request, response); }));
@@ -3652,7 +4362,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_GetBrandBy() {
-      ::grpc::Service::MarkMethodRawCallback(26,
+      ::grpc::Service::MarkMethodRawCallback(28,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetBrandBy(context, request, response); }));
@@ -3666,6 +4376,94 @@ class InstrumentsService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::ServerUnaryReactor* GetBrandBy(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetAssetFundamentals : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetAssetFundamentals() {
+      ::grpc::Service::MarkMethodRawCallback(29,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetAssetFundamentals(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetAssetFundamentals() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetAssetFundamentals(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetAssetFundamentals(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetAssetReports : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetAssetReports() {
+      ::grpc::Service::MarkMethodRawCallback(30,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetAssetReports(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetAssetReports() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetAssetReports(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetAssetReports(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetConsensusForecasts : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetConsensusForecasts() {
+      ::grpc::Service::MarkMethodRawCallback(31,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetConsensusForecasts(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetConsensusForecasts() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetConsensusForecasts(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetConsensusForecasts(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetForecastBy : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetForecastBy() {
+      ::grpc::Service::MarkMethodRawCallback(32,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetForecastBy(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetForecastBy() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetForecastBy(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetForecastRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetForecastResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetForecastBy(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
@@ -3777,12 +4575,39 @@ class InstrumentsService final {
     virtual ::grpc::Status StreamedGetBondCoupons(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::tinkoff::public_::invest::api::contract::v1::GetBondCouponsRequest,::tinkoff::public_::invest::api::contract::v1::GetBondCouponsResponse>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
+  class WithStreamedUnaryMethod_GetBondEvents : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_GetBondEvents() {
+      ::grpc::Service::MarkMethodStreamed(4,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::tinkoff::public_::invest::api::contract::v1::GetBondEventsRequest, ::tinkoff::public_::invest::api::contract::v1::GetBondEventsResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::tinkoff::public_::invest::api::contract::v1::GetBondEventsRequest, ::tinkoff::public_::invest::api::contract::v1::GetBondEventsResponse>* streamer) {
+                       return this->StreamedGetBondEvents(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_GetBondEvents() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status GetBondEvents(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetBondEventsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetBondEventsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedGetBondEvents(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::tinkoff::public_::invest::api::contract::v1::GetBondEventsRequest,::tinkoff::public_::invest::api::contract::v1::GetBondEventsResponse>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_CurrencyBy : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_CurrencyBy() {
-      ::grpc::Service::MarkMethodStreamed(4,
+      ::grpc::Service::MarkMethodStreamed(5,
         new ::grpc::internal::StreamedUnaryHandler<
           ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest, ::tinkoff::public_::invest::api::contract::v1::CurrencyResponse>(
             [this](::grpc::ServerContext* context,
@@ -3809,7 +4634,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_Currencies() {
-      ::grpc::Service::MarkMethodStreamed(5,
+      ::grpc::Service::MarkMethodStreamed(6,
         new ::grpc::internal::StreamedUnaryHandler<
           ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest, ::tinkoff::public_::invest::api::contract::v1::CurrenciesResponse>(
             [this](::grpc::ServerContext* context,
@@ -3836,7 +4661,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_EtfBy() {
-      ::grpc::Service::MarkMethodStreamed(6,
+      ::grpc::Service::MarkMethodStreamed(7,
         new ::grpc::internal::StreamedUnaryHandler<
           ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest, ::tinkoff::public_::invest::api::contract::v1::EtfResponse>(
             [this](::grpc::ServerContext* context,
@@ -3863,7 +4688,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_Etfs() {
-      ::grpc::Service::MarkMethodStreamed(7,
+      ::grpc::Service::MarkMethodStreamed(8,
         new ::grpc::internal::StreamedUnaryHandler<
           ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest, ::tinkoff::public_::invest::api::contract::v1::EtfsResponse>(
             [this](::grpc::ServerContext* context,
@@ -3890,7 +4715,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_FutureBy() {
-      ::grpc::Service::MarkMethodStreamed(8,
+      ::grpc::Service::MarkMethodStreamed(9,
         new ::grpc::internal::StreamedUnaryHandler<
           ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest, ::tinkoff::public_::invest::api::contract::v1::FutureResponse>(
             [this](::grpc::ServerContext* context,
@@ -3917,7 +4742,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_Futures() {
-      ::grpc::Service::MarkMethodStreamed(9,
+      ::grpc::Service::MarkMethodStreamed(10,
         new ::grpc::internal::StreamedUnaryHandler<
           ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest, ::tinkoff::public_::invest::api::contract::v1::FuturesResponse>(
             [this](::grpc::ServerContext* context,
@@ -3944,7 +4769,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_OptionBy() {
-      ::grpc::Service::MarkMethodStreamed(10,
+      ::grpc::Service::MarkMethodStreamed(11,
         new ::grpc::internal::StreamedUnaryHandler<
           ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest, ::tinkoff::public_::invest::api::contract::v1::OptionResponse>(
             [this](::grpc::ServerContext* context,
@@ -3971,7 +4796,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_Options() {
-      ::grpc::Service::MarkMethodStreamed(11,
+      ::grpc::Service::MarkMethodStreamed(12,
         new ::grpc::internal::StreamedUnaryHandler<
           ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest, ::tinkoff::public_::invest::api::contract::v1::OptionsResponse>(
             [this](::grpc::ServerContext* context,
@@ -3998,7 +4823,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_OptionsBy() {
-      ::grpc::Service::MarkMethodStreamed(12,
+      ::grpc::Service::MarkMethodStreamed(13,
         new ::grpc::internal::StreamedUnaryHandler<
           ::tinkoff::public_::invest::api::contract::v1::FilterOptionsRequest, ::tinkoff::public_::invest::api::contract::v1::OptionsResponse>(
             [this](::grpc::ServerContext* context,
@@ -4025,7 +4850,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_ShareBy() {
-      ::grpc::Service::MarkMethodStreamed(13,
+      ::grpc::Service::MarkMethodStreamed(14,
         new ::grpc::internal::StreamedUnaryHandler<
           ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest, ::tinkoff::public_::invest::api::contract::v1::ShareResponse>(
             [this](::grpc::ServerContext* context,
@@ -4052,7 +4877,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_Shares() {
-      ::grpc::Service::MarkMethodStreamed(14,
+      ::grpc::Service::MarkMethodStreamed(15,
         new ::grpc::internal::StreamedUnaryHandler<
           ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest, ::tinkoff::public_::invest::api::contract::v1::SharesResponse>(
             [this](::grpc::ServerContext* context,
@@ -4074,12 +4899,39 @@ class InstrumentsService final {
     virtual ::grpc::Status StreamedShares(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::tinkoff::public_::invest::api::contract::v1::InstrumentsRequest,::tinkoff::public_::invest::api::contract::v1::SharesResponse>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
+  class WithStreamedUnaryMethod_Indicatives : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_Indicatives() {
+      ::grpc::Service::MarkMethodStreamed(16,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::tinkoff::public_::invest::api::contract::v1::IndicativesRequest, ::tinkoff::public_::invest::api::contract::v1::IndicativesResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::tinkoff::public_::invest::api::contract::v1::IndicativesRequest, ::tinkoff::public_::invest::api::contract::v1::IndicativesResponse>* streamer) {
+                       return this->StreamedIndicatives(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_Indicatives() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status Indicatives(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::IndicativesRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::IndicativesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedIndicatives(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::tinkoff::public_::invest::api::contract::v1::IndicativesRequest,::tinkoff::public_::invest::api::contract::v1::IndicativesResponse>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_GetAccruedInterests : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetAccruedInterests() {
-      ::grpc::Service::MarkMethodStreamed(15,
+      ::grpc::Service::MarkMethodStreamed(17,
         new ::grpc::internal::StreamedUnaryHandler<
           ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsRequest, ::tinkoff::public_::invest::api::contract::v1::GetAccruedInterestsResponse>(
             [this](::grpc::ServerContext* context,
@@ -4106,7 +4958,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetFuturesMargin() {
-      ::grpc::Service::MarkMethodStreamed(16,
+      ::grpc::Service::MarkMethodStreamed(18,
         new ::grpc::internal::StreamedUnaryHandler<
           ::tinkoff::public_::invest::api::contract::v1::GetFuturesMarginRequest, ::tinkoff::public_::invest::api::contract::v1::GetFuturesMarginResponse>(
             [this](::grpc::ServerContext* context,
@@ -4133,7 +4985,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetInstrumentBy() {
-      ::grpc::Service::MarkMethodStreamed(17,
+      ::grpc::Service::MarkMethodStreamed(19,
         new ::grpc::internal::StreamedUnaryHandler<
           ::tinkoff::public_::invest::api::contract::v1::InstrumentRequest, ::tinkoff::public_::invest::api::contract::v1::InstrumentResponse>(
             [this](::grpc::ServerContext* context,
@@ -4160,7 +5012,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetDividends() {
-      ::grpc::Service::MarkMethodStreamed(18,
+      ::grpc::Service::MarkMethodStreamed(20,
         new ::grpc::internal::StreamedUnaryHandler<
           ::tinkoff::public_::invest::api::contract::v1::GetDividendsRequest, ::tinkoff::public_::invest::api::contract::v1::GetDividendsResponse>(
             [this](::grpc::ServerContext* context,
@@ -4187,7 +5039,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetAssetBy() {
-      ::grpc::Service::MarkMethodStreamed(19,
+      ::grpc::Service::MarkMethodStreamed(21,
         new ::grpc::internal::StreamedUnaryHandler<
           ::tinkoff::public_::invest::api::contract::v1::AssetRequest, ::tinkoff::public_::invest::api::contract::v1::AssetResponse>(
             [this](::grpc::ServerContext* context,
@@ -4214,7 +5066,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetAssets() {
-      ::grpc::Service::MarkMethodStreamed(20,
+      ::grpc::Service::MarkMethodStreamed(22,
         new ::grpc::internal::StreamedUnaryHandler<
           ::tinkoff::public_::invest::api::contract::v1::AssetsRequest, ::tinkoff::public_::invest::api::contract::v1::AssetsResponse>(
             [this](::grpc::ServerContext* context,
@@ -4241,7 +5093,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetFavorites() {
-      ::grpc::Service::MarkMethodStreamed(21,
+      ::grpc::Service::MarkMethodStreamed(23,
         new ::grpc::internal::StreamedUnaryHandler<
           ::tinkoff::public_::invest::api::contract::v1::GetFavoritesRequest, ::tinkoff::public_::invest::api::contract::v1::GetFavoritesResponse>(
             [this](::grpc::ServerContext* context,
@@ -4268,7 +5120,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_EditFavorites() {
-      ::grpc::Service::MarkMethodStreamed(22,
+      ::grpc::Service::MarkMethodStreamed(24,
         new ::grpc::internal::StreamedUnaryHandler<
           ::tinkoff::public_::invest::api::contract::v1::EditFavoritesRequest, ::tinkoff::public_::invest::api::contract::v1::EditFavoritesResponse>(
             [this](::grpc::ServerContext* context,
@@ -4295,7 +5147,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetCountries() {
-      ::grpc::Service::MarkMethodStreamed(23,
+      ::grpc::Service::MarkMethodStreamed(25,
         new ::grpc::internal::StreamedUnaryHandler<
           ::tinkoff::public_::invest::api::contract::v1::GetCountriesRequest, ::tinkoff::public_::invest::api::contract::v1::GetCountriesResponse>(
             [this](::grpc::ServerContext* context,
@@ -4322,7 +5174,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_FindInstrument() {
-      ::grpc::Service::MarkMethodStreamed(24,
+      ::grpc::Service::MarkMethodStreamed(26,
         new ::grpc::internal::StreamedUnaryHandler<
           ::tinkoff::public_::invest::api::contract::v1::FindInstrumentRequest, ::tinkoff::public_::invest::api::contract::v1::FindInstrumentResponse>(
             [this](::grpc::ServerContext* context,
@@ -4349,7 +5201,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetBrands() {
-      ::grpc::Service::MarkMethodStreamed(25,
+      ::grpc::Service::MarkMethodStreamed(27,
         new ::grpc::internal::StreamedUnaryHandler<
           ::tinkoff::public_::invest::api::contract::v1::GetBrandsRequest, ::tinkoff::public_::invest::api::contract::v1::GetBrandsResponse>(
             [this](::grpc::ServerContext* context,
@@ -4376,7 +5228,7 @@ class InstrumentsService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetBrandBy() {
-      ::grpc::Service::MarkMethodStreamed(26,
+      ::grpc::Service::MarkMethodStreamed(28,
         new ::grpc::internal::StreamedUnaryHandler<
           ::tinkoff::public_::invest::api::contract::v1::GetBrandRequest, ::tinkoff::public_::invest::api::contract::v1::Brand>(
             [this](::grpc::ServerContext* context,
@@ -4397,9 +5249,117 @@ class InstrumentsService final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedGetBrandBy(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::tinkoff::public_::invest::api::contract::v1::GetBrandRequest,::tinkoff::public_::invest::api::contract::v1::Brand>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_TradingSchedules<WithStreamedUnaryMethod_BondBy<WithStreamedUnaryMethod_Bonds<WithStreamedUnaryMethod_GetBondCoupons<WithStreamedUnaryMethod_CurrencyBy<WithStreamedUnaryMethod_Currencies<WithStreamedUnaryMethod_EtfBy<WithStreamedUnaryMethod_Etfs<WithStreamedUnaryMethod_FutureBy<WithStreamedUnaryMethod_Futures<WithStreamedUnaryMethod_OptionBy<WithStreamedUnaryMethod_Options<WithStreamedUnaryMethod_OptionsBy<WithStreamedUnaryMethod_ShareBy<WithStreamedUnaryMethod_Shares<WithStreamedUnaryMethod_GetAccruedInterests<WithStreamedUnaryMethod_GetFuturesMargin<WithStreamedUnaryMethod_GetInstrumentBy<WithStreamedUnaryMethod_GetDividends<WithStreamedUnaryMethod_GetAssetBy<WithStreamedUnaryMethod_GetAssets<WithStreamedUnaryMethod_GetFavorites<WithStreamedUnaryMethod_EditFavorites<WithStreamedUnaryMethod_GetCountries<WithStreamedUnaryMethod_FindInstrument<WithStreamedUnaryMethod_GetBrands<WithStreamedUnaryMethod_GetBrandBy<Service > > > > > > > > > > > > > > > > > > > > > > > > > > > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_GetAssetFundamentals : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_GetAssetFundamentals() {
+      ::grpc::Service::MarkMethodStreamed(29,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsRequest, ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsRequest, ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsResponse>* streamer) {
+                       return this->StreamedGetAssetFundamentals(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_GetAssetFundamentals() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status GetAssetFundamentals(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedGetAssetFundamentals(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsRequest,::tinkoff::public_::invest::api::contract::v1::GetAssetFundamentalsResponse>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_GetAssetReports : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_GetAssetReports() {
+      ::grpc::Service::MarkMethodStreamed(30,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsRequest, ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsRequest, ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsResponse>* streamer) {
+                       return this->StreamedGetAssetReports(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_GetAssetReports() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status GetAssetReports(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedGetAssetReports(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::tinkoff::public_::invest::api::contract::v1::GetAssetReportsRequest,::tinkoff::public_::invest::api::contract::v1::GetAssetReportsResponse>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_GetConsensusForecasts : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_GetConsensusForecasts() {
+      ::grpc::Service::MarkMethodStreamed(31,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsRequest, ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsRequest, ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsResponse>* streamer) {
+                       return this->StreamedGetConsensusForecasts(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_GetConsensusForecasts() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status GetConsensusForecasts(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedGetConsensusForecasts(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsRequest,::tinkoff::public_::invest::api::contract::v1::GetConsensusForecastsResponse>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_GetForecastBy : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_GetForecastBy() {
+      ::grpc::Service::MarkMethodStreamed(32,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::tinkoff::public_::invest::api::contract::v1::GetForecastRequest, ::tinkoff::public_::invest::api::contract::v1::GetForecastResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::tinkoff::public_::invest::api::contract::v1::GetForecastRequest, ::tinkoff::public_::invest::api::contract::v1::GetForecastResponse>* streamer) {
+                       return this->StreamedGetForecastBy(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_GetForecastBy() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status GetForecastBy(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetForecastRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetForecastResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedGetForecastBy(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::tinkoff::public_::invest::api::contract::v1::GetForecastRequest,::tinkoff::public_::invest::api::contract::v1::GetForecastResponse>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_TradingSchedules<WithStreamedUnaryMethod_BondBy<WithStreamedUnaryMethod_Bonds<WithStreamedUnaryMethod_GetBondCoupons<WithStreamedUnaryMethod_GetBondEvents<WithStreamedUnaryMethod_CurrencyBy<WithStreamedUnaryMethod_Currencies<WithStreamedUnaryMethod_EtfBy<WithStreamedUnaryMethod_Etfs<WithStreamedUnaryMethod_FutureBy<WithStreamedUnaryMethod_Futures<WithStreamedUnaryMethod_OptionBy<WithStreamedUnaryMethod_Options<WithStreamedUnaryMethod_OptionsBy<WithStreamedUnaryMethod_ShareBy<WithStreamedUnaryMethod_Shares<WithStreamedUnaryMethod_Indicatives<WithStreamedUnaryMethod_GetAccruedInterests<WithStreamedUnaryMethod_GetFuturesMargin<WithStreamedUnaryMethod_GetInstrumentBy<WithStreamedUnaryMethod_GetDividends<WithStreamedUnaryMethod_GetAssetBy<WithStreamedUnaryMethod_GetAssets<WithStreamedUnaryMethod_GetFavorites<WithStreamedUnaryMethod_EditFavorites<WithStreamedUnaryMethod_GetCountries<WithStreamedUnaryMethod_FindInstrument<WithStreamedUnaryMethod_GetBrands<WithStreamedUnaryMethod_GetBrandBy<WithStreamedUnaryMethod_GetAssetFundamentals<WithStreamedUnaryMethod_GetAssetReports<WithStreamedUnaryMethod_GetConsensusForecasts<WithStreamedUnaryMethod_GetForecastBy<Service > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_TradingSchedules<WithStreamedUnaryMethod_BondBy<WithStreamedUnaryMethod_Bonds<WithStreamedUnaryMethod_GetBondCoupons<WithStreamedUnaryMethod_CurrencyBy<WithStreamedUnaryMethod_Currencies<WithStreamedUnaryMethod_EtfBy<WithStreamedUnaryMethod_Etfs<WithStreamedUnaryMethod_FutureBy<WithStreamedUnaryMethod_Futures<WithStreamedUnaryMethod_OptionBy<WithStreamedUnaryMethod_Options<WithStreamedUnaryMethod_OptionsBy<WithStreamedUnaryMethod_ShareBy<WithStreamedUnaryMethod_Shares<WithStreamedUnaryMethod_GetAccruedInterests<WithStreamedUnaryMethod_GetFuturesMargin<WithStreamedUnaryMethod_GetInstrumentBy<WithStreamedUnaryMethod_GetDividends<WithStreamedUnaryMethod_GetAssetBy<WithStreamedUnaryMethod_GetAssets<WithStreamedUnaryMethod_GetFavorites<WithStreamedUnaryMethod_EditFavorites<WithStreamedUnaryMethod_GetCountries<WithStreamedUnaryMethod_FindInstrument<WithStreamedUnaryMethod_GetBrands<WithStreamedUnaryMethod_GetBrandBy<Service > > > > > > > > > > > > > > > > > > > > > > > > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_TradingSchedules<WithStreamedUnaryMethod_BondBy<WithStreamedUnaryMethod_Bonds<WithStreamedUnaryMethod_GetBondCoupons<WithStreamedUnaryMethod_GetBondEvents<WithStreamedUnaryMethod_CurrencyBy<WithStreamedUnaryMethod_Currencies<WithStreamedUnaryMethod_EtfBy<WithStreamedUnaryMethod_Etfs<WithStreamedUnaryMethod_FutureBy<WithStreamedUnaryMethod_Futures<WithStreamedUnaryMethod_OptionBy<WithStreamedUnaryMethod_Options<WithStreamedUnaryMethod_OptionsBy<WithStreamedUnaryMethod_ShareBy<WithStreamedUnaryMethod_Shares<WithStreamedUnaryMethod_Indicatives<WithStreamedUnaryMethod_GetAccruedInterests<WithStreamedUnaryMethod_GetFuturesMargin<WithStreamedUnaryMethod_GetInstrumentBy<WithStreamedUnaryMethod_GetDividends<WithStreamedUnaryMethod_GetAssetBy<WithStreamedUnaryMethod_GetAssets<WithStreamedUnaryMethod_GetFavorites<WithStreamedUnaryMethod_EditFavorites<WithStreamedUnaryMethod_GetCountries<WithStreamedUnaryMethod_FindInstrument<WithStreamedUnaryMethod_GetBrands<WithStreamedUnaryMethod_GetBrandBy<WithStreamedUnaryMethod_GetAssetFundamentals<WithStreamedUnaryMethod_GetAssetReports<WithStreamedUnaryMethod_GetConsensusForecasts<WithStreamedUnaryMethod_GetForecastBy<Service > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > StreamedService;
 };
 // Сервис предназначен для получения:</br>**1**. информации об инструментах;</br>**2**.
 // расписания торговых сессий;</br>**3**. календаря выплат купонов по облигациям;</br>**4**.

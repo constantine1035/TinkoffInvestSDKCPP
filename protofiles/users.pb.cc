@@ -412,87 +412,89 @@ static const ::_pb::Message* const file_default_instances[] = {
 const char descriptor_table_protodef_users_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
     "\n\013users.proto\022&tinkoff.public_.invest.ap"
     "i.contract.v1\032\037google/protobuf/timestamp"
-    ".proto\032\014common.proto\"\024\n\022GetAccountsReque"
-    "st\"X\n\023GetAccountsResponse\022A\n\010accounts\030\001 "
-    "\003(\0132/.tinkoff.public_.invest.api.contrac"
-    "t.v1.Account\"\332\002\n\007Account\022\n\n\002id\030\001 \001(\t\022A\n\004"
-    "type\030\002 \001(\01623.tinkoff.public_.invest.api."
-    "contract.v1.AccountType\022\014\n\004name\030\003 \001(\t\022E\n"
-    "\006status\030\004 \001(\01625.tinkoff.public_.invest.a"
-    "pi.contract.v1.AccountStatus\022/\n\013opened_d"
-    "ate\030\005 \001(\0132\032.google.protobuf.Timestamp\022/\n"
-    "\013closed_date\030\006 \001(\0132\032.google.protobuf.Tim"
-    "estamp\022I\n\014access_level\030\007 \001(\01623.tinkoff.p"
-    "ublic_.invest.api.contract.v1.AccessLeve"
-    "l\"0\n\032GetMarginAttributesRequest\022\022\n\naccou"
-    "nt_id\030\001 \001(\t\"\373\003\n\033GetMarginAttributesRespo"
-    "nse\022L\n\020liquid_portfolio\030\001 \001(\01322.tinkoff."
-    "public_.invest.api.contract.v1.MoneyValu"
-    "e\022K\n\017starting_margin\030\002 \001(\01322.tinkoff.pub"
-    "lic_.invest.api.contract.v1.MoneyValue\022J"
-    "\n\016minimal_margin\030\003 \001(\01322.tinkoff.public_"
-    ".invest.api.contract.v1.MoneyValue\022R\n\027fu"
-    "nds_sufficiency_level\030\004 \001(\01321.tinkoff.pu"
-    "blic_.invest.api.contract.v1.Quotation\022S"
-    "\n\027amount_of_missing_funds\030\005 \001(\01322.tinkof"
-    "f.public_.invest.api.contract.v1.MoneyVa"
-    "lue\022L\n\020corrected_margin\030\006 \001(\01322.tinkoff."
-    "public_.invest.api.contract.v1.MoneyValu"
-    "e\"\026\n\024GetUserTariffRequest\"\255\001\n\025GetUserTar"
-    "iffResponse\022H\n\014unary_limits\030\001 \003(\01322.tink"
-    "off.public_.invest.api.contract.v1.Unary"
-    "Limit\022J\n\rstream_limits\030\002 \003(\01323.tinkoff.p"
-    "ublic_.invest.api.contract.v1.StreamLimi"
-    "t\"7\n\nUnaryLimit\022\030\n\020limit_per_minute\030\001 \001("
-    "\005\022\017\n\007methods\030\002 \003(\t\";\n\013StreamLimit\022\r\n\005lim"
-    "it\030\001 \001(\005\022\017\n\007streams\030\002 \003(\t\022\014\n\004open\030\003 \001(\005\""
-    "\020\n\016GetInfoRequest\"l\n\017GetInfoResponse\022\023\n\013"
-    "prem_status\030\001 \001(\010\022\023\n\013qual_status\030\002 \001(\010\022\037"
-    "\n\027qualified_for_work_with\030\003 \003(\t\022\016\n\006tarif"
-    "f\030\004 \001(\t*\200\001\n\013AccountType\022\034\n\030ACCOUNT_TYPE_"
-    "UNSPECIFIED\020\000\022\030\n\024ACCOUNT_TYPE_TINKOFF\020\001\022"
-    "\034\n\030ACCOUNT_TYPE_TINKOFF_IIS\020\002\022\033\n\027ACCOUNT"
-    "_TYPE_INVEST_BOX\020\003*{\n\rAccountStatus\022\036\n\032A"
-    "CCOUNT_STATUS_UNSPECIFIED\020\000\022\026\n\022ACCOUNT_S"
-    "TATUS_NEW\020\001\022\027\n\023ACCOUNT_STATUS_OPEN\020\002\022\031\n\025"
-    "ACCOUNT_STATUS_CLOSED\020\003*\241\001\n\013AccessLevel\022"
-    "$\n ACCOUNT_ACCESS_LEVEL_UNSPECIFIED\020\000\022$\n"
-    " ACCOUNT_ACCESS_LEVEL_FULL_ACCESS\020\001\022\"\n\036A"
-    "CCOUNT_ACCESS_LEVEL_READ_ONLY\020\002\022\"\n\036ACCOU"
-    "NT_ACCESS_LEVEL_NO_ACCESS\020\0032\303\004\n\014UsersSer"
-    "vice\022\206\001\n\013GetAccounts\022:.tinkoff.public_.i"
-    "nvest.api.contract.v1.GetAccountsRequest"
-    "\032;.tinkoff.public_.invest.api.contract.v"
-    "1.GetAccountsResponse\022\236\001\n\023GetMarginAttri"
-    "butes\022B.tinkoff.public_.invest.api.contr"
-    "act.v1.GetMarginAttributesRequest\032C.tink"
-    "off.public_.invest.api.contract.v1.GetMa"
-    "rginAttributesResponse\022\214\001\n\rGetUserTariff"
-    "\022<.tinkoff.public_.invest.api.contract.v"
-    "1.GetUserTariffRequest\032=.tinkoff.public_"
-    ".invest.api.contract.v1.GetUserTariffRes"
-    "ponse\022z\n\007GetInfo\0226.tinkoff.public_.inves"
-    "t.api.contract.v1.GetInfoRequest\0327.tinko"
-    "ff.public_.invest.api.contract.v1.GetInf"
-    "oResponseBa\n\034ru.tinkoff.piapi.contract.v"
-    "1P\001Z\014./;investapi\242\002\005TIAPI\252\002\024Tinkoff.Inve"
-    "stApi.V1\312\002\021Tinkoff\\Invest\\V1b\006proto3"
+    ".proto\032\037google/api/field_behavior.proto\032"
+    "\014common.proto\"\024\n\022GetAccountsRequest\"X\n\023G"
+    "etAccountsResponse\022A\n\010accounts\030\001 \003(\0132/.t"
+    "inkoff.public_.invest.api.contract.v1.Ac"
+    "count\"\332\002\n\007Account\022\n\n\002id\030\001 \001(\t\022A\n\004type\030\002 "
+    "\001(\01623.tinkoff.public_.invest.api.contrac"
+    "t.v1.AccountType\022\014\n\004name\030\003 \001(\t\022E\n\006status"
+    "\030\004 \001(\01625.tinkoff.public_.invest.api.cont"
+    "ract.v1.AccountStatus\022/\n\013opened_date\030\005 \001"
+    "(\0132\032.google.protobuf.Timestamp\022/\n\013closed"
+    "_date\030\006 \001(\0132\032.google.protobuf.Timestamp\022"
+    "I\n\014access_level\030\007 \001(\01623.tinkoff.public_."
+    "invest.api.contract.v1.AccessLevel\"6\n\032Ge"
+    "tMarginAttributesRequest\022\030\n\naccount_id\030\001"
+    " \001(\tB\004\342A\001\002\"\373\003\n\033GetMarginAttributesRespon"
+    "se\022L\n\020liquid_portfolio\030\001 \001(\01322.tinkoff.p"
+    "ublic_.invest.api.contract.v1.MoneyValue"
+    "\022K\n\017starting_margin\030\002 \001(\01322.tinkoff.publ"
+    "ic_.invest.api.contract.v1.MoneyValue\022J\n"
+    "\016minimal_margin\030\003 \001(\01322.tinkoff.public_."
+    "invest.api.contract.v1.MoneyValue\022R\n\027fun"
+    "ds_sufficiency_level\030\004 \001(\01321.tinkoff.pub"
+    "lic_.invest.api.contract.v1.Quotation\022S\n"
+    "\027amount_of_missing_funds\030\005 \001(\01322.tinkoff"
+    ".public_.invest.api.contract.v1.MoneyVal"
+    "ue\022L\n\020corrected_margin\030\006 \001(\01322.tinkoff.p"
+    "ublic_.invest.api.contract.v1.MoneyValue"
+    "\"\026\n\024GetUserTariffRequest\"\255\001\n\025GetUserTari"
+    "ffResponse\022H\n\014unary_limits\030\001 \003(\01322.tinko"
+    "ff.public_.invest.api.contract.v1.UnaryL"
+    "imit\022J\n\rstream_limits\030\002 \003(\01323.tinkoff.pu"
+    "blic_.invest.api.contract.v1.StreamLimit"
+    "\"7\n\nUnaryLimit\022\030\n\020limit_per_minute\030\001 \001(\005"
+    "\022\017\n\007methods\030\002 \003(\t\";\n\013StreamLimit\022\r\n\005limi"
+    "t\030\001 \001(\005\022\017\n\007streams\030\002 \003(\t\022\014\n\004open\030\003 \001(\005\"\020"
+    "\n\016GetInfoRequest\"l\n\017GetInfoResponse\022\023\n\013p"
+    "rem_status\030\001 \001(\010\022\023\n\013qual_status\030\002 \001(\010\022\037\n"
+    "\027qualified_for_work_with\030\003 \003(\t\022\016\n\006tariff"
+    "\030\004 \001(\t*\200\001\n\013AccountType\022\034\n\030ACCOUNT_TYPE_U"
+    "NSPECIFIED\020\000\022\030\n\024ACCOUNT_TYPE_TINKOFF\020\001\022\034"
+    "\n\030ACCOUNT_TYPE_TINKOFF_IIS\020\002\022\033\n\027ACCOUNT_"
+    "TYPE_INVEST_BOX\020\003*{\n\rAccountStatus\022\036\n\032AC"
+    "COUNT_STATUS_UNSPECIFIED\020\000\022\026\n\022ACCOUNT_ST"
+    "ATUS_NEW\020\001\022\027\n\023ACCOUNT_STATUS_OPEN\020\002\022\031\n\025A"
+    "CCOUNT_STATUS_CLOSED\020\003*\241\001\n\013AccessLevel\022$"
+    "\n ACCOUNT_ACCESS_LEVEL_UNSPECIFIED\020\000\022$\n "
+    "ACCOUNT_ACCESS_LEVEL_FULL_ACCESS\020\001\022\"\n\036AC"
+    "COUNT_ACCESS_LEVEL_READ_ONLY\020\002\022\"\n\036ACCOUN"
+    "T_ACCESS_LEVEL_NO_ACCESS\020\0032\303\004\n\014UsersServ"
+    "ice\022\206\001\n\013GetAccounts\022:.tinkoff.public_.in"
+    "vest.api.contract.v1.GetAccountsRequest\032"
+    ";.tinkoff.public_.invest.api.contract.v1"
+    ".GetAccountsResponse\022\236\001\n\023GetMarginAttrib"
+    "utes\022B.tinkoff.public_.invest.api.contra"
+    "ct.v1.GetMarginAttributesRequest\032C.tinko"
+    "ff.public_.invest.api.contract.v1.GetMar"
+    "ginAttributesResponse\022\214\001\n\rGetUserTariff\022"
+    "<.tinkoff.public_.invest.api.contract.v1"
+    ".GetUserTariffRequest\032=.tinkoff.public_."
+    "invest.api.contract.v1.GetUserTariffResp"
+    "onse\022z\n\007GetInfo\0226.tinkoff.public_.invest"
+    ".api.contract.v1.GetInfoRequest\0327.tinkof"
+    "f.public_.invest.api.contract.v1.GetInfo"
+    "ResponseBa\n\034ru.tinkoff.piapi.contract.v1"
+    "P\001Z\014./;investapi\242\002\005TIAPI\252\002\024Tinkoff.Inves"
+    "tApi.V1\312\002\021Tinkoff\\Invest\\V1b\006proto3"
 };
-static const ::_pbi::DescriptorTable* const descriptor_table_users_2eproto_deps[2] =
+static const ::_pbi::DescriptorTable* const descriptor_table_users_2eproto_deps[3] =
     {
         &::descriptor_table_common_2eproto,
+        &::descriptor_table_google_2fapi_2ffield_5fbehavior_2eproto,
         &::descriptor_table_google_2fprotobuf_2ftimestamp_2eproto,
 };
 static ::absl::once_flag descriptor_table_users_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_users_2eproto = {
     false,
     false,
-    2676,
+    2715,
     descriptor_table_protodef_users_2eproto,
     "users.proto",
     &descriptor_table_users_2eproto_once,
     descriptor_table_users_2eproto_deps,
-    2,
+    3,
     11,
     schemas,
     file_default_instances,
@@ -1264,13 +1266,13 @@ const ::_pbi::TcParseTable<0, 1, 0, 84, 2> GetMarginAttributesRequest::_table_ =
     &_GetMarginAttributesRequest_default_instance_._instance,
     ::_pbi::TcParser::GenericFallback,  // fallback
   }, {{
-    // string account_id = 1;
+    // string account_id = 1 [(.google.api.field_behavior) = REQUIRED];
     {::_pbi::TcParser::FastUS1,
      {10, 63, 0, PROTOBUF_FIELD_OFFSET(GetMarginAttributesRequest, _impl_.account_id_)}},
   }}, {{
     65535, 65535
   }}, {{
-    // string account_id = 1;
+    // string account_id = 1 [(.google.api.field_behavior) = REQUIRED];
     {PROTOBUF_FIELD_OFFSET(GetMarginAttributesRequest, _impl_.account_id_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
   }},
@@ -1289,7 +1291,7 @@ const ::_pbi::TcParseTable<0, 1, 0, 84, 2> GetMarginAttributesRequest::_table_ =
   ::uint32_t cached_has_bits = 0;
   (void)cached_has_bits;
 
-  // string account_id = 1;
+  // string account_id = 1 [(.google.api.field_behavior) = REQUIRED];
   if (!this->_internal_account_id().empty()) {
     const std::string& _s = this->_internal_account_id();
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -1314,7 +1316,7 @@ const ::_pbi::TcParseTable<0, 1, 0, 84, 2> GetMarginAttributesRequest::_table_ =
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // string account_id = 1;
+  // string account_id = 1 [(.google.api.field_behavior) = REQUIRED];
   if (!this->_internal_account_id().empty()) {
     total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
                                     this->_internal_account_id());

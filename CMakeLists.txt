@@ -22,6 +22,7 @@ set(PROTO_FILES
         ${PROTO_FILES_PATH}/sandbox.proto
         ${PROTO_FILES_PATH}/stoporders.proto
         ${PROTO_FILES_PATH}/users.proto
+        ${PROTO_FILES_PATH}/field_behavior.proto
         # Укажите здесь все ваши протофайлы
 )
 
