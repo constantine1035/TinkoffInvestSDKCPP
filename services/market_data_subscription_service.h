@@ -13,6 +13,7 @@
 namespace tinkoff_invest_sdk_cpp_market_data_subscription_service {
 
 using grpc::Channel;
+using grpc::CompletionQueue;
 using tinkoff_invest_sdk_cpp_based_service::BasedService;
 using namespace tinkoff::public_::invest::api::contract::v1;
 
@@ -64,7 +65,7 @@ public:
     bool UnsubscribeTrades();
 
     // Trading statuses of instruments subscription request, asynchronous call.
-    void SubscribeTradesAsync(const std::vector<std::string> &instruments_ids, CallbackFunc callback);
+    void SubscribeTradesAsync(const std::vector<std::string> &instruments_ids);
 
     // Trading statuses of instruments unsubscription request, asynchronous call.
     bool UnsubscribeTradesAsync();
@@ -76,7 +77,7 @@ public:
     bool UnsubscribeInfo();
 
     // Info subscription request, asynchronous call.
-    void SubscribeInfoAsync(const std::vector<std::string> &instruments_ids, CallbackFunc callback);
+    void SubscribeInfoAsync(const std::vector<std::string> &instruments_ids);
 
     // Info unsubscription request, asynchronous call.
     bool UnsubscribeInfoAsync();
@@ -88,13 +89,14 @@ public:
     bool UnsubscribeLastPrice();
 
     // Last price subscription request, asynchronous call.
-    void SubscribeLastPriceAsync(const std::vector<std::string> &instruments_ids, CallbackFunc callback);
+    void SubscribeLastPriceAsync(const std::vector<std::string> &instruments_ids);
 
     // Last price unsubscription request, asynchronous call.
     bool UnsubscribeLastPriceAsync();
 
 protected:
     std::unique_ptr<MarketDataStreamService::Stub> service_;
+    CompletionQueue queue_;
 };
 
 } // tinkoff_invest_sdk_cpp_market_data_subscription_service

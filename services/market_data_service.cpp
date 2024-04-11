@@ -21,13 +21,13 @@ MarketData::MarketData(const std::string &token, std::shared_ptr<grpc::Channel> 
 
 ServiceReply MarketData::GetCandles(const std::string &instrument_id, int64_t from_seconds, int32_t from_nanos,
                                          int64_t to_seconds, int32_t to_nanos, CandleInterval interval) {
-    auto from = MakeTimestamp(from_seconds, from_nanos);
-    auto to = MakeTimestamp(to_seconds, to_nanos);
+    auto from = new Timestamp(MakeTimestamp(from_seconds, from_nanos));
+    auto to = new Timestamp(MakeTimestamp(to_seconds, to_nanos));
 
     GetCandlesRequest request;
     request.set_instrument_id(instrument_id);
-    request.set_allocated_from(&from);
-    request.set_allocated_to(&to);
+    request.set_allocated_from(from);
+    request.set_allocated_to(to);
     request.set_interval(interval);
 
     GetCandlesResponse reply;
@@ -78,13 +78,13 @@ ServiceReply MarketData::GetTradingStatuses(const std::vector<std::string> &inst
 
 ServiceReply MarketData::GetLastTrades(const std::string &instrument_id, int64_t from_seconds, int32_t from_nanos,
                            int64_t to_seconds, int32_t to_nanos) {
-    auto from = MakeTimestamp(from_seconds, from_nanos);
-    auto to = MakeTimestamp(to_seconds, to_nanos);
+    auto from = new Timestamp(MakeTimestamp(from_seconds, from_nanos));
+    auto to = new Timestamp(MakeTimestamp(to_seconds, to_nanos));
 
     GetLastTradesRequest request;
     request.set_instrument_id(instrument_id);
-    request.set_allocated_from(&from);
-    request.set_allocated_to(&to);
+    request.set_allocated_from(from);
+    request.set_allocated_to(to);
 
     GetLastTradesResponse reply;
     Status status = service_->GetLastTrades(MakeContext().get(), request, &reply);

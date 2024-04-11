@@ -10,7 +10,7 @@ using grpc::Status;
 
 MarketDataStream::MarketDataStream(const std::string &token, std::shared_ptr<grpc::Channel> channel) :
     BasedService(token),
-    service_(MarketDataStreamService::NewStub(channel)){
+    service_(MarketDataStreamService::NewStub(channel)) {
 }
 
 bool MarketDataStream::SubscribeCandles(const std::vector<std::pair<std::string,SubscriptionInterval>> &candle_instruments) {
@@ -131,8 +131,8 @@ bool MarketDataStream::SubscribeTrades(const std::vector<std::string> &instrumen
     auto sub = new SubscribeTradesRequest();
     sub->set_subscription_action(SubscriptionAction::SUBSCRIPTION_ACTION_SUBSCRIBE);
     for (const auto &instrument_id: instrument_ids) {
-        auto order_book_instrument = sub->add_instruments();
-        order_book_instrument->set_instrument_id(instrument_id);
+        auto trades_instrument = sub->add_instruments();
+        trades_instrument->set_instrument_id(instrument_id);
     }
 
     request.set_allocated_subscribe_trades_request(sub);
@@ -184,8 +184,8 @@ bool MarketDataStream::SubscribeInfo(const std::vector<std::string> &instrument_
     auto sub = new SubscribeInfoRequest();
     sub->set_subscription_action(SubscriptionAction::SUBSCRIPTION_ACTION_SUBSCRIBE);
     for (const auto &instrument_id: instrument_ids) {
-        auto order_book_instrument = sub->add_instruments();
-        order_book_instrument->set_instrument_id(instrument_id);
+        auto info_instrument = sub->add_instruments();
+        info_instrument->set_instrument_id(instrument_id);
     }
     request.set_allocated_subscribe_info_request(sub);
 
@@ -236,8 +236,8 @@ bool MarketDataStream::SubscribeLastPrice(const std::vector<std::string> &instru
     auto sub = new SubscribeLastPriceRequest();
     sub->set_subscription_action(SubscriptionAction::SUBSCRIPTION_ACTION_SUBSCRIBE);
     for (const auto &instrument_id: instrument_ids) {
-        auto order_book_instrument = sub->add_instruments();
-        order_book_instrument->set_instrument_id(instrument_id);
+        auto last_price_instrument = sub->add_instruments();
+        last_price_instrument->set_instrument_id(instrument_id);
     }
 
     request.set_allocated_subscribe_last_price_request(sub);
@@ -280,9 +280,11 @@ bool MarketDataStream::UnsubscribeLastPrice() {
     return status.ok();
 }
 
+/*
+
 void MarketDataStream::SubscribeCandlesAsync(const std::vector<std::pair<std::string,SubscriptionInterval>> &candle_instruments) {
     std::shared_ptr<ClientAsyncReaderWriter<MarketDataRequest, MarketDataResponse> > stream(
-        service_->AsyncMarketDataStream(MakeContext().get(), GetQueue().get(), nullptr));
+        service_->PrepareAsyncMarketDataStream(MakeContext().get(), &queue_));
 
     MarketDataRequest request;
 
@@ -295,6 +297,8 @@ void MarketDataStream::SubscribeCandlesAsync(const std::vector<std::pair<std::st
     }
 
     request.set_allocated_subscribe_candles_request(sub);
+
+    stream->
 
     std::thread writer([stream, request]() {
         stream->Write(request);
@@ -312,8 +316,8 @@ void MarketDataStream::SubscribeCandlesAsync(const std::vector<std::pair<std::st
 }
 
 void MarketDataStream::UnsubscribeCandlesAsync() {
-    std::shared_ptr<ClientReaderWriter<MarketDataRequest, MarketDataResponse> > stream(
-        service_->MarketDataStream(MakeContext().get()));
+    std::shared_ptr<ClientAsyncReaderWriter<MarketDataRequest, MarketDataResponse> > stream(
+        service_->PrepareAsyncMarketDataStream(MakeContext().get(), &queue_));
 
     MarketDataRequest request;
 
@@ -334,5 +338,7 @@ void MarketDataStream::UnsubscribeCandlesAsync() {
 
     Status status = stream->Finish();
 }
+
+*/
 
 } // tinkoff_invest_sdk_cpp_market_data_subscription_service
