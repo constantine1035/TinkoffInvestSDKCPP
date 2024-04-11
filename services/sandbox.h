@@ -13,9 +13,9 @@ using grpc::Channel;
 using tinkoff_invest_sdk_cpp_based_service::BasedService;
 using namespace tinkoff::public_::invest::api::contract::v1;
 
-class Sandbox : BasedService {
+class Sandbox : public BasedService {
 public:
-    Sandbox(const std::string &token, std::shared_ptr<Channel> channel);
+    Sandbox(std::shared_ptr<Channel> channel, const std::string &token);
 
     ~Sandbox() = default;
 

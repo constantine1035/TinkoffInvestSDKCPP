@@ -30,7 +30,7 @@ using namespace tinkoff::public_::invest::api::contract::v1;
 class MarketDataStream : public BasedService {
 public:
 
-    MarketDataStream(const std::string &token, std::shared_ptr<grpc::Channel> channel);
+    MarketDataStream(std::shared_ptr<Channel> channel, const std::string &token);
 
     ~MarketDataStream() = default;
 

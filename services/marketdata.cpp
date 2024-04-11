@@ -1,4 +1,4 @@
-#include "market_data_service.h"
+#include "marketdata.h"
 
 #include <thread>
 
@@ -14,7 +14,7 @@ static Timestamp MakeTimestamp(int64_t seconds, int32_t nanos) {
     return timestamp;
 }
 
-MarketData::MarketData(const std::string &token, std::shared_ptr<grpc::Channel> channel) :
+MarketData::MarketData(std::shared_ptr<Channel> channel, const std::string &token) :
     BasedService(token),
     service_(MarketDataService::NewStub(channel)) {
 }

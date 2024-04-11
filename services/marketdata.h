@@ -27,7 +27,7 @@ using namespace tinkoff::public_::invest::api::contract::v1;
 class MarketData : public BasedService {
 public:
 
-    MarketData(const std::string &token, std::shared_ptr<Channel> channel);
+    MarketData(std::shared_ptr<Channel> channel, const std::string &token);
 
     ~MarketData() = default;
 

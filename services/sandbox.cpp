@@ -1,4 +1,4 @@
-#include "sandbox_service.h"
+#include "sandbox.h"
 
 namespace tinkoff_invest_sdk_cpp_sandbox_service {
 
@@ -12,7 +12,7 @@ static Timestamp MakeTimestamp(int64_t seconds, int32_t nanos) {
     return timestamp;
 }
 
-Sandbox::Sandbox(const std::string &token, std::shared_ptr<Channel> channel) :
+Sandbox::Sandbox(std::shared_ptr<Channel> channel, const std::string &token) :
     BasedService(token),
     service_(SandboxService::NewStub(channel)) {
 }

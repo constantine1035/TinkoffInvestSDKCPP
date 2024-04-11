@@ -1,4 +1,4 @@
-#include "market_data_subscription_service.h"
+#include "marketdata_subscription.h"
 
 #include <thread>
 
@@ -8,7 +8,7 @@ using grpc::ClientReaderWriter;
 using grpc::ClientAsyncReaderWriter;
 using grpc::Status;
 
-MarketDataStream::MarketDataStream(const std::string &token, std::shared_ptr<grpc::Channel> channel) :
+MarketDataStream::MarketDataStream(std::shared_ptr<Channel> channel, const std::string &token) :
     BasedService(token),
     service_(MarketDataStreamService::NewStub(channel)) {
 }

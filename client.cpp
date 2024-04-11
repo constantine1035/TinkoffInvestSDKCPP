@@ -1,15 +1,19 @@
 #include "client.h"
 
-#include "services/reply.h"
-#include "services/users.h"
-//#include "instruments.h"  TBD
-//#include "operations.h"  TBD
+#include "services/instruments.h"
+#include "services/marketdata.h"
+#include "services/marketdata_subscription.h"
+#include "services/operations.h"
 #include "services/orders.h"
-//#include "ordersstream.h"  TBD
+//#include "services/ordersstream.h"  TBD
+#include "services/reply.h"
+#include "services/sandbox.h"
 #include "services/stoporders.h"
-//#include "sandbox.h"   TBD
-//#include "marketdata.h"  TBD
-//#include "marketdatastream.h"  TBD
+#include "services/users.h"
+
+using tinkoff_invest_sdk_cpp_sandbox_service::Sandbox;
+using tinkoff_invest_sdk_cpp_market_data_service::MarketData;
+using tinkoff_invest_sdk_cpp_market_data_subscription_service::MarketDataStream;
 
 //#ifdef _WIN32
 //#include <Windows.h>
@@ -62,16 +66,15 @@ InvestApiClient::InvestApiClient(const std::string& host, const std::string& pas
 //       grpc::SslCredentialsOptions()
 //#endif
 
-
-    services_["users"] = std::make_shared<Users>(channel, pass);
-//    services_["sandbox"] = std::make_shared<Sandbox>(channel, pass);  TBD
-//    services_["marketdata"] = std::make_shared<MarketData>(channel, pass);  TBD
-//    services_["instruments"] = std::make_shared<Instruments>(channel, pass);  TBD
-//    services_["operations"] = std::make_shared<Operations>(channel, pass);  TBD
+    services_["instruments"] = std::make_shared<Instruments>(channel, pass);
+    services_["marketdata"] = std::make_shared<MarketData>(channel, pass);
+    services_["marketdatastream"] = std::make_shared<MarketDataStream>(channel, pass);
+    services_["operations"] = std::make_shared<Operations>(channel, pass);
     services_["orders"] = std::make_shared<Orders>(channel, pass);
-    services_["stoporders"] = std::make_shared<StopOrders>(channel, pass);
-//    services_["marketdatastream"] = std::make_shared<MarketDataStream>(channel, pass);  TBD
 //    services_["ordersstream"] = std::make_shared<OrdersStream>(channel, pass);  TBD
+    services_["sandbox"] = std::make_shared<Sandbox>(channel, pass);
+    services_["stoporders"] = std::make_shared<StopOrders>(channel, pass);
+    services_["users"] = std::make_shared<Users>(channel, pass);
 }
 
 InvestApiClient::~InvestApiClient() {

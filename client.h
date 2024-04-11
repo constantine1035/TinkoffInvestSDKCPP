@@ -1,7 +1,7 @@
 #pragma once
 
 #include <grpcpp/grpcpp.h>
-#include "sandbox.grpc.pb.h"
+#include "protofiles/sandbox.grpc.pb.h"
 #include "services/based_service.h"
 
 using grpc::Channel;
