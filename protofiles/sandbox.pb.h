@@ -39,6 +39,7 @@
 #include "orders.pb.h"
 #include "operations.pb.h"
 #include "users.pb.h"
+#include "google/api/field_behavior.pb.h"
 // @@protoc_insertion_point(includes)
 
 // Must be included last.
@@ -289,9 +290,10 @@ class OpenSandboxAccountResponse final :
 };// -------------------------------------------------------------------
 
 class OpenSandboxAccountRequest final :
-    public ::google::protobuf::internal::ZeroFieldsBase /* @@protoc_insertion_point(class_definition:tinkoff.public_.invest.api.contract.v1.OpenSandboxAccountRequest) */ {
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:tinkoff.public_.invest.api.contract.v1.OpenSandboxAccountRequest) */ {
  public:
   inline OpenSandboxAccountRequest() : OpenSandboxAccountRequest(nullptr) {}
+  ~OpenSandboxAccountRequest() override;
   template<typename = void>
   explicit PROTOBUF_CONSTEXPR OpenSandboxAccountRequest(::google::protobuf::internal::ConstantInitialized);
 
@@ -375,15 +377,29 @@ class OpenSandboxAccountRequest final :
   OpenSandboxAccountRequest* New(::google::protobuf::Arena* arena = nullptr) const final {
     return CreateMaybeMessage<OpenSandboxAccountRequest>(arena);
   }
-  using ::google::protobuf::internal::ZeroFieldsBase::CopyFrom;
-  inline void CopyFrom(const OpenSandboxAccountRequest& from) {
-    ::google::protobuf::internal::ZeroFieldsBase::CopyImpl(*this, from);
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const OpenSandboxAccountRequest& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom( const OpenSandboxAccountRequest& from) {
+    OpenSandboxAccountRequest::MergeImpl(*this, from);
   }
-  using ::google::protobuf::internal::ZeroFieldsBase::MergeFrom;
-  void MergeFrom(const OpenSandboxAccountRequest& from) {
-    ::google::protobuf::internal::ZeroFieldsBase::MergeImpl(*this, from);
-  }
+  private:
+  static void MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg);
   public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::google::protobuf::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  ::google::protobuf::internal::CachedSize* AccessCachedSize() const final;
+  void SharedCtor(::google::protobuf::Arena* arena);
+  void SharedDtor();
+  void InternalSwap(OpenSandboxAccountRequest* other);
 
   private:
   friend class ::google::protobuf::internal::AnyMetadata;
@@ -395,16 +411,44 @@ class OpenSandboxAccountRequest final :
   OpenSandboxAccountRequest(::google::protobuf::Arena* arena, const OpenSandboxAccountRequest& from);
   public:
 
+  static const ClassData _class_data_;
+  const ::google::protobuf::Message::ClassData*GetClassData() const final;
+
   ::google::protobuf::Metadata GetMetadata() const final;
 
   // nested types ----------------------------------------------------
 
   // accessors -------------------------------------------------------
 
+  enum : int {
+    kNameFieldNumber = 1,
+  };
+  // optional string name = 1;
+  bool has_name() const;
+  void clear_name() ;
+  const std::string& name() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_name(Arg_&& arg, Args_... args);
+  std::string* mutable_name();
+  PROTOBUF_NODISCARD std::string* release_name();
+  void set_allocated_name(std::string* value);
+
+  private:
+  const std::string& _internal_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_name(
+      const std::string& value);
+  std::string* _internal_mutable_name();
+
+  public:
   // @@protoc_insertion_point(class_scope:tinkoff.public_.invest.api.contract.v1.OpenSandboxAccountRequest)
  private:
   class _Internal;
 
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      0, 1, 0,
+      77, 2>
+      _table_;
   friend class ::google::protobuf::MessageLite;
   friend class ::google::protobuf::Arena;
   template <typename T>
@@ -419,8 +463,12 @@ class OpenSandboxAccountRequest final :
                               ::google::protobuf::Arena* arena);
         inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
                               ::google::protobuf::Arena* arena, const Impl_& from);
+    ::google::protobuf::internal::HasBits<1> _has_bits_;
+    mutable ::google::protobuf::internal::CachedSize _cached_size_;
+    ::google::protobuf::internal::ArenaStringPtr name_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
+  union { Impl_ _impl_; };
   friend struct ::TableStruct_sandbox_2eproto;
 };// -------------------------------------------------------------------
 
@@ -694,7 +742,7 @@ class CloseSandboxAccountRequest final :
   enum : int {
     kAccountIdFieldNumber = 1,
   };
-  // string account_id = 1;
+  // string account_id = 1 [(.google.api.field_behavior) = REQUIRED];
   void clear_account_id() ;
   const std::string& account_id() const;
   template <typename Arg_ = const std::string&, typename... Args_>
@@ -1057,7 +1105,7 @@ class SandboxPayInRequest final :
     kAccountIdFieldNumber = 1,
     kAmountFieldNumber = 2,
   };
-  // string account_id = 1;
+  // string account_id = 1 [(.google.api.field_behavior) = REQUIRED];
   void clear_account_id() ;
   const std::string& account_id() const;
   template <typename Arg_ = const std::string&, typename... Args_>
@@ -1073,7 +1121,7 @@ class SandboxPayInRequest final :
   std::string* _internal_mutable_account_id();
 
   public:
-  // .tinkoff.public_.invest.api.contract.v1.MoneyValue amount = 2;
+  // .tinkoff.public_.invest.api.contract.v1.MoneyValue amount = 2 [(.google.api.field_behavior) = REQUIRED];
   bool has_amount() const;
   void clear_amount() ;
   const ::tinkoff::public_::invest::api::contract::v1::MoneyValue& amount() const;
@@ -1137,6 +1185,77 @@ class SandboxPayInRequest final :
 
 // OpenSandboxAccountRequest
 
+// optional string name = 1;
+inline bool OpenSandboxAccountRequest::has_name() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline void OpenSandboxAccountRequest::clear_name() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.name_.ClearToEmpty();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& OpenSandboxAccountRequest::name() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.OpenSandboxAccountRequest.name)
+  return _internal_name();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void OpenSandboxAccountRequest::set_name(Arg_&& arg,
+                                                     Args_... args) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_.name_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:tinkoff.public_.invest.api.contract.v1.OpenSandboxAccountRequest.name)
+}
+inline std::string* OpenSandboxAccountRequest::mutable_name() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_name();
+  // @@protoc_insertion_point(field_mutable:tinkoff.public_.invest.api.contract.v1.OpenSandboxAccountRequest.name)
+  return _s;
+}
+inline const std::string& OpenSandboxAccountRequest::_internal_name() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  return _impl_.name_.Get();
+}
+inline void OpenSandboxAccountRequest::_internal_set_name(const std::string& value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_.name_.Set(value, GetArena());
+}
+inline std::string* OpenSandboxAccountRequest::_internal_mutable_name() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_._has_bits_[0] |= 0x00000001u;
+  return _impl_.name_.Mutable( GetArena());
+}
+inline std::string* OpenSandboxAccountRequest::release_name() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  // @@protoc_insertion_point(field_release:tinkoff.public_.invest.api.contract.v1.OpenSandboxAccountRequest.name)
+  if ((_impl_._has_bits_[0] & 0x00000001u) == 0) {
+    return nullptr;
+  }
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  auto* released = _impl_.name_.Release();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.name_.Set("", GetArena());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return released;
+}
+inline void OpenSandboxAccountRequest::set_allocated_name(std::string* value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.name_.SetAllocated(value, GetArena());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.name_.IsDefault()) {
+          _impl_.name_.Set("", GetArena());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.OpenSandboxAccountRequest.name)
+}
+
 // -------------------------------------------------------------------
 
 // OpenSandboxAccountResponse
@@ -1198,7 +1317,7 @@ inline void OpenSandboxAccountResponse::set_allocated_account_id(std::string* va
 
 // CloseSandboxAccountRequest
 
-// string account_id = 1;
+// string account_id = 1 [(.google.api.field_behavior) = REQUIRED];
 inline void CloseSandboxAccountRequest::clear_account_id() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.account_id_.ClearToEmpty();
@@ -1259,7 +1378,7 @@ inline void CloseSandboxAccountRequest::set_allocated_account_id(std::string* va
 
 // SandboxPayInRequest
 
-// string account_id = 1;
+// string account_id = 1 [(.google.api.field_behavior) = REQUIRED];
 inline void SandboxPayInRequest::clear_account_id() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.account_id_.ClearToEmpty();
@@ -1312,7 +1431,7 @@ inline void SandboxPayInRequest::set_allocated_account_id(std::string* value) {
   // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.SandboxPayInRequest.account_id)
 }
 
-// .tinkoff.public_.invest.api.contract.v1.MoneyValue amount = 2;
+// .tinkoff.public_.invest.api.contract.v1.MoneyValue amount = 2 [(.google.api.field_behavior) = REQUIRED];
 inline bool SandboxPayInRequest::has_amount() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.amount_ != nullptr);

@@ -15,13 +15,13 @@
 #include <grpcpp/completion_queue.h>
 #include <grpcpp/support/message_allocator.h>
 #include <grpcpp/support/method_handler.h>
-#include <grpcpp/impl/codegen/proto_utils.h>
+#include <grpcpp/impl/proto_utils.h>
 #include <grpcpp/impl/rpc_method.h>
 #include <grpcpp/support/server_callback.h>
-#include <grpcpp/impl/codegen/server_callback_handlers.h>
+#include <grpcpp/impl/server_callback_handlers.h>
 #include <grpcpp/server_context.h>
 #include <grpcpp/impl/service_type.h>
-#include <grpcpp/impl/codegen/status.h>
+#include <grpcpp/support/status.h>
 #include <grpcpp/support/stub_options.h>
 #include <grpcpp/support/sync_stream.h>
 
@@ -289,6 +289,22 @@ class OrdersService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::PostOrderResponse>> PrepareAsyncReplaceOrder(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::ReplaceOrderRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::PostOrderResponse>>(PrepareAsyncReplaceOrderRaw(context, request, cq));
     }
+    // расчет количества доступных для покупки/продажи лотов
+    virtual ::grpc::Status GetMaxLots(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsRequest& request, ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsResponse>> AsyncGetMaxLots(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsResponse>>(AsyncGetMaxLotsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsResponse>> PrepareAsyncGetMaxLots(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsResponse>>(PrepareAsyncGetMaxLotsRaw(context, request, cq));
+    }
+    // Метод получения предварительной стоимости для лимитной заявки
+    virtual ::grpc::Status GetOrderPrice(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceRequest& request, ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceResponse>> AsyncGetOrderPrice(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceResponse>>(AsyncGetOrderPriceRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceResponse>> PrepareAsyncGetOrderPrice(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceResponse>>(PrepareAsyncGetOrderPriceRaw(context, request, cq));
+    }
     class async_interface {
      public:
       virtual ~async_interface() {}
@@ -307,6 +323,12 @@ class OrdersService final {
       // Метод изменения выставленной заявки.
       virtual void ReplaceOrder(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::ReplaceOrderRequest* request, ::tinkoff::public_::invest::api::contract::v1::PostOrderResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void ReplaceOrder(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::ReplaceOrderRequest* request, ::tinkoff::public_::invest::api::contract::v1::PostOrderResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // расчет количества доступных для покупки/продажи лотов
+      virtual void GetMaxLots(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetMaxLots(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Метод получения предварительной стоимости для лимитной заявки
+      virtual void GetOrderPrice(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetOrderPrice(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
@@ -322,6 +344,10 @@ class OrdersService final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetOrdersResponse>* PrepareAsyncGetOrdersRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetOrdersRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::PostOrderResponse>* AsyncReplaceOrderRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::ReplaceOrderRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::PostOrderResponse>* PrepareAsyncReplaceOrderRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::ReplaceOrderRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsResponse>* AsyncGetMaxLotsRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsResponse>* PrepareAsyncGetMaxLotsRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceResponse>* AsyncGetOrderPriceRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceResponse>* PrepareAsyncGetOrderPriceRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -361,6 +387,20 @@ class OrdersService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::PostOrderResponse>> PrepareAsyncReplaceOrder(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::ReplaceOrderRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::PostOrderResponse>>(PrepareAsyncReplaceOrderRaw(context, request, cq));
     }
+    ::grpc::Status GetMaxLots(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsRequest& request, ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsResponse>> AsyncGetMaxLots(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsResponse>>(AsyncGetMaxLotsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsResponse>> PrepareAsyncGetMaxLots(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsResponse>>(PrepareAsyncGetMaxLotsRaw(context, request, cq));
+    }
+    ::grpc::Status GetOrderPrice(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceRequest& request, ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceResponse>> AsyncGetOrderPrice(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceResponse>>(AsyncGetOrderPriceRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceResponse>> PrepareAsyncGetOrderPrice(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceResponse>>(PrepareAsyncGetOrderPriceRaw(context, request, cq));
+    }
     class async final :
       public StubInterface::async_interface {
      public:
@@ -374,6 +414,10 @@ class OrdersService final {
       void GetOrders(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetOrdersRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetOrdersResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void ReplaceOrder(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::ReplaceOrderRequest* request, ::tinkoff::public_::invest::api::contract::v1::PostOrderResponse* response, std::function<void(::grpc::Status)>) override;
       void ReplaceOrder(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::ReplaceOrderRequest* request, ::tinkoff::public_::invest::api::contract::v1::PostOrderResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void GetMaxLots(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetMaxLots(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void GetOrderPrice(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetOrderPrice(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
       explicit async(Stub* stub): stub_(stub) { }
@@ -395,11 +439,17 @@ class OrdersService final {
     ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetOrdersResponse>* PrepareAsyncGetOrdersRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetOrdersRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::PostOrderResponse>* AsyncReplaceOrderRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::ReplaceOrderRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::PostOrderResponse>* PrepareAsyncReplaceOrderRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::ReplaceOrderRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsResponse>* AsyncGetMaxLotsRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsResponse>* PrepareAsyncGetMaxLotsRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceResponse>* AsyncGetOrderPriceRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceResponse>* PrepareAsyncGetOrderPriceRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_PostOrder_;
     const ::grpc::internal::RpcMethod rpcmethod_CancelOrder_;
     const ::grpc::internal::RpcMethod rpcmethod_GetOrderState_;
     const ::grpc::internal::RpcMethod rpcmethod_GetOrders_;
     const ::grpc::internal::RpcMethod rpcmethod_ReplaceOrder_;
+    const ::grpc::internal::RpcMethod rpcmethod_GetMaxLots_;
+    const ::grpc::internal::RpcMethod rpcmethod_GetOrderPrice_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -417,6 +467,10 @@ class OrdersService final {
     virtual ::grpc::Status GetOrders(::grpc::ServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetOrdersRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetOrdersResponse* response);
     // Метод изменения выставленной заявки.
     virtual ::grpc::Status ReplaceOrder(::grpc::ServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::ReplaceOrderRequest* request, ::tinkoff::public_::invest::api::contract::v1::PostOrderResponse* response);
+    // расчет количества доступных для покупки/продажи лотов
+    virtual ::grpc::Status GetMaxLots(::grpc::ServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsResponse* response);
+    // Метод получения предварительной стоимости для лимитной заявки
+    virtual ::grpc::Status GetOrderPrice(::grpc::ServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceResponse* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_PostOrder : public BaseClass {
@@ -518,7 +572,47 @@ class OrdersService final {
       ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_PostOrder<WithAsyncMethod_CancelOrder<WithAsyncMethod_GetOrderState<WithAsyncMethod_GetOrders<WithAsyncMethod_ReplaceOrder<Service > > > > > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_GetMaxLots : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_GetMaxLots() {
+      ::grpc::Service::MarkMethodAsync(5);
+    }
+    ~WithAsyncMethod_GetMaxLots() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetMaxLots(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetMaxLots(::grpc::ServerContext* context, ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsRequest* request, ::grpc::ServerAsyncResponseWriter< ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_GetOrderPrice : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_GetOrderPrice() {
+      ::grpc::Service::MarkMethodAsync(6);
+    }
+    ~WithAsyncMethod_GetOrderPrice() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetOrderPrice(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetOrderPrice(::grpc::ServerContext* context, ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceRequest* request, ::grpc::ServerAsyncResponseWriter< ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_PostOrder<WithAsyncMethod_CancelOrder<WithAsyncMethod_GetOrderState<WithAsyncMethod_GetOrders<WithAsyncMethod_ReplaceOrder<WithAsyncMethod_GetMaxLots<WithAsyncMethod_GetOrderPrice<Service > > > > > > > AsyncService;
   template <class BaseClass>
   class WithCallbackMethod_PostOrder : public BaseClass {
    private:
@@ -654,7 +748,61 @@ class OrdersService final {
     virtual ::grpc::ServerUnaryReactor* ReplaceOrder(
       ::grpc::CallbackServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::ReplaceOrderRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::PostOrderResponse* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_PostOrder<WithCallbackMethod_CancelOrder<WithCallbackMethod_GetOrderState<WithCallbackMethod_GetOrders<WithCallbackMethod_ReplaceOrder<Service > > > > > CallbackService;
+  template <class BaseClass>
+  class WithCallbackMethod_GetMaxLots : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetMaxLots() {
+      ::grpc::Service::MarkMethodCallback(5,
+          new ::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsRequest, ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsResponse* response) { return this->GetMaxLots(context, request, response); }));}
+    void SetMessageAllocatorFor_GetMaxLots(
+        ::grpc::MessageAllocator< ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsRequest, ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsRequest, ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetMaxLots() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetMaxLots(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetMaxLots(
+      ::grpc::CallbackServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_GetOrderPrice : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetOrderPrice() {
+      ::grpc::Service::MarkMethodCallback(6,
+          new ::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceRequest, ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceResponse* response) { return this->GetOrderPrice(context, request, response); }));}
+    void SetMessageAllocatorFor_GetOrderPrice(
+        ::grpc::MessageAllocator< ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceRequest, ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceRequest, ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetOrderPrice() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetOrderPrice(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetOrderPrice(
+      ::grpc::CallbackServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceResponse* /*response*/)  { return nullptr; }
+  };
+  typedef WithCallbackMethod_PostOrder<WithCallbackMethod_CancelOrder<WithCallbackMethod_GetOrderState<WithCallbackMethod_GetOrders<WithCallbackMethod_ReplaceOrder<WithCallbackMethod_GetMaxLots<WithCallbackMethod_GetOrderPrice<Service > > > > > > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_PostOrder : public BaseClass {
@@ -737,6 +885,40 @@ class OrdersService final {
     }
     // disable synchronous version of this method
     ::grpc::Status ReplaceOrder(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::ReplaceOrderRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::PostOrderResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_GetMaxLots : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_GetMaxLots() {
+      ::grpc::Service::MarkMethodGeneric(5);
+    }
+    ~WithGenericMethod_GetMaxLots() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetMaxLots(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_GetOrderPrice : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_GetOrderPrice() {
+      ::grpc::Service::MarkMethodGeneric(6);
+    }
+    ~WithGenericMethod_GetOrderPrice() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetOrderPrice(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -839,6 +1021,46 @@ class OrdersService final {
     }
     void RequestReplaceOrder(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_GetMaxLots : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_GetMaxLots() {
+      ::grpc::Service::MarkMethodRaw(5);
+    }
+    ~WithRawMethod_GetMaxLots() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetMaxLots(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetMaxLots(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_GetOrderPrice : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_GetOrderPrice() {
+      ::grpc::Service::MarkMethodRaw(6);
+    }
+    ~WithRawMethod_GetOrderPrice() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetOrderPrice(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetOrderPrice(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -949,6 +1171,50 @@ class OrdersService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::ServerUnaryReactor* ReplaceOrder(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetMaxLots : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetMaxLots() {
+      ::grpc::Service::MarkMethodRawCallback(5,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetMaxLots(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetMaxLots() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetMaxLots(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetMaxLots(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetOrderPrice : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetOrderPrice() {
+      ::grpc::Service::MarkMethodRawCallback(6,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetOrderPrice(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetOrderPrice() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetOrderPrice(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetOrderPrice(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
@@ -1086,9 +1352,63 @@ class OrdersService final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedReplaceOrder(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::tinkoff::public_::invest::api::contract::v1::ReplaceOrderRequest,::tinkoff::public_::invest::api::contract::v1::PostOrderResponse>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_PostOrder<WithStreamedUnaryMethod_CancelOrder<WithStreamedUnaryMethod_GetOrderState<WithStreamedUnaryMethod_GetOrders<WithStreamedUnaryMethod_ReplaceOrder<Service > > > > > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_GetMaxLots : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_GetMaxLots() {
+      ::grpc::Service::MarkMethodStreamed(5,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsRequest, ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsRequest, ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsResponse>* streamer) {
+                       return this->StreamedGetMaxLots(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_GetMaxLots() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status GetMaxLots(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedGetMaxLots(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::tinkoff::public_::invest::api::contract::v1::GetMaxLotsRequest,::tinkoff::public_::invest::api::contract::v1::GetMaxLotsResponse>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_GetOrderPrice : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_GetOrderPrice() {
+      ::grpc::Service::MarkMethodStreamed(6,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceRequest, ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceRequest, ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceResponse>* streamer) {
+                       return this->StreamedGetOrderPrice(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_GetOrderPrice() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status GetOrderPrice(::grpc::ServerContext* /*context*/, const ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceRequest* /*request*/, ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedGetOrderPrice(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::tinkoff::public_::invest::api::contract::v1::GetOrderPriceRequest,::tinkoff::public_::invest::api::contract::v1::GetOrderPriceResponse>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_PostOrder<WithStreamedUnaryMethod_CancelOrder<WithStreamedUnaryMethod_GetOrderState<WithStreamedUnaryMethod_GetOrders<WithStreamedUnaryMethod_ReplaceOrder<WithStreamedUnaryMethod_GetMaxLots<WithStreamedUnaryMethod_GetOrderPrice<Service > > > > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_PostOrder<WithStreamedUnaryMethod_CancelOrder<WithStreamedUnaryMethod_GetOrderState<WithStreamedUnaryMethod_GetOrders<WithStreamedUnaryMethod_ReplaceOrder<Service > > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_PostOrder<WithStreamedUnaryMethod_CancelOrder<WithStreamedUnaryMethod_GetOrderState<WithStreamedUnaryMethod_GetOrders<WithStreamedUnaryMethod_ReplaceOrder<WithStreamedUnaryMethod_GetMaxLots<WithStreamedUnaryMethod_GetOrderPrice<Service > > > > > > > StreamedService;
 };
 // Сервис предназначен для работы с торговыми поручениями:</br> **1**.
 // выставление;</br> **2**. отмена;</br> **3**. получение статуса;</br> **4**.

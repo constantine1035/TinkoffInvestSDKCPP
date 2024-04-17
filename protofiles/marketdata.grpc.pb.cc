@@ -15,7 +15,7 @@
 #include <grpcpp/support/method_handler.h>
 #include <grpcpp/impl/rpc_service_method.h>
 #include <grpcpp/support/server_callback.h>
-#include <grpcpp/impl/codegen/server_callback_handlers.h>
+#include <grpcpp/impl/server_callback_handlers.h>
 #include <grpcpp/server_context.h>
 #include <grpcpp/impl/service_type.h>
 #include <grpcpp/support/sync_stream.h>
@@ -34,6 +34,7 @@ static const char* MarketDataService_method_names[] = {
   "/tinkoff.public_.invest.api.contract.v1.MarketDataService/GetTradingStatuses",
   "/tinkoff.public_.invest.api.contract.v1.MarketDataService/GetLastTrades",
   "/tinkoff.public_.invest.api.contract.v1.MarketDataService/GetClosePrices",
+  "/tinkoff.public_.invest.api.contract.v1.MarketDataService/GetTechAnalysis",
 };
 
 std::unique_ptr< MarketDataService::Stub> MarketDataService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -50,6 +51,7 @@ MarketDataService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& 
   , rpcmethod_GetTradingStatuses_(MarketDataService_method_names[4], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_GetLastTrades_(MarketDataService_method_names[5], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_GetClosePrices_(MarketDataService_method_names[6], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetTechAnalysis_(MarketDataService_method_names[7], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status MarketDataService::Stub::GetCandles(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetCandlesRequest& request, ::tinkoff::public_::invest::api::contract::v1::GetCandlesResponse* response) {
@@ -213,6 +215,29 @@ void MarketDataService::Stub::async::GetClosePrices(::grpc::ClientContext* conte
   return result;
 }
 
+::grpc::Status MarketDataService::Stub::GetTechAnalysis(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetTechAnalysisRequest& request, ::tinkoff::public_::invest::api::contract::v1::GetTechAnalysisResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::tinkoff::public_::invest::api::contract::v1::GetTechAnalysisRequest, ::tinkoff::public_::invest::api::contract::v1::GetTechAnalysisResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetTechAnalysis_, context, request, response);
+}
+
+void MarketDataService::Stub::async::GetTechAnalysis(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetTechAnalysisRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetTechAnalysisResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::tinkoff::public_::invest::api::contract::v1::GetTechAnalysisRequest, ::tinkoff::public_::invest::api::contract::v1::GetTechAnalysisResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetTechAnalysis_, context, request, response, std::move(f));
+}
+
+void MarketDataService::Stub::async::GetTechAnalysis(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetTechAnalysisRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetTechAnalysisResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetTechAnalysis_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetTechAnalysisResponse>* MarketDataService::Stub::PrepareAsyncGetTechAnalysisRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetTechAnalysisRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::tinkoff::public_::invest::api::contract::v1::GetTechAnalysisResponse, ::tinkoff::public_::invest::api::contract::v1::GetTechAnalysisRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetTechAnalysis_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::tinkoff::public_::invest::api::contract::v1::GetTechAnalysisResponse>* MarketDataService::Stub::AsyncGetTechAnalysisRaw(::grpc::ClientContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetTechAnalysisRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncGetTechAnalysisRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
 MarketDataService::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       MarketDataService_method_names[0],
@@ -284,6 +309,16 @@ MarketDataService::Service::Service() {
              ::tinkoff::public_::invest::api::contract::v1::GetClosePricesResponse* resp) {
                return service->GetClosePrices(ctx, req, resp);
              }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      MarketDataService_method_names[7],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< MarketDataService::Service, ::tinkoff::public_::invest::api::contract::v1::GetTechAnalysisRequest, ::tinkoff::public_::invest::api::contract::v1::GetTechAnalysisResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](MarketDataService::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::tinkoff::public_::invest::api::contract::v1::GetTechAnalysisRequest* req,
+             ::tinkoff::public_::invest::api::contract::v1::GetTechAnalysisResponse* resp) {
+               return service->GetTechAnalysis(ctx, req, resp);
+             }, this)));
 }
 
 MarketDataService::Service::~Service() {
@@ -332,6 +367,13 @@ MarketDataService::Service::~Service() {
 }
 
 ::grpc::Status MarketDataService::Service::GetClosePrices(::grpc::ServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetClosePricesRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetClosePricesResponse* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status MarketDataService::Service::GetTechAnalysis(::grpc::ServerContext* context, const ::tinkoff::public_::invest::api::contract::v1::GetTechAnalysisRequest* request, ::tinkoff::public_::invest::api::contract::v1::GetTechAnalysisResponse* response) {
   (void) context;
   (void) request;
   (void) response;

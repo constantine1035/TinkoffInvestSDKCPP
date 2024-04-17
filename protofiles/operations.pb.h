@@ -37,6 +37,7 @@
 #include "google/protobuf/unknown_field_set.h"
 #include "google/protobuf/timestamp.pb.h"
 #include "common.pb.h"
+#include "google/api/field_behavior.pb.h"
 // @@protoc_insertion_point(includes)
 
 // Must be included last.
@@ -585,7 +586,7 @@ class WithdrawLimitsRequest final :
   enum : int {
     kAccountIdFieldNumber = 1,
   };
-  // string account_id = 1;
+  // string account_id = 1 [(.google.api.field_behavior) = REQUIRED];
   void clear_account_id() ;
   const std::string& account_id() const;
   template <typename Arg_ = const std::string&, typename... Args_>
@@ -1423,7 +1424,7 @@ class PositionsRequest final :
   enum : int {
     kAccountIdFieldNumber = 1,
   };
-  // string account_id = 1;
+  // string account_id = 1 [(.google.api.field_behavior) = REQUIRED];
   void clear_account_id() ;
   const std::string& account_id() const;
   template <typename Arg_ = const std::string&, typename... Args_>
@@ -2283,7 +2284,7 @@ class PortfolioRequest final :
     kAccountIdFieldNumber = 1,
     kCurrencyFieldNumber = 2,
   };
-  // string account_id = 1;
+  // string account_id = 1 [(.google.api.field_behavior) = REQUIRED];
   void clear_account_id() ;
   const std::string& account_id() const;
   template <typename Arg_ = const std::string&, typename... Args_>
@@ -2299,7 +2300,8 @@ class PortfolioRequest final :
   std::string* _internal_mutable_account_id();
 
   public:
-  // .tinkoff.public_.invest.api.contract.v1.PortfolioRequest.CurrencyRequest currency = 2;
+  // optional .tinkoff.public_.invest.api.contract.v1.PortfolioRequest.CurrencyRequest currency = 2;
+  bool has_currency() const;
   void clear_currency() ;
   ::tinkoff::public_::invest::api::contract::v1::PortfolioRequest_CurrencyRequest currency() const;
   void set_currency(::tinkoff::public_::invest::api::contract::v1::PortfolioRequest_CurrencyRequest value);
@@ -2332,9 +2334,10 @@ class PortfolioRequest final :
                               ::google::protobuf::Arena* arena);
         inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
                               ::google::protobuf::Arena* arena, const Impl_& from);
+    ::google::protobuf::internal::HasBits<1> _has_bits_;
+    mutable ::google::protobuf::internal::CachedSize _cached_size_;
     ::google::protobuf::internal::ArenaStringPtr account_id_;
     int currency_;
-    mutable ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
   union { Impl_ _impl_; };
@@ -2476,7 +2479,7 @@ class GetDividendsForeignIssuerReportRequest final :
     kTaskIdFieldNumber = 1,
     kPageFieldNumber = 2,
   };
-  // string task_id = 1;
+  // string task_id = 1 [(.google.api.field_behavior) = REQUIRED];
   void clear_task_id() ;
   const std::string& task_id() const;
   template <typename Arg_ = const std::string&, typename... Args_>
@@ -2492,7 +2495,8 @@ class GetDividendsForeignIssuerReportRequest final :
   std::string* _internal_mutable_task_id();
 
   public:
-  // int32 page = 2;
+  // optional int32 page = 2;
+  bool has_page() const;
   void clear_page() ;
   ::int32_t page() const;
   void set_page(::int32_t value);
@@ -2525,9 +2529,10 @@ class GetDividendsForeignIssuerReportRequest final :
                               ::google::protobuf::Arena* arena);
         inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
                               ::google::protobuf::Arena* arena, const Impl_& from);
+    ::google::protobuf::internal::HasBits<1> _has_bits_;
+    mutable ::google::protobuf::internal::CachedSize _cached_size_;
     ::google::protobuf::internal::ArenaStringPtr task_id_;
     ::int32_t page_;
-    mutable ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
   union { Impl_ _impl_; };
@@ -2669,7 +2674,7 @@ class GetBrokerReportRequest final :
     kTaskIdFieldNumber = 1,
     kPageFieldNumber = 2,
   };
-  // string task_id = 1;
+  // string task_id = 1 [(.google.api.field_behavior) = REQUIRED];
   void clear_task_id() ;
   const std::string& task_id() const;
   template <typename Arg_ = const std::string&, typename... Args_>
@@ -2685,7 +2690,8 @@ class GetBrokerReportRequest final :
   std::string* _internal_mutable_task_id();
 
   public:
-  // int32 page = 2;
+  // optional int32 page = 2;
+  bool has_page() const;
   void clear_page() ;
   ::int32_t page() const;
   void set_page(::int32_t value);
@@ -2718,9 +2724,10 @@ class GetBrokerReportRequest final :
                               ::google::protobuf::Arena* arena);
         inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
                               ::google::protobuf::Arena* arena, const Impl_& from);
+    ::google::protobuf::internal::HasBits<1> _has_bits_;
+    mutable ::google::protobuf::internal::CachedSize _cached_size_;
     ::google::protobuf::internal::ArenaStringPtr task_id_;
     ::int32_t page_;
-    mutable ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
   union { Impl_ _impl_; };
@@ -5272,7 +5279,7 @@ class OperationsRequest final :
     kToFieldNumber = 3,
     kStateFieldNumber = 4,
   };
-  // string account_id = 1;
+  // string account_id = 1 [(.google.api.field_behavior) = REQUIRED];
   void clear_account_id() ;
   const std::string& account_id() const;
   template <typename Arg_ = const std::string&, typename... Args_>
@@ -5288,7 +5295,8 @@ class OperationsRequest final :
   std::string* _internal_mutable_account_id();
 
   public:
-  // string figi = 5;
+  // optional string figi = 5;
+  bool has_figi() const;
   void clear_figi() ;
   const std::string& figi() const;
   template <typename Arg_ = const std::string&, typename... Args_>
@@ -5304,7 +5312,7 @@ class OperationsRequest final :
   std::string* _internal_mutable_figi();
 
   public:
-  // .google.protobuf.Timestamp from = 2;
+  // optional .google.protobuf.Timestamp from = 2;
   bool has_from() const;
   void clear_from() ;
   const ::google::protobuf::Timestamp& from() const;
@@ -5319,7 +5327,7 @@ class OperationsRequest final :
   ::google::protobuf::Timestamp* _internal_mutable_from();
 
   public:
-  // .google.protobuf.Timestamp to = 3;
+  // optional .google.protobuf.Timestamp to = 3;
   bool has_to() const;
   void clear_to() ;
   const ::google::protobuf::Timestamp& to() const;
@@ -5334,7 +5342,8 @@ class OperationsRequest final :
   ::google::protobuf::Timestamp* _internal_mutable_to();
 
   public:
-  // .tinkoff.public_.invest.api.contract.v1.OperationState state = 4;
+  // optional .tinkoff.public_.invest.api.contract.v1.OperationState state = 4;
+  bool has_state() const;
   void clear_state() ;
   ::tinkoff::public_::invest::api::contract::v1::OperationState state() const;
   void set_state(::tinkoff::public_::invest::api::contract::v1::OperationState value);
@@ -6033,7 +6042,7 @@ class GetOperationsByCursorRequest final :
   ::google::protobuf::RepeatedField<int>* _internal_mutable_operation_types();
 
   public:
-  // string account_id = 1;
+  // string account_id = 1 [(.google.api.field_behavior) = REQUIRED];
   void clear_account_id() ;
   const std::string& account_id() const;
   template <typename Arg_ = const std::string&, typename... Args_>
@@ -6049,7 +6058,8 @@ class GetOperationsByCursorRequest final :
   std::string* _internal_mutable_account_id();
 
   public:
-  // string instrument_id = 2;
+  // optional string instrument_id = 2;
+  bool has_instrument_id() const;
   void clear_instrument_id() ;
   const std::string& instrument_id() const;
   template <typename Arg_ = const std::string&, typename... Args_>
@@ -6065,7 +6075,8 @@ class GetOperationsByCursorRequest final :
   std::string* _internal_mutable_instrument_id();
 
   public:
-  // string cursor = 11;
+  // optional string cursor = 11;
+  bool has_cursor() const;
   void clear_cursor() ;
   const std::string& cursor() const;
   template <typename Arg_ = const std::string&, typename... Args_>
@@ -6081,7 +6092,7 @@ class GetOperationsByCursorRequest final :
   std::string* _internal_mutable_cursor();
 
   public:
-  // .google.protobuf.Timestamp from = 6;
+  // optional .google.protobuf.Timestamp from = 6;
   bool has_from() const;
   void clear_from() ;
   const ::google::protobuf::Timestamp& from() const;
@@ -6096,7 +6107,7 @@ class GetOperationsByCursorRequest final :
   ::google::protobuf::Timestamp* _internal_mutable_from();
 
   public:
-  // .google.protobuf.Timestamp to = 7;
+  // optional .google.protobuf.Timestamp to = 7;
   bool has_to() const;
   void clear_to() ;
   const ::google::protobuf::Timestamp& to() const;
@@ -6111,7 +6122,8 @@ class GetOperationsByCursorRequest final :
   ::google::protobuf::Timestamp* _internal_mutable_to();
 
   public:
-  // int32 limit = 12;
+  // optional int32 limit = 12;
+  bool has_limit() const;
   void clear_limit() ;
   ::int32_t limit() const;
   void set_limit(::int32_t value);
@@ -6121,7 +6133,8 @@ class GetOperationsByCursorRequest final :
   void _internal_set_limit(::int32_t value);
 
   public:
-  // .tinkoff.public_.invest.api.contract.v1.OperationState state = 14;
+  // optional .tinkoff.public_.invest.api.contract.v1.OperationState state = 14;
+  bool has_state() const;
   void clear_state() ;
   ::tinkoff::public_::invest::api::contract::v1::OperationState state() const;
   void set_state(::tinkoff::public_::invest::api::contract::v1::OperationState value);
@@ -6131,7 +6144,8 @@ class GetOperationsByCursorRequest final :
   void _internal_set_state(::tinkoff::public_::invest::api::contract::v1::OperationState value);
 
   public:
-  // bool without_commissions = 15;
+  // optional bool without_commissions = 15;
+  bool has_without_commissions() const;
   void clear_without_commissions() ;
   bool without_commissions() const;
   void set_without_commissions(bool value);
@@ -6141,7 +6155,8 @@ class GetOperationsByCursorRequest final :
   void _internal_set_without_commissions(bool value);
 
   public:
-  // bool without_trades = 16;
+  // optional bool without_trades = 16;
+  bool has_without_trades() const;
   void clear_without_trades() ;
   bool without_trades() const;
   void set_without_trades(bool value);
@@ -6151,7 +6166,8 @@ class GetOperationsByCursorRequest final :
   void _internal_set_without_trades(bool value);
 
   public:
-  // bool without_overnights = 17;
+  // optional bool without_overnights = 17;
+  bool has_without_overnights() const;
   void clear_without_overnights() ;
   bool without_overnights() const;
   void set_without_overnights(bool value);
@@ -6340,7 +6356,7 @@ class GenerateDividendsForeignIssuerReportRequest final :
     kFromFieldNumber = 2,
     kToFieldNumber = 3,
   };
-  // string account_id = 1;
+  // string account_id = 1 [(.google.api.field_behavior) = REQUIRED];
   void clear_account_id() ;
   const std::string& account_id() const;
   template <typename Arg_ = const std::string&, typename... Args_>
@@ -6356,7 +6372,7 @@ class GenerateDividendsForeignIssuerReportRequest final :
   std::string* _internal_mutable_account_id();
 
   public:
-  // .google.protobuf.Timestamp from = 2;
+  // .google.protobuf.Timestamp from = 2 [(.google.api.field_behavior) = REQUIRED];
   bool has_from() const;
   void clear_from() ;
   const ::google::protobuf::Timestamp& from() const;
@@ -6371,7 +6387,7 @@ class GenerateDividendsForeignIssuerReportRequest final :
   ::google::protobuf::Timestamp* _internal_mutable_from();
 
   public:
-  // .google.protobuf.Timestamp to = 3;
+  // .google.protobuf.Timestamp to = 3 [(.google.api.field_behavior) = REQUIRED];
   bool has_to() const;
   void clear_to() ;
   const ::google::protobuf::Timestamp& to() const;
@@ -6556,7 +6572,7 @@ class GenerateBrokerReportRequest final :
     kFromFieldNumber = 2,
     kToFieldNumber = 3,
   };
-  // string account_id = 1;
+  // string account_id = 1 [(.google.api.field_behavior) = REQUIRED];
   void clear_account_id() ;
   const std::string& account_id() const;
   template <typename Arg_ = const std::string&, typename... Args_>
@@ -6572,7 +6588,7 @@ class GenerateBrokerReportRequest final :
   std::string* _internal_mutable_account_id();
 
   public:
-  // .google.protobuf.Timestamp from = 2;
+  // .google.protobuf.Timestamp from = 2 [(.google.api.field_behavior) = REQUIRED];
   bool has_from() const;
   void clear_from() ;
   const ::google::protobuf::Timestamp& from() const;
@@ -6587,7 +6603,7 @@ class GenerateBrokerReportRequest final :
   ::google::protobuf::Timestamp* _internal_mutable_from();
 
   public:
-  // .google.protobuf.Timestamp to = 3;
+  // .google.protobuf.Timestamp to = 3 [(.google.api.field_behavior) = REQUIRED];
   bool has_to() const;
   void clear_to() ;
   const ::google::protobuf::Timestamp& to() const;
@@ -11763,7 +11779,7 @@ class GetOperationsByCursorResponse final :
 
 // OperationsRequest
 
-// string account_id = 1;
+// string account_id = 1 [(.google.api.field_behavior) = REQUIRED];
 inline void OperationsRequest::clear_account_id() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.account_id_.ClearToEmpty();
@@ -11816,9 +11832,9 @@ inline void OperationsRequest::set_allocated_account_id(std::string* value) {
   // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.OperationsRequest.account_id)
 }
 
-// .google.protobuf.Timestamp from = 2;
+// optional .google.protobuf.Timestamp from = 2;
 inline bool OperationsRequest::has_from() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.from_ != nullptr);
   return value;
 }
@@ -11838,16 +11854,16 @@ inline void OperationsRequest::unsafe_arena_set_allocated_from(::google::protobu
   }
   _impl_.from_ = reinterpret_cast<::google::protobuf::Timestamp*>(value);
   if (value != nullptr) {
-    _impl_._has_bits_[0] |= 0x00000001u;
+    _impl_._has_bits_[0] |= 0x00000002u;
   } else {
-    _impl_._has_bits_[0] &= ~0x00000001u;
+    _impl_._has_bits_[0] &= ~0x00000002u;
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tinkoff.public_.invest.api.contract.v1.OperationsRequest.from)
 }
 inline ::google::protobuf::Timestamp* OperationsRequest::release_from() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
 
-  _impl_._has_bits_[0] &= ~0x00000001u;
+  _impl_._has_bits_[0] &= ~0x00000002u;
   ::google::protobuf::Timestamp* released = _impl_.from_;
   _impl_.from_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -11867,14 +11883,14 @@ inline ::google::protobuf::Timestamp* OperationsRequest::unsafe_arena_release_fr
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   // @@protoc_insertion_point(field_release:tinkoff.public_.invest.api.contract.v1.OperationsRequest.from)
 
-  _impl_._has_bits_[0] &= ~0x00000001u;
+  _impl_._has_bits_[0] &= ~0x00000002u;
   ::google::protobuf::Timestamp* temp = _impl_.from_;
   _impl_.from_ = nullptr;
   return temp;
 }
 inline ::google::protobuf::Timestamp* OperationsRequest::_internal_mutable_from() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_._has_bits_[0] |= 0x00000002u;
   if (_impl_.from_ == nullptr) {
     auto* p = CreateMaybeMessage<::google::protobuf::Timestamp>(GetArena());
     _impl_.from_ = reinterpret_cast<::google::protobuf::Timestamp*>(p);
@@ -11898,18 +11914,18 @@ inline void OperationsRequest::set_allocated_from(::google::protobuf::Timestamp*
     if (message_arena != submessage_arena) {
       value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
     }
-    _impl_._has_bits_[0] |= 0x00000001u;
+    _impl_._has_bits_[0] |= 0x00000002u;
   } else {
-    _impl_._has_bits_[0] &= ~0x00000001u;
+    _impl_._has_bits_[0] &= ~0x00000002u;
   }
 
   _impl_.from_ = reinterpret_cast<::google::protobuf::Timestamp*>(value);
   // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.OperationsRequest.from)
 }
 
-// .google.protobuf.Timestamp to = 3;
+// optional .google.protobuf.Timestamp to = 3;
 inline bool OperationsRequest::has_to() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.to_ != nullptr);
   return value;
 }
@@ -11929,16 +11945,16 @@ inline void OperationsRequest::unsafe_arena_set_allocated_to(::google::protobuf:
   }
   _impl_.to_ = reinterpret_cast<::google::protobuf::Timestamp*>(value);
   if (value != nullptr) {
-    _impl_._has_bits_[0] |= 0x00000002u;
+    _impl_._has_bits_[0] |= 0x00000004u;
   } else {
-    _impl_._has_bits_[0] &= ~0x00000002u;
+    _impl_._has_bits_[0] &= ~0x00000004u;
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tinkoff.public_.invest.api.contract.v1.OperationsRequest.to)
 }
 inline ::google::protobuf::Timestamp* OperationsRequest::release_to() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
 
-  _impl_._has_bits_[0] &= ~0x00000002u;
+  _impl_._has_bits_[0] &= ~0x00000004u;
   ::google::protobuf::Timestamp* released = _impl_.to_;
   _impl_.to_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -11958,14 +11974,14 @@ inline ::google::protobuf::Timestamp* OperationsRequest::unsafe_arena_release_to
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   // @@protoc_insertion_point(field_release:tinkoff.public_.invest.api.contract.v1.OperationsRequest.to)
 
-  _impl_._has_bits_[0] &= ~0x00000002u;
+  _impl_._has_bits_[0] &= ~0x00000004u;
   ::google::protobuf::Timestamp* temp = _impl_.to_;
   _impl_.to_ = nullptr;
   return temp;
 }
 inline ::google::protobuf::Timestamp* OperationsRequest::_internal_mutable_to() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_._has_bits_[0] |= 0x00000002u;
+  _impl_._has_bits_[0] |= 0x00000004u;
   if (_impl_.to_ == nullptr) {
     auto* p = CreateMaybeMessage<::google::protobuf::Timestamp>(GetArena());
     _impl_.to_ = reinterpret_cast<::google::protobuf::Timestamp*>(p);
@@ -11989,19 +12005,24 @@ inline void OperationsRequest::set_allocated_to(::google::protobuf::Timestamp* v
     if (message_arena != submessage_arena) {
       value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
     }
-    _impl_._has_bits_[0] |= 0x00000002u;
+    _impl_._has_bits_[0] |= 0x00000004u;
   } else {
-    _impl_._has_bits_[0] &= ~0x00000002u;
+    _impl_._has_bits_[0] &= ~0x00000004u;
   }
 
   _impl_.to_ = reinterpret_cast<::google::protobuf::Timestamp*>(value);
   // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.OperationsRequest.to)
 }
 
-// .tinkoff.public_.invest.api.contract.v1.OperationState state = 4;
+// optional .tinkoff.public_.invest.api.contract.v1.OperationState state = 4;
+inline bool OperationsRequest::has_state() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000008u) != 0;
+  return value;
+}
 inline void OperationsRequest::clear_state() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.state_ = 0;
+  _impl_._has_bits_[0] &= ~0x00000008u;
 }
 inline ::tinkoff::public_::invest::api::contract::v1::OperationState OperationsRequest::state() const {
   // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.OperationsRequest.state)
@@ -12017,14 +12038,19 @@ inline ::tinkoff::public_::invest::api::contract::v1::OperationState OperationsR
 }
 inline void OperationsRequest::_internal_set_state(::tinkoff::public_::invest::api::contract::v1::OperationState value) {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  ;
+  _impl_._has_bits_[0] |= 0x00000008u;
   _impl_.state_ = value;
 }
 
-// string figi = 5;
+// optional string figi = 5;
+inline bool OperationsRequest::has_figi() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
 inline void OperationsRequest::clear_figi() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.figi_.ClearToEmpty();
+  _impl_._has_bits_[0] &= ~0x00000001u;
 }
 inline const std::string& OperationsRequest::figi() const
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
@@ -12035,7 +12061,7 @@ template <typename Arg_, typename... Args_>
 inline PROTOBUF_ALWAYS_INLINE void OperationsRequest::set_figi(Arg_&& arg,
                                                      Args_... args) {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  ;
+  _impl_._has_bits_[0] |= 0x00000001u;
   _impl_.figi_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
   // @@protoc_insertion_point(field_set:tinkoff.public_.invest.api.contract.v1.OperationsRequest.figi)
 }
@@ -12050,21 +12076,34 @@ inline const std::string& OperationsRequest::_internal_figi() const {
 }
 inline void OperationsRequest::_internal_set_figi(const std::string& value) {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  ;
+  _impl_._has_bits_[0] |= 0x00000001u;
   _impl_.figi_.Set(value, GetArena());
 }
 inline std::string* OperationsRequest::_internal_mutable_figi() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  ;
+  _impl_._has_bits_[0] |= 0x00000001u;
   return _impl_.figi_.Mutable( GetArena());
 }
 inline std::string* OperationsRequest::release_figi() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   // @@protoc_insertion_point(field_release:tinkoff.public_.invest.api.contract.v1.OperationsRequest.figi)
-  return _impl_.figi_.Release();
+  if ((_impl_._has_bits_[0] & 0x00000001u) == 0) {
+    return nullptr;
+  }
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  auto* released = _impl_.figi_.Release();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.figi_.Set("", GetArena());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return released;
 }
 inline void OperationsRequest::set_allocated_figi(std::string* value) {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
   _impl_.figi_.SetAllocated(value, GetArena());
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
         if (_impl_.figi_.IsDefault()) {
@@ -13288,7 +13327,7 @@ inline void OperationTrade::set_allocated_price(::tinkoff::public_::invest::api:
 
 // PortfolioRequest
 
-// string account_id = 1;
+// string account_id = 1 [(.google.api.field_behavior) = REQUIRED];
 inline void PortfolioRequest::clear_account_id() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.account_id_.ClearToEmpty();
@@ -13341,10 +13380,15 @@ inline void PortfolioRequest::set_allocated_account_id(std::string* value) {
   // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.PortfolioRequest.account_id)
 }
 
-// .tinkoff.public_.invest.api.contract.v1.PortfolioRequest.CurrencyRequest currency = 2;
+// optional .tinkoff.public_.invest.api.contract.v1.PortfolioRequest.CurrencyRequest currency = 2;
+inline bool PortfolioRequest::has_currency() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
 inline void PortfolioRequest::clear_currency() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.currency_ = 0;
+  _impl_._has_bits_[0] &= ~0x00000001u;
 }
 inline ::tinkoff::public_::invest::api::contract::v1::PortfolioRequest_CurrencyRequest PortfolioRequest::currency() const {
   // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.PortfolioRequest.currency)
@@ -13360,7 +13404,7 @@ inline ::tinkoff::public_::invest::api::contract::v1::PortfolioRequest_CurrencyR
 }
 inline void PortfolioRequest::_internal_set_currency(::tinkoff::public_::invest::api::contract::v1::PortfolioRequest_CurrencyRequest value) {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  ;
+  _impl_._has_bits_[0] |= 0x00000001u;
   _impl_.currency_ = value;
 }
 
@@ -14342,7 +14386,7 @@ PortfolioResponse::_internal_mutable_virtual_positions() {
 
 // PositionsRequest
 
-// string account_id = 1;
+// string account_id = 1 [(.google.api.field_behavior) = REQUIRED];
 inline void PositionsRequest::clear_account_id() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.account_id_.ClearToEmpty();
@@ -14663,7 +14707,7 @@ PositionsResponse::_internal_mutable_options() {
 
 // WithdrawLimitsRequest
 
-// string account_id = 1;
+// string account_id = 1 [(.google.api.field_behavior) = REQUIRED];
 inline void WithdrawLimitsRequest::clear_account_id() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.account_id_.ClearToEmpty();
@@ -17932,7 +17976,7 @@ inline BrokerReportResponse::PayloadCase BrokerReportResponse::payload_case() co
 
 // GenerateBrokerReportRequest
 
-// string account_id = 1;
+// string account_id = 1 [(.google.api.field_behavior) = REQUIRED];
 inline void GenerateBrokerReportRequest::clear_account_id() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.account_id_.ClearToEmpty();
@@ -17985,7 +18029,7 @@ inline void GenerateBrokerReportRequest::set_allocated_account_id(std::string* v
   // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.GenerateBrokerReportRequest.account_id)
 }
 
-// .google.protobuf.Timestamp from = 2;
+// .google.protobuf.Timestamp from = 2 [(.google.api.field_behavior) = REQUIRED];
 inline bool GenerateBrokerReportRequest::has_from() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.from_ != nullptr);
@@ -18076,7 +18120,7 @@ inline void GenerateBrokerReportRequest::set_allocated_from(::google::protobuf::
   // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.GenerateBrokerReportRequest.from)
 }
 
-// .google.protobuf.Timestamp to = 3;
+// .google.protobuf.Timestamp to = 3 [(.google.api.field_behavior) = REQUIRED];
 inline bool GenerateBrokerReportRequest::has_to() const {
   bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.to_ != nullptr);
@@ -18228,7 +18272,7 @@ inline void GenerateBrokerReportResponse::set_allocated_task_id(std::string* val
 
 // GetBrokerReportRequest
 
-// string task_id = 1;
+// string task_id = 1 [(.google.api.field_behavior) = REQUIRED];
 inline void GetBrokerReportRequest::clear_task_id() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.task_id_.ClearToEmpty();
@@ -18281,10 +18325,15 @@ inline void GetBrokerReportRequest::set_allocated_task_id(std::string* value) {
   // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.GetBrokerReportRequest.task_id)
 }
 
-// int32 page = 2;
+// optional int32 page = 2;
+inline bool GetBrokerReportRequest::has_page() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
 inline void GetBrokerReportRequest::clear_page() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.page_ = 0;
+  _impl_._has_bits_[0] &= ~0x00000001u;
 }
 inline ::int32_t GetBrokerReportRequest::page() const {
   // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.GetBrokerReportRequest.page)
@@ -18300,7 +18349,7 @@ inline ::int32_t GetBrokerReportRequest::_internal_page() const {
 }
 inline void GetBrokerReportRequest::_internal_set_page(::int32_t value) {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  ;
+  _impl_._has_bits_[0] |= 0x00000001u;
   _impl_.page_ = value;
 }
 
@@ -20583,7 +20632,7 @@ inline GetDividendsForeignIssuerResponse::PayloadCase GetDividendsForeignIssuerR
 
 // GenerateDividendsForeignIssuerReportRequest
 
-// string account_id = 1;
+// string account_id = 1 [(.google.api.field_behavior) = REQUIRED];
 inline void GenerateDividendsForeignIssuerReportRequest::clear_account_id() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.account_id_.ClearToEmpty();
@@ -20636,7 +20685,7 @@ inline void GenerateDividendsForeignIssuerReportRequest::set_allocated_account_i
   // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.GenerateDividendsForeignIssuerReportRequest.account_id)
 }
 
-// .google.protobuf.Timestamp from = 2;
+// .google.protobuf.Timestamp from = 2 [(.google.api.field_behavior) = REQUIRED];
 inline bool GenerateDividendsForeignIssuerReportRequest::has_from() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.from_ != nullptr);
@@ -20727,7 +20776,7 @@ inline void GenerateDividendsForeignIssuerReportRequest::set_allocated_from(::go
   // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.GenerateDividendsForeignIssuerReportRequest.from)
 }
 
-// .google.protobuf.Timestamp to = 3;
+// .google.protobuf.Timestamp to = 3 [(.google.api.field_behavior) = REQUIRED];
 inline bool GenerateDividendsForeignIssuerReportRequest::has_to() const {
   bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.to_ != nullptr);
@@ -20822,7 +20871,7 @@ inline void GenerateDividendsForeignIssuerReportRequest::set_allocated_to(::goog
 
 // GetDividendsForeignIssuerReportRequest
 
-// string task_id = 1;
+// string task_id = 1 [(.google.api.field_behavior) = REQUIRED];
 inline void GetDividendsForeignIssuerReportRequest::clear_task_id() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.task_id_.ClearToEmpty();
@@ -20875,10 +20924,15 @@ inline void GetDividendsForeignIssuerReportRequest::set_allocated_task_id(std::s
   // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.GetDividendsForeignIssuerReportRequest.task_id)
 }
 
-// int32 page = 2;
+// optional int32 page = 2;
+inline bool GetDividendsForeignIssuerReportRequest::has_page() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
 inline void GetDividendsForeignIssuerReportRequest::clear_page() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.page_ = 0;
+  _impl_._has_bits_[0] &= ~0x00000001u;
 }
 inline ::int32_t GetDividendsForeignIssuerReportRequest::page() const {
   // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.GetDividendsForeignIssuerReportRequest.page)
@@ -20894,7 +20948,7 @@ inline ::int32_t GetDividendsForeignIssuerReportRequest::_internal_page() const 
 }
 inline void GetDividendsForeignIssuerReportRequest::_internal_set_page(::int32_t value) {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  ;
+  _impl_._has_bits_[0] |= 0x00000001u;
   _impl_.page_ = value;
 }
 
@@ -22427,7 +22481,7 @@ inline void AccountSubscriptionStatus::_internal_set_subscription_status(::tinko
 
 // GetOperationsByCursorRequest
 
-// string account_id = 1;
+// string account_id = 1 [(.google.api.field_behavior) = REQUIRED];
 inline void GetOperationsByCursorRequest::clear_account_id() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.account_id_.ClearToEmpty();
@@ -22480,10 +22534,15 @@ inline void GetOperationsByCursorRequest::set_allocated_account_id(std::string* 
   // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.GetOperationsByCursorRequest.account_id)
 }
 
-// string instrument_id = 2;
+// optional string instrument_id = 2;
+inline bool GetOperationsByCursorRequest::has_instrument_id() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
 inline void GetOperationsByCursorRequest::clear_instrument_id() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.instrument_id_.ClearToEmpty();
+  _impl_._has_bits_[0] &= ~0x00000001u;
 }
 inline const std::string& GetOperationsByCursorRequest::instrument_id() const
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
@@ -22494,7 +22553,7 @@ template <typename Arg_, typename... Args_>
 inline PROTOBUF_ALWAYS_INLINE void GetOperationsByCursorRequest::set_instrument_id(Arg_&& arg,
                                                      Args_... args) {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  ;
+  _impl_._has_bits_[0] |= 0x00000001u;
   _impl_.instrument_id_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
   // @@protoc_insertion_point(field_set:tinkoff.public_.invest.api.contract.v1.GetOperationsByCursorRequest.instrument_id)
 }
@@ -22509,21 +22568,34 @@ inline const std::string& GetOperationsByCursorRequest::_internal_instrument_id(
 }
 inline void GetOperationsByCursorRequest::_internal_set_instrument_id(const std::string& value) {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  ;
+  _impl_._has_bits_[0] |= 0x00000001u;
   _impl_.instrument_id_.Set(value, GetArena());
 }
 inline std::string* GetOperationsByCursorRequest::_internal_mutable_instrument_id() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  ;
+  _impl_._has_bits_[0] |= 0x00000001u;
   return _impl_.instrument_id_.Mutable( GetArena());
 }
 inline std::string* GetOperationsByCursorRequest::release_instrument_id() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   // @@protoc_insertion_point(field_release:tinkoff.public_.invest.api.contract.v1.GetOperationsByCursorRequest.instrument_id)
-  return _impl_.instrument_id_.Release();
+  if ((_impl_._has_bits_[0] & 0x00000001u) == 0) {
+    return nullptr;
+  }
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  auto* released = _impl_.instrument_id_.Release();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.instrument_id_.Set("", GetArena());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return released;
 }
 inline void GetOperationsByCursorRequest::set_allocated_instrument_id(std::string* value) {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
   _impl_.instrument_id_.SetAllocated(value, GetArena());
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
         if (_impl_.instrument_id_.IsDefault()) {
@@ -22533,9 +22605,9 @@ inline void GetOperationsByCursorRequest::set_allocated_instrument_id(std::strin
   // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.GetOperationsByCursorRequest.instrument_id)
 }
 
-// .google.protobuf.Timestamp from = 6;
+// optional .google.protobuf.Timestamp from = 6;
 inline bool GetOperationsByCursorRequest::has_from() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.from_ != nullptr);
   return value;
 }
@@ -22555,16 +22627,16 @@ inline void GetOperationsByCursorRequest::unsafe_arena_set_allocated_from(::goog
   }
   _impl_.from_ = reinterpret_cast<::google::protobuf::Timestamp*>(value);
   if (value != nullptr) {
-    _impl_._has_bits_[0] |= 0x00000001u;
+    _impl_._has_bits_[0] |= 0x00000004u;
   } else {
-    _impl_._has_bits_[0] &= ~0x00000001u;
+    _impl_._has_bits_[0] &= ~0x00000004u;
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tinkoff.public_.invest.api.contract.v1.GetOperationsByCursorRequest.from)
 }
 inline ::google::protobuf::Timestamp* GetOperationsByCursorRequest::release_from() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
 
-  _impl_._has_bits_[0] &= ~0x00000001u;
+  _impl_._has_bits_[0] &= ~0x00000004u;
   ::google::protobuf::Timestamp* released = _impl_.from_;
   _impl_.from_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -22584,14 +22656,14 @@ inline ::google::protobuf::Timestamp* GetOperationsByCursorRequest::unsafe_arena
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   // @@protoc_insertion_point(field_release:tinkoff.public_.invest.api.contract.v1.GetOperationsByCursorRequest.from)
 
-  _impl_._has_bits_[0] &= ~0x00000001u;
+  _impl_._has_bits_[0] &= ~0x00000004u;
   ::google::protobuf::Timestamp* temp = _impl_.from_;
   _impl_.from_ = nullptr;
   return temp;
 }
 inline ::google::protobuf::Timestamp* GetOperationsByCursorRequest::_internal_mutable_from() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_._has_bits_[0] |= 0x00000004u;
   if (_impl_.from_ == nullptr) {
     auto* p = CreateMaybeMessage<::google::protobuf::Timestamp>(GetArena());
     _impl_.from_ = reinterpret_cast<::google::protobuf::Timestamp*>(p);
@@ -22615,18 +22687,18 @@ inline void GetOperationsByCursorRequest::set_allocated_from(::google::protobuf:
     if (message_arena != submessage_arena) {
       value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
     }
-    _impl_._has_bits_[0] |= 0x00000001u;
+    _impl_._has_bits_[0] |= 0x00000004u;
   } else {
-    _impl_._has_bits_[0] &= ~0x00000001u;
+    _impl_._has_bits_[0] &= ~0x00000004u;
   }
 
   _impl_.from_ = reinterpret_cast<::google::protobuf::Timestamp*>(value);
   // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.GetOperationsByCursorRequest.from)
 }
 
-// .google.protobuf.Timestamp to = 7;
+// optional .google.protobuf.Timestamp to = 7;
 inline bool GetOperationsByCursorRequest::has_to() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000008u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.to_ != nullptr);
   return value;
 }
@@ -22646,16 +22718,16 @@ inline void GetOperationsByCursorRequest::unsafe_arena_set_allocated_to(::google
   }
   _impl_.to_ = reinterpret_cast<::google::protobuf::Timestamp*>(value);
   if (value != nullptr) {
-    _impl_._has_bits_[0] |= 0x00000002u;
+    _impl_._has_bits_[0] |= 0x00000008u;
   } else {
-    _impl_._has_bits_[0] &= ~0x00000002u;
+    _impl_._has_bits_[0] &= ~0x00000008u;
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tinkoff.public_.invest.api.contract.v1.GetOperationsByCursorRequest.to)
 }
 inline ::google::protobuf::Timestamp* GetOperationsByCursorRequest::release_to() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
 
-  _impl_._has_bits_[0] &= ~0x00000002u;
+  _impl_._has_bits_[0] &= ~0x00000008u;
   ::google::protobuf::Timestamp* released = _impl_.to_;
   _impl_.to_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -22675,14 +22747,14 @@ inline ::google::protobuf::Timestamp* GetOperationsByCursorRequest::unsafe_arena
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   // @@protoc_insertion_point(field_release:tinkoff.public_.invest.api.contract.v1.GetOperationsByCursorRequest.to)
 
-  _impl_._has_bits_[0] &= ~0x00000002u;
+  _impl_._has_bits_[0] &= ~0x00000008u;
   ::google::protobuf::Timestamp* temp = _impl_.to_;
   _impl_.to_ = nullptr;
   return temp;
 }
 inline ::google::protobuf::Timestamp* GetOperationsByCursorRequest::_internal_mutable_to() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_._has_bits_[0] |= 0x00000002u;
+  _impl_._has_bits_[0] |= 0x00000008u;
   if (_impl_.to_ == nullptr) {
     auto* p = CreateMaybeMessage<::google::protobuf::Timestamp>(GetArena());
     _impl_.to_ = reinterpret_cast<::google::protobuf::Timestamp*>(p);
@@ -22706,19 +22778,24 @@ inline void GetOperationsByCursorRequest::set_allocated_to(::google::protobuf::T
     if (message_arena != submessage_arena) {
       value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
     }
-    _impl_._has_bits_[0] |= 0x00000002u;
+    _impl_._has_bits_[0] |= 0x00000008u;
   } else {
-    _impl_._has_bits_[0] &= ~0x00000002u;
+    _impl_._has_bits_[0] &= ~0x00000008u;
   }
 
   _impl_.to_ = reinterpret_cast<::google::protobuf::Timestamp*>(value);
   // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.GetOperationsByCursorRequest.to)
 }
 
-// string cursor = 11;
+// optional string cursor = 11;
+inline bool GetOperationsByCursorRequest::has_cursor() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
 inline void GetOperationsByCursorRequest::clear_cursor() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.cursor_.ClearToEmpty();
+  _impl_._has_bits_[0] &= ~0x00000002u;
 }
 inline const std::string& GetOperationsByCursorRequest::cursor() const
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
@@ -22729,7 +22806,7 @@ template <typename Arg_, typename... Args_>
 inline PROTOBUF_ALWAYS_INLINE void GetOperationsByCursorRequest::set_cursor(Arg_&& arg,
                                                      Args_... args) {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  ;
+  _impl_._has_bits_[0] |= 0x00000002u;
   _impl_.cursor_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
   // @@protoc_insertion_point(field_set:tinkoff.public_.invest.api.contract.v1.GetOperationsByCursorRequest.cursor)
 }
@@ -22744,21 +22821,34 @@ inline const std::string& GetOperationsByCursorRequest::_internal_cursor() const
 }
 inline void GetOperationsByCursorRequest::_internal_set_cursor(const std::string& value) {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  ;
+  _impl_._has_bits_[0] |= 0x00000002u;
   _impl_.cursor_.Set(value, GetArena());
 }
 inline std::string* GetOperationsByCursorRequest::_internal_mutable_cursor() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  ;
+  _impl_._has_bits_[0] |= 0x00000002u;
   return _impl_.cursor_.Mutable( GetArena());
 }
 inline std::string* GetOperationsByCursorRequest::release_cursor() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   // @@protoc_insertion_point(field_release:tinkoff.public_.invest.api.contract.v1.GetOperationsByCursorRequest.cursor)
-  return _impl_.cursor_.Release();
+  if ((_impl_._has_bits_[0] & 0x00000002u) == 0) {
+    return nullptr;
+  }
+  _impl_._has_bits_[0] &= ~0x00000002u;
+  auto* released = _impl_.cursor_.Release();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.cursor_.Set("", GetArena());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return released;
 }
 inline void GetOperationsByCursorRequest::set_allocated_cursor(std::string* value) {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000002u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000002u;
+  }
   _impl_.cursor_.SetAllocated(value, GetArena());
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
         if (_impl_.cursor_.IsDefault()) {
@@ -22768,10 +22858,15 @@ inline void GetOperationsByCursorRequest::set_allocated_cursor(std::string* valu
   // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.GetOperationsByCursorRequest.cursor)
 }
 
-// int32 limit = 12;
+// optional int32 limit = 12;
+inline bool GetOperationsByCursorRequest::has_limit() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000010u) != 0;
+  return value;
+}
 inline void GetOperationsByCursorRequest::clear_limit() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.limit_ = 0;
+  _impl_._has_bits_[0] &= ~0x00000010u;
 }
 inline ::int32_t GetOperationsByCursorRequest::limit() const {
   // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.GetOperationsByCursorRequest.limit)
@@ -22787,7 +22882,7 @@ inline ::int32_t GetOperationsByCursorRequest::_internal_limit() const {
 }
 inline void GetOperationsByCursorRequest::_internal_set_limit(::int32_t value) {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  ;
+  _impl_._has_bits_[0] |= 0x00000010u;
   _impl_.limit_ = value;
 }
 
@@ -22835,10 +22930,15 @@ inline ::google::protobuf::RepeatedField<int>* GetOperationsByCursorRequest::_in
   return &_impl_.operation_types_;
 }
 
-// .tinkoff.public_.invest.api.contract.v1.OperationState state = 14;
+// optional .tinkoff.public_.invest.api.contract.v1.OperationState state = 14;
+inline bool GetOperationsByCursorRequest::has_state() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000020u) != 0;
+  return value;
+}
 inline void GetOperationsByCursorRequest::clear_state() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.state_ = 0;
+  _impl_._has_bits_[0] &= ~0x00000020u;
 }
 inline ::tinkoff::public_::invest::api::contract::v1::OperationState GetOperationsByCursorRequest::state() const {
   // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.GetOperationsByCursorRequest.state)
@@ -22854,14 +22954,19 @@ inline ::tinkoff::public_::invest::api::contract::v1::OperationState GetOperatio
 }
 inline void GetOperationsByCursorRequest::_internal_set_state(::tinkoff::public_::invest::api::contract::v1::OperationState value) {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  ;
+  _impl_._has_bits_[0] |= 0x00000020u;
   _impl_.state_ = value;
 }
 
-// bool without_commissions = 15;
+// optional bool without_commissions = 15;
+inline bool GetOperationsByCursorRequest::has_without_commissions() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000040u) != 0;
+  return value;
+}
 inline void GetOperationsByCursorRequest::clear_without_commissions() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.without_commissions_ = false;
+  _impl_._has_bits_[0] &= ~0x00000040u;
 }
 inline bool GetOperationsByCursorRequest::without_commissions() const {
   // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.GetOperationsByCursorRequest.without_commissions)
@@ -22877,14 +22982,19 @@ inline bool GetOperationsByCursorRequest::_internal_without_commissions() const 
 }
 inline void GetOperationsByCursorRequest::_internal_set_without_commissions(bool value) {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  ;
+  _impl_._has_bits_[0] |= 0x00000040u;
   _impl_.without_commissions_ = value;
 }
 
-// bool without_trades = 16;
+// optional bool without_trades = 16;
+inline bool GetOperationsByCursorRequest::has_without_trades() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000080u) != 0;
+  return value;
+}
 inline void GetOperationsByCursorRequest::clear_without_trades() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.without_trades_ = false;
+  _impl_._has_bits_[0] &= ~0x00000080u;
 }
 inline bool GetOperationsByCursorRequest::without_trades() const {
   // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.GetOperationsByCursorRequest.without_trades)
@@ -22900,14 +23010,19 @@ inline bool GetOperationsByCursorRequest::_internal_without_trades() const {
 }
 inline void GetOperationsByCursorRequest::_internal_set_without_trades(bool value) {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  ;
+  _impl_._has_bits_[0] |= 0x00000080u;
   _impl_.without_trades_ = value;
 }
 
-// bool without_overnights = 17;
+// optional bool without_overnights = 17;
+inline bool GetOperationsByCursorRequest::has_without_overnights() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000100u) != 0;
+  return value;
+}
 inline void GetOperationsByCursorRequest::clear_without_overnights() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.without_overnights_ = false;
+  _impl_._has_bits_[0] &= ~0x00000100u;
 }
 inline bool GetOperationsByCursorRequest::without_overnights() const {
   // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.GetOperationsByCursorRequest.without_overnights)
@@ -22923,7 +23038,7 @@ inline bool GetOperationsByCursorRequest::_internal_without_overnights() const {
 }
 inline void GetOperationsByCursorRequest::_internal_set_without_overnights(bool value) {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  ;
+  _impl_._has_bits_[0] |= 0x00000100u;
   _impl_.without_overnights_ = value;
 }
 

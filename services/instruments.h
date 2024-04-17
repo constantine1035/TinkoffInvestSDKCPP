@@ -32,7 +32,7 @@ public:
     ServiceReply GetBondCoupons(std::string  figi, int64_t fromseconds, int32_t fromnanos, int64_t toseconds, int32_t tonanos);
     
     /// Метод получения событий по облигации
-    ServiceReply GetBondEvents(std::string instrument_id, GetBondEven type, int64_t fromseconds, int32_t fromnanos, int64_t toseconds, int32_t tonanos);
+    ServiceReply GetBondEvents(std::string instrument_id, GetBondEventsRequest_EventType type, int64_t fromseconds, int32_t fromnanos, int64_t toseconds, int32_t tonanos);
     
     /// Метод получения валюты по её идентификатору
     ServiceReply CurrencyBy(InstrumentIdType id_type, std::string class_code, std::string id);
@@ -74,7 +74,7 @@ public:
     ServiceReply GetAccruedInterests(std::string  figi, int64_t fromseconds, int32_t fromnanos, int64_t toseconds, int32_t tonanos);
     
     /// Метод получения размера гарантийного обеспечения по фьючерсам
-    ServiceReply GetFuturesMargin(std::string figi);
+    ServiceReply GetFuturesMargin(std::string figi, std::string instrument_id);
     
     /// Метод получения основной информации об инструменте
     ServiceReply GetInstrumentBy(InstrumentIdType id_type, std::string class_code, std::string id);
@@ -101,7 +101,7 @@ public:
     ServiceReply FindInstrument(std::string query, InstrumentType instrument_kind, bool api_trade_available_flag);
     
     /// Метод получения списка брендов
-    ServiceReply GetBrands( paging);
+    ServiceReply GetBrands(Page paging);
     
     /// Метод получения бренда по его идентификатору
     ServiceReply GetBrandBy(std::string id);

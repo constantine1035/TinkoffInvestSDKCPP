@@ -36,6 +36,7 @@
 #include "google/protobuf/generated_enum_reflection.h"
 #include "google/protobuf/unknown_field_set.h"
 #include "google/protobuf/timestamp.pb.h"
+#include "google/api/field_behavior.pb.h"
 #include "common.pb.h"
 // @@protoc_insertion_point(includes)
 
@@ -79,12 +80,18 @@ extern GetStopOrdersResponseDefaultTypeInternal _GetStopOrdersResponse_default_i
 class PostStopOrderRequest;
 struct PostStopOrderRequestDefaultTypeInternal;
 extern PostStopOrderRequestDefaultTypeInternal _PostStopOrderRequest_default_instance_;
+class PostStopOrderRequest_TrailingData;
+struct PostStopOrderRequest_TrailingDataDefaultTypeInternal;
+extern PostStopOrderRequest_TrailingDataDefaultTypeInternal _PostStopOrderRequest_TrailingData_default_instance_;
 class PostStopOrderResponse;
 struct PostStopOrderResponseDefaultTypeInternal;
 extern PostStopOrderResponseDefaultTypeInternal _PostStopOrderResponse_default_instance_;
 class StopOrder;
 struct StopOrderDefaultTypeInternal;
 extern StopOrderDefaultTypeInternal _StopOrder_default_instance_;
+class StopOrder_TrailingData;
+struct StopOrder_TrailingDataDefaultTypeInternal;
+extern StopOrder_TrailingDataDefaultTypeInternal _StopOrder_TrailingData_default_instance_;
 }  // namespace v1
 }  // namespace contract
 }  // namespace api
@@ -205,373 +212,184 @@ inline bool StopOrderType_Parse(absl::string_view name, StopOrderType* value) {
   return ::google::protobuf::internal::ParseNamedEnum<StopOrderType>(
       StopOrderType_descriptor(), name, value);
 }
+enum StopOrderStatusOption : int {
+  STOP_ORDER_STATUS_UNSPECIFIED = 0,
+  STOP_ORDER_STATUS_ALL = 1,
+  STOP_ORDER_STATUS_ACTIVE = 2,
+  STOP_ORDER_STATUS_EXECUTED = 3,
+  STOP_ORDER_STATUS_CANCELED = 4,
+  STOP_ORDER_STATUS_EXPIRED = 5,
+  StopOrderStatusOption_INT_MIN_SENTINEL_DO_NOT_USE_ =
+      std::numeric_limits<::int32_t>::min(),
+  StopOrderStatusOption_INT_MAX_SENTINEL_DO_NOT_USE_ =
+      std::numeric_limits<::int32_t>::max(),
+};
+
+bool StopOrderStatusOption_IsValid(int value);
+extern const uint32_t StopOrderStatusOption_internal_data_[];
+constexpr StopOrderStatusOption StopOrderStatusOption_MIN = static_cast<StopOrderStatusOption>(0);
+constexpr StopOrderStatusOption StopOrderStatusOption_MAX = static_cast<StopOrderStatusOption>(5);
+constexpr int StopOrderStatusOption_ARRAYSIZE = 5 + 1;
+const ::google::protobuf::EnumDescriptor*
+StopOrderStatusOption_descriptor();
+template <typename T>
+const std::string& StopOrderStatusOption_Name(T value) {
+  static_assert(std::is_same<T, StopOrderStatusOption>::value ||
+                    std::is_integral<T>::value,
+                "Incorrect type passed to StopOrderStatusOption_Name().");
+  return StopOrderStatusOption_Name(static_cast<StopOrderStatusOption>(value));
+}
+template <>
+inline const std::string& StopOrderStatusOption_Name(StopOrderStatusOption value) {
+  return ::google::protobuf::internal::NameOfDenseEnum<StopOrderStatusOption_descriptor,
+                                                 0, 5>(
+      static_cast<int>(value));
+}
+inline bool StopOrderStatusOption_Parse(absl::string_view name, StopOrderStatusOption* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<StopOrderStatusOption>(
+      StopOrderStatusOption_descriptor(), name, value);
+}
+enum ExchangeOrderType : int {
+  EXCHANGE_ORDER_TYPE_UNSPECIFIED = 0,
+  EXCHANGE_ORDER_TYPE_MARKET = 1,
+  EXCHANGE_ORDER_TYPE_LIMIT = 2,
+  ExchangeOrderType_INT_MIN_SENTINEL_DO_NOT_USE_ =
+      std::numeric_limits<::int32_t>::min(),
+  ExchangeOrderType_INT_MAX_SENTINEL_DO_NOT_USE_ =
+      std::numeric_limits<::int32_t>::max(),
+};
+
+bool ExchangeOrderType_IsValid(int value);
+extern const uint32_t ExchangeOrderType_internal_data_[];
+constexpr ExchangeOrderType ExchangeOrderType_MIN = static_cast<ExchangeOrderType>(0);
+constexpr ExchangeOrderType ExchangeOrderType_MAX = static_cast<ExchangeOrderType>(2);
+constexpr int ExchangeOrderType_ARRAYSIZE = 2 + 1;
+const ::google::protobuf::EnumDescriptor*
+ExchangeOrderType_descriptor();
+template <typename T>
+const std::string& ExchangeOrderType_Name(T value) {
+  static_assert(std::is_same<T, ExchangeOrderType>::value ||
+                    std::is_integral<T>::value,
+                "Incorrect type passed to ExchangeOrderType_Name().");
+  return ExchangeOrderType_Name(static_cast<ExchangeOrderType>(value));
+}
+template <>
+inline const std::string& ExchangeOrderType_Name(ExchangeOrderType value) {
+  return ::google::protobuf::internal::NameOfDenseEnum<ExchangeOrderType_descriptor,
+                                                 0, 2>(
+      static_cast<int>(value));
+}
+inline bool ExchangeOrderType_Parse(absl::string_view name, ExchangeOrderType* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<ExchangeOrderType>(
+      ExchangeOrderType_descriptor(), name, value);
+}
+enum TakeProfitType : int {
+  TAKE_PROFIT_TYPE_UNSPECIFIED = 0,
+  TAKE_PROFIT_TYPE_REGULAR = 1,
+  TAKE_PROFIT_TYPE_TRAILING = 2,
+  TakeProfitType_INT_MIN_SENTINEL_DO_NOT_USE_ =
+      std::numeric_limits<::int32_t>::min(),
+  TakeProfitType_INT_MAX_SENTINEL_DO_NOT_USE_ =
+      std::numeric_limits<::int32_t>::max(),
+};
+
+bool TakeProfitType_IsValid(int value);
+extern const uint32_t TakeProfitType_internal_data_[];
+constexpr TakeProfitType TakeProfitType_MIN = static_cast<TakeProfitType>(0);
+constexpr TakeProfitType TakeProfitType_MAX = static_cast<TakeProfitType>(2);
+constexpr int TakeProfitType_ARRAYSIZE = 2 + 1;
+const ::google::protobuf::EnumDescriptor*
+TakeProfitType_descriptor();
+template <typename T>
+const std::string& TakeProfitType_Name(T value) {
+  static_assert(std::is_same<T, TakeProfitType>::value ||
+                    std::is_integral<T>::value,
+                "Incorrect type passed to TakeProfitType_Name().");
+  return TakeProfitType_Name(static_cast<TakeProfitType>(value));
+}
+template <>
+inline const std::string& TakeProfitType_Name(TakeProfitType value) {
+  return ::google::protobuf::internal::NameOfDenseEnum<TakeProfitType_descriptor,
+                                                 0, 2>(
+      static_cast<int>(value));
+}
+inline bool TakeProfitType_Parse(absl::string_view name, TakeProfitType* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<TakeProfitType>(
+      TakeProfitType_descriptor(), name, value);
+}
+enum TrailingValueType : int {
+  TRAILING_VALUE_UNSPECIFIED = 0,
+  TRAILING_VALUE_ABSOLUTE = 1,
+  TRAILING_VALUE_RELATIVE = 2,
+  TrailingValueType_INT_MIN_SENTINEL_DO_NOT_USE_ =
+      std::numeric_limits<::int32_t>::min(),
+  TrailingValueType_INT_MAX_SENTINEL_DO_NOT_USE_ =
+      std::numeric_limits<::int32_t>::max(),
+};
+
+bool TrailingValueType_IsValid(int value);
+extern const uint32_t TrailingValueType_internal_data_[];
+constexpr TrailingValueType TrailingValueType_MIN = static_cast<TrailingValueType>(0);
+constexpr TrailingValueType TrailingValueType_MAX = static_cast<TrailingValueType>(2);
+constexpr int TrailingValueType_ARRAYSIZE = 2 + 1;
+const ::google::protobuf::EnumDescriptor*
+TrailingValueType_descriptor();
+template <typename T>
+const std::string& TrailingValueType_Name(T value) {
+  static_assert(std::is_same<T, TrailingValueType>::value ||
+                    std::is_integral<T>::value,
+                "Incorrect type passed to TrailingValueType_Name().");
+  return TrailingValueType_Name(static_cast<TrailingValueType>(value));
+}
+template <>
+inline const std::string& TrailingValueType_Name(TrailingValueType value) {
+  return ::google::protobuf::internal::NameOfDenseEnum<TrailingValueType_descriptor,
+                                                 0, 2>(
+      static_cast<int>(value));
+}
+inline bool TrailingValueType_Parse(absl::string_view name, TrailingValueType* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<TrailingValueType>(
+      TrailingValueType_descriptor(), name, value);
+}
+enum TrailingStopStatus : int {
+  TRAILING_STOP_UNSPECIFIED = 0,
+  TRAILING_STOP_ACTIVE = 1,
+  TRAILING_STOP_ACTIVATED = 2,
+  TrailingStopStatus_INT_MIN_SENTINEL_DO_NOT_USE_ =
+      std::numeric_limits<::int32_t>::min(),
+  TrailingStopStatus_INT_MAX_SENTINEL_DO_NOT_USE_ =
+      std::numeric_limits<::int32_t>::max(),
+};
+
+bool TrailingStopStatus_IsValid(int value);
+extern const uint32_t TrailingStopStatus_internal_data_[];
+constexpr TrailingStopStatus TrailingStopStatus_MIN = static_cast<TrailingStopStatus>(0);
+constexpr TrailingStopStatus TrailingStopStatus_MAX = static_cast<TrailingStopStatus>(2);
+constexpr int TrailingStopStatus_ARRAYSIZE = 2 + 1;
+const ::google::protobuf::EnumDescriptor*
+TrailingStopStatus_descriptor();
+template <typename T>
+const std::string& TrailingStopStatus_Name(T value) {
+  static_assert(std::is_same<T, TrailingStopStatus>::value ||
+                    std::is_integral<T>::value,
+                "Incorrect type passed to TrailingStopStatus_Name().");
+  return TrailingStopStatus_Name(static_cast<TrailingStopStatus>(value));
+}
+template <>
+inline const std::string& TrailingStopStatus_Name(TrailingStopStatus value) {
+  return ::google::protobuf::internal::NameOfDenseEnum<TrailingStopStatus_descriptor,
+                                                 0, 2>(
+      static_cast<int>(value));
+}
+inline bool TrailingStopStatus_Parse(absl::string_view name, TrailingStopStatus* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<TrailingStopStatus>(
+      TrailingStopStatus_descriptor(), name, value);
+}
 
 // ===================================================================
 
 
 // -------------------------------------------------------------------
-
-class PostStopOrderResponse final :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:tinkoff.public_.invest.api.contract.v1.PostStopOrderResponse) */ {
- public:
-  inline PostStopOrderResponse() : PostStopOrderResponse(nullptr) {}
-  ~PostStopOrderResponse() override;
-  template<typename = void>
-  explicit PROTOBUF_CONSTEXPR PostStopOrderResponse(::google::protobuf::internal::ConstantInitialized);
-
-  inline PostStopOrderResponse(const PostStopOrderResponse& from)
-      : PostStopOrderResponse(nullptr, from) {}
-  PostStopOrderResponse(PostStopOrderResponse&& from) noexcept
-    : PostStopOrderResponse() {
-    *this = ::std::move(from);
-  }
-
-  inline PostStopOrderResponse& operator=(const PostStopOrderResponse& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline PostStopOrderResponse& operator=(PostStopOrderResponse&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetArena() == from.GetArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
-      ABSL_ATTRIBUTE_LIFETIME_BOUND {
-    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
-  }
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
-      ABSL_ATTRIBUTE_LIFETIME_BOUND {
-    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::google::protobuf::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::google::protobuf::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const PostStopOrderResponse& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const PostStopOrderResponse* internal_default_instance() {
-    return reinterpret_cast<const PostStopOrderResponse*>(
-               &_PostStopOrderResponse_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    1;
-
-  friend void swap(PostStopOrderResponse& a, PostStopOrderResponse& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(PostStopOrderResponse* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetArena() != nullptr &&
-        GetArena() == other->GetArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetArena() == other->GetArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::google::protobuf::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(PostStopOrderResponse* other) {
-    if (other == this) return;
-    ABSL_DCHECK(GetArena() == other->GetArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  PostStopOrderResponse* New(::google::protobuf::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<PostStopOrderResponse>(arena);
-  }
-  using ::google::protobuf::Message::CopyFrom;
-  void CopyFrom(const PostStopOrderResponse& from);
-  using ::google::protobuf::Message::MergeFrom;
-  void MergeFrom( const PostStopOrderResponse& from) {
-    PostStopOrderResponse::MergeImpl(*this, from);
-  }
-  private:
-  static void MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg);
-  public:
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  ::size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::google::protobuf::internal::ParseContext* ctx) final;
-  ::uint8_t* _InternalSerialize(
-      ::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
-
-  private:
-  ::google::protobuf::internal::CachedSize* AccessCachedSize() const final;
-  void SharedCtor(::google::protobuf::Arena* arena);
-  void SharedDtor();
-  void InternalSwap(PostStopOrderResponse* other);
-
-  private:
-  friend class ::google::protobuf::internal::AnyMetadata;
-  static ::absl::string_view FullMessageName() {
-    return "tinkoff.public_.invest.api.contract.v1.PostStopOrderResponse";
-  }
-  protected:
-  explicit PostStopOrderResponse(::google::protobuf::Arena* arena);
-  PostStopOrderResponse(::google::protobuf::Arena* arena, const PostStopOrderResponse& from);
-  public:
-
-  static const ClassData _class_data_;
-  const ::google::protobuf::Message::ClassData*GetClassData() const final;
-
-  ::google::protobuf::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kStopOrderIdFieldNumber = 1,
-  };
-  // string stop_order_id = 1;
-  void clear_stop_order_id() ;
-  const std::string& stop_order_id() const;
-  template <typename Arg_ = const std::string&, typename... Args_>
-  void set_stop_order_id(Arg_&& arg, Args_... args);
-  std::string* mutable_stop_order_id();
-  PROTOBUF_NODISCARD std::string* release_stop_order_id();
-  void set_allocated_stop_order_id(std::string* value);
-
-  private:
-  const std::string& _internal_stop_order_id() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_stop_order_id(
-      const std::string& value);
-  std::string* _internal_mutable_stop_order_id();
-
-  public:
-  // @@protoc_insertion_point(class_scope:tinkoff.public_.invest.api.contract.v1.PostStopOrderResponse)
- private:
-  class _Internal;
-
-  friend class ::google::protobuf::internal::TcParser;
-  static const ::google::protobuf::internal::TcParseTable<
-      0, 1, 0,
-      82, 2>
-      _table_;
-  friend class ::google::protobuf::MessageLite;
-  friend class ::google::protobuf::Arena;
-  template <typename T>
-  friend class ::google::protobuf::Arena::InternalHelper;
-  using InternalArenaConstructable_ = void;
-  using DestructorSkippable_ = void;
-  struct Impl_ {
-
-        inline explicit constexpr Impl_(
-            ::google::protobuf::internal::ConstantInitialized) noexcept;
-        inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
-                              ::google::protobuf::Arena* arena);
-        inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
-                              ::google::protobuf::Arena* arena, const Impl_& from);
-    ::google::protobuf::internal::ArenaStringPtr stop_order_id_;
-    mutable ::google::protobuf::internal::CachedSize _cached_size_;
-    PROTOBUF_TSAN_DECLARE_MEMBER
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_stoporders_2eproto;
-};// -------------------------------------------------------------------
-
-class GetStopOrdersRequest final :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:tinkoff.public_.invest.api.contract.v1.GetStopOrdersRequest) */ {
- public:
-  inline GetStopOrdersRequest() : GetStopOrdersRequest(nullptr) {}
-  ~GetStopOrdersRequest() override;
-  template<typename = void>
-  explicit PROTOBUF_CONSTEXPR GetStopOrdersRequest(::google::protobuf::internal::ConstantInitialized);
-
-  inline GetStopOrdersRequest(const GetStopOrdersRequest& from)
-      : GetStopOrdersRequest(nullptr, from) {}
-  GetStopOrdersRequest(GetStopOrdersRequest&& from) noexcept
-    : GetStopOrdersRequest() {
-    *this = ::std::move(from);
-  }
-
-  inline GetStopOrdersRequest& operator=(const GetStopOrdersRequest& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline GetStopOrdersRequest& operator=(GetStopOrdersRequest&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetArena() == from.GetArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
-      ABSL_ATTRIBUTE_LIFETIME_BOUND {
-    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
-  }
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
-      ABSL_ATTRIBUTE_LIFETIME_BOUND {
-    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::google::protobuf::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::google::protobuf::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const GetStopOrdersRequest& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const GetStopOrdersRequest* internal_default_instance() {
-    return reinterpret_cast<const GetStopOrdersRequest*>(
-               &_GetStopOrdersRequest_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    2;
-
-  friend void swap(GetStopOrdersRequest& a, GetStopOrdersRequest& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(GetStopOrdersRequest* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetArena() != nullptr &&
-        GetArena() == other->GetArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetArena() == other->GetArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::google::protobuf::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(GetStopOrdersRequest* other) {
-    if (other == this) return;
-    ABSL_DCHECK(GetArena() == other->GetArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  GetStopOrdersRequest* New(::google::protobuf::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<GetStopOrdersRequest>(arena);
-  }
-  using ::google::protobuf::Message::CopyFrom;
-  void CopyFrom(const GetStopOrdersRequest& from);
-  using ::google::protobuf::Message::MergeFrom;
-  void MergeFrom( const GetStopOrdersRequest& from) {
-    GetStopOrdersRequest::MergeImpl(*this, from);
-  }
-  private:
-  static void MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg);
-  public:
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  ::size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::google::protobuf::internal::ParseContext* ctx) final;
-  ::uint8_t* _InternalSerialize(
-      ::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
-
-  private:
-  ::google::protobuf::internal::CachedSize* AccessCachedSize() const final;
-  void SharedCtor(::google::protobuf::Arena* arena);
-  void SharedDtor();
-  void InternalSwap(GetStopOrdersRequest* other);
-
-  private:
-  friend class ::google::protobuf::internal::AnyMetadata;
-  static ::absl::string_view FullMessageName() {
-    return "tinkoff.public_.invest.api.contract.v1.GetStopOrdersRequest";
-  }
-  protected:
-  explicit GetStopOrdersRequest(::google::protobuf::Arena* arena);
-  GetStopOrdersRequest(::google::protobuf::Arena* arena, const GetStopOrdersRequest& from);
-  public:
-
-  static const ClassData _class_data_;
-  const ::google::protobuf::Message::ClassData*GetClassData() const final;
-
-  ::google::protobuf::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kAccountIdFieldNumber = 1,
-  };
-  // string account_id = 1;
-  void clear_account_id() ;
-  const std::string& account_id() const;
-  template <typename Arg_ = const std::string&, typename... Args_>
-  void set_account_id(Arg_&& arg, Args_... args);
-  std::string* mutable_account_id();
-  PROTOBUF_NODISCARD std::string* release_account_id();
-  void set_allocated_account_id(std::string* value);
-
-  private:
-  const std::string& _internal_account_id() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_account_id(
-      const std::string& value);
-  std::string* _internal_mutable_account_id();
-
-  public:
-  // @@protoc_insertion_point(class_scope:tinkoff.public_.invest.api.contract.v1.GetStopOrdersRequest)
- private:
-  class _Internal;
-
-  friend class ::google::protobuf::internal::TcParser;
-  static const ::google::protobuf::internal::TcParseTable<
-      0, 1, 0,
-      78, 2>
-      _table_;
-  friend class ::google::protobuf::MessageLite;
-  friend class ::google::protobuf::Arena;
-  template <typename T>
-  friend class ::google::protobuf::Arena::InternalHelper;
-  using InternalArenaConstructable_ = void;
-  using DestructorSkippable_ = void;
-  struct Impl_ {
-
-        inline explicit constexpr Impl_(
-            ::google::protobuf::internal::ConstantInitialized) noexcept;
-        inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
-                              ::google::protobuf::Arena* arena);
-        inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
-                              ::google::protobuf::Arena* arena, const Impl_& from);
-    ::google::protobuf::internal::ArenaStringPtr account_id_;
-    mutable ::google::protobuf::internal::CachedSize _cached_size_;
-    PROTOBUF_TSAN_DECLARE_MEMBER
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_stoporders_2eproto;
-};// -------------------------------------------------------------------
 
 class CancelStopOrderRequest final :
     public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:tinkoff.public_.invest.api.contract.v1.CancelStopOrderRequest) */ {
@@ -632,7 +450,7 @@ class CancelStopOrderRequest final :
                &_CancelStopOrderRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    5;
 
   friend void swap(CancelStopOrderRequest& a, CancelStopOrderRequest& b) {
     a.Swap(&b);
@@ -708,7 +526,7 @@ class CancelStopOrderRequest final :
     kAccountIdFieldNumber = 1,
     kStopOrderIdFieldNumber = 2,
   };
-  // string account_id = 1;
+  // string account_id = 1 [(.google.api.field_behavior) = REQUIRED];
   void clear_account_id() ;
   const std::string& account_id() const;
   template <typename Arg_ = const std::string&, typename... Args_>
@@ -724,7 +542,7 @@ class CancelStopOrderRequest final :
   std::string* _internal_mutable_account_id();
 
   public:
-  // string stop_order_id = 2;
+  // string stop_order_id = 2 [(.google.api.field_behavior) = REQUIRED];
   void clear_stop_order_id() ;
   const std::string& stop_order_id() const;
   template <typename Arg_ = const std::string&, typename... Args_>
@@ -766,6 +584,905 @@ class CancelStopOrderRequest final :
     ::google::protobuf::internal::ArenaStringPtr account_id_;
     ::google::protobuf::internal::ArenaStringPtr stop_order_id_;
     mutable ::google::protobuf::internal::CachedSize _cached_size_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_stoporders_2eproto;
+};// -------------------------------------------------------------------
+
+class StopOrder_TrailingData final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:tinkoff.public_.invest.api.contract.v1.StopOrder.TrailingData) */ {
+ public:
+  inline StopOrder_TrailingData() : StopOrder_TrailingData(nullptr) {}
+  ~StopOrder_TrailingData() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR StopOrder_TrailingData(::google::protobuf::internal::ConstantInitialized);
+
+  inline StopOrder_TrailingData(const StopOrder_TrailingData& from)
+      : StopOrder_TrailingData(nullptr, from) {}
+  StopOrder_TrailingData(StopOrder_TrailingData&& from) noexcept
+    : StopOrder_TrailingData() {
+    *this = ::std::move(from);
+  }
+
+  inline StopOrder_TrailingData& operator=(const StopOrder_TrailingData& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline StopOrder_TrailingData& operator=(StopOrder_TrailingData&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetArena() == from.GetArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const StopOrder_TrailingData& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const StopOrder_TrailingData* internal_default_instance() {
+    return reinterpret_cast<const StopOrder_TrailingData*>(
+               &_StopOrder_TrailingData_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    7;
+
+  friend void swap(StopOrder_TrailingData& a, StopOrder_TrailingData& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(StopOrder_TrailingData* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetArena() != nullptr &&
+        GetArena() == other->GetArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetArena() == other->GetArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(StopOrder_TrailingData* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  StopOrder_TrailingData* New(::google::protobuf::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<StopOrder_TrailingData>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const StopOrder_TrailingData& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom( const StopOrder_TrailingData& from) {
+    StopOrder_TrailingData::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::google::protobuf::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  ::google::protobuf::internal::CachedSize* AccessCachedSize() const final;
+  void SharedCtor(::google::protobuf::Arena* arena);
+  void SharedDtor();
+  void InternalSwap(StopOrder_TrailingData* other);
+
+  private:
+  friend class ::google::protobuf::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "tinkoff.public_.invest.api.contract.v1.StopOrder.TrailingData";
+  }
+  protected:
+  explicit StopOrder_TrailingData(::google::protobuf::Arena* arena);
+  StopOrder_TrailingData(::google::protobuf::Arena* arena, const StopOrder_TrailingData& from);
+  public:
+
+  static const ClassData _class_data_;
+  const ::google::protobuf::Message::ClassData*GetClassData() const final;
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kIndentFieldNumber = 1,
+    kSpreadFieldNumber = 3,
+    kPriceFieldNumber = 7,
+    kExtrFieldNumber = 8,
+    kIndentTypeFieldNumber = 2,
+    kSpreadTypeFieldNumber = 4,
+    kStatusFieldNumber = 5,
+  };
+  // .tinkoff.public_.invest.api.contract.v1.Quotation indent = 1;
+  bool has_indent() const;
+  void clear_indent() ;
+  const ::tinkoff::public_::invest::api::contract::v1::Quotation& indent() const;
+  PROTOBUF_NODISCARD ::tinkoff::public_::invest::api::contract::v1::Quotation* release_indent();
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* mutable_indent();
+  void set_allocated_indent(::tinkoff::public_::invest::api::contract::v1::Quotation* value);
+  void unsafe_arena_set_allocated_indent(::tinkoff::public_::invest::api::contract::v1::Quotation* value);
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* unsafe_arena_release_indent();
+
+  private:
+  const ::tinkoff::public_::invest::api::contract::v1::Quotation& _internal_indent() const;
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* _internal_mutable_indent();
+
+  public:
+  // .tinkoff.public_.invest.api.contract.v1.Quotation spread = 3;
+  bool has_spread() const;
+  void clear_spread() ;
+  const ::tinkoff::public_::invest::api::contract::v1::Quotation& spread() const;
+  PROTOBUF_NODISCARD ::tinkoff::public_::invest::api::contract::v1::Quotation* release_spread();
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* mutable_spread();
+  void set_allocated_spread(::tinkoff::public_::invest::api::contract::v1::Quotation* value);
+  void unsafe_arena_set_allocated_spread(::tinkoff::public_::invest::api::contract::v1::Quotation* value);
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* unsafe_arena_release_spread();
+
+  private:
+  const ::tinkoff::public_::invest::api::contract::v1::Quotation& _internal_spread() const;
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* _internal_mutable_spread();
+
+  public:
+  // .tinkoff.public_.invest.api.contract.v1.Quotation price = 7;
+  bool has_price() const;
+  void clear_price() ;
+  const ::tinkoff::public_::invest::api::contract::v1::Quotation& price() const;
+  PROTOBUF_NODISCARD ::tinkoff::public_::invest::api::contract::v1::Quotation* release_price();
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* mutable_price();
+  void set_allocated_price(::tinkoff::public_::invest::api::contract::v1::Quotation* value);
+  void unsafe_arena_set_allocated_price(::tinkoff::public_::invest::api::contract::v1::Quotation* value);
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* unsafe_arena_release_price();
+
+  private:
+  const ::tinkoff::public_::invest::api::contract::v1::Quotation& _internal_price() const;
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* _internal_mutable_price();
+
+  public:
+  // .tinkoff.public_.invest.api.contract.v1.Quotation extr = 8;
+  bool has_extr() const;
+  void clear_extr() ;
+  const ::tinkoff::public_::invest::api::contract::v1::Quotation& extr() const;
+  PROTOBUF_NODISCARD ::tinkoff::public_::invest::api::contract::v1::Quotation* release_extr();
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* mutable_extr();
+  void set_allocated_extr(::tinkoff::public_::invest::api::contract::v1::Quotation* value);
+  void unsafe_arena_set_allocated_extr(::tinkoff::public_::invest::api::contract::v1::Quotation* value);
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* unsafe_arena_release_extr();
+
+  private:
+  const ::tinkoff::public_::invest::api::contract::v1::Quotation& _internal_extr() const;
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* _internal_mutable_extr();
+
+  public:
+  // .tinkoff.public_.invest.api.contract.v1.TrailingValueType indent_type = 2;
+  void clear_indent_type() ;
+  ::tinkoff::public_::invest::api::contract::v1::TrailingValueType indent_type() const;
+  void set_indent_type(::tinkoff::public_::invest::api::contract::v1::TrailingValueType value);
+
+  private:
+  ::tinkoff::public_::invest::api::contract::v1::TrailingValueType _internal_indent_type() const;
+  void _internal_set_indent_type(::tinkoff::public_::invest::api::contract::v1::TrailingValueType value);
+
+  public:
+  // .tinkoff.public_.invest.api.contract.v1.TrailingValueType spread_type = 4;
+  void clear_spread_type() ;
+  ::tinkoff::public_::invest::api::contract::v1::TrailingValueType spread_type() const;
+  void set_spread_type(::tinkoff::public_::invest::api::contract::v1::TrailingValueType value);
+
+  private:
+  ::tinkoff::public_::invest::api::contract::v1::TrailingValueType _internal_spread_type() const;
+  void _internal_set_spread_type(::tinkoff::public_::invest::api::contract::v1::TrailingValueType value);
+
+  public:
+  // .tinkoff.public_.invest.api.contract.v1.TrailingStopStatus status = 5;
+  void clear_status() ;
+  ::tinkoff::public_::invest::api::contract::v1::TrailingStopStatus status() const;
+  void set_status(::tinkoff::public_::invest::api::contract::v1::TrailingStopStatus value);
+
+  private:
+  ::tinkoff::public_::invest::api::contract::v1::TrailingStopStatus _internal_status() const;
+  void _internal_set_status(::tinkoff::public_::invest::api::contract::v1::TrailingStopStatus value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:tinkoff.public_.invest.api.contract.v1.StopOrder.TrailingData)
+ private:
+  class _Internal;
+
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      3, 7, 4,
+      0, 2>
+      _table_;
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+
+        inline explicit constexpr Impl_(
+            ::google::protobuf::internal::ConstantInitialized) noexcept;
+        inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                              ::google::protobuf::Arena* arena);
+        inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                              ::google::protobuf::Arena* arena, const Impl_& from);
+    ::google::protobuf::internal::HasBits<1> _has_bits_;
+    mutable ::google::protobuf::internal::CachedSize _cached_size_;
+    ::tinkoff::public_::invest::api::contract::v1::Quotation* indent_;
+    ::tinkoff::public_::invest::api::contract::v1::Quotation* spread_;
+    ::tinkoff::public_::invest::api::contract::v1::Quotation* price_;
+    ::tinkoff::public_::invest::api::contract::v1::Quotation* extr_;
+    int indent_type_;
+    int spread_type_;
+    int status_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_stoporders_2eproto;
+};// -------------------------------------------------------------------
+
+class PostStopOrderRequest_TrailingData final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.TrailingData) */ {
+ public:
+  inline PostStopOrderRequest_TrailingData() : PostStopOrderRequest_TrailingData(nullptr) {}
+  ~PostStopOrderRequest_TrailingData() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR PostStopOrderRequest_TrailingData(::google::protobuf::internal::ConstantInitialized);
+
+  inline PostStopOrderRequest_TrailingData(const PostStopOrderRequest_TrailingData& from)
+      : PostStopOrderRequest_TrailingData(nullptr, from) {}
+  PostStopOrderRequest_TrailingData(PostStopOrderRequest_TrailingData&& from) noexcept
+    : PostStopOrderRequest_TrailingData() {
+    *this = ::std::move(from);
+  }
+
+  inline PostStopOrderRequest_TrailingData& operator=(const PostStopOrderRequest_TrailingData& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PostStopOrderRequest_TrailingData& operator=(PostStopOrderRequest_TrailingData&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetArena() == from.GetArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const PostStopOrderRequest_TrailingData& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const PostStopOrderRequest_TrailingData* internal_default_instance() {
+    return reinterpret_cast<const PostStopOrderRequest_TrailingData*>(
+               &_PostStopOrderRequest_TrailingData_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    0;
+
+  friend void swap(PostStopOrderRequest_TrailingData& a, PostStopOrderRequest_TrailingData& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(PostStopOrderRequest_TrailingData* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetArena() != nullptr &&
+        GetArena() == other->GetArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetArena() == other->GetArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(PostStopOrderRequest_TrailingData* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  PostStopOrderRequest_TrailingData* New(::google::protobuf::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<PostStopOrderRequest_TrailingData>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const PostStopOrderRequest_TrailingData& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom( const PostStopOrderRequest_TrailingData& from) {
+    PostStopOrderRequest_TrailingData::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::google::protobuf::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  ::google::protobuf::internal::CachedSize* AccessCachedSize() const final;
+  void SharedCtor(::google::protobuf::Arena* arena);
+  void SharedDtor();
+  void InternalSwap(PostStopOrderRequest_TrailingData* other);
+
+  private:
+  friend class ::google::protobuf::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.TrailingData";
+  }
+  protected:
+  explicit PostStopOrderRequest_TrailingData(::google::protobuf::Arena* arena);
+  PostStopOrderRequest_TrailingData(::google::protobuf::Arena* arena, const PostStopOrderRequest_TrailingData& from);
+  public:
+
+  static const ClassData _class_data_;
+  const ::google::protobuf::Message::ClassData*GetClassData() const final;
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kIndentFieldNumber = 1,
+    kSpreadFieldNumber = 3,
+    kIndentTypeFieldNumber = 2,
+    kSpreadTypeFieldNumber = 4,
+  };
+  // .tinkoff.public_.invest.api.contract.v1.Quotation indent = 1;
+  bool has_indent() const;
+  void clear_indent() ;
+  const ::tinkoff::public_::invest::api::contract::v1::Quotation& indent() const;
+  PROTOBUF_NODISCARD ::tinkoff::public_::invest::api::contract::v1::Quotation* release_indent();
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* mutable_indent();
+  void set_allocated_indent(::tinkoff::public_::invest::api::contract::v1::Quotation* value);
+  void unsafe_arena_set_allocated_indent(::tinkoff::public_::invest::api::contract::v1::Quotation* value);
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* unsafe_arena_release_indent();
+
+  private:
+  const ::tinkoff::public_::invest::api::contract::v1::Quotation& _internal_indent() const;
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* _internal_mutable_indent();
+
+  public:
+  // .tinkoff.public_.invest.api.contract.v1.Quotation spread = 3;
+  bool has_spread() const;
+  void clear_spread() ;
+  const ::tinkoff::public_::invest::api::contract::v1::Quotation& spread() const;
+  PROTOBUF_NODISCARD ::tinkoff::public_::invest::api::contract::v1::Quotation* release_spread();
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* mutable_spread();
+  void set_allocated_spread(::tinkoff::public_::invest::api::contract::v1::Quotation* value);
+  void unsafe_arena_set_allocated_spread(::tinkoff::public_::invest::api::contract::v1::Quotation* value);
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* unsafe_arena_release_spread();
+
+  private:
+  const ::tinkoff::public_::invest::api::contract::v1::Quotation& _internal_spread() const;
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* _internal_mutable_spread();
+
+  public:
+  // .tinkoff.public_.invest.api.contract.v1.TrailingValueType indent_type = 2;
+  void clear_indent_type() ;
+  ::tinkoff::public_::invest::api::contract::v1::TrailingValueType indent_type() const;
+  void set_indent_type(::tinkoff::public_::invest::api::contract::v1::TrailingValueType value);
+
+  private:
+  ::tinkoff::public_::invest::api::contract::v1::TrailingValueType _internal_indent_type() const;
+  void _internal_set_indent_type(::tinkoff::public_::invest::api::contract::v1::TrailingValueType value);
+
+  public:
+  // .tinkoff.public_.invest.api.contract.v1.TrailingValueType spread_type = 4;
+  void clear_spread_type() ;
+  ::tinkoff::public_::invest::api::contract::v1::TrailingValueType spread_type() const;
+  void set_spread_type(::tinkoff::public_::invest::api::contract::v1::TrailingValueType value);
+
+  private:
+  ::tinkoff::public_::invest::api::contract::v1::TrailingValueType _internal_spread_type() const;
+  void _internal_set_spread_type(::tinkoff::public_::invest::api::contract::v1::TrailingValueType value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.TrailingData)
+ private:
+  class _Internal;
+
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      2, 4, 2,
+      0, 2>
+      _table_;
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+
+        inline explicit constexpr Impl_(
+            ::google::protobuf::internal::ConstantInitialized) noexcept;
+        inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                              ::google::protobuf::Arena* arena);
+        inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                              ::google::protobuf::Arena* arena, const Impl_& from);
+    ::google::protobuf::internal::HasBits<1> _has_bits_;
+    mutable ::google::protobuf::internal::CachedSize _cached_size_;
+    ::tinkoff::public_::invest::api::contract::v1::Quotation* indent_;
+    ::tinkoff::public_::invest::api::contract::v1::Quotation* spread_;
+    int indent_type_;
+    int spread_type_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_stoporders_2eproto;
+};// -------------------------------------------------------------------
+
+class GetStopOrdersRequest final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:tinkoff.public_.invest.api.contract.v1.GetStopOrdersRequest) */ {
+ public:
+  inline GetStopOrdersRequest() : GetStopOrdersRequest(nullptr) {}
+  ~GetStopOrdersRequest() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR GetStopOrdersRequest(::google::protobuf::internal::ConstantInitialized);
+
+  inline GetStopOrdersRequest(const GetStopOrdersRequest& from)
+      : GetStopOrdersRequest(nullptr, from) {}
+  GetStopOrdersRequest(GetStopOrdersRequest&& from) noexcept
+    : GetStopOrdersRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline GetStopOrdersRequest& operator=(const GetStopOrdersRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetStopOrdersRequest& operator=(GetStopOrdersRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetArena() == from.GetArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const GetStopOrdersRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetStopOrdersRequest* internal_default_instance() {
+    return reinterpret_cast<const GetStopOrdersRequest*>(
+               &_GetStopOrdersRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(GetStopOrdersRequest& a, GetStopOrdersRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetStopOrdersRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetArena() != nullptr &&
+        GetArena() == other->GetArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetArena() == other->GetArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetStopOrdersRequest* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetStopOrdersRequest* New(::google::protobuf::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetStopOrdersRequest>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const GetStopOrdersRequest& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom( const GetStopOrdersRequest& from) {
+    GetStopOrdersRequest::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::google::protobuf::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  ::google::protobuf::internal::CachedSize* AccessCachedSize() const final;
+  void SharedCtor(::google::protobuf::Arena* arena);
+  void SharedDtor();
+  void InternalSwap(GetStopOrdersRequest* other);
+
+  private:
+  friend class ::google::protobuf::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "tinkoff.public_.invest.api.contract.v1.GetStopOrdersRequest";
+  }
+  protected:
+  explicit GetStopOrdersRequest(::google::protobuf::Arena* arena);
+  GetStopOrdersRequest(::google::protobuf::Arena* arena, const GetStopOrdersRequest& from);
+  public:
+
+  static const ClassData _class_data_;
+  const ::google::protobuf::Message::ClassData*GetClassData() const final;
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kAccountIdFieldNumber = 1,
+    kFromFieldNumber = 3,
+    kToFieldNumber = 4,
+    kStatusFieldNumber = 2,
+  };
+  // string account_id = 1 [(.google.api.field_behavior) = REQUIRED];
+  void clear_account_id() ;
+  const std::string& account_id() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_account_id(Arg_&& arg, Args_... args);
+  std::string* mutable_account_id();
+  PROTOBUF_NODISCARD std::string* release_account_id();
+  void set_allocated_account_id(std::string* value);
+
+  private:
+  const std::string& _internal_account_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_account_id(
+      const std::string& value);
+  std::string* _internal_mutable_account_id();
+
+  public:
+  // .google.protobuf.Timestamp from = 3;
+  bool has_from() const;
+  void clear_from() ;
+  const ::google::protobuf::Timestamp& from() const;
+  PROTOBUF_NODISCARD ::google::protobuf::Timestamp* release_from();
+  ::google::protobuf::Timestamp* mutable_from();
+  void set_allocated_from(::google::protobuf::Timestamp* value);
+  void unsafe_arena_set_allocated_from(::google::protobuf::Timestamp* value);
+  ::google::protobuf::Timestamp* unsafe_arena_release_from();
+
+  private:
+  const ::google::protobuf::Timestamp& _internal_from() const;
+  ::google::protobuf::Timestamp* _internal_mutable_from();
+
+  public:
+  // .google.protobuf.Timestamp to = 4;
+  bool has_to() const;
+  void clear_to() ;
+  const ::google::protobuf::Timestamp& to() const;
+  PROTOBUF_NODISCARD ::google::protobuf::Timestamp* release_to();
+  ::google::protobuf::Timestamp* mutable_to();
+  void set_allocated_to(::google::protobuf::Timestamp* value);
+  void unsafe_arena_set_allocated_to(::google::protobuf::Timestamp* value);
+  ::google::protobuf::Timestamp* unsafe_arena_release_to();
+
+  private:
+  const ::google::protobuf::Timestamp& _internal_to() const;
+  ::google::protobuf::Timestamp* _internal_mutable_to();
+
+  public:
+  // .tinkoff.public_.invest.api.contract.v1.StopOrderStatusOption status = 2;
+  void clear_status() ;
+  ::tinkoff::public_::invest::api::contract::v1::StopOrderStatusOption status() const;
+  void set_status(::tinkoff::public_::invest::api::contract::v1::StopOrderStatusOption value);
+
+  private:
+  ::tinkoff::public_::invest::api::contract::v1::StopOrderStatusOption _internal_status() const;
+  void _internal_set_status(::tinkoff::public_::invest::api::contract::v1::StopOrderStatusOption value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:tinkoff.public_.invest.api.contract.v1.GetStopOrdersRequest)
+ private:
+  class _Internal;
+
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      2, 4, 2,
+      78, 2>
+      _table_;
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+
+        inline explicit constexpr Impl_(
+            ::google::protobuf::internal::ConstantInitialized) noexcept;
+        inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                              ::google::protobuf::Arena* arena);
+        inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                              ::google::protobuf::Arena* arena, const Impl_& from);
+    ::google::protobuf::internal::HasBits<1> _has_bits_;
+    mutable ::google::protobuf::internal::CachedSize _cached_size_;
+    ::google::protobuf::internal::ArenaStringPtr account_id_;
+    ::google::protobuf::Timestamp* from_;
+    ::google::protobuf::Timestamp* to_;
+    int status_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_stoporders_2eproto;
+};// -------------------------------------------------------------------
+
+class CancelStopOrderResponse final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:tinkoff.public_.invest.api.contract.v1.CancelStopOrderResponse) */ {
+ public:
+  inline CancelStopOrderResponse() : CancelStopOrderResponse(nullptr) {}
+  ~CancelStopOrderResponse() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR CancelStopOrderResponse(::google::protobuf::internal::ConstantInitialized);
+
+  inline CancelStopOrderResponse(const CancelStopOrderResponse& from)
+      : CancelStopOrderResponse(nullptr, from) {}
+  CancelStopOrderResponse(CancelStopOrderResponse&& from) noexcept
+    : CancelStopOrderResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline CancelStopOrderResponse& operator=(const CancelStopOrderResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CancelStopOrderResponse& operator=(CancelStopOrderResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetArena() == from.GetArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const CancelStopOrderResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CancelStopOrderResponse* internal_default_instance() {
+    return reinterpret_cast<const CancelStopOrderResponse*>(
+               &_CancelStopOrderResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  friend void swap(CancelStopOrderResponse& a, CancelStopOrderResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(CancelStopOrderResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetArena() != nullptr &&
+        GetArena() == other->GetArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetArena() == other->GetArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CancelStopOrderResponse* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  CancelStopOrderResponse* New(::google::protobuf::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<CancelStopOrderResponse>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const CancelStopOrderResponse& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom( const CancelStopOrderResponse& from) {
+    CancelStopOrderResponse::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::google::protobuf::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  ::google::protobuf::internal::CachedSize* AccessCachedSize() const final;
+  void SharedCtor(::google::protobuf::Arena* arena);
+  void SharedDtor();
+  void InternalSwap(CancelStopOrderResponse* other);
+
+  private:
+  friend class ::google::protobuf::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "tinkoff.public_.invest.api.contract.v1.CancelStopOrderResponse";
+  }
+  protected:
+  explicit CancelStopOrderResponse(::google::protobuf::Arena* arena);
+  CancelStopOrderResponse(::google::protobuf::Arena* arena, const CancelStopOrderResponse& from);
+  public:
+
+  static const ClassData _class_data_;
+  const ::google::protobuf::Message::ClassData*GetClassData() const final;
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kTimeFieldNumber = 1,
+  };
+  // .google.protobuf.Timestamp time = 1;
+  bool has_time() const;
+  void clear_time() ;
+  const ::google::protobuf::Timestamp& time() const;
+  PROTOBUF_NODISCARD ::google::protobuf::Timestamp* release_time();
+  ::google::protobuf::Timestamp* mutable_time();
+  void set_allocated_time(::google::protobuf::Timestamp* value);
+  void unsafe_arena_set_allocated_time(::google::protobuf::Timestamp* value);
+  ::google::protobuf::Timestamp* unsafe_arena_release_time();
+
+  private:
+  const ::google::protobuf::Timestamp& _internal_time() const;
+  ::google::protobuf::Timestamp* _internal_mutable_time();
+
+  public:
+  // @@protoc_insertion_point(class_scope:tinkoff.public_.invest.api.contract.v1.CancelStopOrderResponse)
+ private:
+  class _Internal;
+
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      0, 1, 1,
+      0, 2>
+      _table_;
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+
+        inline explicit constexpr Impl_(
+            ::google::protobuf::internal::ConstantInitialized) noexcept;
+        inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                              ::google::protobuf::Arena* arena);
+        inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                              ::google::protobuf::Arena* arena, const Impl_& from);
+    ::google::protobuf::internal::HasBits<1> _has_bits_;
+    mutable ::google::protobuf::internal::CachedSize _cached_size_;
+    ::google::protobuf::Timestamp* time_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
   union { Impl_ _impl_; };
@@ -831,7 +1548,7 @@ class StopOrder final :
                &_StopOrder_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    8;
 
   friend void swap(StopOrder& a, StopOrder& b) {
     a.Swap(&b);
@@ -901,6 +1618,8 @@ class StopOrder final :
 
   // nested types ----------------------------------------------------
 
+  using TrailingData = StopOrder_TrailingData;
+
   // accessors -------------------------------------------------------
 
   enum : int {
@@ -913,9 +1632,12 @@ class StopOrder final :
     kExpirationTimeFieldNumber = 9,
     kPriceFieldNumber = 10,
     kStopPriceFieldNumber = 11,
+    kTrailingDataFieldNumber = 14,
     kLotsRequestedFieldNumber = 2,
     kDirectionFieldNumber = 4,
     kOrderTypeFieldNumber = 6,
+    kTakeProfitTypeFieldNumber = 13,
+    kStatusFieldNumber = 15,
   };
   // string stop_order_id = 1;
   void clear_stop_order_id() ;
@@ -1056,6 +1778,21 @@ class StopOrder final :
   ::tinkoff::public_::invest::api::contract::v1::MoneyValue* _internal_mutable_stop_price();
 
   public:
+  // .tinkoff.public_.invest.api.contract.v1.StopOrder.TrailingData trailing_data = 14;
+  bool has_trailing_data() const;
+  void clear_trailing_data() ;
+  const ::tinkoff::public_::invest::api::contract::v1::StopOrder_TrailingData& trailing_data() const;
+  PROTOBUF_NODISCARD ::tinkoff::public_::invest::api::contract::v1::StopOrder_TrailingData* release_trailing_data();
+  ::tinkoff::public_::invest::api::contract::v1::StopOrder_TrailingData* mutable_trailing_data();
+  void set_allocated_trailing_data(::tinkoff::public_::invest::api::contract::v1::StopOrder_TrailingData* value);
+  void unsafe_arena_set_allocated_trailing_data(::tinkoff::public_::invest::api::contract::v1::StopOrder_TrailingData* value);
+  ::tinkoff::public_::invest::api::contract::v1::StopOrder_TrailingData* unsafe_arena_release_trailing_data();
+
+  private:
+  const ::tinkoff::public_::invest::api::contract::v1::StopOrder_TrailingData& _internal_trailing_data() const;
+  ::tinkoff::public_::invest::api::contract::v1::StopOrder_TrailingData* _internal_mutable_trailing_data();
+
+  public:
   // int64 lots_requested = 2;
   void clear_lots_requested() ;
   ::int64_t lots_requested() const;
@@ -1086,13 +1823,33 @@ class StopOrder final :
   void _internal_set_order_type(::tinkoff::public_::invest::api::contract::v1::StopOrderType value);
 
   public:
+  // .tinkoff.public_.invest.api.contract.v1.TakeProfitType take_profit_type = 13;
+  void clear_take_profit_type() ;
+  ::tinkoff::public_::invest::api::contract::v1::TakeProfitType take_profit_type() const;
+  void set_take_profit_type(::tinkoff::public_::invest::api::contract::v1::TakeProfitType value);
+
+  private:
+  ::tinkoff::public_::invest::api::contract::v1::TakeProfitType _internal_take_profit_type() const;
+  void _internal_set_take_profit_type(::tinkoff::public_::invest::api::contract::v1::TakeProfitType value);
+
+  public:
+  // .tinkoff.public_.invest.api.contract.v1.StopOrderStatusOption status = 15;
+  void clear_status() ;
+  ::tinkoff::public_::invest::api::contract::v1::StopOrderStatusOption status() const;
+  void set_status(::tinkoff::public_::invest::api::contract::v1::StopOrderStatusOption value);
+
+  private:
+  ::tinkoff::public_::invest::api::contract::v1::StopOrderStatusOption _internal_status() const;
+  void _internal_set_status(::tinkoff::public_::invest::api::contract::v1::StopOrderStatusOption value);
+
+  public:
   // @@protoc_insertion_point(class_scope:tinkoff.public_.invest.api.contract.v1.StopOrder)
  private:
   class _Internal;
 
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      4, 12, 5,
+      4, 15, 6,
       104, 2>
       _table_;
   friend class ::google::protobuf::MessageLite;
@@ -1120,9 +1877,229 @@ class StopOrder final :
     ::google::protobuf::Timestamp* expiration_time_;
     ::tinkoff::public_::invest::api::contract::v1::MoneyValue* price_;
     ::tinkoff::public_::invest::api::contract::v1::MoneyValue* stop_price_;
+    ::tinkoff::public_::invest::api::contract::v1::StopOrder_TrailingData* trailing_data_;
     ::int64_t lots_requested_;
     int direction_;
     int order_type_;
+    int take_profit_type_;
+    int status_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_stoporders_2eproto;
+};// -------------------------------------------------------------------
+
+class PostStopOrderResponse final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:tinkoff.public_.invest.api.contract.v1.PostStopOrderResponse) */ {
+ public:
+  inline PostStopOrderResponse() : PostStopOrderResponse(nullptr) {}
+  ~PostStopOrderResponse() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR PostStopOrderResponse(::google::protobuf::internal::ConstantInitialized);
+
+  inline PostStopOrderResponse(const PostStopOrderResponse& from)
+      : PostStopOrderResponse(nullptr, from) {}
+  PostStopOrderResponse(PostStopOrderResponse&& from) noexcept
+    : PostStopOrderResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline PostStopOrderResponse& operator=(const PostStopOrderResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PostStopOrderResponse& operator=(PostStopOrderResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetArena() == from.GetArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const PostStopOrderResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const PostStopOrderResponse* internal_default_instance() {
+    return reinterpret_cast<const PostStopOrderResponse*>(
+               &_PostStopOrderResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(PostStopOrderResponse& a, PostStopOrderResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(PostStopOrderResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetArena() != nullptr &&
+        GetArena() == other->GetArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetArena() == other->GetArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(PostStopOrderResponse* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  PostStopOrderResponse* New(::google::protobuf::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<PostStopOrderResponse>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const PostStopOrderResponse& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom( const PostStopOrderResponse& from) {
+    PostStopOrderResponse::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::google::protobuf::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  ::google::protobuf::internal::CachedSize* AccessCachedSize() const final;
+  void SharedCtor(::google::protobuf::Arena* arena);
+  void SharedDtor();
+  void InternalSwap(PostStopOrderResponse* other);
+
+  private:
+  friend class ::google::protobuf::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "tinkoff.public_.invest.api.contract.v1.PostStopOrderResponse";
+  }
+  protected:
+  explicit PostStopOrderResponse(::google::protobuf::Arena* arena);
+  PostStopOrderResponse(::google::protobuf::Arena* arena, const PostStopOrderResponse& from);
+  public:
+
+  static const ClassData _class_data_;
+  const ::google::protobuf::Message::ClassData*GetClassData() const final;
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kStopOrderIdFieldNumber = 1,
+    kOrderRequestIdFieldNumber = 2,
+    kResponseMetadataFieldNumber = 254,
+  };
+  // string stop_order_id = 1;
+  void clear_stop_order_id() ;
+  const std::string& stop_order_id() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_stop_order_id(Arg_&& arg, Args_... args);
+  std::string* mutable_stop_order_id();
+  PROTOBUF_NODISCARD std::string* release_stop_order_id();
+  void set_allocated_stop_order_id(std::string* value);
+
+  private:
+  const std::string& _internal_stop_order_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_stop_order_id(
+      const std::string& value);
+  std::string* _internal_mutable_stop_order_id();
+
+  public:
+  // string order_request_id = 2;
+  void clear_order_request_id() ;
+  const std::string& order_request_id() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_order_request_id(Arg_&& arg, Args_... args);
+  std::string* mutable_order_request_id();
+  PROTOBUF_NODISCARD std::string* release_order_request_id();
+  void set_allocated_order_request_id(std::string* value);
+
+  private:
+  const std::string& _internal_order_request_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_order_request_id(
+      const std::string& value);
+  std::string* _internal_mutable_order_request_id();
+
+  public:
+  // .tinkoff.public_.invest.api.contract.v1.ResponseMetadata response_metadata = 254;
+  bool has_response_metadata() const;
+  void clear_response_metadata() ;
+  const ::tinkoff::public_::invest::api::contract::v1::ResponseMetadata& response_metadata() const;
+  PROTOBUF_NODISCARD ::tinkoff::public_::invest::api::contract::v1::ResponseMetadata* release_response_metadata();
+  ::tinkoff::public_::invest::api::contract::v1::ResponseMetadata* mutable_response_metadata();
+  void set_allocated_response_metadata(::tinkoff::public_::invest::api::contract::v1::ResponseMetadata* value);
+  void unsafe_arena_set_allocated_response_metadata(::tinkoff::public_::invest::api::contract::v1::ResponseMetadata* value);
+  ::tinkoff::public_::invest::api::contract::v1::ResponseMetadata* unsafe_arena_release_response_metadata();
+
+  private:
+  const ::tinkoff::public_::invest::api::contract::v1::ResponseMetadata& _internal_response_metadata() const;
+  ::tinkoff::public_::invest::api::contract::v1::ResponseMetadata* _internal_mutable_response_metadata();
+
+  public:
+  // @@protoc_insertion_point(class_scope:tinkoff.public_.invest.api.contract.v1.PostStopOrderResponse)
+ private:
+  class _Internal;
+
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      1, 3, 1,
+      98, 7>
+      _table_;
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+
+        inline explicit constexpr Impl_(
+            ::google::protobuf::internal::ConstantInitialized) noexcept;
+        inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                              ::google::protobuf::Arena* arena);
+        inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                              ::google::protobuf::Arena* arena, const Impl_& from);
+    ::google::protobuf::internal::HasBits<1> _has_bits_;
+    mutable ::google::protobuf::internal::CachedSize _cached_size_;
+    ::google::protobuf::internal::ArenaStringPtr stop_order_id_;
+    ::google::protobuf::internal::ArenaStringPtr order_request_id_;
+    ::tinkoff::public_::invest::api::contract::v1::ResponseMetadata* response_metadata_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
   union { Impl_ _impl_; };
@@ -1188,7 +2165,7 @@ class PostStopOrderRequest final :
                &_PostStopOrderRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    0;
+    1;
 
   friend void swap(PostStopOrderRequest& a, PostStopOrderRequest& b) {
     a.Swap(&b);
@@ -1258,21 +2235,29 @@ class PostStopOrderRequest final :
 
   // nested types ----------------------------------------------------
 
+  using TrailingData = PostStopOrderRequest_TrailingData;
+
   // accessors -------------------------------------------------------
 
   enum : int {
     kFigiFieldNumber = 1,
     kAccountIdFieldNumber = 6,
     kInstrumentIdFieldNumber = 10,
+    kOrderIdFieldNumber = 15,
     kPriceFieldNumber = 3,
     kStopPriceFieldNumber = 4,
     kExpireDateFieldNumber = 9,
+    kTrailingDataFieldNumber = 13,
     kQuantityFieldNumber = 2,
     kDirectionFieldNumber = 5,
     kExpirationTypeFieldNumber = 7,
     kStopOrderTypeFieldNumber = 8,
+    kExchangeOrderTypeFieldNumber = 11,
+    kTakeProfitTypeFieldNumber = 12,
+    kPriceTypeFieldNumber = 14,
   };
-  // string figi = 1 [deprecated = true];
+  // optional string figi = 1 [deprecated = true];
+  [[deprecated]]  bool has_figi() const;
   [[deprecated]]  void clear_figi() ;
   [[deprecated]] const std::string& figi() const;
   template <typename Arg_ = const std::string&, typename... Args_>
@@ -1288,7 +2273,7 @@ class PostStopOrderRequest final :
   std::string* _internal_mutable_figi();
 
   public:
-  // string account_id = 6;
+  // string account_id = 6 [(.google.api.field_behavior) = REQUIRED];
   void clear_account_id() ;
   const std::string& account_id() const;
   template <typename Arg_ = const std::string&, typename... Args_>
@@ -1304,7 +2289,7 @@ class PostStopOrderRequest final :
   std::string* _internal_mutable_account_id();
 
   public:
-  // string instrument_id = 10;
+  // string instrument_id = 10 [(.google.api.field_behavior) = REQUIRED];
   void clear_instrument_id() ;
   const std::string& instrument_id() const;
   template <typename Arg_ = const std::string&, typename... Args_>
@@ -1320,7 +2305,23 @@ class PostStopOrderRequest final :
   std::string* _internal_mutable_instrument_id();
 
   public:
-  // .tinkoff.public_.invest.api.contract.v1.Quotation price = 3;
+  // string order_id = 15 [(.google.api.field_behavior) = REQUIRED];
+  void clear_order_id() ;
+  const std::string& order_id() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_order_id(Arg_&& arg, Args_... args);
+  std::string* mutable_order_id();
+  PROTOBUF_NODISCARD std::string* release_order_id();
+  void set_allocated_order_id(std::string* value);
+
+  private:
+  const std::string& _internal_order_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_order_id(
+      const std::string& value);
+  std::string* _internal_mutable_order_id();
+
+  public:
+  // optional .tinkoff.public_.invest.api.contract.v1.Quotation price = 3;
   bool has_price() const;
   void clear_price() ;
   const ::tinkoff::public_::invest::api::contract::v1::Quotation& price() const;
@@ -1335,7 +2336,7 @@ class PostStopOrderRequest final :
   ::tinkoff::public_::invest::api::contract::v1::Quotation* _internal_mutable_price();
 
   public:
-  // .tinkoff.public_.invest.api.contract.v1.Quotation stop_price = 4;
+  // optional .tinkoff.public_.invest.api.contract.v1.Quotation stop_price = 4;
   bool has_stop_price() const;
   void clear_stop_price() ;
   const ::tinkoff::public_::invest::api::contract::v1::Quotation& stop_price() const;
@@ -1350,7 +2351,7 @@ class PostStopOrderRequest final :
   ::tinkoff::public_::invest::api::contract::v1::Quotation* _internal_mutable_stop_price();
 
   public:
-  // .google.protobuf.Timestamp expire_date = 9;
+  // optional .google.protobuf.Timestamp expire_date = 9;
   bool has_expire_date() const;
   void clear_expire_date() ;
   const ::google::protobuf::Timestamp& expire_date() const;
@@ -1365,7 +2366,22 @@ class PostStopOrderRequest final :
   ::google::protobuf::Timestamp* _internal_mutable_expire_date();
 
   public:
-  // int64 quantity = 2;
+  // .tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.TrailingData trailing_data = 13;
+  bool has_trailing_data() const;
+  void clear_trailing_data() ;
+  const ::tinkoff::public_::invest::api::contract::v1::PostStopOrderRequest_TrailingData& trailing_data() const;
+  PROTOBUF_NODISCARD ::tinkoff::public_::invest::api::contract::v1::PostStopOrderRequest_TrailingData* release_trailing_data();
+  ::tinkoff::public_::invest::api::contract::v1::PostStopOrderRequest_TrailingData* mutable_trailing_data();
+  void set_allocated_trailing_data(::tinkoff::public_::invest::api::contract::v1::PostStopOrderRequest_TrailingData* value);
+  void unsafe_arena_set_allocated_trailing_data(::tinkoff::public_::invest::api::contract::v1::PostStopOrderRequest_TrailingData* value);
+  ::tinkoff::public_::invest::api::contract::v1::PostStopOrderRequest_TrailingData* unsafe_arena_release_trailing_data();
+
+  private:
+  const ::tinkoff::public_::invest::api::contract::v1::PostStopOrderRequest_TrailingData& _internal_trailing_data() const;
+  ::tinkoff::public_::invest::api::contract::v1::PostStopOrderRequest_TrailingData* _internal_mutable_trailing_data();
+
+  public:
+  // int64 quantity = 2 [(.google.api.field_behavior) = REQUIRED];
   void clear_quantity() ;
   ::int64_t quantity() const;
   void set_quantity(::int64_t value);
@@ -1375,7 +2391,7 @@ class PostStopOrderRequest final :
   void _internal_set_quantity(::int64_t value);
 
   public:
-  // .tinkoff.public_.invest.api.contract.v1.StopOrderDirection direction = 5;
+  // .tinkoff.public_.invest.api.contract.v1.StopOrderDirection direction = 5 [(.google.api.field_behavior) = REQUIRED];
   void clear_direction() ;
   ::tinkoff::public_::invest::api::contract::v1::StopOrderDirection direction() const;
   void set_direction(::tinkoff::public_::invest::api::contract::v1::StopOrderDirection value);
@@ -1385,7 +2401,7 @@ class PostStopOrderRequest final :
   void _internal_set_direction(::tinkoff::public_::invest::api::contract::v1::StopOrderDirection value);
 
   public:
-  // .tinkoff.public_.invest.api.contract.v1.StopOrderExpirationType expiration_type = 7;
+  // .tinkoff.public_.invest.api.contract.v1.StopOrderExpirationType expiration_type = 7 [(.google.api.field_behavior) = REQUIRED];
   void clear_expiration_type() ;
   ::tinkoff::public_::invest::api::contract::v1::StopOrderExpirationType expiration_type() const;
   void set_expiration_type(::tinkoff::public_::invest::api::contract::v1::StopOrderExpirationType value);
@@ -1395,7 +2411,7 @@ class PostStopOrderRequest final :
   void _internal_set_expiration_type(::tinkoff::public_::invest::api::contract::v1::StopOrderExpirationType value);
 
   public:
-  // .tinkoff.public_.invest.api.contract.v1.StopOrderType stop_order_type = 8;
+  // .tinkoff.public_.invest.api.contract.v1.StopOrderType stop_order_type = 8 [(.google.api.field_behavior) = REQUIRED];
   void clear_stop_order_type() ;
   ::tinkoff::public_::invest::api::contract::v1::StopOrderType stop_order_type() const;
   void set_stop_order_type(::tinkoff::public_::invest::api::contract::v1::StopOrderType value);
@@ -1405,14 +2421,44 @@ class PostStopOrderRequest final :
   void _internal_set_stop_order_type(::tinkoff::public_::invest::api::contract::v1::StopOrderType value);
 
   public:
+  // .tinkoff.public_.invest.api.contract.v1.ExchangeOrderType exchange_order_type = 11;
+  void clear_exchange_order_type() ;
+  ::tinkoff::public_::invest::api::contract::v1::ExchangeOrderType exchange_order_type() const;
+  void set_exchange_order_type(::tinkoff::public_::invest::api::contract::v1::ExchangeOrderType value);
+
+  private:
+  ::tinkoff::public_::invest::api::contract::v1::ExchangeOrderType _internal_exchange_order_type() const;
+  void _internal_set_exchange_order_type(::tinkoff::public_::invest::api::contract::v1::ExchangeOrderType value);
+
+  public:
+  // .tinkoff.public_.invest.api.contract.v1.TakeProfitType take_profit_type = 12;
+  void clear_take_profit_type() ;
+  ::tinkoff::public_::invest::api::contract::v1::TakeProfitType take_profit_type() const;
+  void set_take_profit_type(::tinkoff::public_::invest::api::contract::v1::TakeProfitType value);
+
+  private:
+  ::tinkoff::public_::invest::api::contract::v1::TakeProfitType _internal_take_profit_type() const;
+  void _internal_set_take_profit_type(::tinkoff::public_::invest::api::contract::v1::TakeProfitType value);
+
+  public:
+  // .tinkoff.public_.invest.api.contract.v1.PriceType price_type = 14;
+  void clear_price_type() ;
+  ::tinkoff::public_::invest::api::contract::v1::PriceType price_type() const;
+  void set_price_type(::tinkoff::public_::invest::api::contract::v1::PriceType value);
+
+  private:
+  ::tinkoff::public_::invest::api::contract::v1::PriceType _internal_price_type() const;
+  void _internal_set_price_type(::tinkoff::public_::invest::api::contract::v1::PriceType value);
+
+  public:
   // @@protoc_insertion_point(class_scope:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest)
  private:
   class _Internal;
 
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      4, 10, 3,
-      103, 2>
+      4, 15, 4,
+      111, 2>
       _table_;
   friend class ::google::protobuf::MessageLite;
   friend class ::google::protobuf::Arena;
@@ -1433,194 +2479,18 @@ class PostStopOrderRequest final :
     ::google::protobuf::internal::ArenaStringPtr figi_;
     ::google::protobuf::internal::ArenaStringPtr account_id_;
     ::google::protobuf::internal::ArenaStringPtr instrument_id_;
+    ::google::protobuf::internal::ArenaStringPtr order_id_;
     ::tinkoff::public_::invest::api::contract::v1::Quotation* price_;
     ::tinkoff::public_::invest::api::contract::v1::Quotation* stop_price_;
     ::google::protobuf::Timestamp* expire_date_;
+    ::tinkoff::public_::invest::api::contract::v1::PostStopOrderRequest_TrailingData* trailing_data_;
     ::int64_t quantity_;
     int direction_;
     int expiration_type_;
     int stop_order_type_;
-    PROTOBUF_TSAN_DECLARE_MEMBER
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_stoporders_2eproto;
-};// -------------------------------------------------------------------
-
-class CancelStopOrderResponse final :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:tinkoff.public_.invest.api.contract.v1.CancelStopOrderResponse) */ {
- public:
-  inline CancelStopOrderResponse() : CancelStopOrderResponse(nullptr) {}
-  ~CancelStopOrderResponse() override;
-  template<typename = void>
-  explicit PROTOBUF_CONSTEXPR CancelStopOrderResponse(::google::protobuf::internal::ConstantInitialized);
-
-  inline CancelStopOrderResponse(const CancelStopOrderResponse& from)
-      : CancelStopOrderResponse(nullptr, from) {}
-  CancelStopOrderResponse(CancelStopOrderResponse&& from) noexcept
-    : CancelStopOrderResponse() {
-    *this = ::std::move(from);
-  }
-
-  inline CancelStopOrderResponse& operator=(const CancelStopOrderResponse& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline CancelStopOrderResponse& operator=(CancelStopOrderResponse&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetArena() == from.GetArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
-      ABSL_ATTRIBUTE_LIFETIME_BOUND {
-    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
-  }
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
-      ABSL_ATTRIBUTE_LIFETIME_BOUND {
-    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::google::protobuf::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::google::protobuf::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const CancelStopOrderResponse& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const CancelStopOrderResponse* internal_default_instance() {
-    return reinterpret_cast<const CancelStopOrderResponse*>(
-               &_CancelStopOrderResponse_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    5;
-
-  friend void swap(CancelStopOrderResponse& a, CancelStopOrderResponse& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(CancelStopOrderResponse* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetArena() != nullptr &&
-        GetArena() == other->GetArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetArena() == other->GetArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::google::protobuf::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(CancelStopOrderResponse* other) {
-    if (other == this) return;
-    ABSL_DCHECK(GetArena() == other->GetArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  CancelStopOrderResponse* New(::google::protobuf::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<CancelStopOrderResponse>(arena);
-  }
-  using ::google::protobuf::Message::CopyFrom;
-  void CopyFrom(const CancelStopOrderResponse& from);
-  using ::google::protobuf::Message::MergeFrom;
-  void MergeFrom( const CancelStopOrderResponse& from) {
-    CancelStopOrderResponse::MergeImpl(*this, from);
-  }
-  private:
-  static void MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg);
-  public:
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  ::size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::google::protobuf::internal::ParseContext* ctx) final;
-  ::uint8_t* _InternalSerialize(
-      ::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
-
-  private:
-  ::google::protobuf::internal::CachedSize* AccessCachedSize() const final;
-  void SharedCtor(::google::protobuf::Arena* arena);
-  void SharedDtor();
-  void InternalSwap(CancelStopOrderResponse* other);
-
-  private:
-  friend class ::google::protobuf::internal::AnyMetadata;
-  static ::absl::string_view FullMessageName() {
-    return "tinkoff.public_.invest.api.contract.v1.CancelStopOrderResponse";
-  }
-  protected:
-  explicit CancelStopOrderResponse(::google::protobuf::Arena* arena);
-  CancelStopOrderResponse(::google::protobuf::Arena* arena, const CancelStopOrderResponse& from);
-  public:
-
-  static const ClassData _class_data_;
-  const ::google::protobuf::Message::ClassData*GetClassData() const final;
-
-  ::google::protobuf::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kTimeFieldNumber = 1,
-  };
-  // .google.protobuf.Timestamp time = 1;
-  bool has_time() const;
-  void clear_time() ;
-  const ::google::protobuf::Timestamp& time() const;
-  PROTOBUF_NODISCARD ::google::protobuf::Timestamp* release_time();
-  ::google::protobuf::Timestamp* mutable_time();
-  void set_allocated_time(::google::protobuf::Timestamp* value);
-  void unsafe_arena_set_allocated_time(::google::protobuf::Timestamp* value);
-  ::google::protobuf::Timestamp* unsafe_arena_release_time();
-
-  private:
-  const ::google::protobuf::Timestamp& _internal_time() const;
-  ::google::protobuf::Timestamp* _internal_mutable_time();
-
-  public:
-  // @@protoc_insertion_point(class_scope:tinkoff.public_.invest.api.contract.v1.CancelStopOrderResponse)
- private:
-  class _Internal;
-
-  friend class ::google::protobuf::internal::TcParser;
-  static const ::google::protobuf::internal::TcParseTable<
-      0, 1, 1,
-      0, 2>
-      _table_;
-  friend class ::google::protobuf::MessageLite;
-  friend class ::google::protobuf::Arena;
-  template <typename T>
-  friend class ::google::protobuf::Arena::InternalHelper;
-  using InternalArenaConstructable_ = void;
-  using DestructorSkippable_ = void;
-  struct Impl_ {
-
-        inline explicit constexpr Impl_(
-            ::google::protobuf::internal::ConstantInitialized) noexcept;
-        inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
-                              ::google::protobuf::Arena* arena);
-        inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
-                              ::google::protobuf::Arena* arena, const Impl_& from);
-    ::google::protobuf::internal::HasBits<1> _has_bits_;
-    mutable ::google::protobuf::internal::CachedSize _cached_size_;
-    ::google::protobuf::Timestamp* time_;
+    int exchange_order_type_;
+    int take_profit_type_;
+    int price_type_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
   union { Impl_ _impl_; };
@@ -1686,7 +2556,7 @@ class GetStopOrdersResponse final :
                &_GetStopOrdersResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    4;
 
   friend void swap(GetStopOrdersResponse& a, GetStopOrdersResponse& b) {
     a.Swap(&b);
@@ -1824,12 +2694,249 @@ class GetStopOrdersResponse final :
 #endif  // __GNUC__
 // -------------------------------------------------------------------
 
+// PostStopOrderRequest_TrailingData
+
+// .tinkoff.public_.invest.api.contract.v1.Quotation indent = 1;
+inline bool PostStopOrderRequest_TrailingData::has_indent() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.indent_ != nullptr);
+  return value;
+}
+inline const ::tinkoff::public_::invest::api::contract::v1::Quotation& PostStopOrderRequest_TrailingData::_internal_indent() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  const ::tinkoff::public_::invest::api::contract::v1::Quotation* p = _impl_.indent_;
+  return p != nullptr ? *p : reinterpret_cast<const ::tinkoff::public_::invest::api::contract::v1::Quotation&>(::tinkoff::public_::invest::api::contract::v1::_Quotation_default_instance_);
+}
+inline const ::tinkoff::public_::invest::api::contract::v1::Quotation& PostStopOrderRequest_TrailingData::indent() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.TrailingData.indent)
+  return _internal_indent();
+}
+inline void PostStopOrderRequest_TrailingData::unsafe_arena_set_allocated_indent(::tinkoff::public_::invest::api::contract::v1::Quotation* value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.indent_);
+  }
+  _impl_.indent_ = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::Quotation*>(value);
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.TrailingData.indent)
+}
+inline ::tinkoff::public_::invest::api::contract::v1::Quotation* PostStopOrderRequest_TrailingData::release_indent() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* released = _impl_.indent_;
+  _impl_.indent_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old = reinterpret_cast<::google::protobuf::MessageLite*>(released);
+  released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+  if (GetArena() == nullptr) {
+    delete old;
+  }
+#else   // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArena() != nullptr) {
+    released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return released;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::Quotation* PostStopOrderRequest_TrailingData::unsafe_arena_release_indent() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  // @@protoc_insertion_point(field_release:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.TrailingData.indent)
+
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* temp = _impl_.indent_;
+  _impl_.indent_ = nullptr;
+  return temp;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::Quotation* PostStopOrderRequest_TrailingData::_internal_mutable_indent() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_._has_bits_[0] |= 0x00000001u;
+  if (_impl_.indent_ == nullptr) {
+    auto* p = CreateMaybeMessage<::tinkoff::public_::invest::api::contract::v1::Quotation>(GetArena());
+    _impl_.indent_ = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::Quotation*>(p);
+  }
+  return _impl_.indent_;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::Quotation* PostStopOrderRequest_TrailingData::mutable_indent() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* _msg = _internal_mutable_indent();
+  // @@protoc_insertion_point(field_mutable:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.TrailingData.indent)
+  return _msg;
+}
+inline void PostStopOrderRequest_TrailingData::set_allocated_indent(::tinkoff::public_::invest::api::contract::v1::Quotation* value) {
+  ::google::protobuf::Arena* message_arena = GetArena();
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (message_arena == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.indent_);
+  }
+
+  if (value != nullptr) {
+    ::google::protobuf::Arena* submessage_arena = reinterpret_cast<::google::protobuf::MessageLite*>(value)->GetArena();
+    if (message_arena != submessage_arena) {
+      value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+
+  _impl_.indent_ = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::Quotation*>(value);
+  // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.TrailingData.indent)
+}
+
+// .tinkoff.public_.invest.api.contract.v1.TrailingValueType indent_type = 2;
+inline void PostStopOrderRequest_TrailingData::clear_indent_type() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.indent_type_ = 0;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::TrailingValueType PostStopOrderRequest_TrailingData::indent_type() const {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.TrailingData.indent_type)
+  return _internal_indent_type();
+}
+inline void PostStopOrderRequest_TrailingData::set_indent_type(::tinkoff::public_::invest::api::contract::v1::TrailingValueType value) {
+  _internal_set_indent_type(value);
+  // @@protoc_insertion_point(field_set:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.TrailingData.indent_type)
+}
+inline ::tinkoff::public_::invest::api::contract::v1::TrailingValueType PostStopOrderRequest_TrailingData::_internal_indent_type() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  return static_cast<::tinkoff::public_::invest::api::contract::v1::TrailingValueType>(_impl_.indent_type_);
+}
+inline void PostStopOrderRequest_TrailingData::_internal_set_indent_type(::tinkoff::public_::invest::api::contract::v1::TrailingValueType value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.indent_type_ = value;
+}
+
+// .tinkoff.public_.invest.api.contract.v1.Quotation spread = 3;
+inline bool PostStopOrderRequest_TrailingData::has_spread() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.spread_ != nullptr);
+  return value;
+}
+inline const ::tinkoff::public_::invest::api::contract::v1::Quotation& PostStopOrderRequest_TrailingData::_internal_spread() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  const ::tinkoff::public_::invest::api::contract::v1::Quotation* p = _impl_.spread_;
+  return p != nullptr ? *p : reinterpret_cast<const ::tinkoff::public_::invest::api::contract::v1::Quotation&>(::tinkoff::public_::invest::api::contract::v1::_Quotation_default_instance_);
+}
+inline const ::tinkoff::public_::invest::api::contract::v1::Quotation& PostStopOrderRequest_TrailingData::spread() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.TrailingData.spread)
+  return _internal_spread();
+}
+inline void PostStopOrderRequest_TrailingData::unsafe_arena_set_allocated_spread(::tinkoff::public_::invest::api::contract::v1::Quotation* value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.spread_);
+  }
+  _impl_.spread_ = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::Quotation*>(value);
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000002u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000002u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.TrailingData.spread)
+}
+inline ::tinkoff::public_::invest::api::contract::v1::Quotation* PostStopOrderRequest_TrailingData::release_spread() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+
+  _impl_._has_bits_[0] &= ~0x00000002u;
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* released = _impl_.spread_;
+  _impl_.spread_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old = reinterpret_cast<::google::protobuf::MessageLite*>(released);
+  released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+  if (GetArena() == nullptr) {
+    delete old;
+  }
+#else   // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArena() != nullptr) {
+    released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return released;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::Quotation* PostStopOrderRequest_TrailingData::unsafe_arena_release_spread() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  // @@protoc_insertion_point(field_release:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.TrailingData.spread)
+
+  _impl_._has_bits_[0] &= ~0x00000002u;
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* temp = _impl_.spread_;
+  _impl_.spread_ = nullptr;
+  return temp;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::Quotation* PostStopOrderRequest_TrailingData::_internal_mutable_spread() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_._has_bits_[0] |= 0x00000002u;
+  if (_impl_.spread_ == nullptr) {
+    auto* p = CreateMaybeMessage<::tinkoff::public_::invest::api::contract::v1::Quotation>(GetArena());
+    _impl_.spread_ = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::Quotation*>(p);
+  }
+  return _impl_.spread_;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::Quotation* PostStopOrderRequest_TrailingData::mutable_spread() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* _msg = _internal_mutable_spread();
+  // @@protoc_insertion_point(field_mutable:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.TrailingData.spread)
+  return _msg;
+}
+inline void PostStopOrderRequest_TrailingData::set_allocated_spread(::tinkoff::public_::invest::api::contract::v1::Quotation* value) {
+  ::google::protobuf::Arena* message_arena = GetArena();
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (message_arena == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.spread_);
+  }
+
+  if (value != nullptr) {
+    ::google::protobuf::Arena* submessage_arena = reinterpret_cast<::google::protobuf::MessageLite*>(value)->GetArena();
+    if (message_arena != submessage_arena) {
+      value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000002u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000002u;
+  }
+
+  _impl_.spread_ = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::Quotation*>(value);
+  // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.TrailingData.spread)
+}
+
+// .tinkoff.public_.invest.api.contract.v1.TrailingValueType spread_type = 4;
+inline void PostStopOrderRequest_TrailingData::clear_spread_type() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.spread_type_ = 0;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::TrailingValueType PostStopOrderRequest_TrailingData::spread_type() const {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.TrailingData.spread_type)
+  return _internal_spread_type();
+}
+inline void PostStopOrderRequest_TrailingData::set_spread_type(::tinkoff::public_::invest::api::contract::v1::TrailingValueType value) {
+  _internal_set_spread_type(value);
+  // @@protoc_insertion_point(field_set:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.TrailingData.spread_type)
+}
+inline ::tinkoff::public_::invest::api::contract::v1::TrailingValueType PostStopOrderRequest_TrailingData::_internal_spread_type() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  return static_cast<::tinkoff::public_::invest::api::contract::v1::TrailingValueType>(_impl_.spread_type_);
+}
+inline void PostStopOrderRequest_TrailingData::_internal_set_spread_type(::tinkoff::public_::invest::api::contract::v1::TrailingValueType value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.spread_type_ = value;
+}
+
+// -------------------------------------------------------------------
+
 // PostStopOrderRequest
 
-// string figi = 1 [deprecated = true];
+// optional string figi = 1 [deprecated = true];
+inline bool PostStopOrderRequest::has_figi() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
 inline void PostStopOrderRequest::clear_figi() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.figi_.ClearToEmpty();
+  _impl_._has_bits_[0] &= ~0x00000001u;
 }
 inline const std::string& PostStopOrderRequest::figi() const
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
@@ -1840,7 +2947,7 @@ template <typename Arg_, typename... Args_>
 inline PROTOBUF_ALWAYS_INLINE void PostStopOrderRequest::set_figi(Arg_&& arg,
                                                      Args_... args) {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  ;
+  _impl_._has_bits_[0] |= 0x00000001u;
   _impl_.figi_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
   // @@protoc_insertion_point(field_set:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.figi)
 }
@@ -1855,21 +2962,34 @@ inline const std::string& PostStopOrderRequest::_internal_figi() const {
 }
 inline void PostStopOrderRequest::_internal_set_figi(const std::string& value) {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  ;
+  _impl_._has_bits_[0] |= 0x00000001u;
   _impl_.figi_.Set(value, GetArena());
 }
 inline std::string* PostStopOrderRequest::_internal_mutable_figi() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  ;
+  _impl_._has_bits_[0] |= 0x00000001u;
   return _impl_.figi_.Mutable( GetArena());
 }
 inline std::string* PostStopOrderRequest::release_figi() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   // @@protoc_insertion_point(field_release:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.figi)
-  return _impl_.figi_.Release();
+  if ((_impl_._has_bits_[0] & 0x00000001u) == 0) {
+    return nullptr;
+  }
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  auto* released = _impl_.figi_.Release();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.figi_.Set("", GetArena());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return released;
 }
 inline void PostStopOrderRequest::set_allocated_figi(std::string* value) {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
   _impl_.figi_.SetAllocated(value, GetArena());
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
         if (_impl_.figi_.IsDefault()) {
@@ -1879,7 +2999,7 @@ inline void PostStopOrderRequest::set_allocated_figi(std::string* value) {
   // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.figi)
 }
 
-// int64 quantity = 2;
+// int64 quantity = 2 [(.google.api.field_behavior) = REQUIRED];
 inline void PostStopOrderRequest::clear_quantity() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.quantity_ = ::int64_t{0};
@@ -1902,9 +3022,9 @@ inline void PostStopOrderRequest::_internal_set_quantity(::int64_t value) {
   _impl_.quantity_ = value;
 }
 
-// .tinkoff.public_.invest.api.contract.v1.Quotation price = 3;
+// optional .tinkoff.public_.invest.api.contract.v1.Quotation price = 3;
 inline bool PostStopOrderRequest::has_price() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.price_ != nullptr);
   return value;
 }
@@ -1924,16 +3044,16 @@ inline void PostStopOrderRequest::unsafe_arena_set_allocated_price(::tinkoff::pu
   }
   _impl_.price_ = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::Quotation*>(value);
   if (value != nullptr) {
-    _impl_._has_bits_[0] |= 0x00000001u;
+    _impl_._has_bits_[0] |= 0x00000002u;
   } else {
-    _impl_._has_bits_[0] &= ~0x00000001u;
+    _impl_._has_bits_[0] &= ~0x00000002u;
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.price)
 }
 inline ::tinkoff::public_::invest::api::contract::v1::Quotation* PostStopOrderRequest::release_price() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
 
-  _impl_._has_bits_[0] &= ~0x00000001u;
+  _impl_._has_bits_[0] &= ~0x00000002u;
   ::tinkoff::public_::invest::api::contract::v1::Quotation* released = _impl_.price_;
   _impl_.price_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -1953,14 +3073,14 @@ inline ::tinkoff::public_::invest::api::contract::v1::Quotation* PostStopOrderRe
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   // @@protoc_insertion_point(field_release:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.price)
 
-  _impl_._has_bits_[0] &= ~0x00000001u;
+  _impl_._has_bits_[0] &= ~0x00000002u;
   ::tinkoff::public_::invest::api::contract::v1::Quotation* temp = _impl_.price_;
   _impl_.price_ = nullptr;
   return temp;
 }
 inline ::tinkoff::public_::invest::api::contract::v1::Quotation* PostStopOrderRequest::_internal_mutable_price() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_._has_bits_[0] |= 0x00000002u;
   if (_impl_.price_ == nullptr) {
     auto* p = CreateMaybeMessage<::tinkoff::public_::invest::api::contract::v1::Quotation>(GetArena());
     _impl_.price_ = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::Quotation*>(p);
@@ -1984,18 +3104,18 @@ inline void PostStopOrderRequest::set_allocated_price(::tinkoff::public_::invest
     if (message_arena != submessage_arena) {
       value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
     }
-    _impl_._has_bits_[0] |= 0x00000001u;
+    _impl_._has_bits_[0] |= 0x00000002u;
   } else {
-    _impl_._has_bits_[0] &= ~0x00000001u;
+    _impl_._has_bits_[0] &= ~0x00000002u;
   }
 
   _impl_.price_ = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::Quotation*>(value);
   // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.price)
 }
 
-// .tinkoff.public_.invest.api.contract.v1.Quotation stop_price = 4;
+// optional .tinkoff.public_.invest.api.contract.v1.Quotation stop_price = 4;
 inline bool PostStopOrderRequest::has_stop_price() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.stop_price_ != nullptr);
   return value;
 }
@@ -2015,16 +3135,16 @@ inline void PostStopOrderRequest::unsafe_arena_set_allocated_stop_price(::tinkof
   }
   _impl_.stop_price_ = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::Quotation*>(value);
   if (value != nullptr) {
-    _impl_._has_bits_[0] |= 0x00000002u;
+    _impl_._has_bits_[0] |= 0x00000004u;
   } else {
-    _impl_._has_bits_[0] &= ~0x00000002u;
+    _impl_._has_bits_[0] &= ~0x00000004u;
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.stop_price)
 }
 inline ::tinkoff::public_::invest::api::contract::v1::Quotation* PostStopOrderRequest::release_stop_price() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
 
-  _impl_._has_bits_[0] &= ~0x00000002u;
+  _impl_._has_bits_[0] &= ~0x00000004u;
   ::tinkoff::public_::invest::api::contract::v1::Quotation* released = _impl_.stop_price_;
   _impl_.stop_price_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -2044,14 +3164,14 @@ inline ::tinkoff::public_::invest::api::contract::v1::Quotation* PostStopOrderRe
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   // @@protoc_insertion_point(field_release:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.stop_price)
 
-  _impl_._has_bits_[0] &= ~0x00000002u;
+  _impl_._has_bits_[0] &= ~0x00000004u;
   ::tinkoff::public_::invest::api::contract::v1::Quotation* temp = _impl_.stop_price_;
   _impl_.stop_price_ = nullptr;
   return temp;
 }
 inline ::tinkoff::public_::invest::api::contract::v1::Quotation* PostStopOrderRequest::_internal_mutable_stop_price() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_._has_bits_[0] |= 0x00000002u;
+  _impl_._has_bits_[0] |= 0x00000004u;
   if (_impl_.stop_price_ == nullptr) {
     auto* p = CreateMaybeMessage<::tinkoff::public_::invest::api::contract::v1::Quotation>(GetArena());
     _impl_.stop_price_ = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::Quotation*>(p);
@@ -2075,16 +3195,16 @@ inline void PostStopOrderRequest::set_allocated_stop_price(::tinkoff::public_::i
     if (message_arena != submessage_arena) {
       value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
     }
-    _impl_._has_bits_[0] |= 0x00000002u;
+    _impl_._has_bits_[0] |= 0x00000004u;
   } else {
-    _impl_._has_bits_[0] &= ~0x00000002u;
+    _impl_._has_bits_[0] &= ~0x00000004u;
   }
 
   _impl_.stop_price_ = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::Quotation*>(value);
   // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.stop_price)
 }
 
-// .tinkoff.public_.invest.api.contract.v1.StopOrderDirection direction = 5;
+// .tinkoff.public_.invest.api.contract.v1.StopOrderDirection direction = 5 [(.google.api.field_behavior) = REQUIRED];
 inline void PostStopOrderRequest::clear_direction() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.direction_ = 0;
@@ -2107,7 +3227,7 @@ inline void PostStopOrderRequest::_internal_set_direction(::tinkoff::public_::in
   _impl_.direction_ = value;
 }
 
-// string account_id = 6;
+// string account_id = 6 [(.google.api.field_behavior) = REQUIRED];
 inline void PostStopOrderRequest::clear_account_id() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.account_id_.ClearToEmpty();
@@ -2160,7 +3280,7 @@ inline void PostStopOrderRequest::set_allocated_account_id(std::string* value) {
   // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.account_id)
 }
 
-// .tinkoff.public_.invest.api.contract.v1.StopOrderExpirationType expiration_type = 7;
+// .tinkoff.public_.invest.api.contract.v1.StopOrderExpirationType expiration_type = 7 [(.google.api.field_behavior) = REQUIRED];
 inline void PostStopOrderRequest::clear_expiration_type() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.expiration_type_ = 0;
@@ -2183,7 +3303,7 @@ inline void PostStopOrderRequest::_internal_set_expiration_type(::tinkoff::publi
   _impl_.expiration_type_ = value;
 }
 
-// .tinkoff.public_.invest.api.contract.v1.StopOrderType stop_order_type = 8;
+// .tinkoff.public_.invest.api.contract.v1.StopOrderType stop_order_type = 8 [(.google.api.field_behavior) = REQUIRED];
 inline void PostStopOrderRequest::clear_stop_order_type() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.stop_order_type_ = 0;
@@ -2206,9 +3326,9 @@ inline void PostStopOrderRequest::_internal_set_stop_order_type(::tinkoff::publi
   _impl_.stop_order_type_ = value;
 }
 
-// .google.protobuf.Timestamp expire_date = 9;
+// optional .google.protobuf.Timestamp expire_date = 9;
 inline bool PostStopOrderRequest::has_expire_date() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000008u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.expire_date_ != nullptr);
   return value;
 }
@@ -2228,16 +3348,16 @@ inline void PostStopOrderRequest::unsafe_arena_set_allocated_expire_date(::googl
   }
   _impl_.expire_date_ = reinterpret_cast<::google::protobuf::Timestamp*>(value);
   if (value != nullptr) {
-    _impl_._has_bits_[0] |= 0x00000004u;
+    _impl_._has_bits_[0] |= 0x00000008u;
   } else {
-    _impl_._has_bits_[0] &= ~0x00000004u;
+    _impl_._has_bits_[0] &= ~0x00000008u;
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.expire_date)
 }
 inline ::google::protobuf::Timestamp* PostStopOrderRequest::release_expire_date() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
 
-  _impl_._has_bits_[0] &= ~0x00000004u;
+  _impl_._has_bits_[0] &= ~0x00000008u;
   ::google::protobuf::Timestamp* released = _impl_.expire_date_;
   _impl_.expire_date_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -2257,14 +3377,14 @@ inline ::google::protobuf::Timestamp* PostStopOrderRequest::unsafe_arena_release
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   // @@protoc_insertion_point(field_release:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.expire_date)
 
-  _impl_._has_bits_[0] &= ~0x00000004u;
+  _impl_._has_bits_[0] &= ~0x00000008u;
   ::google::protobuf::Timestamp* temp = _impl_.expire_date_;
   _impl_.expire_date_ = nullptr;
   return temp;
 }
 inline ::google::protobuf::Timestamp* PostStopOrderRequest::_internal_mutable_expire_date() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  _impl_._has_bits_[0] |= 0x00000004u;
+  _impl_._has_bits_[0] |= 0x00000008u;
   if (_impl_.expire_date_ == nullptr) {
     auto* p = CreateMaybeMessage<::google::protobuf::Timestamp>(GetArena());
     _impl_.expire_date_ = reinterpret_cast<::google::protobuf::Timestamp*>(p);
@@ -2288,16 +3408,16 @@ inline void PostStopOrderRequest::set_allocated_expire_date(::google::protobuf::
     if (message_arena != submessage_arena) {
       value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
     }
-    _impl_._has_bits_[0] |= 0x00000004u;
+    _impl_._has_bits_[0] |= 0x00000008u;
   } else {
-    _impl_._has_bits_[0] &= ~0x00000004u;
+    _impl_._has_bits_[0] &= ~0x00000008u;
   }
 
   _impl_.expire_date_ = reinterpret_cast<::google::protobuf::Timestamp*>(value);
   // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.expire_date)
 }
 
-// string instrument_id = 10;
+// string instrument_id = 10 [(.google.api.field_behavior) = REQUIRED];
 inline void PostStopOrderRequest::clear_instrument_id() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.instrument_id_.ClearToEmpty();
@@ -2348,6 +3468,224 @@ inline void PostStopOrderRequest::set_allocated_instrument_id(std::string* value
         }
   #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.instrument_id)
+}
+
+// .tinkoff.public_.invest.api.contract.v1.ExchangeOrderType exchange_order_type = 11;
+inline void PostStopOrderRequest::clear_exchange_order_type() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.exchange_order_type_ = 0;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::ExchangeOrderType PostStopOrderRequest::exchange_order_type() const {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.exchange_order_type)
+  return _internal_exchange_order_type();
+}
+inline void PostStopOrderRequest::set_exchange_order_type(::tinkoff::public_::invest::api::contract::v1::ExchangeOrderType value) {
+  _internal_set_exchange_order_type(value);
+  // @@protoc_insertion_point(field_set:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.exchange_order_type)
+}
+inline ::tinkoff::public_::invest::api::contract::v1::ExchangeOrderType PostStopOrderRequest::_internal_exchange_order_type() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  return static_cast<::tinkoff::public_::invest::api::contract::v1::ExchangeOrderType>(_impl_.exchange_order_type_);
+}
+inline void PostStopOrderRequest::_internal_set_exchange_order_type(::tinkoff::public_::invest::api::contract::v1::ExchangeOrderType value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.exchange_order_type_ = value;
+}
+
+// .tinkoff.public_.invest.api.contract.v1.TakeProfitType take_profit_type = 12;
+inline void PostStopOrderRequest::clear_take_profit_type() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.take_profit_type_ = 0;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::TakeProfitType PostStopOrderRequest::take_profit_type() const {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.take_profit_type)
+  return _internal_take_profit_type();
+}
+inline void PostStopOrderRequest::set_take_profit_type(::tinkoff::public_::invest::api::contract::v1::TakeProfitType value) {
+  _internal_set_take_profit_type(value);
+  // @@protoc_insertion_point(field_set:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.take_profit_type)
+}
+inline ::tinkoff::public_::invest::api::contract::v1::TakeProfitType PostStopOrderRequest::_internal_take_profit_type() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  return static_cast<::tinkoff::public_::invest::api::contract::v1::TakeProfitType>(_impl_.take_profit_type_);
+}
+inline void PostStopOrderRequest::_internal_set_take_profit_type(::tinkoff::public_::invest::api::contract::v1::TakeProfitType value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.take_profit_type_ = value;
+}
+
+// .tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.TrailingData trailing_data = 13;
+inline bool PostStopOrderRequest::has_trailing_data() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000010u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.trailing_data_ != nullptr);
+  return value;
+}
+inline void PostStopOrderRequest::clear_trailing_data() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (_impl_.trailing_data_ != nullptr) _impl_.trailing_data_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000010u;
+}
+inline const ::tinkoff::public_::invest::api::contract::v1::PostStopOrderRequest_TrailingData& PostStopOrderRequest::_internal_trailing_data() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  const ::tinkoff::public_::invest::api::contract::v1::PostStopOrderRequest_TrailingData* p = _impl_.trailing_data_;
+  return p != nullptr ? *p : reinterpret_cast<const ::tinkoff::public_::invest::api::contract::v1::PostStopOrderRequest_TrailingData&>(::tinkoff::public_::invest::api::contract::v1::_PostStopOrderRequest_TrailingData_default_instance_);
+}
+inline const ::tinkoff::public_::invest::api::contract::v1::PostStopOrderRequest_TrailingData& PostStopOrderRequest::trailing_data() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.trailing_data)
+  return _internal_trailing_data();
+}
+inline void PostStopOrderRequest::unsafe_arena_set_allocated_trailing_data(::tinkoff::public_::invest::api::contract::v1::PostStopOrderRequest_TrailingData* value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.trailing_data_);
+  }
+  _impl_.trailing_data_ = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::PostStopOrderRequest_TrailingData*>(value);
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000010u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000010u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.trailing_data)
+}
+inline ::tinkoff::public_::invest::api::contract::v1::PostStopOrderRequest_TrailingData* PostStopOrderRequest::release_trailing_data() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+
+  _impl_._has_bits_[0] &= ~0x00000010u;
+  ::tinkoff::public_::invest::api::contract::v1::PostStopOrderRequest_TrailingData* released = _impl_.trailing_data_;
+  _impl_.trailing_data_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old = reinterpret_cast<::google::protobuf::MessageLite*>(released);
+  released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+  if (GetArena() == nullptr) {
+    delete old;
+  }
+#else   // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArena() != nullptr) {
+    released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return released;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::PostStopOrderRequest_TrailingData* PostStopOrderRequest::unsafe_arena_release_trailing_data() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  // @@protoc_insertion_point(field_release:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.trailing_data)
+
+  _impl_._has_bits_[0] &= ~0x00000010u;
+  ::tinkoff::public_::invest::api::contract::v1::PostStopOrderRequest_TrailingData* temp = _impl_.trailing_data_;
+  _impl_.trailing_data_ = nullptr;
+  return temp;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::PostStopOrderRequest_TrailingData* PostStopOrderRequest::_internal_mutable_trailing_data() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_._has_bits_[0] |= 0x00000010u;
+  if (_impl_.trailing_data_ == nullptr) {
+    auto* p = CreateMaybeMessage<::tinkoff::public_::invest::api::contract::v1::PostStopOrderRequest_TrailingData>(GetArena());
+    _impl_.trailing_data_ = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::PostStopOrderRequest_TrailingData*>(p);
+  }
+  return _impl_.trailing_data_;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::PostStopOrderRequest_TrailingData* PostStopOrderRequest::mutable_trailing_data() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  ::tinkoff::public_::invest::api::contract::v1::PostStopOrderRequest_TrailingData* _msg = _internal_mutable_trailing_data();
+  // @@protoc_insertion_point(field_mutable:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.trailing_data)
+  return _msg;
+}
+inline void PostStopOrderRequest::set_allocated_trailing_data(::tinkoff::public_::invest::api::contract::v1::PostStopOrderRequest_TrailingData* value) {
+  ::google::protobuf::Arena* message_arena = GetArena();
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (message_arena == nullptr) {
+    delete reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::PostStopOrderRequest_TrailingData*>(_impl_.trailing_data_);
+  }
+
+  if (value != nullptr) {
+    ::google::protobuf::Arena* submessage_arena = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::PostStopOrderRequest_TrailingData*>(value)->GetArena();
+    if (message_arena != submessage_arena) {
+      value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000010u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000010u;
+  }
+
+  _impl_.trailing_data_ = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::PostStopOrderRequest_TrailingData*>(value);
+  // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.trailing_data)
+}
+
+// .tinkoff.public_.invest.api.contract.v1.PriceType price_type = 14;
+inline void PostStopOrderRequest::clear_price_type() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.price_type_ = 0;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::PriceType PostStopOrderRequest::price_type() const {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.price_type)
+  return _internal_price_type();
+}
+inline void PostStopOrderRequest::set_price_type(::tinkoff::public_::invest::api::contract::v1::PriceType value) {
+  _internal_set_price_type(value);
+  // @@protoc_insertion_point(field_set:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.price_type)
+}
+inline ::tinkoff::public_::invest::api::contract::v1::PriceType PostStopOrderRequest::_internal_price_type() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  return static_cast<::tinkoff::public_::invest::api::contract::v1::PriceType>(_impl_.price_type_);
+}
+inline void PostStopOrderRequest::_internal_set_price_type(::tinkoff::public_::invest::api::contract::v1::PriceType value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.price_type_ = value;
+}
+
+// string order_id = 15 [(.google.api.field_behavior) = REQUIRED];
+inline void PostStopOrderRequest::clear_order_id() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.order_id_.ClearToEmpty();
+}
+inline const std::string& PostStopOrderRequest::order_id() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.order_id)
+  return _internal_order_id();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void PostStopOrderRequest::set_order_id(Arg_&& arg,
+                                                     Args_... args) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.order_id_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.order_id)
+}
+inline std::string* PostStopOrderRequest::mutable_order_id() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_order_id();
+  // @@protoc_insertion_point(field_mutable:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.order_id)
+  return _s;
+}
+inline const std::string& PostStopOrderRequest::_internal_order_id() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  return _impl_.order_id_.Get();
+}
+inline void PostStopOrderRequest::_internal_set_order_id(const std::string& value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.order_id_.Set(value, GetArena());
+}
+inline std::string* PostStopOrderRequest::_internal_mutable_order_id() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  return _impl_.order_id_.Mutable( GetArena());
+}
+inline std::string* PostStopOrderRequest::release_order_id() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  // @@protoc_insertion_point(field_release:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.order_id)
+  return _impl_.order_id_.Release();
+}
+inline void PostStopOrderRequest::set_allocated_order_id(std::string* value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.order_id_.SetAllocated(value, GetArena());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.order_id_.IsDefault()) {
+          _impl_.order_id_.Set("", GetArena());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.PostStopOrderRequest.order_id)
 }
 
 // -------------------------------------------------------------------
@@ -2407,11 +3745,155 @@ inline void PostStopOrderResponse::set_allocated_stop_order_id(std::string* valu
   // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.PostStopOrderResponse.stop_order_id)
 }
 
+// string order_request_id = 2;
+inline void PostStopOrderResponse::clear_order_request_id() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.order_request_id_.ClearToEmpty();
+}
+inline const std::string& PostStopOrderResponse::order_request_id() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.PostStopOrderResponse.order_request_id)
+  return _internal_order_request_id();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void PostStopOrderResponse::set_order_request_id(Arg_&& arg,
+                                                     Args_... args) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.order_request_id_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:tinkoff.public_.invest.api.contract.v1.PostStopOrderResponse.order_request_id)
+}
+inline std::string* PostStopOrderResponse::mutable_order_request_id() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_order_request_id();
+  // @@protoc_insertion_point(field_mutable:tinkoff.public_.invest.api.contract.v1.PostStopOrderResponse.order_request_id)
+  return _s;
+}
+inline const std::string& PostStopOrderResponse::_internal_order_request_id() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  return _impl_.order_request_id_.Get();
+}
+inline void PostStopOrderResponse::_internal_set_order_request_id(const std::string& value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.order_request_id_.Set(value, GetArena());
+}
+inline std::string* PostStopOrderResponse::_internal_mutable_order_request_id() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  return _impl_.order_request_id_.Mutable( GetArena());
+}
+inline std::string* PostStopOrderResponse::release_order_request_id() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  // @@protoc_insertion_point(field_release:tinkoff.public_.invest.api.contract.v1.PostStopOrderResponse.order_request_id)
+  return _impl_.order_request_id_.Release();
+}
+inline void PostStopOrderResponse::set_allocated_order_request_id(std::string* value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.order_request_id_.SetAllocated(value, GetArena());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.order_request_id_.IsDefault()) {
+          _impl_.order_request_id_.Set("", GetArena());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.PostStopOrderResponse.order_request_id)
+}
+
+// .tinkoff.public_.invest.api.contract.v1.ResponseMetadata response_metadata = 254;
+inline bool PostStopOrderResponse::has_response_metadata() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.response_metadata_ != nullptr);
+  return value;
+}
+inline const ::tinkoff::public_::invest::api::contract::v1::ResponseMetadata& PostStopOrderResponse::_internal_response_metadata() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  const ::tinkoff::public_::invest::api::contract::v1::ResponseMetadata* p = _impl_.response_metadata_;
+  return p != nullptr ? *p : reinterpret_cast<const ::tinkoff::public_::invest::api::contract::v1::ResponseMetadata&>(::tinkoff::public_::invest::api::contract::v1::_ResponseMetadata_default_instance_);
+}
+inline const ::tinkoff::public_::invest::api::contract::v1::ResponseMetadata& PostStopOrderResponse::response_metadata() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.PostStopOrderResponse.response_metadata)
+  return _internal_response_metadata();
+}
+inline void PostStopOrderResponse::unsafe_arena_set_allocated_response_metadata(::tinkoff::public_::invest::api::contract::v1::ResponseMetadata* value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.response_metadata_);
+  }
+  _impl_.response_metadata_ = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::ResponseMetadata*>(value);
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tinkoff.public_.invest.api.contract.v1.PostStopOrderResponse.response_metadata)
+}
+inline ::tinkoff::public_::invest::api::contract::v1::ResponseMetadata* PostStopOrderResponse::release_response_metadata() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::tinkoff::public_::invest::api::contract::v1::ResponseMetadata* released = _impl_.response_metadata_;
+  _impl_.response_metadata_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old = reinterpret_cast<::google::protobuf::MessageLite*>(released);
+  released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+  if (GetArena() == nullptr) {
+    delete old;
+  }
+#else   // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArena() != nullptr) {
+    released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return released;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::ResponseMetadata* PostStopOrderResponse::unsafe_arena_release_response_metadata() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  // @@protoc_insertion_point(field_release:tinkoff.public_.invest.api.contract.v1.PostStopOrderResponse.response_metadata)
+
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::tinkoff::public_::invest::api::contract::v1::ResponseMetadata* temp = _impl_.response_metadata_;
+  _impl_.response_metadata_ = nullptr;
+  return temp;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::ResponseMetadata* PostStopOrderResponse::_internal_mutable_response_metadata() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_._has_bits_[0] |= 0x00000001u;
+  if (_impl_.response_metadata_ == nullptr) {
+    auto* p = CreateMaybeMessage<::tinkoff::public_::invest::api::contract::v1::ResponseMetadata>(GetArena());
+    _impl_.response_metadata_ = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::ResponseMetadata*>(p);
+  }
+  return _impl_.response_metadata_;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::ResponseMetadata* PostStopOrderResponse::mutable_response_metadata() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  ::tinkoff::public_::invest::api::contract::v1::ResponseMetadata* _msg = _internal_mutable_response_metadata();
+  // @@protoc_insertion_point(field_mutable:tinkoff.public_.invest.api.contract.v1.PostStopOrderResponse.response_metadata)
+  return _msg;
+}
+inline void PostStopOrderResponse::set_allocated_response_metadata(::tinkoff::public_::invest::api::contract::v1::ResponseMetadata* value) {
+  ::google::protobuf::Arena* message_arena = GetArena();
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (message_arena == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.response_metadata_);
+  }
+
+  if (value != nullptr) {
+    ::google::protobuf::Arena* submessage_arena = reinterpret_cast<::google::protobuf::MessageLite*>(value)->GetArena();
+    if (message_arena != submessage_arena) {
+      value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+
+  _impl_.response_metadata_ = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::ResponseMetadata*>(value);
+  // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.PostStopOrderResponse.response_metadata)
+}
+
 // -------------------------------------------------------------------
 
 // GetStopOrdersRequest
 
-// string account_id = 1;
+// string account_id = 1 [(.google.api.field_behavior) = REQUIRED];
 inline void GetStopOrdersRequest::clear_account_id() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.account_id_.ClearToEmpty();
@@ -2462,6 +3944,211 @@ inline void GetStopOrdersRequest::set_allocated_account_id(std::string* value) {
         }
   #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.GetStopOrdersRequest.account_id)
+}
+
+// .tinkoff.public_.invest.api.contract.v1.StopOrderStatusOption status = 2;
+inline void GetStopOrdersRequest::clear_status() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.status_ = 0;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::StopOrderStatusOption GetStopOrdersRequest::status() const {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.GetStopOrdersRequest.status)
+  return _internal_status();
+}
+inline void GetStopOrdersRequest::set_status(::tinkoff::public_::invest::api::contract::v1::StopOrderStatusOption value) {
+  _internal_set_status(value);
+  // @@protoc_insertion_point(field_set:tinkoff.public_.invest.api.contract.v1.GetStopOrdersRequest.status)
+}
+inline ::tinkoff::public_::invest::api::contract::v1::StopOrderStatusOption GetStopOrdersRequest::_internal_status() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  return static_cast<::tinkoff::public_::invest::api::contract::v1::StopOrderStatusOption>(_impl_.status_);
+}
+inline void GetStopOrdersRequest::_internal_set_status(::tinkoff::public_::invest::api::contract::v1::StopOrderStatusOption value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.status_ = value;
+}
+
+// .google.protobuf.Timestamp from = 3;
+inline bool GetStopOrdersRequest::has_from() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.from_ != nullptr);
+  return value;
+}
+inline const ::google::protobuf::Timestamp& GetStopOrdersRequest::_internal_from() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  const ::google::protobuf::Timestamp* p = _impl_.from_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::protobuf::Timestamp&>(::google::protobuf::_Timestamp_default_instance_);
+}
+inline const ::google::protobuf::Timestamp& GetStopOrdersRequest::from() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.GetStopOrdersRequest.from)
+  return _internal_from();
+}
+inline void GetStopOrdersRequest::unsafe_arena_set_allocated_from(::google::protobuf::Timestamp* value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.from_);
+  }
+  _impl_.from_ = reinterpret_cast<::google::protobuf::Timestamp*>(value);
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tinkoff.public_.invest.api.contract.v1.GetStopOrdersRequest.from)
+}
+inline ::google::protobuf::Timestamp* GetStopOrdersRequest::release_from() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::google::protobuf::Timestamp* released = _impl_.from_;
+  _impl_.from_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old = reinterpret_cast<::google::protobuf::MessageLite*>(released);
+  released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+  if (GetArena() == nullptr) {
+    delete old;
+  }
+#else   // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArena() != nullptr) {
+    released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return released;
+}
+inline ::google::protobuf::Timestamp* GetStopOrdersRequest::unsafe_arena_release_from() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  // @@protoc_insertion_point(field_release:tinkoff.public_.invest.api.contract.v1.GetStopOrdersRequest.from)
+
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::google::protobuf::Timestamp* temp = _impl_.from_;
+  _impl_.from_ = nullptr;
+  return temp;
+}
+inline ::google::protobuf::Timestamp* GetStopOrdersRequest::_internal_mutable_from() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_._has_bits_[0] |= 0x00000001u;
+  if (_impl_.from_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::protobuf::Timestamp>(GetArena());
+    _impl_.from_ = reinterpret_cast<::google::protobuf::Timestamp*>(p);
+  }
+  return _impl_.from_;
+}
+inline ::google::protobuf::Timestamp* GetStopOrdersRequest::mutable_from() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  ::google::protobuf::Timestamp* _msg = _internal_mutable_from();
+  // @@protoc_insertion_point(field_mutable:tinkoff.public_.invest.api.contract.v1.GetStopOrdersRequest.from)
+  return _msg;
+}
+inline void GetStopOrdersRequest::set_allocated_from(::google::protobuf::Timestamp* value) {
+  ::google::protobuf::Arena* message_arena = GetArena();
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (message_arena == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.from_);
+  }
+
+  if (value != nullptr) {
+    ::google::protobuf::Arena* submessage_arena = reinterpret_cast<::google::protobuf::MessageLite*>(value)->GetArena();
+    if (message_arena != submessage_arena) {
+      value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+
+  _impl_.from_ = reinterpret_cast<::google::protobuf::Timestamp*>(value);
+  // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.GetStopOrdersRequest.from)
+}
+
+// .google.protobuf.Timestamp to = 4;
+inline bool GetStopOrdersRequest::has_to() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.to_ != nullptr);
+  return value;
+}
+inline const ::google::protobuf::Timestamp& GetStopOrdersRequest::_internal_to() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  const ::google::protobuf::Timestamp* p = _impl_.to_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::protobuf::Timestamp&>(::google::protobuf::_Timestamp_default_instance_);
+}
+inline const ::google::protobuf::Timestamp& GetStopOrdersRequest::to() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.GetStopOrdersRequest.to)
+  return _internal_to();
+}
+inline void GetStopOrdersRequest::unsafe_arena_set_allocated_to(::google::protobuf::Timestamp* value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.to_);
+  }
+  _impl_.to_ = reinterpret_cast<::google::protobuf::Timestamp*>(value);
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000002u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000002u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tinkoff.public_.invest.api.contract.v1.GetStopOrdersRequest.to)
+}
+inline ::google::protobuf::Timestamp* GetStopOrdersRequest::release_to() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+
+  _impl_._has_bits_[0] &= ~0x00000002u;
+  ::google::protobuf::Timestamp* released = _impl_.to_;
+  _impl_.to_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old = reinterpret_cast<::google::protobuf::MessageLite*>(released);
+  released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+  if (GetArena() == nullptr) {
+    delete old;
+  }
+#else   // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArena() != nullptr) {
+    released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return released;
+}
+inline ::google::protobuf::Timestamp* GetStopOrdersRequest::unsafe_arena_release_to() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  // @@protoc_insertion_point(field_release:tinkoff.public_.invest.api.contract.v1.GetStopOrdersRequest.to)
+
+  _impl_._has_bits_[0] &= ~0x00000002u;
+  ::google::protobuf::Timestamp* temp = _impl_.to_;
+  _impl_.to_ = nullptr;
+  return temp;
+}
+inline ::google::protobuf::Timestamp* GetStopOrdersRequest::_internal_mutable_to() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_._has_bits_[0] |= 0x00000002u;
+  if (_impl_.to_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::protobuf::Timestamp>(GetArena());
+    _impl_.to_ = reinterpret_cast<::google::protobuf::Timestamp*>(p);
+  }
+  return _impl_.to_;
+}
+inline ::google::protobuf::Timestamp* GetStopOrdersRequest::mutable_to() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  ::google::protobuf::Timestamp* _msg = _internal_mutable_to();
+  // @@protoc_insertion_point(field_mutable:tinkoff.public_.invest.api.contract.v1.GetStopOrdersRequest.to)
+  return _msg;
+}
+inline void GetStopOrdersRequest::set_allocated_to(::google::protobuf::Timestamp* value) {
+  ::google::protobuf::Arena* message_arena = GetArena();
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (message_arena == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.to_);
+  }
+
+  if (value != nullptr) {
+    ::google::protobuf::Arena* submessage_arena = reinterpret_cast<::google::protobuf::MessageLite*>(value)->GetArena();
+    if (message_arena != submessage_arena) {
+      value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000002u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000002u;
+  }
+
+  _impl_.to_ = reinterpret_cast<::google::protobuf::Timestamp*>(value);
+  // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.GetStopOrdersRequest.to)
 }
 
 // -------------------------------------------------------------------
@@ -2521,7 +4208,7 @@ GetStopOrdersResponse::_internal_mutable_stop_orders() {
 
 // CancelStopOrderRequest
 
-// string account_id = 1;
+// string account_id = 1 [(.google.api.field_behavior) = REQUIRED];
 inline void CancelStopOrderRequest::clear_account_id() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.account_id_.ClearToEmpty();
@@ -2574,7 +4261,7 @@ inline void CancelStopOrderRequest::set_allocated_account_id(std::string* value)
   // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.CancelStopOrderRequest.account_id)
 }
 
-// string stop_order_id = 2;
+// string stop_order_id = 2 [(.google.api.field_behavior) = REQUIRED];
 inline void CancelStopOrderRequest::clear_stop_order_id() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.stop_order_id_.ClearToEmpty();
@@ -2720,6 +4407,443 @@ inline void CancelStopOrderResponse::set_allocated_time(::google::protobuf::Time
 
   _impl_.time_ = reinterpret_cast<::google::protobuf::Timestamp*>(value);
   // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.CancelStopOrderResponse.time)
+}
+
+// -------------------------------------------------------------------
+
+// StopOrder_TrailingData
+
+// .tinkoff.public_.invest.api.contract.v1.Quotation indent = 1;
+inline bool StopOrder_TrailingData::has_indent() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.indent_ != nullptr);
+  return value;
+}
+inline const ::tinkoff::public_::invest::api::contract::v1::Quotation& StopOrder_TrailingData::_internal_indent() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  const ::tinkoff::public_::invest::api::contract::v1::Quotation* p = _impl_.indent_;
+  return p != nullptr ? *p : reinterpret_cast<const ::tinkoff::public_::invest::api::contract::v1::Quotation&>(::tinkoff::public_::invest::api::contract::v1::_Quotation_default_instance_);
+}
+inline const ::tinkoff::public_::invest::api::contract::v1::Quotation& StopOrder_TrailingData::indent() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.StopOrder.TrailingData.indent)
+  return _internal_indent();
+}
+inline void StopOrder_TrailingData::unsafe_arena_set_allocated_indent(::tinkoff::public_::invest::api::contract::v1::Quotation* value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.indent_);
+  }
+  _impl_.indent_ = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::Quotation*>(value);
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tinkoff.public_.invest.api.contract.v1.StopOrder.TrailingData.indent)
+}
+inline ::tinkoff::public_::invest::api::contract::v1::Quotation* StopOrder_TrailingData::release_indent() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* released = _impl_.indent_;
+  _impl_.indent_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old = reinterpret_cast<::google::protobuf::MessageLite*>(released);
+  released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+  if (GetArena() == nullptr) {
+    delete old;
+  }
+#else   // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArena() != nullptr) {
+    released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return released;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::Quotation* StopOrder_TrailingData::unsafe_arena_release_indent() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  // @@protoc_insertion_point(field_release:tinkoff.public_.invest.api.contract.v1.StopOrder.TrailingData.indent)
+
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* temp = _impl_.indent_;
+  _impl_.indent_ = nullptr;
+  return temp;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::Quotation* StopOrder_TrailingData::_internal_mutable_indent() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_._has_bits_[0] |= 0x00000001u;
+  if (_impl_.indent_ == nullptr) {
+    auto* p = CreateMaybeMessage<::tinkoff::public_::invest::api::contract::v1::Quotation>(GetArena());
+    _impl_.indent_ = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::Quotation*>(p);
+  }
+  return _impl_.indent_;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::Quotation* StopOrder_TrailingData::mutable_indent() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* _msg = _internal_mutable_indent();
+  // @@protoc_insertion_point(field_mutable:tinkoff.public_.invest.api.contract.v1.StopOrder.TrailingData.indent)
+  return _msg;
+}
+inline void StopOrder_TrailingData::set_allocated_indent(::tinkoff::public_::invest::api::contract::v1::Quotation* value) {
+  ::google::protobuf::Arena* message_arena = GetArena();
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (message_arena == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.indent_);
+  }
+
+  if (value != nullptr) {
+    ::google::protobuf::Arena* submessage_arena = reinterpret_cast<::google::protobuf::MessageLite*>(value)->GetArena();
+    if (message_arena != submessage_arena) {
+      value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+
+  _impl_.indent_ = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::Quotation*>(value);
+  // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.StopOrder.TrailingData.indent)
+}
+
+// .tinkoff.public_.invest.api.contract.v1.TrailingValueType indent_type = 2;
+inline void StopOrder_TrailingData::clear_indent_type() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.indent_type_ = 0;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::TrailingValueType StopOrder_TrailingData::indent_type() const {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.StopOrder.TrailingData.indent_type)
+  return _internal_indent_type();
+}
+inline void StopOrder_TrailingData::set_indent_type(::tinkoff::public_::invest::api::contract::v1::TrailingValueType value) {
+  _internal_set_indent_type(value);
+  // @@protoc_insertion_point(field_set:tinkoff.public_.invest.api.contract.v1.StopOrder.TrailingData.indent_type)
+}
+inline ::tinkoff::public_::invest::api::contract::v1::TrailingValueType StopOrder_TrailingData::_internal_indent_type() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  return static_cast<::tinkoff::public_::invest::api::contract::v1::TrailingValueType>(_impl_.indent_type_);
+}
+inline void StopOrder_TrailingData::_internal_set_indent_type(::tinkoff::public_::invest::api::contract::v1::TrailingValueType value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.indent_type_ = value;
+}
+
+// .tinkoff.public_.invest.api.contract.v1.Quotation spread = 3;
+inline bool StopOrder_TrailingData::has_spread() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.spread_ != nullptr);
+  return value;
+}
+inline const ::tinkoff::public_::invest::api::contract::v1::Quotation& StopOrder_TrailingData::_internal_spread() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  const ::tinkoff::public_::invest::api::contract::v1::Quotation* p = _impl_.spread_;
+  return p != nullptr ? *p : reinterpret_cast<const ::tinkoff::public_::invest::api::contract::v1::Quotation&>(::tinkoff::public_::invest::api::contract::v1::_Quotation_default_instance_);
+}
+inline const ::tinkoff::public_::invest::api::contract::v1::Quotation& StopOrder_TrailingData::spread() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.StopOrder.TrailingData.spread)
+  return _internal_spread();
+}
+inline void StopOrder_TrailingData::unsafe_arena_set_allocated_spread(::tinkoff::public_::invest::api::contract::v1::Quotation* value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.spread_);
+  }
+  _impl_.spread_ = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::Quotation*>(value);
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000002u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000002u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tinkoff.public_.invest.api.contract.v1.StopOrder.TrailingData.spread)
+}
+inline ::tinkoff::public_::invest::api::contract::v1::Quotation* StopOrder_TrailingData::release_spread() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+
+  _impl_._has_bits_[0] &= ~0x00000002u;
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* released = _impl_.spread_;
+  _impl_.spread_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old = reinterpret_cast<::google::protobuf::MessageLite*>(released);
+  released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+  if (GetArena() == nullptr) {
+    delete old;
+  }
+#else   // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArena() != nullptr) {
+    released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return released;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::Quotation* StopOrder_TrailingData::unsafe_arena_release_spread() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  // @@protoc_insertion_point(field_release:tinkoff.public_.invest.api.contract.v1.StopOrder.TrailingData.spread)
+
+  _impl_._has_bits_[0] &= ~0x00000002u;
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* temp = _impl_.spread_;
+  _impl_.spread_ = nullptr;
+  return temp;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::Quotation* StopOrder_TrailingData::_internal_mutable_spread() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_._has_bits_[0] |= 0x00000002u;
+  if (_impl_.spread_ == nullptr) {
+    auto* p = CreateMaybeMessage<::tinkoff::public_::invest::api::contract::v1::Quotation>(GetArena());
+    _impl_.spread_ = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::Quotation*>(p);
+  }
+  return _impl_.spread_;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::Quotation* StopOrder_TrailingData::mutable_spread() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* _msg = _internal_mutable_spread();
+  // @@protoc_insertion_point(field_mutable:tinkoff.public_.invest.api.contract.v1.StopOrder.TrailingData.spread)
+  return _msg;
+}
+inline void StopOrder_TrailingData::set_allocated_spread(::tinkoff::public_::invest::api::contract::v1::Quotation* value) {
+  ::google::protobuf::Arena* message_arena = GetArena();
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (message_arena == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.spread_);
+  }
+
+  if (value != nullptr) {
+    ::google::protobuf::Arena* submessage_arena = reinterpret_cast<::google::protobuf::MessageLite*>(value)->GetArena();
+    if (message_arena != submessage_arena) {
+      value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000002u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000002u;
+  }
+
+  _impl_.spread_ = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::Quotation*>(value);
+  // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.StopOrder.TrailingData.spread)
+}
+
+// .tinkoff.public_.invest.api.contract.v1.TrailingValueType spread_type = 4;
+inline void StopOrder_TrailingData::clear_spread_type() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.spread_type_ = 0;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::TrailingValueType StopOrder_TrailingData::spread_type() const {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.StopOrder.TrailingData.spread_type)
+  return _internal_spread_type();
+}
+inline void StopOrder_TrailingData::set_spread_type(::tinkoff::public_::invest::api::contract::v1::TrailingValueType value) {
+  _internal_set_spread_type(value);
+  // @@protoc_insertion_point(field_set:tinkoff.public_.invest.api.contract.v1.StopOrder.TrailingData.spread_type)
+}
+inline ::tinkoff::public_::invest::api::contract::v1::TrailingValueType StopOrder_TrailingData::_internal_spread_type() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  return static_cast<::tinkoff::public_::invest::api::contract::v1::TrailingValueType>(_impl_.spread_type_);
+}
+inline void StopOrder_TrailingData::_internal_set_spread_type(::tinkoff::public_::invest::api::contract::v1::TrailingValueType value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.spread_type_ = value;
+}
+
+// .tinkoff.public_.invest.api.contract.v1.TrailingStopStatus status = 5;
+inline void StopOrder_TrailingData::clear_status() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.status_ = 0;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::TrailingStopStatus StopOrder_TrailingData::status() const {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.StopOrder.TrailingData.status)
+  return _internal_status();
+}
+inline void StopOrder_TrailingData::set_status(::tinkoff::public_::invest::api::contract::v1::TrailingStopStatus value) {
+  _internal_set_status(value);
+  // @@protoc_insertion_point(field_set:tinkoff.public_.invest.api.contract.v1.StopOrder.TrailingData.status)
+}
+inline ::tinkoff::public_::invest::api::contract::v1::TrailingStopStatus StopOrder_TrailingData::_internal_status() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  return static_cast<::tinkoff::public_::invest::api::contract::v1::TrailingStopStatus>(_impl_.status_);
+}
+inline void StopOrder_TrailingData::_internal_set_status(::tinkoff::public_::invest::api::contract::v1::TrailingStopStatus value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.status_ = value;
+}
+
+// .tinkoff.public_.invest.api.contract.v1.Quotation price = 7;
+inline bool StopOrder_TrailingData::has_price() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.price_ != nullptr);
+  return value;
+}
+inline const ::tinkoff::public_::invest::api::contract::v1::Quotation& StopOrder_TrailingData::_internal_price() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  const ::tinkoff::public_::invest::api::contract::v1::Quotation* p = _impl_.price_;
+  return p != nullptr ? *p : reinterpret_cast<const ::tinkoff::public_::invest::api::contract::v1::Quotation&>(::tinkoff::public_::invest::api::contract::v1::_Quotation_default_instance_);
+}
+inline const ::tinkoff::public_::invest::api::contract::v1::Quotation& StopOrder_TrailingData::price() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.StopOrder.TrailingData.price)
+  return _internal_price();
+}
+inline void StopOrder_TrailingData::unsafe_arena_set_allocated_price(::tinkoff::public_::invest::api::contract::v1::Quotation* value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.price_);
+  }
+  _impl_.price_ = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::Quotation*>(value);
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000004u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000004u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tinkoff.public_.invest.api.contract.v1.StopOrder.TrailingData.price)
+}
+inline ::tinkoff::public_::invest::api::contract::v1::Quotation* StopOrder_TrailingData::release_price() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+
+  _impl_._has_bits_[0] &= ~0x00000004u;
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* released = _impl_.price_;
+  _impl_.price_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old = reinterpret_cast<::google::protobuf::MessageLite*>(released);
+  released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+  if (GetArena() == nullptr) {
+    delete old;
+  }
+#else   // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArena() != nullptr) {
+    released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return released;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::Quotation* StopOrder_TrailingData::unsafe_arena_release_price() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  // @@protoc_insertion_point(field_release:tinkoff.public_.invest.api.contract.v1.StopOrder.TrailingData.price)
+
+  _impl_._has_bits_[0] &= ~0x00000004u;
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* temp = _impl_.price_;
+  _impl_.price_ = nullptr;
+  return temp;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::Quotation* StopOrder_TrailingData::_internal_mutable_price() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_._has_bits_[0] |= 0x00000004u;
+  if (_impl_.price_ == nullptr) {
+    auto* p = CreateMaybeMessage<::tinkoff::public_::invest::api::contract::v1::Quotation>(GetArena());
+    _impl_.price_ = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::Quotation*>(p);
+  }
+  return _impl_.price_;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::Quotation* StopOrder_TrailingData::mutable_price() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* _msg = _internal_mutable_price();
+  // @@protoc_insertion_point(field_mutable:tinkoff.public_.invest.api.contract.v1.StopOrder.TrailingData.price)
+  return _msg;
+}
+inline void StopOrder_TrailingData::set_allocated_price(::tinkoff::public_::invest::api::contract::v1::Quotation* value) {
+  ::google::protobuf::Arena* message_arena = GetArena();
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (message_arena == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.price_);
+  }
+
+  if (value != nullptr) {
+    ::google::protobuf::Arena* submessage_arena = reinterpret_cast<::google::protobuf::MessageLite*>(value)->GetArena();
+    if (message_arena != submessage_arena) {
+      value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000004u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000004u;
+  }
+
+  _impl_.price_ = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::Quotation*>(value);
+  // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.StopOrder.TrailingData.price)
+}
+
+// .tinkoff.public_.invest.api.contract.v1.Quotation extr = 8;
+inline bool StopOrder_TrailingData::has_extr() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000008u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.extr_ != nullptr);
+  return value;
+}
+inline const ::tinkoff::public_::invest::api::contract::v1::Quotation& StopOrder_TrailingData::_internal_extr() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  const ::tinkoff::public_::invest::api::contract::v1::Quotation* p = _impl_.extr_;
+  return p != nullptr ? *p : reinterpret_cast<const ::tinkoff::public_::invest::api::contract::v1::Quotation&>(::tinkoff::public_::invest::api::contract::v1::_Quotation_default_instance_);
+}
+inline const ::tinkoff::public_::invest::api::contract::v1::Quotation& StopOrder_TrailingData::extr() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.StopOrder.TrailingData.extr)
+  return _internal_extr();
+}
+inline void StopOrder_TrailingData::unsafe_arena_set_allocated_extr(::tinkoff::public_::invest::api::contract::v1::Quotation* value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.extr_);
+  }
+  _impl_.extr_ = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::Quotation*>(value);
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000008u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000008u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tinkoff.public_.invest.api.contract.v1.StopOrder.TrailingData.extr)
+}
+inline ::tinkoff::public_::invest::api::contract::v1::Quotation* StopOrder_TrailingData::release_extr() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+
+  _impl_._has_bits_[0] &= ~0x00000008u;
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* released = _impl_.extr_;
+  _impl_.extr_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old = reinterpret_cast<::google::protobuf::MessageLite*>(released);
+  released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+  if (GetArena() == nullptr) {
+    delete old;
+  }
+#else   // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArena() != nullptr) {
+    released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return released;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::Quotation* StopOrder_TrailingData::unsafe_arena_release_extr() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  // @@protoc_insertion_point(field_release:tinkoff.public_.invest.api.contract.v1.StopOrder.TrailingData.extr)
+
+  _impl_._has_bits_[0] &= ~0x00000008u;
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* temp = _impl_.extr_;
+  _impl_.extr_ = nullptr;
+  return temp;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::Quotation* StopOrder_TrailingData::_internal_mutable_extr() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_._has_bits_[0] |= 0x00000008u;
+  if (_impl_.extr_ == nullptr) {
+    auto* p = CreateMaybeMessage<::tinkoff::public_::invest::api::contract::v1::Quotation>(GetArena());
+    _impl_.extr_ = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::Quotation*>(p);
+  }
+  return _impl_.extr_;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::Quotation* StopOrder_TrailingData::mutable_extr() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  ::tinkoff::public_::invest::api::contract::v1::Quotation* _msg = _internal_mutable_extr();
+  // @@protoc_insertion_point(field_mutable:tinkoff.public_.invest.api.contract.v1.StopOrder.TrailingData.extr)
+  return _msg;
+}
+inline void StopOrder_TrailingData::set_allocated_extr(::tinkoff::public_::invest::api::contract::v1::Quotation* value) {
+  ::google::protobuf::Arena* message_arena = GetArena();
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (message_arena == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.extr_);
+  }
+
+  if (value != nullptr) {
+    ::google::protobuf::Arena* submessage_arena = reinterpret_cast<::google::protobuf::MessageLite*>(value)->GetArena();
+    if (message_arena != submessage_arena) {
+      value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000008u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000008u;
+  }
+
+  _impl_.extr_ = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::Quotation*>(value);
+  // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.StopOrder.TrailingData.extr)
 }
 
 // -------------------------------------------------------------------
@@ -3462,6 +5586,148 @@ inline void StopOrder::set_allocated_instrument_uid(std::string* value) {
   // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.StopOrder.instrument_uid)
 }
 
+// .tinkoff.public_.invest.api.contract.v1.TakeProfitType take_profit_type = 13;
+inline void StopOrder::clear_take_profit_type() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.take_profit_type_ = 0;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::TakeProfitType StopOrder::take_profit_type() const {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.StopOrder.take_profit_type)
+  return _internal_take_profit_type();
+}
+inline void StopOrder::set_take_profit_type(::tinkoff::public_::invest::api::contract::v1::TakeProfitType value) {
+  _internal_set_take_profit_type(value);
+  // @@protoc_insertion_point(field_set:tinkoff.public_.invest.api.contract.v1.StopOrder.take_profit_type)
+}
+inline ::tinkoff::public_::invest::api::contract::v1::TakeProfitType StopOrder::_internal_take_profit_type() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  return static_cast<::tinkoff::public_::invest::api::contract::v1::TakeProfitType>(_impl_.take_profit_type_);
+}
+inline void StopOrder::_internal_set_take_profit_type(::tinkoff::public_::invest::api::contract::v1::TakeProfitType value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.take_profit_type_ = value;
+}
+
+// .tinkoff.public_.invest.api.contract.v1.StopOrder.TrailingData trailing_data = 14;
+inline bool StopOrder::has_trailing_data() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000020u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.trailing_data_ != nullptr);
+  return value;
+}
+inline void StopOrder::clear_trailing_data() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (_impl_.trailing_data_ != nullptr) _impl_.trailing_data_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000020u;
+}
+inline const ::tinkoff::public_::invest::api::contract::v1::StopOrder_TrailingData& StopOrder::_internal_trailing_data() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  const ::tinkoff::public_::invest::api::contract::v1::StopOrder_TrailingData* p = _impl_.trailing_data_;
+  return p != nullptr ? *p : reinterpret_cast<const ::tinkoff::public_::invest::api::contract::v1::StopOrder_TrailingData&>(::tinkoff::public_::invest::api::contract::v1::_StopOrder_TrailingData_default_instance_);
+}
+inline const ::tinkoff::public_::invest::api::contract::v1::StopOrder_TrailingData& StopOrder::trailing_data() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.StopOrder.trailing_data)
+  return _internal_trailing_data();
+}
+inline void StopOrder::unsafe_arena_set_allocated_trailing_data(::tinkoff::public_::invest::api::contract::v1::StopOrder_TrailingData* value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.trailing_data_);
+  }
+  _impl_.trailing_data_ = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::StopOrder_TrailingData*>(value);
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000020u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000020u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tinkoff.public_.invest.api.contract.v1.StopOrder.trailing_data)
+}
+inline ::tinkoff::public_::invest::api::contract::v1::StopOrder_TrailingData* StopOrder::release_trailing_data() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+
+  _impl_._has_bits_[0] &= ~0x00000020u;
+  ::tinkoff::public_::invest::api::contract::v1::StopOrder_TrailingData* released = _impl_.trailing_data_;
+  _impl_.trailing_data_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old = reinterpret_cast<::google::protobuf::MessageLite*>(released);
+  released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+  if (GetArena() == nullptr) {
+    delete old;
+  }
+#else   // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArena() != nullptr) {
+    released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return released;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::StopOrder_TrailingData* StopOrder::unsafe_arena_release_trailing_data() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  // @@protoc_insertion_point(field_release:tinkoff.public_.invest.api.contract.v1.StopOrder.trailing_data)
+
+  _impl_._has_bits_[0] &= ~0x00000020u;
+  ::tinkoff::public_::invest::api::contract::v1::StopOrder_TrailingData* temp = _impl_.trailing_data_;
+  _impl_.trailing_data_ = nullptr;
+  return temp;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::StopOrder_TrailingData* StopOrder::_internal_mutable_trailing_data() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_._has_bits_[0] |= 0x00000020u;
+  if (_impl_.trailing_data_ == nullptr) {
+    auto* p = CreateMaybeMessage<::tinkoff::public_::invest::api::contract::v1::StopOrder_TrailingData>(GetArena());
+    _impl_.trailing_data_ = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::StopOrder_TrailingData*>(p);
+  }
+  return _impl_.trailing_data_;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::StopOrder_TrailingData* StopOrder::mutable_trailing_data() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  ::tinkoff::public_::invest::api::contract::v1::StopOrder_TrailingData* _msg = _internal_mutable_trailing_data();
+  // @@protoc_insertion_point(field_mutable:tinkoff.public_.invest.api.contract.v1.StopOrder.trailing_data)
+  return _msg;
+}
+inline void StopOrder::set_allocated_trailing_data(::tinkoff::public_::invest::api::contract::v1::StopOrder_TrailingData* value) {
+  ::google::protobuf::Arena* message_arena = GetArena();
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  if (message_arena == nullptr) {
+    delete reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::StopOrder_TrailingData*>(_impl_.trailing_data_);
+  }
+
+  if (value != nullptr) {
+    ::google::protobuf::Arena* submessage_arena = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::StopOrder_TrailingData*>(value)->GetArena();
+    if (message_arena != submessage_arena) {
+      value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000020u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000020u;
+  }
+
+  _impl_.trailing_data_ = reinterpret_cast<::tinkoff::public_::invest::api::contract::v1::StopOrder_TrailingData*>(value);
+  // @@protoc_insertion_point(field_set_allocated:tinkoff.public_.invest.api.contract.v1.StopOrder.trailing_data)
+}
+
+// .tinkoff.public_.invest.api.contract.v1.StopOrderStatusOption status = 15;
+inline void StopOrder::clear_status() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.status_ = 0;
+}
+inline ::tinkoff::public_::invest::api::contract::v1::StopOrderStatusOption StopOrder::status() const {
+  // @@protoc_insertion_point(field_get:tinkoff.public_.invest.api.contract.v1.StopOrder.status)
+  return _internal_status();
+}
+inline void StopOrder::set_status(::tinkoff::public_::invest::api::contract::v1::StopOrderStatusOption value) {
+  _internal_set_status(value);
+  // @@protoc_insertion_point(field_set:tinkoff.public_.invest.api.contract.v1.StopOrder.status)
+}
+inline ::tinkoff::public_::invest::api::contract::v1::StopOrderStatusOption StopOrder::_internal_status() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  return static_cast<::tinkoff::public_::invest::api::contract::v1::StopOrderStatusOption>(_impl_.status_);
+}
+inline void StopOrder::_internal_set_status(::tinkoff::public_::invest::api::contract::v1::StopOrderStatusOption value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.status_ = value;
+}
+
 #ifdef __GNUC__
 #pragma GCC diagnostic pop
 #endif  // __GNUC__
@@ -3495,6 +5761,36 @@ struct is_proto_enum<::tinkoff::public_::invest::api::contract::v1::StopOrderTyp
 template <>
 inline const EnumDescriptor* GetEnumDescriptor<::tinkoff::public_::invest::api::contract::v1::StopOrderType>() {
   return ::tinkoff::public_::invest::api::contract::v1::StopOrderType_descriptor();
+}
+template <>
+struct is_proto_enum<::tinkoff::public_::invest::api::contract::v1::StopOrderStatusOption> : std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor<::tinkoff::public_::invest::api::contract::v1::StopOrderStatusOption>() {
+  return ::tinkoff::public_::invest::api::contract::v1::StopOrderStatusOption_descriptor();
+}
+template <>
+struct is_proto_enum<::tinkoff::public_::invest::api::contract::v1::ExchangeOrderType> : std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor<::tinkoff::public_::invest::api::contract::v1::ExchangeOrderType>() {
+  return ::tinkoff::public_::invest::api::contract::v1::ExchangeOrderType_descriptor();
+}
+template <>
+struct is_proto_enum<::tinkoff::public_::invest::api::contract::v1::TakeProfitType> : std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor<::tinkoff::public_::invest::api::contract::v1::TakeProfitType>() {
+  return ::tinkoff::public_::invest::api::contract::v1::TakeProfitType_descriptor();
+}
+template <>
+struct is_proto_enum<::tinkoff::public_::invest::api::contract::v1::TrailingValueType> : std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor<::tinkoff::public_::invest::api::contract::v1::TrailingValueType>() {
+  return ::tinkoff::public_::invest::api::contract::v1::TrailingValueType_descriptor();
+}
+template <>
+struct is_proto_enum<::tinkoff::public_::invest::api::contract::v1::TrailingStopStatus> : std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor<::tinkoff::public_::invest::api::contract::v1::TrailingStopStatus>() {
+  return ::tinkoff::public_::invest::api::contract::v1::TrailingStopStatus_descriptor();
 }
 
 }  // namespace protobuf
