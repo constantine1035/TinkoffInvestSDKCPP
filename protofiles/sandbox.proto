@@ -13,6 +13,7 @@ import "common.proto";
 import "orders.proto";
 import "operations.proto";
 import "users.proto";
+import "google/api/field_behavior.proto";
 
 service SandboxService { //Сервис для работы с песочницей TINKOFF INVEST API
 
@@ -61,7 +62,7 @@ service SandboxService { //Сервис для работы с песочниц�
 
 //Запрос открытия счёта в песочнице.
 message OpenSandboxAccountRequest {
-  //пустой запрос
+  optional string name = 1; // Название счёта
 }
 
 //Номер открытого счёта в песочнице.
@@ -71,7 +72,7 @@ message OpenSandboxAccountResponse {
 
 //Запрос закрытия счёта в песочнице.
 message CloseSandboxAccountRequest {
-  string account_id = 1; //Номер счёта
+  string account_id = 1 [(google.api.field_behavior) = REQUIRED]; //Номер счёта
 }
 
 //Результат закрытия счёта в песочнице.
@@ -81,8 +82,8 @@ message CloseSandboxAccountResponse {
 
 //Запрос пополнения счёта в песочнице.
 message SandboxPayInRequest {
-  string account_id = 1; //Номер счёта
-  MoneyValue amount = 2; //Сумма пополнения счёта в рублях
+  string account_id = 1 [(google.api.field_behavior) = REQUIRED]; //Номер счёта
+  MoneyValue amount = 2 [(google.api.field_behavior) = REQUIRED]; //Сумма пополнения счёта в рублях
 }
 
 //Результат пополнения счёта, текущий баланс.

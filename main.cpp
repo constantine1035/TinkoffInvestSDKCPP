@@ -2,10 +2,8 @@
 #include "client.h"
 #include "services/users.h"
 
-int main()
-{
-    InvestApiClient client("invest-public-api.tinkoff.ru:443", "t.9DjFbOC06vcgI5xplPO-NkKMUWHjIy8eamhr1rmdVt5YoDMYYWArqCZyrD_oGodNQ");
-//    InvestApiClient client("invest-public-api.tinkoff.ru:443", "t.xkHLcK7d-Bjz8YVC2UCnI6nOU0FQoXAVC0BI7S4hsCGMnJdOQtFB3QYVEv4xGnNH2fZ_cSLY6QaInRLcPSMayg");
+int main() {
+    InvestApiClient client("invest-public-api.tinkoff.ru:443", TOKEN);
 
 
     //get references to users service

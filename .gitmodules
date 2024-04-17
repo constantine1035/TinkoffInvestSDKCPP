@@ -1,3 +1,6 @@
+[submodule "htird-party/investAPI"]
+	path = htird-party/investAPI
+	url = https://github.com/RussianInvestments/investAPI.git
 [submodule "third-party/investAPI"]
 	path = third-party/investAPI
 	url = https://github.com/RussianInvestments/investAPI.git
