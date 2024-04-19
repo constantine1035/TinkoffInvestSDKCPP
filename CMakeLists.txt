@@ -11,7 +11,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(gRPC CONFIG REQUIRED)
 find_package(Protobuf CONFIG REQUIRED)
 find_package(OpenSSL REQUIRED)
+find_library(SECURITY_LIBRARY Security)
 
+include_directories(${OPENSSL_INCLUDE_DIR})
 include_directories(/Users/admin/CLionProjects/TinkoffInvestSDKCPP/cmake-build-debug/vcpkg_installed/arm64-osx/include/)
 
 # Укажите путь к протофайлам
@@ -27,7 +29,6 @@ set(PROTO_FILES
         ${PROTO_FILES_PATH}/sandbox.proto
         ${PROTO_FILES_PATH}/stoporders.proto
         ${PROTO_FILES_PATH}/users.proto
-        ${PROTO_FILES_PATH}/field_behavior.proto
         # Укажите здесь все ваши протофайлы
 )
 
@@ -97,5 +98,7 @@ add_executable(TinkoffInvestSDKCPP
 target_link_libraries(TinkoffInvestSDKCPP PRIVATE protobuf::libprotoc protobuf::libprotobuf protobuf::libprotobuf-lite)
 
 target_link_libraries(TinkoffInvestSDKCPP PRIVATE OpenSSL::SSL OpenSSL::Crypto)
+
+target_link_libraries(TinkoffInvestSDKCPP PRIVATE ${OPENSSL_LIBRARIES} ${SECURITY_LIBRARY})
 
 target_link_libraries(TinkoffInvestSDKCPP PRIVATE gRPC::gpr gRPC::grpc gRPC::grpc++ gRPC::grpc++_alts)

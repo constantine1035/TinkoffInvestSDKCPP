@@ -11,9 +11,68 @@
 //#include "marketdata.h"  TBD
 //#include "marketdatastream.h"  TBD
 
+#include <grpcpp/security/credentials.h>
+#include <grpcpp/security/server_credentials.h>
+#include <Security/Security.h>
+#include <openssl/bio.h>
+#include <openssl/pem.h>
+
+//Mac fix not working?
+//std::string utf8Encode(const std::wstring& wstr)
+//{
+//    if (wstr.empty())
+//        return std::string();
+//
+//    CFStringRef cfString = CFStringCreateWithCharacters(NULL, reinterpret_cast<const UniChar*>(wstr.c_str()), wstr.size());
+//    CFDataRef utf8Data = CFStringCreateExternalRepresentation(NULL, cfString, kCFStringEncodingUTF8, 0);
+//    CFRelease(cfString);
+//
+//    std::string strTo(reinterpret_cast<const char*>(CFDataGetBytePtr(utf8Data)), CFDataGetLength(utf8Data));
+//    CFRelease(utf8Data);
+//
+//    return strTo;
+//}
+//
+//grpc::SslCredentialsOptions getSslOptions()
+//{
+//    grpc::SslCredentialsOptions result;
+//
+//    // Load root certificates.
+//    CFArrayRef rootCerts;
+//    OSStatus status = SecTrustCopyAnchorCertificates(&rootCerts);
+//    if (status != errSecSuccess)
+//        return result;
+//
+//    for (CFIndex i = 0; i < CFArrayGetCount(rootCerts); ++i)
+//    {
+//        SecCertificateRef cert = (SecCertificateRef)CFArrayGetValueAtIndex(rootCerts, i);
+//        CFDataRef certData = SecCertificateCopyData(cert);
+//
+//        const UInt8* certDataBytes = CFDataGetBytePtr(certData);
+//        CFIndex certDataLength = CFDataGetLength(certData);
+//
+//        // Convert certificate data to PEM format.
+//        BIO* certBio = BIO_new(BIO_s_mem());
+//        PEM_write_bio(certBio, "CERTIFICATE", NULL, certDataBytes, certDataLength);
+//
+//        // Read PEM data into a string.
+//        char* pemData;
+//        long pemLength = BIO_get_mem_data(certBio, &pemData);
+//        result.pem_root_certs += std::string(pemData, pemLength);
+//
+//        BIO_free(certBio);
+//        CFRelease(certData);
+//    }
+//
+//    CFRelease(rootCerts);
+//
+//    return result;
+//}
+
+
 InvestApiClient::InvestApiClient(const std::string& host, const std::string& pass) {
-    auto options = grpc::SslCredentialsOptions();
-    setenv("GRPC_DEFAULT_SSL_ROOTS_FILE_PATH", "/Users/admin/CLionProjects/TinkoffInvestSDKCPP/cmake-build-debug/vcpkg_installed/arm64-osx/share/grpc/roots.pem", 1);
+    auto options = getSslOptions();
+//    setenv("GRPC_DEFAULT_SSL_ROOTS_FILE_PATH", "/Users/admin/CLionProjects/TinkoffInvestSDKCPP/cmake-build-debug/vcpkg_installed/arm64-osx/share/grpc/roots.pem", 1);
 //    options.pem_root_certs = "./cmake-build-debug/vcpkg_installed/arm64-osx/share/grpc/roots.pem";
     auto credentials = grpc::SslCredentials(options);
 //    auto credentials = grpc::InsecureChannelCredentials();
