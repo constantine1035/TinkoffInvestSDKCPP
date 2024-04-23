@@ -3,9 +3,9 @@
 #include "reply.h"
 #include "based_service.h"
 #include <grpc++/grpc++.h>
-#include "protofiles/users.pb.h"
-#include "protofiles/common.pb.h"
-#include "protofiles/users.grpc.pb.h"
+#include "users.pb.h"
+#include "common.pb.h"
+#include "users.grpc.pb.h"
 
 using grpc::Channel;
 using tinkoff_invest_sdk_cpp_based_service::BasedService;

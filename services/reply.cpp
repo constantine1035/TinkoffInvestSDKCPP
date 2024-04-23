@@ -1,5 +1,5 @@
 #include "reply.h"
-#include "protofiles/users.pb.h"
+#include "users.pb.h"
 
 using namespace tinkoff::public_::invest::api::contract::v1;
 

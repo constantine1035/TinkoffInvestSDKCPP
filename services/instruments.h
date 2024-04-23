@@ -1,10 +1,10 @@
 #pragma once
 
 #include "based_service.h"
-#include "protofiles/common.pb.h"
+#include "common.pb.h"
 #include <grpc++/grpc++.h>
-#include "protofiles/instruments.pb.h"
-#include "protofiles/instruments.grpc.pb.h"
+#include "instruments.pb.h"
+#include "instruments.grpc.pb.h"
 #include "reply.h"
 
 using grpc::Channel;

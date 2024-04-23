@@ -17,7 +17,7 @@
 # See cmake_externalproject/CMakeLists.txt for all-in-one cmake build
 # that automatically builds all the dependencies before building route_guide.
 
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.28)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -28,7 +28,7 @@ endif()
 find_package(Threads REQUIRED)
 
 set(GRPC_AS_SUBMODULE false)
-set(GRPC_FETCHCONTENT false)
+set(GRPC_FETCHCONTENT true)
 
 if(GRPC_AS_SUBMODULE)
     # One way to build a projects that uses gRPC is to just include the
@@ -80,7 +80,7 @@ elseif(GRPC_FETCHCONTENT)
             # v1.25.0, v1.26.0 etc..
             # For the purpose of testing, we override the tag used to the commit
             # that's currently under test.
-            GIT_TAG        v1.43.2)
+            GIT_TAG        v1.52.0 ) #1.49.3
     FetchContent_MakeAvailable(grpc)
 
     # Since FetchContent uses add_subdirectory under the hood, we can use

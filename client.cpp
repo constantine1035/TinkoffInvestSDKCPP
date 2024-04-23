@@ -59,7 +59,8 @@ using tinkoff_invest_sdk_cpp_market_data_subscription_service::MarketDataStream;
 //#endif               IDK WHAT IS IT something for windows
 
 InvestApiClient::InvestApiClient(const std::string& host, const std::string& pass) {
-    auto channel = grpc::CreateChannel(host, grpc::SslCredentials(grpc::SslCredentialsOptions()));
+    auto channel_creds = grpc::SslCredentials(grpc::SslCredentialsOptions());
+    auto channel = grpc::CreateChannel(host, grpc::InsecureChannelCredentials());
 //#ifdef _WIN32
 //       getSslOptions()
 //#else

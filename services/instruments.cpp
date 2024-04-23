@@ -1,5 +1,5 @@
 #include "instruments.h"
-#include "protofiles/instruments.pb.h"
+#include "instruments.pb.h"
 
 Instruments::Instruments(std::shared_ptr<Channel> channel, const std::string &token) :
     BasedService(token)

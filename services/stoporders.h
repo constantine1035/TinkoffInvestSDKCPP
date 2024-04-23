@@ -2,7 +2,7 @@
 
 #include "based_service.h"
 #include <grpcpp/grpcpp.h>
-#include "protofiles/stoporders.grpc.pb.h"
+#include "stoporders.grpc.pb.h"
 #include "reply.h"
 
 using grpc::Channel;

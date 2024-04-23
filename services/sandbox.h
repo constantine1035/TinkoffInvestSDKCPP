@@ -2,7 +2,7 @@
 
 #include "based_service.h"
 #include "reply.h"
-#include "protofiles/sandbox.grpc.pb.h"
+#include "sandbox.grpc.pb.h"
 #include <grpcpp/grpcpp.h>
 #include <memory>
 #include <string>
