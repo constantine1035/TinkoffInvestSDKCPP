@@ -1,40 +1,36 @@
-/*
 #pragma once
 
-#include <grpc++/grpc++.h>
-#include <functional>
-#include "google/protobuf/message.h"
+#include "../include/xxhr/xxhr/response.hpp"
+#include <nlohmann/json.hpp>
+#include <string>
 
-using grpc::Status;
+namespace tinkoff_invest_sdk_cpp_reply_service {
 
-class ServiceReply{
+using xxhr::Response;
+using xxhr::Error;
+using xxhr::Header;
+
+class ServiceReply {
 public:
-    ServiceReply();
+    explicit ServiceReply(const Response& service_reply);
 
-    ServiceReply(const std::shared_ptr<google::protobuf::Message> proto_msg, const Status& status, const std::string& error_message = "");
+    explicit ServiceReply(Response&& service_reply);
 
-    int AccountCount();
+    bool Success() const;
 
-    const std::string AccountID(const int i);
+    std::int32_t GetStatusCode() const;
 
-    const std::string AccountName(const int i);
+    const Error& GetError() const;
 
-    const std::shared_ptr<google::protobuf::Message> ptr();
+    const nlohmann::json& GetStatusMessage() const;
 
-    const Status& GetStatus() const;
+    const nlohmann::json& GetData() const;
 
-    const std::string& GetErrorMessage() const;
-
-    template<class T>
-    static const ServiceReply PrepareServiceAnswer(const Status &status, const T &proto_msg, const std::string& error_message = "") {
-        return (status.ok()) ?
-               ServiceReply(std::make_shared<T>(proto_msg), status) :
-               ServiceReply(nullptr, status, error_message);
-    }
-
-private:
-    std::shared_ptr<google::protobuf::Message> reply_ptr_;
-    Status status_;
-    std::string error_message_;
+protected:
+    std::int32_t status_code_;
+    Error error_;
+    nlohmann::json status_message_;
+    nlohmann::json data_;
+    Header header_;
 };
- */
+}  // namespace tinkoff_invest_sdk_cpp_reply_service

@@ -1,51 +1,49 @@
-/*
 #include "reply.h"
-#include "users.pb.h"
 
-using namespace tinkoff::public_::invest::api::contract::v1;
+namespace tinkoff_invest_sdk_cpp_reply_service {
 
-ServiceReply::ServiceReply() {}
+static constexpr std::int32_t kStatusCodeSuccess = 200;
 
-ServiceReply::ServiceReply(const std::shared_ptr<google::protobuf::Message> proto_msg, const Status &status,
-                           const std::string &error_message) :
-    reply_ptr_(proto_msg), status_(status), error_message_(error_message) {}
-
-const std::string ServiceReply::AccountID(const int i) {
-    auto response = dynamic_cast<GetAccountsResponse*>(ptr().get());
-    if (response && i < response->accounts_size()) {
-        return response->accounts(i).id();
+ServiceReply::ServiceReply(const xxhr::Response &service_reply)
+    : status_code_(service_reply.status_code),
+      error_(service_reply.error),
+      header_(service_reply.header) {
+    if (Success()) {
+        data_ = nlohmann::json::parse(service_reply.text);
     } else {
-        return "";
+        status_message_ = nlohmann::json::parse(service_reply.text);
     }
 }
 
-const std::string ServiceReply::AccountName(const int i) {
-    auto response = dynamic_cast<GetAccountsResponse*>(ptr().get());
-    if (response && i < response->accounts_size()) {
-        return response->accounts(i).name();
+ServiceReply::ServiceReply(xxhr::Response&& service_reply)
+    : status_code_(std::move(service_reply.status_code)),
+      error_(std::move(service_reply.error)),
+      header_(std::move(service_reply.header)) {
+    if (Success()) {
+        data_ = nlohmann::json::parse(std::move(service_reply.text));
     } else {
-        return "";
+        status_message_ = nlohmann::json::parse(std::move(service_reply.text));
     }
 }
 
-int ServiceReply::AccountCount() {
-    auto response = dynamic_cast<GetAccountsResponse*>(ptr().get());
-    if (response) {
-        return response->accounts_size();
-    } else {
-        return 0;
-    }
+bool ServiceReply::Success() const {
+    return status_code_ == kStatusCodeSuccess && !error_;
 }
 
-const std::shared_ptr<google::protobuf::Message> ServiceReply::ptr() {
-    return reply_ptr_;
+std::int32_t ServiceReply::GetStatusCode() const {
+    return status_code_;
 }
 
-const Status &ServiceReply::GetStatus() const {
-    return status_;
+const Error& ServiceReply::GetError() const {
+    return error_;
 }
 
-const std::string &ServiceReply::GetErrorMessage() const {
-    return error_message_;
+const nlohmann::json& ServiceReply::GetStatusMessage() const {
+    return status_message_;
 }
- */
+
+const nlohmann::json& ServiceReply::GetData() const {
+    return data_;
+}
+
+}  // namespace tinkoff_invest_sdk_cpp_reply_service

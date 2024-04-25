@@ -3,7 +3,9 @@
 #include "include/xxhr/xxhr/xxhr.hpp"
 #include "include/xxhr/xxhr/sync.hpp"
 #include <nlohmann/json.hpp>
-#include <nlohmann/detail/conversions/to_json.hpp>
+
+#include "services/reply.h"
+using tinkoff_invest_sdk_cpp_reply_service::ServiceReply;
 
 struct AccountId {
     std::string accountId;
@@ -191,6 +193,8 @@ int main()
     std::cout << std::endl;
     std::cout << std::endl;
 
+    auto a = ServiceReply(std::move(resp));
+    std::cout << a.Success();
 
     return 0;
 }
