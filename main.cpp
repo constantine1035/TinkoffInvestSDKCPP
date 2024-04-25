@@ -1,11 +1,13 @@
 #include <iostream>
 #include <string>
-#include "include/xxhr/xxhr/xxhr.hpp"
 #include "include/xxhr/xxhr/sync.hpp"
-#include <nlohmann/json.hpp>
+//#include <nlohmann/json.hpp>
 
 #include "services/reply.h"
 using tinkoff_invest_sdk_cpp_reply_service::ServiceReply;
+
+#include "services/based_service.h"
+using tinkoff_invest_sdk_cpp_based_service::BasedService;
 
 struct AccountId {
     std::string accountId;
@@ -197,6 +199,7 @@ int main()
     std::cout << a.Success();
 
     return 0;
+
 }
 
 /*

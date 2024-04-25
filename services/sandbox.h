@@ -3,18 +3,13 @@
 
 #include "based_service.h"
 #include "reply.h"
-#include "sandbox.grpc.pb.h"
-#include <grpcpp/grpcpp.h>
+
 #include <memory>
 #include <string>
 
 namespace tinkoff_invest_sdk_cpp_sandbox_service {
 
-using grpc::Channel;
-using tinkoff_invest_sdk_cpp_based_service::BasedService;
-using namespace tinkoff::public_::invest::api::contract::v1;
-
-class Sandbox : public BasedService {
+class Sandbox {
 public:
     Sandbox(std::shared_ptr<Channel> channel, const std::string &token);
 

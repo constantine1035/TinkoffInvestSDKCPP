@@ -1,17 +1,15 @@
-/*
 #pragma once
 
-#include <grpcpp/client_context.h>
-#include <grpcpp/completion_queue.h>
-#include <memory>
+#include "reply.h"
+#include "../include/xxhr/xxhr/xxhr.hpp"
+#include <nlohmann/json.hpp>
 #include <string>
 
 namespace tinkoff_invest_sdk_cpp_based_service {
 
-using grpc::ClientContext;
-using grpc::CompletionQueue;
+using tinkoff_invest_sdk_cpp_reply_service::ServiceReply;
 
-// Based class for all services.
+// Base class for all services.
 class BasedService {
 public:
     explicit BasedService(const std::string &token);
@@ -20,11 +18,11 @@ public:
 
 protected:
     std::string token_;
-    std::shared_ptr<CompletionQueue> queue_;
 
-    std::shared_ptr<ClientContext> MakeContext();
+    virtual ServiceReply DoPostRequestSync(const nlohmann::json& body,
+                                           const std::string& url);
 
-    std::shared_ptr<CompletionQueue> GetQueue();
+    virtual ServiceReply DoPostRequestAsync(const nlohmann::json& body,
+                                            const std::string& url); // have to add retry + callback.
 };
 } // namespace tinkoff_invest_sdk_cpp_based_service
-*/
