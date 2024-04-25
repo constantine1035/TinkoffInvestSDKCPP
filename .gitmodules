@@ -1,12 +1,9 @@
 [submodule "third-party/RussianInvestments/investAPI"]
 	path = third-party/RussianInvestments/investAPI
 	url = https://github.com/RussianInvestments/investAPI.git
-[submodule "include/boost"]
-	path = include/boost
-	url = https://github.com/boostorg/boost.git
 [submodule "include/better-enums"]
 	path = include/better-enums
 	url = https://github.com/aantron/better-enums.git
-[submodule "include/openssl-cpp"]
-	path = include/openssl-cpp
-	url = https://github.com/informaticacba/openssl-cpp.git
+[submodule "include/xxhr"]
+	path = include/xxhr
+	url = https://github.com/daminetreg/xxhr.git

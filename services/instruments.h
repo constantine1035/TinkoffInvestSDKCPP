@@ -1,3 +1,4 @@
+/*
 #pragma once
 
 #include "based_service.h"
@@ -121,3 +122,4 @@ public:
 private:
     std::unique_ptr<InstrumentsService::Stub> instruments_service_;
 };
+ */

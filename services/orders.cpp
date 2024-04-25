@@ -1,3 +1,4 @@
+/*
 #include "orders.h"
 
 Orders::Orders(std::shared_ptr<grpc::Channel> channel, const std::string &token) :
@@ -52,3 +53,4 @@ ServiceReply Orders::GetOrders(const std::string &account_id) {
     Status status = orders_service_->GetOrders(MakeContext().get(), request, &reply);
     return ServiceReply::PrepareServiceAnswer<GetOrdersResponse>(status, reply);
 }
+ */

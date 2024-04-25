@@ -1,3 +1,4 @@
+/*
 #include "marketdata.h"
 
 #include <thread>
@@ -104,3 +105,4 @@ ServiceReply MarketData::GetClosePrices(const std::vector<std::string> &instrume
 }
 
 } // tinkoff_invest_sdk_cpp_market_data_service
+*/

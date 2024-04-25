@@ -1,3 +1,4 @@
+/*
 #pragma once
 
 #include "reply.h"
@@ -29,3 +30,4 @@ public:
 private:
     std::unique_ptr<UsersService::Stub> users_service_;
 };
+ */

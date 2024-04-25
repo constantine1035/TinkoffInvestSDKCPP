@@ -1,3 +1,4 @@
+/*
 #include "reply.h"
 #include "users.pb.h"
 
@@ -47,3 +48,4 @@ const Status &ServiceReply::GetStatus() const {
 const std::string &ServiceReply::GetErrorMessage() const {
     return error_message_;
 }
+ */

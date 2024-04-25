@@ -1,3 +1,4 @@
+/*
 #include "operations.h"
 
 Operations::Operations(std::shared_ptr<Channel> channel, const std::string &token) :
@@ -91,3 +92,4 @@ ServiceReply Operations::GetOperationsByCursor(std::string account_id, std::stri
     Status status = operations_service_->GetOperationsByCursor(MakeContext().get(), request, &response);
     return ServiceReply::PrepareServiceAnswer<GetOperationsByCursorResponse>(status, response);
 }
+ */

@@ -1,3 +1,4 @@
+/*
 #pragma once
 
 #include "based_service.h"
@@ -58,3 +59,4 @@ public:
 private:
     std::unique_ptr<OperationsStreamService::Stub> operations_stream_service_;
 };
+ */

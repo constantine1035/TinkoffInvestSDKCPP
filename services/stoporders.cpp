@@ -1,3 +1,4 @@
+/*
 #include "stoporders.h"
 
 #include "google/protobuf/timestamp.pb.h"
@@ -55,3 +56,4 @@ ServiceReply StopOrders::CancelStopOrder(const std::string &account_id, const st
     Status status = stop_orders_service_->CancelStopOrder(MakeContext().get(), request, &reply);
     return ServiceReply::PrepareServiceAnswer<CancelStopOrderResponse>(status, reply);
 }
+ */

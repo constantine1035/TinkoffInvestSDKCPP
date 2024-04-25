@@ -1,17 +1,17 @@
 cmake_minimum_required(VERSION 3.28)
 
 project(TinkoffInvestSDKCPP)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
-#file(GLOB SERVICES_SCRS "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/services/*.cpp")
-#file(GLOB SERVICES_HDRS "${CMAKE_CURRENT_SOURCE_DIR}/*.h" "${CMAKE_CURRENT_SOURCE_DIR}/services/*.h")
+file(GLOB SERVICES_SCRS "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/services/*.cpp")
+file(GLOB SERVICES_HDRS "${CMAKE_CURRENT_SOURCE_DIR}/*.h" "${CMAKE_CURRENT_SOURCE_DIR}/services/*.h")
 
 add_executable(TinkoffInvestSDKCPP
-#        ${SERVICES_SCRS}
-#        ${SERVICES_HDRS}
+        ${SERVICES_SCRS}
+        ${SERVICES_HDRS}
         main.cpp
-#        client.cpp
-#        client.h
+        client.cpp
+        client.h
 )
 
 find_package(Boost REQUIRED)
@@ -20,20 +20,10 @@ include_directories(${Boost_INCLUDE_DIRS})
 find_package(OpenSSL REQUIRED)
 include_directories(${OPENSSL_INCLUDE_DIR})
 
-target_link_libraries(TinkoffInvestSDKCPP ${Boost_LIBRARIES} ${OPENSSL_LIBRARIES})
+find_package(nlohmann_json REQUIRED)
+include_directories(${NLOHMANN_INCLUDE_DIRS})
 
-#target_include_directories()
-#include_directories(${CMAKE_CURRENT_BINARY_DIR}/vcpkg_installed/arm64-osx/include)
+target_link_libraries(TinkoffInvestSDKCPP ${BOOST_LIBRARIES} ${OPENSSL_LIBRARIES} ${NLOHMANN_LIBRARIES})
+
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/xxhr)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/better-enums)
-#include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/openssl-cpp/include)
-
-#file(GLOB BOOST_LIBS ${CMAKE_CURRENT_SOURCE_DIR}/include/boost/libs/*)
-#foreach (BOOST_LIB ${BOOST_LIBS})
-#    include_directories(${BOOST_LIB}/include)
-#    include_directories(${BOOST_LIB}/conversion/include)
-#endforeach ()
-
-#include_directories(${CMAKE_CURRENT_BINARY_DIR}/vcpkg_installed/arm64-osx/include)
-
-

@@ -1,3 +1,5 @@
+/*
+
 #pragma once
 
 #include <grpcpp/grpcpp.h>
@@ -19,3 +21,4 @@ public:
 private:
     std::map<std::string, std::shared_ptr<BasedService>> services_;
 };
+*/

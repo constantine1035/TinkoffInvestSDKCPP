@@ -1,3 +1,4 @@
+/*
 #include "marketdata_subscription.h"
 
 #include <thread>
@@ -280,7 +281,7 @@ bool MarketDataStream::UnsubscribeLastPrice() {
     return status.ok();
 }
 
-/*
+/
 
 void MarketDataStream::SubscribeCandlesAsync(const std::vector<std::pair<std::string,SubscriptionInterval>> &candle_instruments) {
     std::shared_ptr<ClientAsyncReaderWriter<MarketDataRequest, MarketDataResponse> > stream(
@@ -339,6 +340,7 @@ void MarketDataStream::UnsubscribeCandlesAsync() {
     Status status = stream->Finish();
 }
 
-*/
+*
 
 } // tinkoff_invest_sdk_cpp_market_data_subscription_service
+*/

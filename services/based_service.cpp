@@ -1,3 +1,4 @@
+/*
 #include "based_service.h"
 
 namespace tinkoff_invest_sdk_cpp_based_service {
@@ -17,3 +18,4 @@ std::shared_ptr<CompletionQueue> BasedService::GetQueue() {
 }
 
 } // namespace tinkoff_invest_sdk_cpp_based_service
+*/

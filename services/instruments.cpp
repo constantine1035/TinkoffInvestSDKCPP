@@ -1,3 +1,4 @@
+/*
 #include "instruments.h"
 #include "instruments.pb.h"
 
@@ -339,3 +340,4 @@ ServiceReply Instruments::GetForecastBy(std::string instrument_id) {
     Status status = instruments_service_->GetForecastBy(MakeContext().get(), request, &response);
     return ServiceReply::PrepareServiceAnswer<GetForecastResponse>(status, response);
 }
+ */

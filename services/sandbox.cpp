@@ -1,3 +1,4 @@
+/*
 #include "sandbox.h"
 
 namespace tinkoff_invest_sdk_cpp_sandbox_service {
@@ -221,3 +222,4 @@ ServiceReply Sandbox::GetSandboxWithdrawLimits(const std::string &account_id) {
 }
 
 } // tinkoff_invest_sdk_cpp_sandbox_service
+*/

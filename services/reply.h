@@ -1,3 +1,4 @@
+/*
 #pragma once
 
 #include <grpc++/grpc++.h>
@@ -36,3 +37,4 @@ private:
     Status status_;
     std::string error_message_;
 };
+ */

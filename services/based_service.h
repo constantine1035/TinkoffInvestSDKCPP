@@ -1,3 +1,4 @@
+/*
 #pragma once
 
 #include <grpcpp/client_context.h>
@@ -26,3 +27,4 @@ protected:
     std::shared_ptr<CompletionQueue> GetQueue();
 };
 } // namespace tinkoff_invest_sdk_cpp_based_service
+*/

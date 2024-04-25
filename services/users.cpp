@@ -1,3 +1,4 @@
+/*
 #include "users.h"
 
 Users::Users(std::shared_ptr<grpc::Channel> channel, const std::string &token) :
@@ -33,3 +34,4 @@ ServiceReply Users::GetInfo() {
     Status status = users_service_->GetInfo(MakeContext().get(), request, &reply);
     return ServiceReply::PrepareServiceAnswer<GetInfoResponse>(status, reply);
 }
+ */

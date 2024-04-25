@@ -1,3 +1,4 @@
+/*
 #pragma once
 
 #include "based_service.h"
@@ -17,7 +18,7 @@ using grpc::CompletionQueue;
 using tinkoff_invest_sdk_cpp_based_service::BasedService;
 using namespace tinkoff::public_::invest::api::contract::v1;
 
-/*
+/
  *
  * Service for obtaining exchange information in streaming mode.
  * 1. Candles.
@@ -25,7 +26,7 @@ using namespace tinkoff::public_::invest::api::contract::v1;
  * 3. Trading status.
  * 4. Last prices.
  *
- */
+ *
 
 class MarketDataStream : public BasedService {
 public:
@@ -100,3 +101,4 @@ protected:
 };
 
 } // tinkoff_invest_sdk_cpp_market_data_subscription_service
+*/

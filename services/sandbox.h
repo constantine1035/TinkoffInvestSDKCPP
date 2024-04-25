@@ -1,3 +1,4 @@
+/*
 #pragma once
 
 #include "based_service.h"
@@ -80,3 +81,4 @@ protected:
 };
 
 } // tinkoff_invest_sdk_cpp_sandbox_service
+*/

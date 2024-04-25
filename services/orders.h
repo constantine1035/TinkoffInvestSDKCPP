@@ -1,3 +1,4 @@
+/*
 #pragma once
 
 #include "based_service.h"
@@ -33,3 +34,4 @@ private:
     std::unique_ptr<OrdersService::Stub> orders_service_;
 
 };
+ */

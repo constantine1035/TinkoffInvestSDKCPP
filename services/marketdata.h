@@ -1,3 +1,4 @@
+/*
 #pragma once
 
 #include "based_service.h"
@@ -15,7 +16,7 @@ using grpc::Channel;
 using tinkoff_invest_sdk_cpp_based_service::BasedService;
 using namespace tinkoff::public_::invest::api::contract::v1;
 
-/*
+/
  *
  * Service for obtaining exchange information.
  * 1. Candles.
@@ -23,7 +24,7 @@ using namespace tinkoff::public_::invest::api::contract::v1;
  * 3. Trading status.
  * 4. Last prices.
  *
- */
+ *
 
 class MarketData : public BasedService {
 public:
@@ -60,3 +61,4 @@ protected:
 };
 
 } // tinkoff_invest_sdk_cpp_market_data_service
+*/
