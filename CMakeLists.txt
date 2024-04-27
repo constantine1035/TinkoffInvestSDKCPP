@@ -1,29 +1,59 @@
-cmake_minimum_required(VERSION 3.28)
+cmake_minimum_required(VERSION 3.1)
 
 project(TinkoffInvestSDKCPP)
+include(GenerateExportHeader)
+
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
 
-file(GLOB SERVICES_SCRS "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/services/*.cpp")
-file(GLOB SERVICES_HDRS "${CMAKE_CURRENT_SOURCE_DIR}/*.h" "${CMAKE_CURRENT_SOURCE_DIR}/services/*.h")
+set(GEN_PROJECT_NAME CppRestOpenAPIClient)
+set(GEN_DIR ${CMAKE_CURRENT_BINARY_DIR}/gen)
+#file(MAKE_DIRECTORY ${GEN_DIR})
 
-add_executable(TinkoffInvestSDKCPP
-        ${SERVICES_SCRS}
-        ${SERVICES_HDRS}
-        main.cpp
-        client.cpp
-        client.h
+#execute_process(COMMAND openapi-generator generate
+#        -i ${CMAKE_CURRENT_SOURCE_DIR}/third-party/RussianInvestments/investAPI/src/docs/swagger-ui/openapi.yaml
+#        -g cpp-restsdk
+#        -o ${GEN_DIR}
+#)
+
+add_subdirectory(${GEN_DIR})
+
+include_directories(${GEN_DIR}/include)
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+include_directories(include)
+
+file(GLOB SERVICES_SRC_FILES "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
+file(GLOB SERVICES_HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/*.h" "${CMAKE_CURRENT_SOURCE_DIR}/include/tinkoff_invest_cppsdk/*.h")
+
+add_library(${PROJECT_NAME}
+        ${SERVICES_SRC_FILES}
+        ${SERVICES_HEADER_FILES}
 )
 
-find_package(Boost REQUIRED)
-include_directories(${Boost_INCLUDE_DIRS})
+#find_package(cpprestsdk REQUIRED)
+#include_directories(${CPPRESTSDK_INCLUDE_DIR})
 
-find_package(OpenSSL REQUIRED)
-include_directories(${OPENSSL_INCLUDE_DIR})
+#find_package(Boost REQUIRED)
+#include_directories(${Boost_INCLUDE_DIRS})
 
-find_package(nlohmann_json REQUIRED)
-include_directories(${NLOHMANN_INCLUDE_DIRS})
+#find_package(OpenSSL REQUIRED)
+#include_directories(${OPENSSL_INCLUDE_DIR})
 
-target_link_libraries(TinkoffInvestSDKCPP ${BOOST_LIBRARIES} ${OPENSSL_LIBRARIES} ${NLOHMANN_LIBRARIES})
+#target_include_directories(${PROJECT_NAME}
+#        PRIVATE
+#        ${PROJECT_SOURCE_DIR}
+#        ${GEN_DIR}/include
+#        include
+#)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/xxhr)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/better-enums)
+target_link_libraries(${PROJECT_NAME}
+        PUBLIC
+        ${GEN_PROJECT_NAME}
+#        ${Boost_LIBRARIES}
+#        ${OPENSSL_LIBRARIES}
+#        ${CPPRESTSDK_LIBRARIES}
+)
+
+generate_export_header(${PROJECT_NAME})
+
+add_subdirectory(examples)
