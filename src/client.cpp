@@ -1,13 +1,6 @@
 #include "tinkoff_invest_cppsdk/client.h"
 
-#include "CppRestOpenAPIClient/ApiException.h"
-
-#include <pplx/pplxinterface.h>
-#include <exception>
-
 namespace tinkoff_invest_cppsdk {
-
-using org::openapitools::client::api::ApiException;
 
 template <class ServiceType>
 void InvestApiClient::ClientService::InitializeService(const std::string& base_url,
@@ -45,32 +38,8 @@ ServiceReply<V1OpenSandboxAccountResponse> InvestApiClient::OpenSandboxAccountSy
     auto body = std::make_shared<V1OpenSandboxAccountRequest>();
     body->setName(name);
 
-    pplx::task_status status = pplx::task_group_status::not_complete;
-
-    try {
-        auto task =
-            std::get<SandboxServiceApi>(
-                *GetClientService(ServiceId::SandboxService).GetService()
-                ).sandboxServiceOpenSandboxAccount(body);
-
-        status = task.wait();
-        auto response = task.get();
-
-        return ServiceReply<V1OpenSandboxAccountResponse>{.response = *response,
-                                                          .status = status};
-    } catch (ApiException& e) {
-        constexpr int kBufSz = 1000;
-        char api_error_msg[kBufSz]{0};
-        e.getContent()->read(api_error_msg, kBufSz);
-
-        return ServiceReply<V1OpenSandboxAccountResponse>{.error_message = api_error_msg,
-                                    .error_place = e.what(),
-                                    .error_code = e.error_code(),
-                                    .status = pplx::task_group_status::canceled};
-    } catch (const std::exception& e) {
-        return ServiceReply<V1OpenSandboxAccountResponse>{.error_place = e.what(),
-                                    .status = pplx::task_group_status::canceled};
-    }
+    std::function<pplx::task<std::shared_ptr<V1OpenSandboxAccountResponse>>(const SandboxServiceApi&, std::shared_ptr<V1OpenSandboxAccountRequest>)> req = &SandboxServiceApi::sandboxServiceOpenSandboxAccount;
+    return MakeRequest<SandboxServiceApi, V1OpenSandboxAccountRequest, V1OpenSandboxAccountResponse, ServiceId::SandboxService>(body, req);
 }
 
 ServiceReply<Object> InvestApiClient::CloseSandboxAccountSync(const std::string& account_id) {
@@ -79,30 +48,8 @@ ServiceReply<Object> InvestApiClient::CloseSandboxAccountSync(const std::string&
     auto body = std::make_shared<V1CloseSandboxAccountRequest>();
     body->setAccountId(account_id);
 
-    pplx::task_status status = pplx::task_group_status::not_complete;
-    try {
-        auto task =
-            std::get<SandboxServiceApi>(*GetClientService(ServiceId::SandboxService).GetService())
-                .sandboxServiceCloseSandboxAccount(body);
-
-        status = task.wait();
-        auto response = task.get();
-
-        return ServiceReply<Object>{.response = *response,
-                                    .status = status};
-    } catch (ApiException& e) {
-        constexpr int kBufSz = 1000;
-        char api_error_msg[kBufSz]{0};
-        e.getContent()->read(api_error_msg, kBufSz);
-
-        return ServiceReply<Object>{.error_message = api_error_msg,
-                                    .error_place = e.what(),
-                                    .error_code = e.error_code(),
-                                    .status = pplx::task_group_status::canceled};
-    } catch (const std::exception& e) {
-        return ServiceReply<Object>{.error_place = e.what(),
-                                    .status = pplx::task_group_status::canceled};
-    }
+    std::function<pplx::task<std::shared_ptr<Object>>(const SandboxServiceApi&, std::shared_ptr<V1CloseSandboxAccountRequest>)> req = &SandboxServiceApi::sandboxServiceCloseSandboxAccount;
+    return MakeRequest<SandboxServiceApi, V1CloseSandboxAccountRequest, Object, ServiceId::SandboxService>(body, req);
 }
 
 }
