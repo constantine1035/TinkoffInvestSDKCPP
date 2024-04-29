@@ -9,6 +9,7 @@
 #include "tinkoffinvestsdkcpp_export.h"
 
 #include <string>
+#include <variant>
 
 namespace TINKOFFINVESTSDKCPP_EXPORT tinkoff_invest_cppsdk {
 
