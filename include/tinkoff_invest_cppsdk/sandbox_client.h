@@ -72,7 +72,7 @@ public:
 
     ServiceReply<V1SandboxPayInResponse> PayIn(const std::string &account_id,
                                                const std::string &currency,
-                                               int64_t units,
+                                               const std::string& units,
                                                int32_t nano
                                                );
 

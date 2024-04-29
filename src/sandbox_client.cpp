@@ -194,7 +194,7 @@ ServiceReply<V1PostOrderResponse> InvestApiSandboxClient::ReplaceSandboxOrder(
 ServiceReply<V1SandboxPayInResponse> InvestApiSandboxClient::PayIn(
     const std::string &account_id,
     const std::string &currency,
-    int64_t units, int32_t nano
+    const std::string& units, int32_t nano
     ) {
     InitService<SandboxServiceApi, ServiceId::SandboxService>();
 
@@ -202,7 +202,7 @@ ServiceReply<V1SandboxPayInResponse> InvestApiSandboxClient::PayIn(
 
     auto money_value = std::make_shared<V1MoneyValue>();
     money_value->setCurrency(currency);
-  //  money_value->setUnits(units);
+    money_value->setUnits(units);
     money_value->setNano(nano);
 
     body->setAccountId(account_id);
