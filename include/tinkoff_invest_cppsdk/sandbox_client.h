@@ -18,21 +18,23 @@ public:
 
     ~InvestApiSandboxClient() override;
 
-    ServiceReply<V1CancelOrderResponse> CancelSandboxOrder(
+    ServiceReply<V1CancelOrderResponse> SandboxServiceCancelSandboxOrder(
         const std::string& account_id, const std::string& order_id
         );
 
-    ServiceReply<Object> CloseSandboxAccountSync(const std::string& account_id);
+    ServiceReply<Object> SandboxServiceCloseSandboxAccountSync(
+        const std::string& account_id
+        );
 
-    ServiceReply<V1GetAccountsResponse> GetSandboxAccounts();
+    ServiceReply<V1GetAccountsResponse> SandboxServiceGetSandboxAccounts();
 
-    ServiceReply<V1OperationsResponse> GetSandboxOperations(
+    ServiceReply<V1OperationsResponse> SandboxServiceGetSandboxOperations(
         const std::string &account_id, const std::string &figi,
         int64_t from_seconds, int32_t from_nanos, int64_t to_seconds,
         int32_t to_nanos, V1OperationState::eV1OperationState state
         );
 
-    ServiceReply<V1GetOperationsByCursorResponse> GetSandboxOperationsByCursor(
+    ServiceReply<V1GetOperationsByCursorResponse> SandboxServiceGetSandboxOperationsByCursor(
         const std::string &account_id, const std::string &instrument_id,
         int64_t from_seconds, int32_t from_nanos, int64_t to_seconds,
         int32_t to_nanos, const std::string &cursor, int32_t limit,
@@ -41,36 +43,44 @@ public:
         bool without_overnights
         );
 
-    ServiceReply<V1OrderState> GetSandboxOrderState(
+    ServiceReply<V1OrderState> SandboxServiceGetSandboxOrderState(
         const std::string &account_id, const std::string &order_id
         );
 
-    ServiceReply<V1GetOrdersResponse> GetSandboxOrders(const std::string &account_id);
+    ServiceReply<V1GetOrdersResponse> SandboxServiceGetSandboxOrders(
+        const std::string &account_id
+        );
 
-    ServiceReply<V1PortfolioResponse> GetSandboxPortfolio(
+    ServiceReply<V1PortfolioResponse> SandboxServiceGetSandboxPortfolio(
         const std::string &account_id,
         PortfolioRequestCurrencyRequest::ePortfolioRequestCurrencyRequest currency
         );
 
-    ServiceReply<V1PositionsResponse> GetSandboxPositions(const std::string &account_id);
+    ServiceReply<V1PositionsResponse> SandboxServiceGetSandboxPositions(
+        const std::string &account_id
+        );
 
-    ServiceReply<V1WithdrawLimitsResponse> GetSandboxWithdrawLimits(const std::string &account_id);
+    ServiceReply<V1WithdrawLimitsResponse> SandboxServiceGetSandboxWithdrawLimits(
+        const std::string &account_id
+        );
 
-    ServiceReply<V1OpenSandboxAccountResponse> OpenSandboxAccountSync(const std::string& name);
+    ServiceReply<V1OpenSandboxAccountResponse> SandboxServiceOpenSandboxAccountSync(
+        const std::string& name
+        );
 
-    ServiceReply<V1PostOrderResponse> PostSandboxOrder(
+    ServiceReply<V1PostOrderResponse> SandboxServicePostSandboxOrder(
         const std::string &account_id, const std::string &order_id,
         const std::string &instrument_id, int64_t quantity,
         int64_t units, int32_t nano,  int direction, int order_type
         );
 
-    ServiceReply<V1PostOrderResponse> ReplaceSandboxOrder(
+    ServiceReply<V1PostOrderResponse> SandboxServiceReplaceSandboxOrder(
         const std::string &account_id, const std::string &order_id,
         const std::string &idempotency_key, int64_t quantity,
         int64_t units, int32_t nano, int price_type
         );
 
-    ServiceReply<V1SandboxPayInResponse> PayIn(const std::string &account_id,
+    ServiceReply<V1SandboxPayInResponse> SandboxServicePayIn(const std::string &account_id,
                                                const std::string &currency,
                                                const std::string& units,
                                                int32_t nano

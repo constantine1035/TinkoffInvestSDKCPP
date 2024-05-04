@@ -70,7 +70,7 @@ protected:
 
     ClientService& GetClientService(ServiceId id);
 
-    template <class ServiceType, ServiceId id>
+    template <ServiceId id, class ServiceType>
     void InitService() {
         if (GetClientService(id).ServiceIsInitialized()) {
             return;
@@ -82,7 +82,7 @@ protected:
         }
     }
 
-    template<class ServiceType, class RequestType, class ResponseType, ServiceId id>
+    template<ServiceId id, class ServiceType, class RequestType, class ResponseType>
     ServiceReply<ResponseType> MakeRequest(std::shared_ptr<RequestType> body,
                                            std::function<pplx::task<std::shared_ptr<ResponseType>>(const ServiceType&, std::shared_ptr<RequestType>)> req) {
         pplx::task_status status = pplx::task_group_status::not_complete;

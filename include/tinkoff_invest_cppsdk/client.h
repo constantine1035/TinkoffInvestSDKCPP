@@ -8,7 +8,7 @@
 /*
  * client.h
  *
- *
+ * This is a client class that use all services functions.
  */
 
 namespace TINKOFFINVESTSDKCPP_EXPORT tinkoff_invest_cppsdk {

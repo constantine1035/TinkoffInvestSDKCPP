@@ -1,14 +1,15 @@
 #include "tinkoff_invest_cppsdk/client.h"
 #include <pplx/pplxinterface.h>
 #include <iostream>
+#include <cstdlib>
 
 using namespace tinkoff_invest_cppsdk;
 
-static const std::string token = "t.oCCIjlXTnrRcIvWV8-W9c92ZVPwQbUyGuSfbX2l3a8O_X0VLKGJEWeIWoH2b0lhkveSPzRuZ355hlErOexHDkA";
+static const std::string token = std::getenv("MY_TOKEN");
 
 std::string OpenAccount(InvestApiClient& client) {
     std::cout << "Open sandbox account:" << std::endl;
-    auto reply_open_sandbox_account = client.OpenSandboxAccountSync("qwerty");
+    auto reply_open_sandbox_account = client.SandboxServiceOpenSandboxAccountSync("qwerty");
 
     std::string account_id;
 
@@ -26,7 +27,7 @@ std::string OpenAccount(InvestApiClient& client) {
 
 void CloseAccount(InvestApiClient& client, const std::string& account_id) {
     std::cout << "Close sandbox account:" << std::endl;
-    auto reply_close_sandbox_account = client.CloseSandboxAccountSync(account_id);
+    auto reply_close_sandbox_account = client.SandboxServiceCloseSandboxAccountSync(account_id);
 
     std::cout << "Status: " << reply_close_sandbox_account.status << "; " << std::endl;
 
@@ -42,7 +43,7 @@ void PayIn(InvestApiClient& client, const std::string& account_id,
            const std::string& currency, const std::string& units,
            int32_t nano) {
     std::cout << "Pay in account:" << std::endl;
-    auto reply_payin_sandbox_account = client.PayIn(account_id, currency, units, nano);
+    auto reply_payin_sandbox_account = client.SandboxServicePayIn(account_id, currency, units, nano);
 
     std::cout << "Status: " << reply_payin_sandbox_account.status << "; " << std::endl;
 
@@ -61,7 +62,7 @@ void PayIn(InvestApiClient& client, const std::string& account_id,
 
 void WithdrawLimits(InvestApiClient& client, const std::string& account_id) {
     std::cout << "WithdrawLimits account:" << std::endl;
-    auto reply_withdrawlimits_sandbox_account = client.GetSandboxWithdrawLimits(account_id);
+    auto reply_withdrawlimits_sandbox_account = client.SandboxServiceGetSandboxWithdrawLimits(account_id);
 
     std::cout << "Status: " << reply_withdrawlimits_sandbox_account.status << "; " << std::endl;
 
@@ -109,6 +110,8 @@ void PaiInAndGetWithdrawLimits() {
 
 
 int main() {
+    std::cout << "Sandbox examples: " << std::endl;
+
     std::cout << "Example open and close: " << std::endl;
 
     OpenCloseAccount();
