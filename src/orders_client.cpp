@@ -44,7 +44,7 @@ namespace tinkoff_invest_cppsdk {
         return MakeRequest<ServiceId::OrdersService>(body, req);
     }
 
-    ServiceReply<Contractv1OrderState> InvestApiOrdersClient::OrdersServiceGetOrderState(
+    ServiceReply<V1OrderState> InvestApiOrdersClient::OrdersServiceGetOrderState(
             const std::string &account_id, const std::string &order_id
     ) {
         InitService<ServiceId::OrdersService, OrdersServiceApi>();
@@ -54,7 +54,7 @@ namespace tinkoff_invest_cppsdk {
         body->setAccountId(account_id);
         body->setOrderId(order_id);
 
-        std::function<pplx::task<std::shared_ptr<Contractv1OrderState>>(const OrdersServiceApi&, std::shared_ptr<V1GetOrderStateRequest>)> req = &OrdersServiceApi::ordersServiceGetOrderState;
+        std::function<pplx::task<std::shared_ptr<V1OrderState>>(const OrdersServiceApi&, std::shared_ptr<V1GetOrderStateRequest>)> req = &OrdersServiceApi::ordersServiceGetOrderState;
         return MakeRequest<ServiceId::OrdersService>(body, req);
     }
 

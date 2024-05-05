@@ -28,7 +28,7 @@ public:
             const std::string &account_id, const std::string &order_id
     );
 
-    ServiceReply<Contractv1OrderState> OrdersServiceGetOrderState(
+    ServiceReply<V1OrderState> OrdersServiceGetOrderState(
             const std::string &account_id, const std::string &order_id
     );
 

@@ -30,17 +30,17 @@ public:
 
     ServiceReply<V1OperationsResponse> SandboxServiceGetSandboxOperations(
         const std::string &account_id, const std::string &figi,
-        int64_t from_seconds, int32_t from_nanos, int64_t to_seconds,
-        int32_t to_nanos, V1OperationState::eV1OperationState state
+        utility::datetime from, utility::datetime to,
+        std::shared_ptr<V1OperationState> state
         );
 
     ServiceReply<V1GetOperationsByCursorResponse> SandboxServiceGetSandboxOperationsByCursor(
         const std::string &account_id, const std::string &instrument_id,
-        int64_t from_seconds, int32_t from_nanos, int64_t to_seconds,
-        int32_t to_nanos, const std::string &cursor, int32_t limit,
-        const int &operation_types, V1OperationState state,
-        bool without_commissions, bool without_trades,
-        bool without_overnights
+        utility::datetime from, utility::datetime to,
+        const std::string &cursor, int32_t limit,
+        const std::vector<std::shared_ptr<V1OperationType>>& operation_types,
+        std::shared_ptr<V1OperationState> state,
+        bool without_commissions, bool without_trades, bool without_overnights
         );
 
     ServiceReply<V1OrderState> SandboxServiceGetSandboxOrderState(
@@ -53,7 +53,7 @@ public:
 
     ServiceReply<V1PortfolioResponse> SandboxServiceGetSandboxPortfolio(
         const std::string &account_id,
-        PortfolioRequestCurrencyRequest::ePortfolioRequestCurrencyRequest currency
+        std::shared_ptr<PortfolioRequestCurrencyRequest> currency
         );
 
     ServiceReply<V1PositionsResponse> SandboxServiceGetSandboxPositions(
@@ -70,14 +70,17 @@ public:
 
     ServiceReply<V1PostOrderResponse> SandboxServicePostSandboxOrder(
         const std::string &account_id, const std::string &order_id,
-        const std::string &instrument_id, int64_t quantity,
-        int64_t units, int32_t nano,  int direction, int order_type
+        const std::string &instrument_id, const std::string& quantity,
+        const std::string& units, int32_t nano,
+        std::shared_ptr<V1OrderDirection> direction,
+        std::shared_ptr<V1OrderType> order_type
         );
 
     ServiceReply<V1PostOrderResponse> SandboxServiceReplaceSandboxOrder(
         const std::string &account_id, const std::string &order_id,
-        const std::string &idempotency_key, int64_t quantity,
-        int64_t units, int32_t nano, int price_type
+        const std::string &idempotency_key, const std::string& quantity,
+        const std::string& units, int32_t nano,
+        std::shared_ptr<V1PriceType> price_type
         );
 
     ServiceReply<V1SandboxPayInResponse> SandboxServicePayIn(const std::string &account_id,

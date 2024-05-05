@@ -48,20 +48,17 @@ ServiceReply<V1GetAccountsResponse> InvestApiSandboxClient::SandboxServiceGetSan
 
 ServiceReply<V1OperationsResponse> InvestApiSandboxClient::SandboxServiceGetSandboxOperations(
     const std::string &account_id, const std::string &figi,
-    int64_t from_seconds, int32_t from_nanos, int64_t to_seconds,
-    int32_t to_nanos, V1OperationState::eV1OperationState state
+    utility::datetime from, utility::datetime to,
+    std::shared_ptr<V1OperationState> state
     ) {
     InitService<ServiceId::SandboxService, SandboxServiceApi>();
 
     auto body = std::make_shared<V1OperationsRequest>();
-    auto operation_state = std::make_shared<V1OperationState>();
-    operation_state->setValue(state);
-
-    // date
-
     body->setAccountId(account_id);
     body->setFigi(figi);
-    body->setState(operation_state);
+    body->setFrom(from);
+    body->setTo(to);
+    body->setState(state);
 
     std::function<pplx::task<std::shared_ptr<V1OperationsResponse>>(const SandboxServiceApi&, std::shared_ptr<V1OperationsRequest>)> req = &SandboxServiceApi::sandboxServiceGetSandboxOperations;
     return MakeRequest<ServiceId::SandboxService>(body, req);
@@ -69,16 +66,26 @@ ServiceReply<V1OperationsResponse> InvestApiSandboxClient::SandboxServiceGetSand
 
 ServiceReply<V1GetOperationsByCursorResponse> InvestApiSandboxClient::SandboxServiceGetSandboxOperationsByCursor(
     const std::string &account_id, const std::string &instrument_id,
-    int64_t from_seconds, int32_t from_nanos, int64_t to_seconds,
-    int32_t to_nanos, const std::string &cursor, int32_t limit,
-    const int &operation_types, V1OperationState state,
+    utility::datetime from, utility::datetime to,
+    const std::string &cursor, int32_t limit,
+    const std::vector<std::shared_ptr<V1OperationType>>& operation_types,
+    std::shared_ptr<V1OperationState> state,
     bool without_commissions, bool without_trades, bool without_overnights
     ) {
     InitService<ServiceId::SandboxService, SandboxServiceApi>();
 
     auto body = std::make_shared<V1GetOperationsByCursorRequest>();
+
     body->setAccountId(account_id);
-    // ....
+    body->setFrom(from);
+    body->setTo(to);
+    body->setCursor(cursor);
+    body->setLimit(limit);
+    body->setOperationTypes(operation_types);
+    body->setState(state);
+    body->setWithoutCommissions(without_commissions);
+    body->setWithoutTrades(without_trades);
+    body->setWithoutOvernights(without_overnights);
 
     std::function<pplx::task<std::shared_ptr<V1GetOperationsByCursorResponse>>(const SandboxServiceApi&, std::shared_ptr<V1GetOperationsByCursorRequest>)> req = &SandboxServiceApi::sandboxServiceGetSandboxOperationsByCursor;
     return MakeRequest<ServiceId::SandboxService>(body, req);
@@ -111,16 +118,13 @@ ServiceReply<V1GetOrdersResponse> InvestApiSandboxClient::SandboxServiceGetSandb
 
 ServiceReply<V1PortfolioResponse> InvestApiSandboxClient::SandboxServiceGetSandboxPortfolio(
     const std::string &account_id,
-    PortfolioRequestCurrencyRequest::ePortfolioRequestCurrencyRequest currency
+    std::shared_ptr<PortfolioRequestCurrencyRequest> currency
     ) {
     InitService<ServiceId::SandboxService, SandboxServiceApi>();
 
     auto body = std::make_shared<V1PortfolioRequest>();
-    auto portfolio_request_currency_request = std::make_shared<PortfolioRequestCurrencyRequest>();
-    portfolio_request_currency_request->setValue(currency);
-
     body->setAccountId(account_id);
-    body->setCurrency(portfolio_request_currency_request);
+    body->setCurrency(currency);
 
     std::function<pplx::task<std::shared_ptr<V1PortfolioResponse>>(const SandboxServiceApi&, std::shared_ptr<V1PortfolioRequest>)> req = &SandboxServiceApi::sandboxServiceGetSandboxPortfolio;
     return MakeRequest<ServiceId::SandboxService>(body, req);
@@ -164,14 +168,26 @@ ServiceReply<V1OpenSandboxAccountResponse> InvestApiSandboxClient::SandboxServic
 
 ServiceReply<V1PostOrderResponse> InvestApiSandboxClient::SandboxServicePostSandboxOrder(
     const std::string &account_id, const std::string &order_id,
-    const std::string &instrument_id, int64_t quantity,
-    int64_t units, int32_t nano, int direction, int order_type
+    const std::string &instrument_id, const std::string& quantity,
+    const std::string& units, int32_t nano,
+    std::shared_ptr<V1OrderDirection> direction,
+    std::shared_ptr<V1OrderType> order_type
     ) {
     InitService<ServiceId::SandboxService, SandboxServiceApi>();
 
     auto body = std::make_shared<V1PostOrderRequest>();
+
+    auto quotation = std::make_shared<V1Quotation>();
+    quotation->setUnits(units);
+    quotation->setNano(nano);
+
     body->setAccountId(account_id);
-    // ...
+    body->setOrderId(order_id);
+    body->setInstrumentId(instrument_id);
+    body->setQuantity(quantity);
+    body->setPrice(quotation);
+    body->setDirection(direction);
+    body->setOrderType(order_type);
 
     std::function<pplx::task<std::shared_ptr<V1PostOrderResponse>>(const SandboxServiceApi&, std::shared_ptr<V1PostOrderRequest>)> req = &SandboxServiceApi::sandboxServicePostSandboxOrder;
     return MakeRequest<ServiceId::SandboxService>(body, req);
@@ -179,14 +195,24 @@ ServiceReply<V1PostOrderResponse> InvestApiSandboxClient::SandboxServicePostSand
 
 ServiceReply<V1PostOrderResponse> InvestApiSandboxClient::SandboxServiceReplaceSandboxOrder(
     const std::string &account_id, const std::string &order_id,
-    const std::string &idempotency_key, int64_t quantity,
-    int64_t units, int32_t nano, int price_type
+    const std::string &idempotency_key, const std::string& quantity,
+    const std::string& units, int32_t nano,
+    std::shared_ptr<V1PriceType> price_type
     ) {
     InitService<ServiceId::SandboxService, SandboxServiceApi>();
 
     auto body = std::make_shared<V1ReplaceOrderRequest>();
+
+    auto quotation = std::make_shared<V1Quotation>();
+    quotation->setUnits(units);
+    quotation->setNano(nano);
+
     body->setAccountId(account_id);
-    //....
+    body->setOrderId(order_id);
+    body->setIdempotencyKey(idempotency_key);
+    body->setQuantity(quantity);
+    body->setPrice(quotation);
+    body->setPriceType(price_type);
 
     std::function<pplx::task<std::shared_ptr<V1PostOrderResponse>>(const SandboxServiceApi&, std::shared_ptr<V1ReplaceOrderRequest>)> req = &SandboxServiceApi::sandboxServiceReplaceSandboxOrder;
     return MakeRequest<ServiceId::SandboxService>(body, req);

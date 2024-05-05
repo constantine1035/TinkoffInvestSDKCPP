@@ -19,8 +19,8 @@ public:
     ~InvestApiMarketdataClient() override;
 
     ServiceReply<V1GetCandlesResponse> MarketDataServiceGetCandles(
-        const std::string &instrument_id, int64_t from_seconds, int32_t from_nanos,
-        int64_t to_seconds, int32_t to_nanos, std::shared_ptr<V1CandleInterval> interval
+        const std::string &instrument_id, utility::datetime from,
+        utility::datetime to, std::shared_ptr<V1CandleInterval> interval
         );
     
     ServiceReply<V1GetClosePricesResponse> MarketDataServiceGetClosePrices(
@@ -32,15 +32,23 @@ public:
         );
     
     ServiceReply<V1GetLastTradesResponse> MarketDataServiceGetLastTrades(
-        const std::string &instrument_id, int64_t from_seconds,
-        int32_t from_nanos, int64_t to_seconds, int32_t to_nanos
+        const std::string &instrument_id,
+        utility::datetime from, utility::datetime to
         );
     
     ServiceReply<V1GetOrderBookResponse> MarketDataServiceGetOrderBook(
         const std::string &instrument_id, int32_t depth
         );
     
-    ServiceReply<V1GetTechAnalysisResponse> MarketDataServiceGetTechAnalysis();
+    ServiceReply<V1GetTechAnalysisResponse> MarketDataServiceGetTechAnalysis(
+        std::shared_ptr<GetTechAnalysisRequestIndicatorType> indicator_type,
+        const std::string &instrument_id,
+        utility::datetime from, utility::datetime to,
+        std::shared_ptr<GetTechAnalysisRequestIndicatorInterval> interval,
+        std::shared_ptr<GetTechAnalysisRequestTypeOfPrice> type_of_price,
+        int32_t length, const std::string& units, int32_t nano,
+        int32_t fast_length, int32_t slow_length, int32_t signal_smoothing
+        );
     
     ServiceReply<V1GetTradingStatusResponse> MarketDataServiceGetTradingStatus(
         const std::string &instrument_id
