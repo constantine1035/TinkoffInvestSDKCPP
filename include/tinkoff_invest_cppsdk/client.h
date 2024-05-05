@@ -5,6 +5,7 @@
 #include "tinkoff_invest_cppsdk/orders_client.h"
 #include "tinkoff_invest_cppsdk/orders_stream_client.h"
 #include "tinkoff_invest_cppsdk/sandbox_client.h"
+#include "tinkoff_invest_cppsdk/stoporders_client.h"
 #include "tinkoff_invest_cppsdk/users_client.h"
 
 #include "tinkoffinvestsdkcpp_export.h"
@@ -24,6 +25,7 @@ class InvestApiClient : public InvestApiMarketdataClient,
                         public InvestApiOrdersClient,
                         public InvestApiOrdersStreamClient,
                         public InvestApiSandboxClient,
+                        public InvestApiStopOrdersClient,
                         public InvestApiUsersClient {
 public:
     inline explicit InvestApiClient(const std::string& token) :
@@ -32,6 +34,7 @@ public:
           InvestApiOrdersClient(token),
           InvestApiOrdersStreamClient(token),
           InvestApiSandboxClient(token),
+          InvestApiStopOrdersClient(token),
           InvestApiUsersClient(token)
         {
     }
