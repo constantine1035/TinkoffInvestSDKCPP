@@ -22,7 +22,7 @@ public:
 
     ServiceReply<V1GetMarginAttributesResponse> UsersServiceGetMarginAttributes(const std::string &account_id);
 
-    ServiceReply<V1GetGetUserTariffResponse> UsersServiceGetUserTariff();
+    ServiceReply<V1GetUserTariffResponse> UsersServiceGetUserTariff();
 
     ServiceReply<V1GetInfoResponse> UsersServiceGetInfo();
 };
