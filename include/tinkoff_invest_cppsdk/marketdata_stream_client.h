@@ -10,7 +10,6 @@
 
 #include "tinkoffinvestsdkcpp_export.h"
 
-
 namespace TINKOFFINVESTSDKCPP_EXPORT tinkoff_invest_cppsdk {
 
 class InvestApiMarketdataStreamClient : public InvestApiBaseClient {
@@ -19,13 +18,12 @@ public:
 
     ~InvestApiMarketdataStreamClient() override;
 
-    ServiceReply<Stream_result_of_v1MarketDataResponse> MarketDataStreamServiceMarketDataServerSideStream(
-        std::shared_ptr<V1MarketDataServerSideStreamRequest> body
-        );
+    ServiceReply<Stream_result_of_v1MarketDataResponse>
+    MarketDataStreamServiceMarketDataServerSideStream(
+        std::shared_ptr<V1MarketDataServerSideStreamRequest> body) const;
 
     ServiceReply<Stream_result_of_v1MarketDataResponse> MarketDataStreamServiceMarketDataStream(
-        std::shared_ptr<V1MarketDataRequest> body
-    );
+        std::shared_ptr<V1MarketDataRequest> body) const;
 };
 
-}  // tinkoff_invest_cppsdk
+}  // namespace tinkoff_invest_cppsdk

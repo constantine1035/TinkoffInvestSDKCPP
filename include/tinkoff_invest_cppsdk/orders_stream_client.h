@@ -10,7 +10,6 @@
 
 #include "tinkoffinvestsdkcpp_export.h"
 
-
 namespace TINKOFFINVESTSDKCPP_EXPORT tinkoff_invest_cppsdk {
 
 class InvestApiOrdersStreamClient : public InvestApiBaseClient {
@@ -19,9 +18,8 @@ public:
 
     ~InvestApiOrdersStreamClient() override;
 
-    ServiceReply<Stream_result_of_v1TradesStreamResponse> ordersStreamServiceTradesStream(
-        const std::vector<std::string>& accounts
-    );
+    ServiceReply<Stream_result_of_v1TradesStreamResponse> OrdersStreamServiceTradesStream(
+        const std::vector<std::string>& accounts) const;
 };
 
-}  // tinkoff_invest_cppsdk
+}  // namespace tinkoff_invest_cppsdk

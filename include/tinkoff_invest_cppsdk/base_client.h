@@ -37,84 +37,145 @@ public:
     virtual ~InvestApiBaseClient();
 
 protected:
-    class ClientService {
-    public:
-        template <class ServiceType>
-        void InitializeService(const std::string& base_url, const std::string& token) {
-            auto config = std::make_shared<ApiConfiguration>();
-            config->getDefaultHeaders()["Authorization"] = "Bearer " + token;
-            config->setBaseUrl(base_url);
-
-            auto client = std::make_shared<ApiClient>(config);
-
-            service_ = std::make_shared<some_service_t>(ServiceType(client));
-
-            isInitialized_ = true;
-        }
-
-        const std::shared_ptr<some_service_t> GetService() const;
-
-        bool ServiceIsInitialized() const;
-
-    protected:
-        bool isInitialized_{false};
-        std::shared_ptr<some_service_t> service_;
+    enum class ServiceId {
+        InstrumentsService,
+        MarketDataService,
+        MarketDataStreamService,
+        OperationsService,
+        OperationsStreamService,
+        OrdersService,
+        OrdersStreamService,
+        SandboxService,
+        StopOrdersService,
+        UsersService
     };
 
     std::string token_;
-    std::array<ClientService, kNumberOfServices> services_;
+    std::array<std::shared_ptr<some_service_t>, kNumberOfServices> services_;
 
     // class that will calculate req per min;
     // class-counter: sub in streams;
     // class-counter: number of streams;
 
-    ClientService& GetClientService(ServiceId id);
+    std::shared_ptr<some_service_t>& GetClientService(ServiceId id);
+
+    std::shared_ptr<some_service_t> GetClientService(ServiceId id) const;
+
+    template <ServiceId id, class ServiceType>
+    std::shared_ptr<some_service_t> MakeService(const std::string& base_url,
+                                                const std::string& token) {
+        auto config = std::make_shared<ApiConfiguration>();
+        config->getDefaultHeaders()["Authorization"] = "Bearer " + token;
+        config->setBaseUrl(base_url);
+
+        auto client = std::make_shared<ApiClient>(config);
+
+        return std::make_shared<some_service_t>(ServiceType(client));
+    }
 
     template <ServiceId id, class ServiceType>
     void InitService() {
-        if (GetClientService(id).ServiceIsInitialized()) {
-            return;
-        }
         if (std::is_same_v<SandboxServiceApi, ServiceType>) {
-            GetClientService(id).InitializeService<ServiceType>(kSandboxBaseUrl, token_);
+            GetClientService(id) = MakeService<id, ServiceType>(kSandboxBaseUrl, token_);
         } else {
-            GetClientService(id).InitializeService<ServiceType>(kDefaultBaseUrl, token_);
+            GetClientService(id) = MakeService<id, ServiceType>(kDefaultBaseUrl, token_);
         }
     }
 
-    template<ServiceId id, class ServiceType, class RequestType, class ResponseType>
-    ServiceReply<ResponseType> MakeRequest(std::shared_ptr<RequestType> body,
-                                           std::function<pplx::task<std::shared_ptr<ResponseType>>(const ServiceType&, std::shared_ptr<RequestType>)> req) {
-        pplx::task_status status = pplx::task_group_status::not_complete;
+    template <ServiceId id, class ServiceType, class RequestType, class ResponseType>
+    ServiceReply<ResponseType> MakeRequestSync(
+        std::function<pplx::task<std::shared_ptr<ResponseType>>(const ServiceType&,
+                                                                std::shared_ptr<RequestType>)> req,
+        std::shared_ptr<RequestType> body,
+        std::function<void(const ServiceReply<ResponseType>&)> callback = nullptr,
+        int retry_max = 0) const {
 
-        try {
-            auto task = req(std::get<ServiceType>(*GetClientService(id).GetService()), body);
+        ServiceReply<ResponseType> last_reply;
 
-            status = task.wait();
-            auto response = task.get();
+        for (int i = 0; i <= retry_max; ++i) {
+            ServiceReply<ResponseType> reply;
+            try {
+                auto service = std::get<ServiceType>(*GetClientService(id));
+                auto response = req(service, body).get();
 
-            return ServiceReply<ResponseType>{
-                .response = *response,
-                .status = status
-            };
-        } catch (ApiException& e) {
-            constexpr int kBufSz = 1000;
-            char api_error_msg[kBufSz]{0};
-            e.getContent()->read(api_error_msg, kBufSz);
+                reply = ServiceReply<ResponseType>{.response = *response,
+                                                   .status = pplx::task_group_status::completed};
+            } catch (ApiException& e) {
+                constexpr int kBufSz = 1000;
+                char api_error_msg[kBufSz]{0};
+                e.getContent()->read(api_error_msg, kBufSz);
 
-            return ServiceReply<ResponseType>{
-                .error_message = api_error_msg,
-                .error_place = e.what(),
-                .error_code = e.error_code(),
-                .status = pplx::task_group_status::canceled
-            };
-        } catch (const std::exception& e) {
-            return ServiceReply<ResponseType>{
-                .error_place = e.what(),
-                .status = pplx::task_group_status::canceled
-            };
+                reply = ServiceReply<ResponseType>{.error_message = api_error_msg,
+                                                   .error_place = e.what(),
+                                                   .error_code = e.error_code(),
+                                                   .status = pplx::task_group_status::canceled};
+            } catch (const std::exception& e) {
+                reply = ServiceReply<ResponseType>{.error_place = e.what(),
+                                                   .status = pplx::task_group_status::canceled};
+            }
+            last_reply = std::move(reply);
+            if (last_reply.status == pplx::task_group_status::completed) {
+                break;
+            }
+            if (callback) {
+                callback(last_reply);
+            }
         }
+        return last_reply;
+    }
+
+    template <ServiceId id, class ServiceType, class RequestType, class ResponseType>
+    ServiceReply<ResponseType> MakeRequestAsync(
+        std::function<pplx::task<std::shared_ptr<ResponseType>>(const ServiceType&,
+                                                                std::shared_ptr<RequestType>)> req,
+        std::shared_ptr<RequestType> body,
+        std::function<void(const ServiceReply<ResponseType>&)> callback = nullptr,
+        int retry_max = 0) const {
+
+        auto service = std::get<ServiceType>(*GetClientService(id));
+
+        ServiceReply<ResponseType> reply;
+
+        req(service, body)
+            .then([&, this](pplx::task<std::shared_ptr<ResponseType>> task) {
+                try {
+                    auto status = task.wait();
+                    auto response = task.get();
+
+                    reply = ServiceReply<ResponseType>{
+                        .response = *response, .status = pplx::task_group_status::completed};
+                } catch (ApiException& e) {
+                    constexpr int kBufSz = 1000;
+                    char api_error_msg[kBufSz]{0};
+                    e.getContent()->read(api_error_msg, kBufSz);
+
+                    reply = ServiceReply<ResponseType>{.error_message = api_error_msg,
+                                                       .error_place = e.what(),
+                                                       .error_code = e.error_code(),
+                                                       .status = pplx::task_group_status::canceled};
+
+                    if (callback) {
+                        callback(reply);
+                    }
+                    if (retry_max > 0) {
+                        reply = MakeRequestAsync<id>(req, body, callback, retry_max - 1);
+                    }
+                } catch (const std::exception& e) {
+                    reply = ServiceReply<ResponseType>{.error_place = e.what(),
+                                                       .status = pplx::task_group_status::canceled};
+
+                    if (callback) {
+                        callback(reply);
+                    }
+                    if (retry_max > 0) {
+                        reply = MakeRequestAsync<id>(req, body, callback, retry_max - 1);
+                    }
+                }
+            })
+            .wait();
+
+        return reply;
     }
 };
 
-}  // tinkoff_invest_cppsdk
+}  // namespace tinkoff_invest_cppsdk

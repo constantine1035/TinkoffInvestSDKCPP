@@ -32,4 +32,4 @@ using org::openapitools::client::api::SandboxServiceApi;
 using org::openapitools::client::api::StopOrdersServiceApi;
 using org::openapitools::client::api::UsersServiceApi;
 
-}  // tinkoff_invest_cppsdk
+}  // namespace tinkoff_invest_cppsdk

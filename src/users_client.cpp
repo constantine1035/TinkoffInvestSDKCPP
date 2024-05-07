@@ -2,50 +2,49 @@
 
 namespace tinkoff_invest_cppsdk {
 
-    InvestApiUsersClient::InvestApiUsersClient(const std::string &token) : InvestApiBaseClient(token) {
-    }
+InvestApiUsersClient::InvestApiUsersClient(const std::string &token) : InvestApiBaseClient(token) {
+    InitService<ServiceId::UsersService, UsersServiceApi>();
+}
 
-    InvestApiUsersClient::~InvestApiUsersClient() {
-    }
+InvestApiUsersClient::~InvestApiUsersClient() {
+}
 
-    ServiceReply<V1GetAccountsResponse> InvestApiUsersClient::UsersServiceGetAccounts() {
-        InitService<ServiceId::UsersService, UsersServiceApi>();
+ServiceReply<V1GetAccountsResponse> InvestApiUsersClient::UsersServiceGetAccounts() const {
+    auto body = std::make_shared<Object>();
 
-        auto body = std::make_shared<Object>();
+    std::function<pplx::task<std::shared_ptr<V1GetAccountsResponse>>(const UsersServiceApi &,
+                                                                     std::shared_ptr<Object>)>
+        req = &UsersServiceApi::usersServiceGetAccounts;
+    return MakeRequestAsync<ServiceId::UsersService>(req, body);
+}
 
-        std::function<pplx::task<std::shared_ptr<V1GetAccountsResponse>>(const UsersServiceApi&, std::shared_ptr<Object>)> req = &UsersServiceApi::usersServiceGetAccounts;
-        return MakeRequest<ServiceId::UsersService>(body, req);
-    }
+ServiceReply<V1GetMarginAttributesResponse> InvestApiUsersClient::UsersServiceGetMarginAttributes(
+    const std::string &account_id) const {
+    auto body = std::make_shared<V1GetMarginAttributesRequest>();
+    body->setAccountId(account_id);
 
-    ServiceReply<V1GetMarginAttributesResponse> InvestApiUsersClient::UsersServiceGetMarginAttributes(
-            const std::string &account_id
-    ) {
-        InitService<ServiceId::MarketDataService, UsersServiceApi>();
+    std::function<pplx::task<std::shared_ptr<V1GetMarginAttributesResponse>>(
+        const UsersServiceApi &, std::shared_ptr<V1GetMarginAttributesRequest>)>
+        req = &UsersServiceApi::usersServiceGetMarginAttributes;
+    return MakeRequestAsync<ServiceId::UsersService>(req, body);
+}
 
-        auto body = std::make_shared<V1GetMarginAttributesRequest>();
+ServiceReply<V1GetUserTariffResponse> InvestApiUsersClient::UsersServiceGetUserTariff() const {
+    auto body = std::make_shared<Object>();
 
-        body->setAccountId(account_id);
+    std::function<pplx::task<std::shared_ptr<V1GetUserTariffResponse>>(const UsersServiceApi &,
+                                                                       std::shared_ptr<Object>)>
+        req = &UsersServiceApi::usersServiceGetUserTariff;
+    return MakeRequestAsync<ServiceId::UsersService>(req, body);
+}
 
-        std::function<pplx::task<std::shared_ptr<V1GetMarginAttributesResponse>>(const UsersServiceApi&, std::shared_ptr<V1GetMarginAttributesRequest>)> req = &UsersServiceApi::usersServiceGetMarginAttributes;
-        return MakeRequest<ServiceId::UsersService>(body, req);
-    }
+ServiceReply<V1GetInfoResponse> InvestApiUsersClient::UsersServiceGetInfo() const {
+    auto body = std::make_shared<Object>();
 
-    ServiceReply<V1GetUserTariffResponse> InvestApiUsersClient::UsersServiceGetUserTariff() {
-        InitService<ServiceId::UsersService, UsersServiceApi>();
+    std::function<pplx::task<std::shared_ptr<V1GetInfoResponse>>(const UsersServiceApi &,
+                                                                 std::shared_ptr<Object>)>
+        req = &UsersServiceApi::usersServiceGetInfo;
+    return MakeRequestAsync<ServiceId::UsersService>(req, body);
+}
 
-        auto body = std::make_shared<Object>();
-
-        std::function<pplx::task<std::shared_ptr<V1GetUserTariffResponse>>(const UsersServiceApi&, std::shared_ptr<Object>)> req = &UsersServiceApi::usersServiceGetUserTariff;
-        return MakeRequest<ServiceId::UsersService>(body, req);
-    }
-
-    ServiceReply<V1GetInfoResponse> InvestApiUsersClient::UsersServiceGetInfo() {
-        InitService<ServiceId::UsersService, UsersServiceApi>();
-
-        auto body = std::make_shared<Object>();
-
-        std::function<pplx::task<std::shared_ptr<V1GetInfoResponse>>(const UsersServiceApi&, std::shared_ptr<Object>)> req = &UsersServiceApi::usersServiceGetInfo;
-        return MakeRequest<ServiceId::UsersService>(body, req);
-    }
-
-}  // tinkoff_invest_cppsdk
+}  // namespace tinkoff_invest_cppsdk

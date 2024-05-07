@@ -18,13 +18,14 @@ public:
 
     ~InvestApiUsersClient() override;
 
-    ServiceReply<V1GetAccountsResponse> UsersServiceGetAccounts();
+    ServiceReply<V1GetAccountsResponse> UsersServiceGetAccounts() const;
 
-    ServiceReply<V1GetMarginAttributesResponse> UsersServiceGetMarginAttributes(const std::string &account_id);
+    ServiceReply<V1GetMarginAttributesResponse> UsersServiceGetMarginAttributes(
+        const std::string& account_id) const;
 
-    ServiceReply<V1GetUserTariffResponse> UsersServiceGetUserTariff();
+    ServiceReply<V1GetUserTariffResponse> UsersServiceGetUserTariff() const;
 
-    ServiceReply<V1GetInfoResponse> UsersServiceGetInfo();
+    ServiceReply<V1GetInfoResponse> UsersServiceGetInfo() const;
 };
 
-}  // tinkoff_invest_cppsdk
+}  // namespace tinkoff_invest_cppsdk

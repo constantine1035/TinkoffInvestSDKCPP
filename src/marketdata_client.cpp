@@ -2,34 +2,31 @@
 
 namespace tinkoff_invest_cppsdk {
 
-InvestApiMarketdataClient::InvestApiMarketdataClient(const std::string &token) : InvestApiBaseClient(token) {
+InvestApiMarketdataClient::InvestApiMarketdataClient(const std::string &token)
+    : InvestApiBaseClient(token) {
+    InitService<ServiceId::MarketDataService, MarketDataServiceApi>();
 }
 
 InvestApiMarketdataClient::~InvestApiMarketdataClient() {
 }
 
 ServiceReply<V1GetCandlesResponse> InvestApiMarketdataClient::MarketDataServiceGetCandles(
-    const std::string &instrument_id, utility::datetime from,
-    utility::datetime to, std::shared_ptr<V1CandleInterval> interval
-    ) {
-    InitService<ServiceId::MarketDataService, MarketDataServiceApi>();
-
+    const std::string &instrument_id, utility::datetime from, utility::datetime to,
+    std::shared_ptr<V1CandleInterval> interval) const {
     auto body = std::make_shared<V1GetCandlesRequest>();
-
     body->setInstrumentId(instrument_id);
     body->setFrom(from);
     body->setTo(to);
     body->setInterval(interval);
 
-    std::function<pplx::task<std::shared_ptr<V1GetCandlesResponse>>(const MarketDataServiceApi&, std::shared_ptr<V1GetCandlesRequest>)> req = &MarketDataServiceApi::marketDataServiceGetCandles;
-    return MakeRequest<ServiceId::MarketDataService>(body, req);
+    std::function<pplx::task<std::shared_ptr<V1GetCandlesResponse>>(
+        const MarketDataServiceApi &, std::shared_ptr<V1GetCandlesRequest>)>
+        req = &MarketDataServiceApi::marketDataServiceGetCandles;
+    return MakeRequestAsync<ServiceId::MarketDataService>(req, body);
 }
 
 ServiceReply<V1GetClosePricesResponse> InvestApiMarketdataClient::MarketDataServiceGetClosePrices(
-    const std::vector<std::string> &instruments_ids
-    ) {
-    InitService<ServiceId::MarketDataService, MarketDataServiceApi>();
-
+    const std::vector<std::string> &instruments_ids) const {
     auto body = std::make_shared<V1GetClosePricesRequest>();
 
     size_t n = instruments_ids.size();
@@ -40,59 +37,55 @@ ServiceReply<V1GetClosePricesResponse> InvestApiMarketdataClient::MarketDataServ
     }
     body->setInstruments(instruments);
 
-    std::function<pplx::task<std::shared_ptr<V1GetClosePricesResponse>>(const MarketDataServiceApi&, std::shared_ptr<V1GetClosePricesRequest>)> req = &MarketDataServiceApi::marketDataServiceGetClosePrices;
-    return MakeRequest<ServiceId::MarketDataService>(body, req);
+    std::function<pplx::task<std::shared_ptr<V1GetClosePricesResponse>>(
+        const MarketDataServiceApi &, std::shared_ptr<V1GetClosePricesRequest>)>
+        req = &MarketDataServiceApi::marketDataServiceGetClosePrices;
+    return MakeRequestAsync<ServiceId::MarketDataService>(req, body);
 }
 
 ServiceReply<V1GetLastPricesResponse> InvestApiMarketdataClient::MarketDataServiceGetLastPrices(
-    const std::vector<std::string> &instrument_id) {
-    InitService<ServiceId::MarketDataService, MarketDataServiceApi>();
-
+    const std::vector<std::string> &instrument_id) const {
     auto body = std::make_shared<V1GetLastPricesRequest>();
     body->setInstrumentId(instrument_id);
 
-    std::function<pplx::task<std::shared_ptr<V1GetLastPricesResponse>>(const MarketDataServiceApi&, std::shared_ptr<V1GetLastPricesRequest>)> req = &MarketDataServiceApi::marketDataServiceGetLastPrices;
-    return MakeRequest<ServiceId::MarketDataService>(body, req);
+    std::function<pplx::task<std::shared_ptr<V1GetLastPricesResponse>>(
+        const MarketDataServiceApi &, std::shared_ptr<V1GetLastPricesRequest>)>
+        req = &MarketDataServiceApi::marketDataServiceGetLastPrices;
+    return MakeRequestAsync<ServiceId::MarketDataService>(req, body);
 }
 
 ServiceReply<V1GetLastTradesResponse> InvestApiMarketdataClient::MarketDataServiceGetLastTrades(
-    const std::string &instrument_id,
-    utility::datetime from, utility::datetime to
-    ) {
-    InitService<ServiceId::MarketDataService, MarketDataServiceApi>();
-
+    const std::string &instrument_id, utility::datetime from, utility::datetime to) const {
     auto body = std::make_shared<V1GetLastTradesRequest>();
     body->setInstrumentId(instrument_id);
     body->setFrom(from);
     body->setTo(to);
 
-    std::function<pplx::task<std::shared_ptr<V1GetLastTradesResponse>>(const MarketDataServiceApi&, std::shared_ptr<V1GetLastTradesRequest>)> req = &MarketDataServiceApi::marketDataServiceGetLastTrades;
-    return MakeRequest<ServiceId::MarketDataService>(body, req);
+    std::function<pplx::task<std::shared_ptr<V1GetLastTradesResponse>>(
+        const MarketDataServiceApi &, std::shared_ptr<V1GetLastTradesRequest>)>
+        req = &MarketDataServiceApi::marketDataServiceGetLastTrades;
+    return MakeRequestAsync<ServiceId::MarketDataService>(req, body);
 }
 
 ServiceReply<V1GetOrderBookResponse> InvestApiMarketdataClient::MarketDataServiceGetOrderBook(
-    const std::string &instrument_id, int32_t depth
-    ) {
-    InitService<ServiceId::MarketDataService, MarketDataServiceApi>();
-
+    const std::string &instrument_id, int32_t depth) const {
     auto body = std::make_shared<V1GetOrderBookRequest>();
     body->setInstrumentId(instrument_id);
     body->setDepth(depth);
 
-    std::function<pplx::task<std::shared_ptr<V1GetOrderBookResponse>>(const MarketDataServiceApi&, std::shared_ptr<V1GetOrderBookRequest>)> req = &MarketDataServiceApi::marketDataServiceGetOrderBook;
-    return MakeRequest<ServiceId::MarketDataService>(body, req);
+    std::function<pplx::task<std::shared_ptr<V1GetOrderBookResponse>>(
+        const MarketDataServiceApi &, std::shared_ptr<V1GetOrderBookRequest>)>
+        req = &MarketDataServiceApi::marketDataServiceGetOrderBook;
+    return MakeRequestAsync<ServiceId::MarketDataService>(req, body);
 }
 
 ServiceReply<V1GetTechAnalysisResponse> InvestApiMarketdataClient::MarketDataServiceGetTechAnalysis(
     std::shared_ptr<GetTechAnalysisRequestIndicatorType> indicator_type,
-    const std::string &instrument_id,
-    utility::datetime from, utility::datetime to,
+    const std::string &instrument_id, utility::datetime from, utility::datetime to,
     std::shared_ptr<GetTechAnalysisRequestIndicatorInterval> interval,
-    std::shared_ptr<GetTechAnalysisRequestTypeOfPrice> type_of_price,
-    int32_t length, const std::string &units, int32_t nano,
-    int32_t fast_length, int32_t slow_length, int32_t signal_smoothing) {
-    InitService<ServiceId::MarketDataService, MarketDataServiceApi>();
-
+    std::shared_ptr<GetTechAnalysisRequestTypeOfPrice> type_of_price, int32_t length,
+    const std::string &units, int32_t nano, int32_t fast_length, int32_t slow_length,
+    int32_t signal_smoothing) const {
     auto body = std::make_shared<V1GetTechAnalysisRequest>();
 
     auto quotation = std::make_shared<V1Quotation>();
@@ -116,32 +109,33 @@ ServiceReply<V1GetTechAnalysisResponse> InvestApiMarketdataClient::MarketDataSer
     body->setDeviation(deviation);
     body->setSmoothing(smoothing);
 
-    std::function<pplx::task<std::shared_ptr<V1GetTechAnalysisResponse>>(const MarketDataServiceApi&, std::shared_ptr<V1GetTechAnalysisRequest>)> req = &MarketDataServiceApi::marketDataServiceGetTechAnalysis;
-    return MakeRequest<ServiceId::MarketDataService>(body, req);
+    std::function<pplx::task<std::shared_ptr<V1GetTechAnalysisResponse>>(
+        const MarketDataServiceApi &, std::shared_ptr<V1GetTechAnalysisRequest>)>
+        req = &MarketDataServiceApi::marketDataServiceGetTechAnalysis;
+    return MakeRequestAsync<ServiceId::MarketDataService>(req, body);
 }
 
-ServiceReply<V1GetTradingStatusResponse> InvestApiMarketdataClient::MarketDataServiceGetTradingStatus(
-    const std::string &instrument_id
-    ) {
-    InitService<ServiceId::MarketDataService, MarketDataServiceApi>();
-
+ServiceReply<V1GetTradingStatusResponse>
+InvestApiMarketdataClient::MarketDataServiceGetTradingStatus(const std::string &instrument_id) const {
     auto body = std::make_shared<V1GetTradingStatusRequest>();
     body->setInstrumentId(instrument_id);
 
-    std::function<pplx::task<std::shared_ptr<V1GetTradingStatusResponse>>(const MarketDataServiceApi&, std::shared_ptr<V1GetTradingStatusRequest>)> req = &MarketDataServiceApi::marketDataServiceGetTradingStatus;
-    return MakeRequest<ServiceId::MarketDataService>(body, req);
+    std::function<pplx::task<std::shared_ptr<V1GetTradingStatusResponse>>(
+        const MarketDataServiceApi &, std::shared_ptr<V1GetTradingStatusRequest>)>
+        req = &MarketDataServiceApi::marketDataServiceGetTradingStatus;
+    return MakeRequestAsync<ServiceId::MarketDataService>(req, body);
 }
 
-ServiceReply<V1GetTradingStatusesResponse> InvestApiMarketdataClient::MarketDataServiceGetTradingStatuses(
-    const std::vector<std::string> &instruments_ids
-    ) {
-    InitService<ServiceId::MarketDataService, MarketDataServiceApi>();
-
+ServiceReply<V1GetTradingStatusesResponse>
+InvestApiMarketdataClient::MarketDataServiceGetTradingStatuses(
+    const std::vector<std::string> &instruments_ids) const {
     auto body = std::make_shared<V1GetTradingStatusesRequest>();
     body->setInstrumentId(instruments_ids);
 
-    std::function<pplx::task<std::shared_ptr<V1GetTradingStatusesResponse>>(const MarketDataServiceApi&, std::shared_ptr<V1GetTradingStatusesRequest>)> req = &MarketDataServiceApi::marketDataServiceGetTradingStatuses;
-    return MakeRequest<ServiceId::MarketDataService>(body, req);
+    std::function<pplx::task<std::shared_ptr<V1GetTradingStatusesResponse>>(
+        const MarketDataServiceApi &, std::shared_ptr<V1GetTradingStatusesRequest>)>
+        req = &MarketDataServiceApi::marketDataServiceGetTradingStatuses;
+    return MakeRequestAsync<ServiceId::MarketDataService>(req, body);
 }
 
-}  // tinkoff_invest_cppsdk
+}  // namespace tinkoff_invest_cppsdk

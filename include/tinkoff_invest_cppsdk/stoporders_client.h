@@ -22,18 +22,14 @@ public:
         const std::string &figi, const std::string &quantity, std::shared_ptr<V1Quotation> price,
         std::shared_ptr<V1Quotation> stop_price, std::shared_ptr<V1StopOrderDirection> direction,
         const std::string &account_id, std::shared_ptr<V1StopOrderExpirationType> expiration_type,
-        std::shared_ptr<V1StopOrderType> stop_order_type,
-        const std::string &expire_date, const std::string &instrument_id
-    );
+        std::shared_ptr<V1StopOrderType> stop_order_type, const std::string &expire_date,
+        const std::string &instrument_id) const;
 
     ServiceReply<V1GetStopOrdersResponse> StopOrdersServiceGetStopOrders(
-        const std::string &account_id
-    );
+        const std::string &account_id) const;
 
     ServiceReply<V1CancelStopOrderResponse> StopOrdersServiceCancelStopOrder(
-        const std::string &account_id, const std::string &stop_order_id
-    );
-
+        const std::string &account_id, const std::string &stop_order_id) const;
 };
 
-}  // tinkoff_invest_cppsdk
+}  // namespace tinkoff_invest_cppsdk

@@ -14,4 +14,4 @@ namespace TINKOFFINVESTSDKCPP_EXPORT tinkoff_invest_cppsdk {
 
 using namespace org::openapitools::client::model;
 
-}  // tinkoff_invest_cppsdk
+}  // namespace tinkoff_invest_cppsdk

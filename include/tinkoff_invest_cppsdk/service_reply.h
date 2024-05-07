@@ -13,7 +13,7 @@
 
 namespace TINKOFFINVESTSDKCPP_EXPORT tinkoff_invest_cppsdk {
 
-template<class ResponseType>
+template <class ResponseType>
 struct ServiceReply {
     // Request response.
     ResponseType response;
@@ -31,4 +31,4 @@ struct ServiceReply {
     pplx::task_status status;
 };
 
-}  // tinkoff_invest_cppsdk
+}  // namespace tinkoff_invest_cppsdk
