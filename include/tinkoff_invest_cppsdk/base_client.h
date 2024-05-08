@@ -51,21 +51,25 @@ protected:
     };
 
     std::string token_;
-    std::array<std::shared_ptr<some_service_t>, kNumberOfServices> services_;
+    std::array<std::shared_ptr<const some_service_t>, kNumberOfServices> services_;
 
     // class that will calculate req per min;
     // class-counter: sub in streams;
     // class-counter: number of streams;
 
-    std::shared_ptr<some_service_t>& GetClientService(ServiceId id);
+    std::shared_ptr<const some_service_t>& GetClientService(ServiceId id);
 
-    std::shared_ptr<some_service_t> GetClientService(ServiceId id) const;
+    std::shared_ptr<const some_service_t> GetClientService(ServiceId id) const;
 
     template <ServiceId id, class ServiceType>
     std::shared_ptr<some_service_t> MakeService(const std::string& base_url,
-                                                const std::string& token) {
+                                                const std::string& token,
+                                                bool is_web_socket = false) const {
         auto config = std::make_shared<ApiConfiguration>();
         config->getDefaultHeaders()["Authorization"] = "Bearer " + token;
+        if (is_web_socket) {
+            config->getDefaultHeaders()["Web-Socket-Protocol"] = "json-proto";
+        }
         config->setBaseUrl(base_url);
 
         auto client = std::make_shared<ApiClient>(config);
@@ -75,8 +79,12 @@ protected:
 
     template <ServiceId id, class ServiceType>
     void InitService() {
-        if (std::is_same_v<SandboxServiceApi, ServiceType>) {
+        if (id == ServiceId::SandboxService) {
             GetClientService(id) = MakeService<id, ServiceType>(kSandboxBaseUrl, token_);
+        } if (id == ServiceId::MarketDataStreamService ||
+            id == ServiceId::OperationsStreamService ||
+            id == ServiceId::OrdersStreamService) {
+            GetClientService(id) = MakeService<id, ServiceType>(kWebSocketBaseUrl, token_, true);
         } else {
             GetClientService(id) = MakeService<id, ServiceType>(kDefaultBaseUrl, token_);
         }
@@ -86,9 +94,8 @@ protected:
     ServiceReply<ResponseType> MakeRequestSync(
         std::function<pplx::task<std::shared_ptr<ResponseType>>(const ServiceType&,
                                                                 std::shared_ptr<RequestType>)> req,
-        std::shared_ptr<RequestType> body,
-        std::function<void(const ServiceReply<ResponseType>&)> callback = nullptr,
-        int retry_max = 0) const {
+        std::shared_ptr<RequestType> body, int retry_max = 0,
+        std::function<void(const ServiceReply<ResponseType>&)> callback = nullptr) const {
 
         ServiceReply<ResponseType> last_reply;
 
@@ -128,9 +135,8 @@ protected:
     ServiceReply<ResponseType> MakeRequestAsync(
         std::function<pplx::task<std::shared_ptr<ResponseType>>(const ServiceType&,
                                                                 std::shared_ptr<RequestType>)> req,
-        std::shared_ptr<RequestType> body,
-        std::function<void(const ServiceReply<ResponseType>&)> callback = nullptr,
-        int retry_max = 0) const {
+        std::shared_ptr<RequestType> body, int retry_max = 0,
+        std::function<void(const ServiceReply<ResponseType>&)> callback = nullptr) const {
 
         auto service = std::get<ServiceType>(*GetClientService(id));
 
@@ -158,7 +164,7 @@ protected:
                         callback(reply);
                     }
                     if (retry_max > 0) {
-                        reply = MakeRequestAsync<id>(req, body, callback, retry_max - 1);
+                        reply = MakeRequestAsync<id>(req, body, retry_max - 1, callback);
                     }
                 } catch (const std::exception& e) {
                     reply = ServiceReply<ResponseType>{.error_place = e.what(),
@@ -168,7 +174,7 @@ protected:
                         callback(reply);
                     }
                     if (retry_max > 0) {
-                        reply = MakeRequestAsync<id>(req, body, callback, retry_max - 1);
+                        reply = MakeRequestAsync<id>(req, body, retry_max - 1, callback);
                     }
                 }
             })

@@ -8,11 +8,11 @@ InvestApiBaseClient::InvestApiBaseClient(const std::string& token) : token_(toke
 InvestApiBaseClient::~InvestApiBaseClient() {
 }
 
-std::shared_ptr<some_service_t> InvestApiBaseClient::GetClientService(ServiceId id) const {
+std::shared_ptr<const some_service_t> InvestApiBaseClient::GetClientService(ServiceId id) const {
     return services_[static_cast<int>(id)];
 }
 
-std::shared_ptr<some_service_t>& InvestApiBaseClient::GetClientService(ServiceId id) {
+std::shared_ptr<const some_service_t>& InvestApiBaseClient::GetClientService(ServiceId id) {
     return services_[static_cast<int>(id)];
 }
 

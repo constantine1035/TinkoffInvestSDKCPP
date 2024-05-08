@@ -13,7 +13,9 @@ InvestApiSandboxClient::~InvestApiSandboxClient() {
 }
 
 ServiceReply<V1CancelOrderResponse> InvestApiSandboxClient::SandboxServiceCancelSandboxOrder(
-    const std::string &account_id, const std::string &order_id) const {
+    const std::string &account_id, const std::string &order_id, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1CancelOrderResponse> &)> callback) const {
+
     auto body = std::make_shared<V1CancelOrderRequest>();
     body->setAccountId(account_id);
     body->setOrderId(order_id);
@@ -21,32 +23,48 @@ ServiceReply<V1CancelOrderResponse> InvestApiSandboxClient::SandboxServiceCancel
     std::function<pplx::task<std::shared_ptr<V1CancelOrderResponse>>(
         const SandboxServiceApi &, std::shared_ptr<V1CancelOrderRequest>)>
         req = &SandboxServiceApi::sandboxServiceCancelSandboxOrder;
-    return MakeRequestAsync<ServiceId::SandboxService>(req, body);
+    if (is_async_req) {
+        return MakeRequestAsync<ServiceId::SandboxService>(req, body, retry_max, callback);
+    }
+    return MakeRequestSync<ServiceId::SandboxService>(req, body, retry_max, callback);
 }
 
 ServiceReply<Object> InvestApiSandboxClient::SandboxServiceCloseSandboxAccountSync(
-    const std::string &account_id) const {
+    const std::string &account_id, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<Object> &)> callback) const {
+
     auto body = std::make_shared<V1CloseSandboxAccountRequest>();
     body->setAccountId(account_id);
 
     std::function<pplx::task<std::shared_ptr<Object>>(
         const SandboxServiceApi &, std::shared_ptr<V1CloseSandboxAccountRequest>)>
         req = &SandboxServiceApi::sandboxServiceCloseSandboxAccount;
-    return MakeRequestAsync<ServiceId::SandboxService>(req, body);
+    if (is_async_req) {
+        return MakeRequestAsync<ServiceId::SandboxService>(req, body, retry_max, callback);
+    }
+    return MakeRequestSync<ServiceId::SandboxService>(req, body, retry_max, callback);
 }
 
-ServiceReply<V1GetAccountsResponse> InvestApiSandboxClient::SandboxServiceGetSandboxAccounts() const {
+ServiceReply<V1GetAccountsResponse> InvestApiSandboxClient::SandboxServiceGetSandboxAccounts(
+    bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1GetAccountsResponse> &)> callback) const {
+
     auto body = std::make_shared<Object>();
 
     std::function<pplx::task<std::shared_ptr<V1GetAccountsResponse>>(const SandboxServiceApi &,
                                                                      std::shared_ptr<Object>)>
         req = &SandboxServiceApi::sandboxServiceGetSandboxAccounts;
-    return MakeRequestAsync<ServiceId::SandboxService>(req, body);
+    if (is_async_req) {
+        return MakeRequestAsync<ServiceId::SandboxService>(req, body, retry_max, callback);
+    }
+    return MakeRequestSync<ServiceId::SandboxService>(req, body, retry_max, callback);
 }
 
 ServiceReply<V1OperationsResponse> InvestApiSandboxClient::SandboxServiceGetSandboxOperations(
     const std::string &account_id, const std::string &figi, utility::datetime from,
-    utility::datetime to, std::shared_ptr<V1OperationState> state) const {
+    utility::datetime to, std::shared_ptr<V1OperationState> state, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1OperationsResponse> &)> callback) const {
+
     auto body = std::make_shared<V1OperationsRequest>();
     body->setAccountId(account_id);
     body->setFigi(figi);
@@ -57,7 +75,10 @@ ServiceReply<V1OperationsResponse> InvestApiSandboxClient::SandboxServiceGetSand
     std::function<pplx::task<std::shared_ptr<V1OperationsResponse>>(
         const SandboxServiceApi &, std::shared_ptr<V1OperationsRequest>)>
         req = &SandboxServiceApi::sandboxServiceGetSandboxOperations;
-    return MakeRequestAsync<ServiceId::SandboxService>(req, body);
+    if (is_async_req) {
+        return MakeRequestAsync<ServiceId::SandboxService>(req, body, retry_max, callback);
+    }
+    return MakeRequestSync<ServiceId::SandboxService>(req, body, retry_max, callback);
 }
 
 ServiceReply<V1GetOperationsByCursorResponse>
@@ -66,7 +87,9 @@ InvestApiSandboxClient::SandboxServiceGetSandboxOperationsByCursor(
     utility::datetime to, const std::string &cursor, int32_t limit,
     const std::vector<std::shared_ptr<V1OperationType>> &operation_types,
     std::shared_ptr<V1OperationState> state, bool without_commissions, bool without_trades,
-    bool without_overnights) const {
+    bool without_overnights, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1GetOperationsByCursorResponse> &)> callback) const {
+
     auto body = std::make_shared<V1GetOperationsByCursorRequest>();
     body->setAccountId(account_id);
     body->setFrom(from);
@@ -82,11 +105,16 @@ InvestApiSandboxClient::SandboxServiceGetSandboxOperationsByCursor(
     std::function<pplx::task<std::shared_ptr<V1GetOperationsByCursorResponse>>(
         const SandboxServiceApi &, std::shared_ptr<V1GetOperationsByCursorRequest>)>
         req = &SandboxServiceApi::sandboxServiceGetSandboxOperationsByCursor;
-    return MakeRequestAsync<ServiceId::SandboxService>(req, body);
+    if (is_async_req) {
+        return MakeRequestAsync<ServiceId::SandboxService>(req, body, retry_max, callback);
+    }
+    return MakeRequestSync<ServiceId::SandboxService>(req, body, retry_max, callback);
 }
 
 ServiceReply<V1OrderState> InvestApiSandboxClient::SandboxServiceGetSandboxOrderState(
-    const std::string &account_id, const std::string &order_id) const {
+    const std::string &account_id, const std::string &order_id, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1OrderState> &)> callback) const {
+
     auto body = std::make_shared<V1GetOrderStateRequest>();
     body->setAccountId(account_id);
     body->setOrderId(order_id);
@@ -94,22 +122,33 @@ ServiceReply<V1OrderState> InvestApiSandboxClient::SandboxServiceGetSandboxOrder
     std::function<pplx::task<std::shared_ptr<V1OrderState>>(
         const SandboxServiceApi &, std::shared_ptr<V1GetOrderStateRequest>)>
         req = &SandboxServiceApi::sandboxServiceGetSandboxOrderState;
-    return MakeRequestAsync<ServiceId::SandboxService>(req, body);
+    if (is_async_req) {
+        return MakeRequestAsync<ServiceId::SandboxService>(req, body, retry_max, callback);
+    }
+    return MakeRequestSync<ServiceId::SandboxService>(req, body, retry_max, callback);
 }
 
 ServiceReply<V1GetOrdersResponse> InvestApiSandboxClient::SandboxServiceGetSandboxOrders(
-    const std::string &account_id) const {
+    const std::string &account_id, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1GetOrdersResponse> &)> callback) const {
+
     auto body = std::make_shared<V1GetOrdersRequest>();
     body->setAccountId(account_id);
 
     std::function<pplx::task<std::shared_ptr<V1GetOrdersResponse>>(
         const SandboxServiceApi &, std::shared_ptr<V1GetOrdersRequest>)>
         req = &SandboxServiceApi::sandboxServiceGetSandboxOrders;
-    return MakeRequestAsync<ServiceId::SandboxService>(req, body);
+    if (is_async_req) {
+        return MakeRequestAsync<ServiceId::SandboxService>(req, body, retry_max, callback);
+    }
+    return MakeRequestSync<ServiceId::SandboxService>(req, body, retry_max, callback);
 }
 
 ServiceReply<V1PortfolioResponse> InvestApiSandboxClient::SandboxServiceGetSandboxPortfolio(
-    const std::string &account_id, std::shared_ptr<PortfolioRequestCurrencyRequest> currency) const {
+    const std::string &account_id, std::shared_ptr<PortfolioRequestCurrencyRequest> currency,
+    bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1PortfolioResponse> &)> callback) const {
+
     auto body = std::make_shared<V1PortfolioRequest>();
     body->setAccountId(account_id);
     body->setCurrency(currency);
@@ -117,33 +156,50 @@ ServiceReply<V1PortfolioResponse> InvestApiSandboxClient::SandboxServiceGetSandb
     std::function<pplx::task<std::shared_ptr<V1PortfolioResponse>>(
         const SandboxServiceApi &, std::shared_ptr<V1PortfolioRequest>)>
         req = &SandboxServiceApi::sandboxServiceGetSandboxPortfolio;
-    return MakeRequestAsync<ServiceId::SandboxService>(req, body);
+    if (is_async_req) {
+        return MakeRequestAsync<ServiceId::SandboxService>(req, body, retry_max, callback);
+    }
+    return MakeRequestSync<ServiceId::SandboxService>(req, body, retry_max, callback);
 }
 
 ServiceReply<V1PositionsResponse> InvestApiSandboxClient::SandboxServiceGetSandboxPositions(
-    const std::string &account_id) const {
+    const std::string &account_id, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1PositionsResponse> &)> callback) const {
+
     auto body = std::make_shared<V1PositionsRequest>();
     body->setAccountId(account_id);
 
     std::function<pplx::task<std::shared_ptr<V1PositionsResponse>>(
         const SandboxServiceApi &, std::shared_ptr<V1PositionsRequest>)>
         req = &SandboxServiceApi::sandboxServiceGetSandboxPositions;
-    return MakeRequestAsync<ServiceId::SandboxService>(req, body);
+    if (is_async_req) {
+        return MakeRequestAsync<ServiceId::SandboxService>(req, body, retry_max, callback);
+    }
+    return MakeRequestSync<ServiceId::SandboxService>(req, body, retry_max, callback);
 }
 
 ServiceReply<V1WithdrawLimitsResponse>
-InvestApiSandboxClient::SandboxServiceGetSandboxWithdrawLimits(const std::string &account_id) const {
+InvestApiSandboxClient::SandboxServiceGetSandboxWithdrawLimits(
+    const std::string &account_id, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1WithdrawLimitsResponse> &)> callback) const {
+
     auto body = std::make_shared<V1WithdrawLimitsRequest>();
     body->setAccountId(account_id);
 
     std::function<pplx::task<std::shared_ptr<V1WithdrawLimitsResponse>>(
         const SandboxServiceApi &, std::shared_ptr<V1WithdrawLimitsRequest>)>
         req = &SandboxServiceApi::sandboxServiceGetSandboxWithdrawLimits;
-    return MakeRequestAsync<ServiceId::SandboxService>(req, body);
+    if (is_async_req) {
+        return MakeRequestAsync<ServiceId::SandboxService>(req, body, retry_max, callback);
+    }
+    return MakeRequestSync<ServiceId::SandboxService>(req, body, retry_max, callback);
 }
 
 ServiceReply<V1OpenSandboxAccountResponse>
-InvestApiSandboxClient::SandboxServiceOpenSandboxAccountSync(const std::string &name) const {
+InvestApiSandboxClient::SandboxServiceOpenSandboxAccountSync(
+    const std::string &name, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1OpenSandboxAccountResponse> &)> callback) const {
+
     auto body = std::make_shared<V1OpenSandboxAccountRequest>();
     body->setName(name);
 
@@ -156,7 +212,10 @@ InvestApiSandboxClient::SandboxServiceOpenSandboxAccountSync(const std::string &
 ServiceReply<V1PostOrderResponse> InvestApiSandboxClient::SandboxServicePostSandboxOrder(
     const std::string &account_id, const std::string &order_id, const std::string &instrument_id,
     const std::string &quantity, const std::string &units, int32_t nano,
-    std::shared_ptr<V1OrderDirection> direction, std::shared_ptr<V1OrderType> order_type) const {
+    std::shared_ptr<V1OrderDirection> direction, std::shared_ptr<V1OrderType> order_type,
+    bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1PostOrderResponse> &)> callback) const {
+
     auto body = std::make_shared<V1PostOrderRequest>();
 
     auto quotation = std::make_shared<V1Quotation>();
@@ -174,13 +233,18 @@ ServiceReply<V1PostOrderResponse> InvestApiSandboxClient::SandboxServicePostSand
     std::function<pplx::task<std::shared_ptr<V1PostOrderResponse>>(
         const SandboxServiceApi &, std::shared_ptr<V1PostOrderRequest>)>
         req = &SandboxServiceApi::sandboxServicePostSandboxOrder;
-    return MakeRequestAsync<ServiceId::SandboxService>(req, body);
+    if (is_async_req) {
+        return MakeRequestAsync<ServiceId::SandboxService>(req, body, retry_max, callback);
+    }
+    return MakeRequestSync<ServiceId::SandboxService>(req, body, retry_max, callback);
 }
 
 ServiceReply<V1PostOrderResponse> InvestApiSandboxClient::SandboxServiceReplaceSandboxOrder(
     const std::string &account_id, const std::string &order_id, const std::string &idempotency_key,
     const std::string &quantity, const std::string &units, int32_t nano,
-    std::shared_ptr<V1PriceType> price_type) const {
+    std::shared_ptr<V1PriceType> price_type, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1PostOrderResponse> &)> callback) const {
+
     auto body = std::make_shared<V1ReplaceOrderRequest>();
 
     auto quotation = std::make_shared<V1Quotation>();
@@ -197,12 +261,17 @@ ServiceReply<V1PostOrderResponse> InvestApiSandboxClient::SandboxServiceReplaceS
     std::function<pplx::task<std::shared_ptr<V1PostOrderResponse>>(
         const SandboxServiceApi &, std::shared_ptr<V1ReplaceOrderRequest>)>
         req = &SandboxServiceApi::sandboxServiceReplaceSandboxOrder;
-    return MakeRequestAsync<ServiceId::SandboxService>(req, body);
+    if (is_async_req) {
+        return MakeRequestAsync<ServiceId::SandboxService>(req, body, retry_max, callback);
+    }
+    return MakeRequestSync<ServiceId::SandboxService>(req, body, retry_max, callback);
 }
 
 ServiceReply<V1SandboxPayInResponse> InvestApiSandboxClient::SandboxServicePayIn(
     const std::string &account_id, const std::string &currency, const std::string &units,
-    int32_t nano) const {
+    int32_t nano, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1SandboxPayInResponse> &)> callback) const {
+
     auto body = std::make_shared<V1SandboxPayInRequest>();
 
     auto money_value = std::make_shared<V1MoneyValue>();
@@ -216,7 +285,10 @@ ServiceReply<V1SandboxPayInResponse> InvestApiSandboxClient::SandboxServicePayIn
     std::function<pplx::task<std::shared_ptr<V1SandboxPayInResponse>>(
         const SandboxServiceApi &, std::shared_ptr<V1SandboxPayInRequest>)>
         req = &SandboxServiceApi::sandboxServiceSandboxPayIn;
-    return MakeRequestAsync<ServiceId::SandboxService>(req, body);
+    if (is_async_req) {
+        return MakeRequestAsync<ServiceId::SandboxService>(req, body, retry_max, callback);
+    }
+    return MakeRequestSync<ServiceId::SandboxService>(req, body, retry_max, callback);
 }
 
 }  // namespace tinkoff_invest_cppsdk

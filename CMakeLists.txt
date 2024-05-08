@@ -8,10 +8,17 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
 
 # Bad generation openapi-generator (crypto = OpenSSL::Crypto)
 find_package(OpenSSL CONFIG REQUIRED)
-add_library(crypto INTERFACE IMPORTED)
-set_target_properties(crypto PROPERTIES
-        INTERFACE_LINK_LIBRARIES OpenSSL::Crypto
-)
+if (UNIX)
+    add_library(crypto INTERFACE IMPORTED)
+    set_target_properties(crypto PROPERTIES
+            INTERFACE_LINK_LIBRARIES OpenSSL::Crypto
+    )
+else()
+    add_library(bcrypt INTERFACE IMPORTED)
+    set_target_properties(bcrypt PROPERTIES
+            INTERFACE_LINK_LIBRARIES OpenSSL::BCrypt
+    )
+endif()
 
 # Generate sdk with openapi-generator
 set(GEN_PROJECT_NAME CppRestOpenAPIClient)
