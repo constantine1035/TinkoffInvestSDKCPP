@@ -11,6 +11,9 @@
 #include "tinkoff_invest_cppsdk/include_model.h"
 #include "tinkoff_invest_cppsdk/service_reply.h"
 #include "tinkoff_invest_cppsdk/types_and_constants.h"
+#include "tinkoff_invest_cppsdk/stream_tracker.h"
+#include "tinkoff_invest_cppsdk/stream_subscription_tracker.h"
+#include "tinkoff_invest_cppsdk/request_rate_limiter.h"
 
 #include <pplx/pplxinterface.h>
 #include <array>
@@ -52,10 +55,19 @@ protected:
 
     std::string token_;
     std::array<std::shared_ptr<const some_service_t>, kNumberOfServices> services_;
+    StreamTracker stream_tracker_;
+    StreamSubscriptionTracker stream_subscription_tracker_;
+    RequestRateLimiter request_rate_limiter_;
 
-    // class that will calculate req per min;
-    // class-counter: sub in streams;
-    // class-counter: number of streams;
+    // need to add functions for trackers.
+
+    template <class ServiceType>
+    void IncrementRequests() {  // just an example.
+        request_rate_limiter_.IncrementRequestCount();
+        if (request_rate_limiter_.GetRequestCount() >= 1) {
+            throw ApiException(429, "Too many requests per minute.");
+        }
+    }
 
     std::shared_ptr<const some_service_t>& GetClientService(ServiceId id);
 
