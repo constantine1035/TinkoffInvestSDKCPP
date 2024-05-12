@@ -8,8 +8,10 @@
  * https://russianinvestments.github.io/investAPI/limits/
  */
 
-#include <CppRestOpenAPIClient/ApiException.h>
+#include "CppRestOpenAPIClient/ApiException.h"
+#include "tinkoff_invest_cppsdk/types_and_constants.h"
 
+#include <array>
 #include <mutex>
 
 #include "tinkoffinvestsdkcpp_export.h"
@@ -20,15 +22,25 @@ using org::openapitools::client::api::ApiException;
 
 class StreamTracker {
 public:
-    void IncreaseStreamCount();
+    void SetLimits(const std::array<int, kStreamLimitsSize> &limits);
 
-    void DegreaseStreamCount();
+    void IncreaseStreamCount(int stream_id);
 
-    int GetStreamCount();
+    void DegreaseStreamCount(int stream_id);
+
+    int GetStreamCount(int stream_id) const;
 
 protected:
-    std::mutex mutex_;
-    int stream_count_;
+    enum class StreamLimitId {
+        MarketDataStream,  //  md_stream_service
+        TradesStream,      //  orders_stream_service
+        PortfolioStream,   //  operations_stream_service
+        PositionsStream    //  operations_stream_service
+    };
+
+    std::array<int, kStreamLimitsSize> limits_;
+    std::array<int, kStreamLimitsSize> stream_counts_;
+    mutable std::mutex mutex_;
 };
 
 }  // namespace tinkoff_invest_cppsdk

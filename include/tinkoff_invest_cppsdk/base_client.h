@@ -20,6 +20,7 @@
 #include <exception>
 #include <functional>
 #include <memory>
+#include <mutex>
 #include <string>
 #include <type_traits>
 #include <variant>
@@ -55,18 +56,17 @@ protected:
 
     std::string token_;
     std::array<std::shared_ptr<const some_service_t>, kNumberOfServices> services_;
+    mutable std::mutex mutex_;
     StreamTracker stream_tracker_;
     StreamSubscriptionTracker stream_subscription_tracker_;
     RequestRateLimiter request_rate_limiter_;
 
-    // need to add functions for trackers.
+    template <class RequestType>
+    void UpdateStreamTracker(int quantity) {
+    }
 
-    template <class ServiceType>
-    void IncrementRequests() {  // just an example.
-        request_rate_limiter_.IncrementRequestCount();
-        if (request_rate_limiter_.GetRequestCount() >= 1) {
-            throw ApiException(429, "Too many requests per minute.");
-        }
+    template <ServiceId id, class RequestType>
+    void UpdateRequestRateLimiter(int quantity) {
     }
 
     std::shared_ptr<const some_service_t>& GetClientService(ServiceId id);
@@ -93,8 +93,8 @@ protected:
     void InitService() {
         if (id == ServiceId::SandboxService) {
             GetClientService(id) = MakeService<id, ServiceType>(kSandboxBaseUrl, token_);
-        } if (id == ServiceId::MarketDataStreamService ||
-            id == ServiceId::OperationsStreamService ||
+        }
+        if (id == ServiceId::MarketDataStreamService || id == ServiceId::OperationsStreamService ||
             id == ServiceId::OrdersStreamService) {
             GetClientService(id) = MakeService<id, ServiceType>(kWebSocketBaseUrl, token_, true);
         } else {
@@ -105,9 +105,19 @@ protected:
     template <ServiceId id, class ServiceType, class RequestType, class ResponseType>
     ServiceReply<ResponseType> MakeRequestSync(
         std::function<pplx::task<std::shared_ptr<ResponseType>>(const ServiceType&,
-                                                                std::shared_ptr<RequestType>)> req,
+                                                                std::shared_ptr<RequestType>)>
+            req,
         std::shared_ptr<RequestType> body, int retry_max = 0,
-        std::function<void(const ServiceReply<ResponseType>&)> callback = nullptr) const {
+        std::function<void(const ServiceReply<ResponseType>&)> callback = nullptr) {
+
+        std::lock_guard<std::mutex> lock(mutex_);
+
+        if (id == ServiceId::OrdersStreamService || id == ServiceId::OperationsStreamService ||
+            id == ServiceId::MarketDataStreamService) {
+            UpdateStreamTracker<RequestType>(1);
+        } else {
+            UpdateRequestRateLimiter<id, RequestType>(1);
+        }
 
         ServiceReply<ResponseType> last_reply;
 
@@ -140,17 +150,32 @@ protected:
                 callback(last_reply);
             }
         }
+
+        if (id == ServiceId::OrdersStreamService || id == ServiceId::OperationsStreamService ||
+            id == ServiceId::MarketDataStreamService) {
+            UpdateStreamTracker<RequestType>(-1);
+        } else {
+            UpdateRequestRateLimiter<id, RequestType>(-1);
+        }
         return last_reply;
     }
 
     template <ServiceId id, class ServiceType, class RequestType, class ResponseType>
     ServiceReply<ResponseType> MakeRequestAsync(
         std::function<pplx::task<std::shared_ptr<ResponseType>>(const ServiceType&,
-                                                                std::shared_ptr<RequestType>)> req,
+                                                                std::shared_ptr<RequestType>)>
+            req,
         std::shared_ptr<RequestType> body, int retry_max = 0,
-        std::function<void(const ServiceReply<ResponseType>&)> callback = nullptr) const {
+        std::function<void(const ServiceReply<ResponseType>&)> callback = nullptr) {
 
         auto service = std::get<ServiceType>(*GetClientService(id));
+
+        if (id == ServiceId::OrdersStreamService || id == ServiceId::OperationsStreamService ||
+            id == ServiceId::MarketDataStreamService) {
+            UpdateStreamTracker<RequestType>(1);
+        } else {
+            UpdateRequestRateLimiter<id, RequestType>(1);
+        }
 
         ServiceReply<ResponseType> reply;
 
@@ -162,7 +187,24 @@ protected:
 
                     reply = ServiceReply<ResponseType>{
                         .response = *response, .status = pplx::task_group_status::completed};
+
+                    if (id == ServiceId::OrdersStreamService ||
+                        id == ServiceId::OperationsStreamService ||
+                        id == ServiceId::MarketDataStreamService) {
+                        UpdateStreamTracker<RequestType>(-1);
+                    } else {
+                        UpdateRequestRateLimiter<id, RequestType>(-1);
+                    }
+
                 } catch (ApiException& e) {
+                    if (id == ServiceId::OrdersStreamService ||
+                        id == ServiceId::OperationsStreamService ||
+                        id == ServiceId::MarketDataStreamService) {
+                        UpdateStreamTracker<RequestType>(-1);
+                    } else {
+                        UpdateRequestRateLimiter<id, RequestType>(-1);
+                    }
+
                     constexpr int kBufSz = 1000;
                     char api_error_msg[kBufSz]{0};
                     e.getContent()->read(api_error_msg, kBufSz);
@@ -179,6 +221,14 @@ protected:
                         reply = MakeRequestAsync<id>(req, body, retry_max - 1, callback);
                     }
                 } catch (const std::exception& e) {
+                    if (id == ServiceId::OrdersStreamService ||
+                        id == ServiceId::OperationsStreamService ||
+                        id == ServiceId::MarketDataStreamService) {
+                        UpdateStreamTracker<RequestType>(-1);
+                    } else {
+                        UpdateRequestRateLimiter<id, RequestType>(-1);
+                    }
+
                     reply = ServiceReply<ResponseType>{.error_place = e.what(),
                                                        .status = pplx::task_group_status::canceled};
 

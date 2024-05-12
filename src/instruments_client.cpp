@@ -12,16 +12,15 @@ InvestApiInstrumentsClient::~InvestApiInstrumentsClient() {
 
 ServiceReply<V1TradingSchedulesResponse> InvestApiInstrumentsClient::TradingSchedules(
     std::string exchange, int64_t fromseconds, int32_t fromnanos, int64_t toseconds,
-    int32_t tonanos) const {
-    
+    int32_t tonanos) {
 
     auto body = std::make_shared<V1TradingSchedulesRequest>();
     utility::datetime from;
     utility::datetime to;
     from.from_seconds(fromseconds);
     to.from_seconds(toseconds);
-    //to.from_milliseconds();
-    //from.from_milliseconds();
+    // to.from_milliseconds();
+    // from.from_milliseconds();
     body->setFrom(from);
     body->setTo(to);
     body->setExchange(exchange);
@@ -34,8 +33,8 @@ ServiceReply<V1TradingSchedulesResponse> InvestApiInstrumentsClient::TradingSche
 
 /// Метод получения облигации по её идентификатору
 ServiceReply<V1BondResponse> InvestApiInstrumentsClient::BondBy(
-    const std::shared_ptr<V1InstrumentIdType> id_type, std::string class_code, std::string id) const {
-    
+    const std::shared_ptr<V1InstrumentIdType> id_type, std::string class_code, std::string id) {
+
     auto body = std::make_shared<V1InstrumentRequest>();
     body->setIdType(id_type);
     body->setId(id);
@@ -49,8 +48,8 @@ ServiceReply<V1BondResponse> InvestApiInstrumentsClient::BondBy(
 
 /// Метод получения списка облигаций
 ServiceReply<V1BondsResponse> InvestApiInstrumentsClient::Bonds(
-    const std::shared_ptr<V1InstrumentStatus> instrument_status) const {
-    
+    const std::shared_ptr<V1InstrumentStatus> instrument_status) {
+
     auto body = std::make_shared<V1InstrumentsRequest>();
     body->setInstrumentStatus(instrument_status);
 
@@ -62,15 +61,15 @@ ServiceReply<V1BondsResponse> InvestApiInstrumentsClient::Bonds(
 
 /// Метод получения графика выплат купонов по облигации
 ServiceReply<V1GetBondCouponsResponse> InvestApiInstrumentsClient::GetBondCoupons(
-    std::string figi, int64_t fromseconds, int32_t fromnanos, int64_t toseconds, int32_t tonanos) const {
-    
+    std::string figi, int64_t fromseconds, int32_t fromnanos, int64_t toseconds, int32_t tonanos) {
+
     auto body = std::make_shared<V1GetBondCouponsRequest>();
     utility::datetime from;
     utility::datetime to;
     from.from_seconds(fromseconds);
     to.from_seconds(toseconds);
-    //to.from_milliseconds();
-    //from.from_milliseconds();
+    // to.from_milliseconds();
+    // from.from_milliseconds();
     body->setFrom(from);
     body->setTo(to);
     body->setFigi(figi);
@@ -84,15 +83,15 @@ ServiceReply<V1GetBondCouponsResponse> InvestApiInstrumentsClient::GetBondCoupon
 /// Метод получения событий по облигации
 ServiceReply<V1GetBondEventsResponse> InvestApiInstrumentsClient::GetBondEvents(
     std::string instrument_id, const std::shared_ptr<GetBondEventsRequestEventType> type,
-    int64_t fromseconds, int32_t fromnanos, int64_t toseconds, int32_t tonanos) const {
-    
+    int64_t fromseconds, int32_t fromnanos, int64_t toseconds, int32_t tonanos) {
+
     auto body = std::make_shared<V1GetBondEventsRequest>();
     utility::datetime from;
     utility::datetime to;
     from.from_seconds(fromseconds);
     to.from_seconds(toseconds);
-    //to.from_milliseconds();
-    //from.from_milliseconds();
+    // to.from_milliseconds();
+    // from.from_milliseconds();
     body->setFrom(from);
     body->setTo(to);
     body->setInstrumentId(instrument_id);
@@ -106,8 +105,8 @@ ServiceReply<V1GetBondEventsResponse> InvestApiInstrumentsClient::GetBondEvents(
 
 /// Метод получения валюты по её идентификатору
 ServiceReply<V1CurrencyResponse> InvestApiInstrumentsClient::CurrencyBy(
-    const std::shared_ptr<V1InstrumentIdType> id_type, std::string class_code, std::string id) const {
-    
+    const std::shared_ptr<V1InstrumentIdType> id_type, std::string class_code, std::string id) {
+
     auto body = std::make_shared<V1InstrumentRequest>();
     body->setIdType(id_type);
     body->setId(id);
@@ -121,8 +120,8 @@ ServiceReply<V1CurrencyResponse> InvestApiInstrumentsClient::CurrencyBy(
 
 /// Метод получения списка валют
 ServiceReply<V1CurrenciesResponse> InvestApiInstrumentsClient::Currencies(
-    const std::shared_ptr<V1InstrumentStatus> instrument_status) const {
-    
+    const std::shared_ptr<V1InstrumentStatus> instrument_status) {
+
     auto body = std::make_shared<V1InstrumentsRequest>();
     body->setInstrumentStatus(instrument_status);
 
@@ -134,8 +133,8 @@ ServiceReply<V1CurrenciesResponse> InvestApiInstrumentsClient::Currencies(
 
 /// Метод получения инвестиционного фонда по его идентификатору
 ServiceReply<V1EtfResponse> InvestApiInstrumentsClient::EtfBy(
-    const std::shared_ptr<V1InstrumentIdType> id_type, std::string class_code, std::string id) const {
-    
+    const std::shared_ptr<V1InstrumentIdType> id_type, std::string class_code, std::string id) {
+
     auto body = std::make_shared<V1InstrumentRequest>();
     body->setIdType(id_type);
     body->setId(id);
@@ -149,8 +148,8 @@ ServiceReply<V1EtfResponse> InvestApiInstrumentsClient::EtfBy(
 
 /// Метод получения списка инвестиционных фондов
 ServiceReply<V1EtfsResponse> InvestApiInstrumentsClient::Etfs(
-    const std::shared_ptr<V1InstrumentStatus> instrument_status) const {
-    
+    const std::shared_ptr<V1InstrumentStatus> instrument_status) {
+
     auto body = std::make_shared<V1InstrumentsRequest>();
     body->setInstrumentStatus(instrument_status);
 
@@ -162,8 +161,8 @@ ServiceReply<V1EtfsResponse> InvestApiInstrumentsClient::Etfs(
 
 /// Метод получения фьючерса по его идентификатору
 ServiceReply<V1FutureResponse> InvestApiInstrumentsClient::FutureBy(
-    const std::shared_ptr<V1InstrumentIdType> id_type, std::string class_code, std::string id) const {
-    
+    const std::shared_ptr<V1InstrumentIdType> id_type, std::string class_code, std::string id) {
+
     auto body = std::make_shared<V1InstrumentRequest>();
     body->setIdType(id_type);
     body->setId(id);
@@ -177,8 +176,8 @@ ServiceReply<V1FutureResponse> InvestApiInstrumentsClient::FutureBy(
 
 /// Метод получения списка фьючерсов
 ServiceReply<V1FuturesResponse> InvestApiInstrumentsClient::Futures(
-    const std::shared_ptr<V1InstrumentStatus> instrument_status) const {
-    
+    const std::shared_ptr<V1InstrumentStatus> instrument_status) {
+
     auto body = std::make_shared<V1InstrumentsRequest>();
     body->setInstrumentStatus(instrument_status);
 
@@ -190,8 +189,8 @@ ServiceReply<V1FuturesResponse> InvestApiInstrumentsClient::Futures(
 
 /// Метод получения опциона по его идентификатору
 ServiceReply<V1OptionResponse> InvestApiInstrumentsClient::OptionBy(
-    const std::shared_ptr<V1InstrumentIdType> id_type, std::string class_code, std::string id) const {
-    
+    const std::shared_ptr<V1InstrumentIdType> id_type, std::string class_code, std::string id) {
+
     auto body = std::make_shared<V1InstrumentRequest>();
     body->setIdType(id_type);
     body->setId(id);
@@ -205,8 +204,8 @@ ServiceReply<V1OptionResponse> InvestApiInstrumentsClient::OptionBy(
 
 /// Deprecated Метод получения списка опционов
 ServiceReply<V1OptionsResponse> InvestApiInstrumentsClient::Options(
-    const std::shared_ptr<V1InstrumentStatus> instrument_status) const {
-    
+    const std::shared_ptr<V1InstrumentStatus> instrument_status) {
+
     auto body = std::make_shared<V1InstrumentsRequest>();
     body->setInstrumentStatus(instrument_status);
 
@@ -218,8 +217,8 @@ ServiceReply<V1OptionsResponse> InvestApiInstrumentsClient::Options(
 
 /// Метод получения списка опционов
 ServiceReply<V1OptionsResponse> InvestApiInstrumentsClient::OptionsBy(
-    std::string basic_asset_uid, std::string basic_asset_position_uid) const {
-    
+    std::string basic_asset_uid, std::string basic_asset_position_uid) {
+
     auto body = std::make_shared<V1FilterOptionsRequest>();
     body->setBasicAssetUid(basic_asset_uid);
     body->setBasicAssetPositionUid(basic_asset_position_uid);
@@ -232,8 +231,8 @@ ServiceReply<V1OptionsResponse> InvestApiInstrumentsClient::OptionsBy(
 
 /// Метод получения акции по её идентификатору
 ServiceReply<V1ShareResponse> InvestApiInstrumentsClient::ShareBy(
-    const std::shared_ptr<V1InstrumentIdType> id_type, std::string class_code, std::string id) const {
-    
+    const std::shared_ptr<V1InstrumentIdType> id_type, std::string class_code, std::string id) {
+
     auto body = std::make_shared<V1InstrumentRequest>();
     body->setIdType(id_type);
     body->setId(id);
@@ -247,8 +246,8 @@ ServiceReply<V1ShareResponse> InvestApiInstrumentsClient::ShareBy(
 
 /// Метод получения списка акций
 ServiceReply<V1SharesResponse> InvestApiInstrumentsClient::Shares(
-    const std::shared_ptr<V1InstrumentStatus> instrument_status) const {
-    
+    const std::shared_ptr<V1InstrumentStatus> instrument_status) {
+
     auto body = std::make_shared<V1InstrumentsRequest>();
     body->setInstrumentStatus(instrument_status);
 
@@ -259,8 +258,8 @@ ServiceReply<V1SharesResponse> InvestApiInstrumentsClient::Shares(
 }
 
 /// Метод получения индикативных инструментов (индексов, товаров и др.)
-ServiceReply<V1IndicativesResponse> InvestApiInstrumentsClient::Indicatives() const {
-    
+ServiceReply<V1IndicativesResponse> InvestApiInstrumentsClient::Indicatives() {
+
     auto body = std::make_shared<Object>();
 
     std::function<pplx::task<std::shared_ptr<V1IndicativesResponse>>(const InstrumentsServiceApi &,
@@ -271,15 +270,15 @@ ServiceReply<V1IndicativesResponse> InvestApiInstrumentsClient::Indicatives() co
 
 /// Метод получения накопленного купонного дохода по облигации
 ServiceReply<V1GetAccruedInterestsResponse> InvestApiInstrumentsClient::GetAccruedInterests(
-    std::string figi, int64_t fromseconds, int32_t fromnanos, int64_t toseconds, int32_t tonanos) const {
-    
+    std::string figi, int64_t fromseconds, int32_t fromnanos, int64_t toseconds, int32_t tonanos) {
+
     auto body = std::make_shared<V1GetAccruedInterestsRequest>();
     utility::datetime from;
     utility::datetime to;
     from.from_seconds(fromseconds);
     to.from_seconds(toseconds);
-    //to.from_milliseconds();
-    //from.from_milliseconds();
+    // to.from_milliseconds();
+    // from.from_milliseconds();
     body->setFrom(from);
     body->setTo(to);
     body->setFigi(figi);
@@ -292,8 +291,8 @@ ServiceReply<V1GetAccruedInterestsResponse> InvestApiInstrumentsClient::GetAccru
 
 /// Метод получения размера гарантийного обеспечения по фьючерсам
 ServiceReply<V1GetFuturesMarginResponse> InvestApiInstrumentsClient::GetFuturesMargin(
-    std::string figi) const {
-    
+    std::string figi) {
+
     auto body = std::make_shared<V1GetFuturesMarginRequest>();
     body->setFigi(figi);
 
@@ -305,8 +304,8 @@ ServiceReply<V1GetFuturesMarginResponse> InvestApiInstrumentsClient::GetFuturesM
 
 /// Метод получения основной информации об инструменте
 ServiceReply<V1InstrumentResponse> InvestApiInstrumentsClient::GetInstrumentBy(
-    const std::shared_ptr<V1InstrumentIdType> id_type, std::string class_code, std::string id) const {
-    
+    const std::shared_ptr<V1InstrumentIdType> id_type, std::string class_code, std::string id) {
+
     auto body = std::make_shared<V1InstrumentRequest>();
     body->setIdType(id_type);
     body->setId(id);
@@ -320,15 +319,15 @@ ServiceReply<V1InstrumentResponse> InvestApiInstrumentsClient::GetInstrumentBy(
 
 /// Метод для получения событий выплаты дивидендов по инструменту
 ServiceReply<V1GetDividendsResponse> InvestApiInstrumentsClient::GetDividends(
-    std::string figi, int64_t fromseconds, int32_t fromnanos, int64_t toseconds, int32_t tonanos) const {
-    
+    std::string figi, int64_t fromseconds, int32_t fromnanos, int64_t toseconds, int32_t tonanos) {
+
     auto body = std::make_shared<V1GetDividendsRequest>();
     utility::datetime from;
     utility::datetime to;
     from.from_seconds(fromseconds);
     to.from_seconds(toseconds);
-    //to.from_milliseconds();
-    //from.from_milliseconds();
+    // to.from_milliseconds();
+    // from.from_milliseconds();
     body->setFrom(from);
     body->setTo(to);
     body->setFigi(figi);
@@ -340,8 +339,8 @@ ServiceReply<V1GetDividendsResponse> InvestApiInstrumentsClient::GetDividends(
 }
 
 /// Метод получения актива по его идентификатору
-ServiceReply<V1AssetResponse> InvestApiInstrumentsClient::GetAssetBy(std::string id) const {
-    
+ServiceReply<V1AssetResponse> InvestApiInstrumentsClient::GetAssetBy(std::string id) {
+
     auto body = std::make_shared<V1AssetRequest>();
     body->setId(id);
 
@@ -353,8 +352,8 @@ ServiceReply<V1AssetResponse> InvestApiInstrumentsClient::GetAssetBy(std::string
 
 /// Метод получения списка активов
 ServiceReply<V1AssetsResponse> InvestApiInstrumentsClient::GetAssets(
-    const std::shared_ptr<V1InstrumentType> instrument_id_type) const {
-    
+    const std::shared_ptr<V1InstrumentType> instrument_id_type) {
+
     auto body = std::make_shared<V1AssetsRequest>();
     body->setInstrumentType(instrument_id_type);
 
@@ -365,8 +364,8 @@ ServiceReply<V1AssetsResponse> InvestApiInstrumentsClient::GetAssets(
 }
 
 /// Метод получения избранных инструментов
-ServiceReply<V1GetFavoritesResponse> InvestApiInstrumentsClient::GetFavorites() const {
-    
+ServiceReply<V1GetFavoritesResponse> InvestApiInstrumentsClient::GetFavorites() {
+
     auto body = std::make_shared<Object>();
 
     std::function<pplx::task<std::shared_ptr<V1GetFavoritesResponse>>(const InstrumentsServiceApi &,
@@ -378,8 +377,8 @@ ServiceReply<V1GetFavoritesResponse> InvestApiInstrumentsClient::GetFavorites() 
 /// Метод редактирования избранных инструментов
 ServiceReply<V1EditFavoritesResponse> InvestApiInstrumentsClient::EditFavorites(
     std::vector<std::shared_ptr<V1EditFavoritesRequestInstrument>> instruments,
-    const std::shared_ptr<V1EditFavoritesActionType> action_type) const {
-    
+    const std::shared_ptr<V1EditFavoritesActionType> action_type) {
+
     auto body = std::make_shared<V1EditFavoritesRequest>();
     body->setInstruments(instruments);
     body->setActionType(action_type);
@@ -391,8 +390,8 @@ ServiceReply<V1EditFavoritesResponse> InvestApiInstrumentsClient::EditFavorites(
 }
 
 /// Метод получения списка стран
-ServiceReply<V1GetCountriesResponse> InvestApiInstrumentsClient::GetCountries() const {
-    
+ServiceReply<V1GetCountriesResponse> InvestApiInstrumentsClient::GetCountries() {
+
     auto body = std::make_shared<Object>();
 
     std::function<pplx::task<std::shared_ptr<V1GetCountriesResponse>>(const InstrumentsServiceApi &,
@@ -404,8 +403,8 @@ ServiceReply<V1GetCountriesResponse> InvestApiInstrumentsClient::GetCountries() 
 /// Метод поиска инструмента
 ServiceReply<V1FindInstrumentResponse> InvestApiInstrumentsClient::FindInstrument(
     std::string query, const std::shared_ptr<V1InstrumentType> instrument_kind,
-    bool api_trade_available_flag) const {
-    
+    bool api_trade_available_flag) {
+
     auto body = std::make_shared<V1FindInstrumentRequest>();
     body->setQuery(query);
     body->setInstrumentKind(instrument_kind);
@@ -419,8 +418,8 @@ ServiceReply<V1FindInstrumentResponse> InvestApiInstrumentsClient::FindInstrumen
 
 /// Метод получения списка брендов
 ServiceReply<V1GetBrandsResponse> InvestApiInstrumentsClient::GetBrands(
-    const std::shared_ptr<V1Page> paging) const {
-    
+    const std::shared_ptr<V1Page> paging) {
+
     auto body = std::make_shared<V1GetBrandsRequest>();
     body->setPaging(paging);
 
@@ -431,8 +430,8 @@ ServiceReply<V1GetBrandsResponse> InvestApiInstrumentsClient::GetBrands(
 }
 
 /// Метод получения бренда по его идентификатору
-ServiceReply<V1Brand> InvestApiInstrumentsClient::GetBrandBy(std::string id) const {
-    
+ServiceReply<V1Brand> InvestApiInstrumentsClient::GetBrandBy(std::string id) {
+
     auto body = std::make_shared<V1GetBrandRequest>();
     body->setId(id);
 
@@ -444,8 +443,8 @@ ServiceReply<V1Brand> InvestApiInstrumentsClient::GetBrandBy(std::string id) con
 
 /// Метод получения фундаментальных показателей по активу
 ServiceReply<V1GetAssetFundamentalsResponse> InvestApiInstrumentsClient::GetAssetFundamentals(
-    std::vector<std::string> assets) const {
-    
+    std::vector<std::string> assets) {
+
     auto body = std::make_shared<V1GetAssetFundamentalsRequest>();
     body->setAssets(assets);
 
@@ -458,15 +457,15 @@ ServiceReply<V1GetAssetFundamentalsResponse> InvestApiInstrumentsClient::GetAsse
 /// Метод получения расписания выхода отчетностей эмитентов
 ServiceReply<V1GetAssetReportsResponse> InvestApiInstrumentsClient::GetAssetReports(
     std::string instrument_id, int64_t fromseconds, int32_t fromnanos, int64_t toseconds,
-    int32_t tonanos) const {
-    
+    int32_t tonanos) {
+
     auto body = std::make_shared<V1GetAssetReportsRequest>();
     utility::datetime from;
     utility::datetime to;
     from.from_seconds(fromseconds);
     to.from_seconds(toseconds);
-    //to.from_milliseconds();
-    //from.from_milliseconds();
+    // to.from_milliseconds();
+    // from.from_milliseconds();
     body->setFrom(from);
     body->setTo(to);
     body->setInstrumentId(instrument_id);
@@ -479,8 +478,8 @@ ServiceReply<V1GetAssetReportsResponse> InvestApiInstrumentsClient::GetAssetRepo
 
 /// Метод получения мнения аналитиков по инструменту
 ServiceReply<V1GetConsensusForecastsResponse> InvestApiInstrumentsClient::GetConsensusForecasts(
-    const std::shared_ptr<V1Page> paging) const {
-    
+    const std::shared_ptr<V1Page> paging) {
+
     auto body = std::make_shared<V1GetConsensusForecastsRequest>();
     body->setPaging(paging);
 
@@ -492,8 +491,8 @@ ServiceReply<V1GetConsensusForecastsResponse> InvestApiInstrumentsClient::GetCon
 
 /// Метод получения прогнозов инвестдомов по инструменту
 ServiceReply<V1GetForecastResponse> InvestApiInstrumentsClient::GetForecastBy(
-    std::string instrument_id) const {
-    
+    std::string instrument_id) {
+
     auto body = std::make_shared<V1GetForecastRequest>();
     body->setInstrumentId(instrument_id);
 

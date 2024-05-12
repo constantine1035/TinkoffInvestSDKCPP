@@ -13,8 +13,7 @@ InvestApiMarketdataStreamClient::~InvestApiMarketdataStreamClient() {
 ServiceReply<Stream_result_of_v1MarketDataResponse>
 InvestApiMarketdataStreamClient::MarketDataStreamServiceMarketDataServerSideStream(
     std::shared_ptr<V1MarketDataServerSideStreamRequest> body, bool is_async_req, int retry_max,
-    std::function<void(const ServiceReply<Stream_result_of_v1MarketDataResponse> &)> callback)
-    const {
+    std::function<void(const ServiceReply<Stream_result_of_v1MarketDataResponse> &)> callback) {
 
     std::function<pplx::task<std::shared_ptr<Stream_result_of_v1MarketDataResponse>>(
         const MarketDataStreamServiceApi &, std::shared_ptr<V1MarketDataServerSideStreamRequest>)>
@@ -28,8 +27,7 @@ InvestApiMarketdataStreamClient::MarketDataStreamServiceMarketDataServerSideStre
 ServiceReply<Stream_result_of_v1MarketDataResponse>
 InvestApiMarketdataStreamClient::MarketDataStreamServiceMarketDataStream(
     std::shared_ptr<V1MarketDataRequest> body, bool is_async_req, int retry_max,
-    std::function<void(const ServiceReply<Stream_result_of_v1MarketDataResponse> &)> callback)
-    const {
+    std::function<void(const ServiceReply<Stream_result_of_v1MarketDataResponse> &)> callback) {
 
     std::function<pplx::task<std::shared_ptr<Stream_result_of_v1MarketDataResponse>>(
         const MarketDataStreamServiceApi &, std::shared_ptr<V1MarketDataRequest>)>

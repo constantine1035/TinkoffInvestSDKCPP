@@ -10,6 +10,7 @@ static const std::string token = std::getenv("MY_TOKEN");
 int main() {
     std::cout << "Marketdata examples: " << std::endl;
 
+    InvestApiClient client(token);
 
 
     return 0;

@@ -12,7 +12,7 @@ InvestApiOrdersStreamClient::~InvestApiOrdersStreamClient() {
 
 ServiceReply<Stream_result_of_v1TradesStreamResponse>
 InvestApiOrdersStreamClient::OrdersStreamServiceTradesStream(
-    const std::vector<std::string>& accounts) const {
+    const std::vector<std::string>& accounts) {
     auto body = std::make_shared<V1TradesStreamRequest>();
     body->setAccounts(accounts);
 

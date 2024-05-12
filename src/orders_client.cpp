@@ -14,7 +14,7 @@ ServiceReply<V1PostOrderResponse> InvestApiOrdersClient::OrdersServicePostOrder(
     const std::string &figi, const std::string &quantity, std::shared_ptr<V1Quotation> price,
     std::shared_ptr<V1OrderDirection> direction, const std::string &account_id,
     std::shared_ptr<V1OrderType> order_type, const std::string &order_id,
-    const std::string &instrument_id) const {
+    const std::string &instrument_id) {
     auto body = std::make_shared<V1PostOrderRequest>();
     body->setFigi(figi);
     body->setQuantity(quantity);
@@ -32,7 +32,7 @@ ServiceReply<V1PostOrderResponse> InvestApiOrdersClient::OrdersServicePostOrder(
 }
 
 ServiceReply<V1CancelOrderResponse> InvestApiOrdersClient::OrdersServiceCancelOrder(
-    const std::string &account_id, const std::string &order_id) const {
+    const std::string &account_id, const std::string &order_id) {
     auto body = std::make_shared<V1CancelOrderRequest>();
     body->setAccountId(account_id);
     body->setOrderId(order_id);
@@ -44,7 +44,7 @@ ServiceReply<V1CancelOrderResponse> InvestApiOrdersClient::OrdersServiceCancelOr
 }
 
 ServiceReply<V1OrderState> InvestApiOrdersClient::OrdersServiceGetOrderState(
-    const std::string &account_id, const std::string &order_id) const {
+    const std::string &account_id, const std::string &order_id) {
     auto body = std::make_shared<V1GetOrderStateRequest>();
     body->setAccountId(account_id);
     body->setOrderId(order_id);
@@ -56,7 +56,7 @@ ServiceReply<V1OrderState> InvestApiOrdersClient::OrdersServiceGetOrderState(
 }
 
 ServiceReply<V1GetOrdersResponse> InvestApiOrdersClient::OrdersServiceGetOrders(
-    const std::string &account_id) const {
+    const std::string &account_id) {
     auto body = std::make_shared<V1GetOrdersRequest>();
     body->setAccountId(account_id);
 
@@ -69,7 +69,7 @@ ServiceReply<V1GetOrdersResponse> InvestApiOrdersClient::OrdersServiceGetOrders(
 ServiceReply<V1PostOrderResponse> InvestApiOrdersClient::OrdersServiceReplaceOrder(
     const std::string &account_id, const std::string &order_id, const std::string &idempotency_key,
     const std::string &quantity, std::shared_ptr<V1Quotation> price,
-    std::shared_ptr<V1PriceType> price_type) const {
+    std::shared_ptr<V1PriceType> price_type) {
     auto body = std::make_shared<V1ReplaceOrderRequest>();
     body->setAccountId(account_id);
     body->setOrderId(order_id);

@@ -23,12 +23,12 @@ public:
         std::shared_ptr<V1MarketDataServerSideStreamRequest> body, bool is_async_req = true,
         int retry_max = 0,
         std::function<void(const ServiceReply<Stream_result_of_v1MarketDataResponse> &)> callback =
-            nullptr) const;
+            nullptr);
 
     ServiceReply<Stream_result_of_v1MarketDataResponse> MarketDataStreamServiceMarketDataStream(
         std::shared_ptr<V1MarketDataRequest> body, bool is_async_req = true, int retry_max = 0,
         std::function<void(const ServiceReply<Stream_result_of_v1MarketDataResponse> &)> callback =
-            nullptr) const;
+            nullptr);
 };
 
 }  // namespace tinkoff_invest_cppsdk

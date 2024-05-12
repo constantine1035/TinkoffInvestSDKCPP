@@ -15,7 +15,7 @@ ServiceReply<V1PostStopOrderResponse> InvestApiStopOrdersClient::StopOrdersServi
     std::shared_ptr<V1Quotation> stop_price, std::shared_ptr<V1StopOrderDirection> direction,
     const std::string &account_id, std::shared_ptr<V1StopOrderExpirationType> expiration_type,
     std::shared_ptr<V1StopOrderType> stop_order_type, const std::string &expire_date,
-    const std::string &instrument_id) const {
+    const std::string &instrument_id) {
     auto body = std::make_shared<V1PostStopOrderRequest>();
     body->setFigi(figi);
     body->setQuantity(quantity);
@@ -32,7 +32,7 @@ ServiceReply<V1PostStopOrderResponse> InvestApiStopOrdersClient::StopOrdersServi
 }
 
 ServiceReply<V1GetStopOrdersResponse> InvestApiStopOrdersClient::StopOrdersServiceGetStopOrders(
-    const std::string &account_id) const {
+    const std::string &account_id) {
     auto body = std::make_shared<V1GetStopOrdersRequest>();
     body->setAccountId(account_id);
 
@@ -43,7 +43,7 @@ ServiceReply<V1GetStopOrdersResponse> InvestApiStopOrdersClient::StopOrdersServi
 }
 
 ServiceReply<V1CancelStopOrderResponse> InvestApiStopOrdersClient::StopOrdersServiceCancelStopOrder(
-    const std::string &account_id, const std::string &order_id) const {
+    const std::string &account_id, const std::string &order_id) {
     auto body = std::make_shared<V1CancelStopOrderRequest>();
     body->setAccountId(account_id);
     body->setStopOrderId(order_id);

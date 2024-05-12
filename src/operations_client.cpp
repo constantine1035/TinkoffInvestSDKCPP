@@ -12,15 +12,15 @@ InvestApiOperationsClient::~InvestApiOperationsClient() {
 
 ServiceReply<V1OperationsResponse> InvestApiOperationsClient::GetOperations(
     std::string account_id, int64_t fromseconds, int32_t fromnanos, int64_t toseconds,
-    int32_t tonanos, std::string figi, const std::shared_ptr<V1OperationState> state) const {
+    int32_t tonanos, std::string figi, const std::shared_ptr<V1OperationState> state) {
 
     auto body = std::make_shared<V1OperationsRequest>();
     utility::datetime from;
     utility::datetime to;
     from.from_seconds(fromseconds);
     to.from_seconds(toseconds);
-    //to.from_milliseconds();
-    //from.from_milliseconds();
+    // to.from_milliseconds();
+    // from.from_milliseconds();
     body->setFigi(figi);
     body->setAccountId(account_id);
     body->setState(state);
@@ -34,7 +34,7 @@ ServiceReply<V1OperationsResponse> InvestApiOperationsClient::GetOperations(
 };
 
 ServiceReply<V1PortfolioResponse> InvestApiOperationsClient::GetPortfolio(
-    std::string account_id, const std::shared_ptr<PortfolioRequestCurrencyRequest> currency) const {
+    std::string account_id, const std::shared_ptr<PortfolioRequestCurrencyRequest> currency) {
 
     auto body = std::make_shared<V1PortfolioRequest>();
     body->setAccountId(account_id);
@@ -46,7 +46,7 @@ ServiceReply<V1PortfolioResponse> InvestApiOperationsClient::GetPortfolio(
     return MakeRequestAsync<ServiceId::OperationsService>(req, body);
 };
 
-ServiceReply<V1PositionsResponse> InvestApiOperationsClient::GetPositions(std::string account_id) const {
+ServiceReply<V1PositionsResponse> InvestApiOperationsClient::GetPositions(std::string account_id) {
 
     auto body = std::make_shared<V1PositionsRequest>();
     body->setAccountId(account_id);
@@ -58,7 +58,7 @@ ServiceReply<V1PositionsResponse> InvestApiOperationsClient::GetPositions(std::s
 };
 
 ServiceReply<V1WithdrawLimitsResponse> InvestApiOperationsClient::GetWithdrawLimits(
-    std::string account_id) const {
+    std::string account_id) {
 
     auto body = std::make_shared<V1WithdrawLimitsRequest>();
     body->setAccountId(account_id);
@@ -71,7 +71,7 @@ ServiceReply<V1WithdrawLimitsResponse> InvestApiOperationsClient::GetWithdrawLim
 
 ServiceReply<V1BrokerReportResponse> InvestApiOperationsClient::GetBrokerReport(
     const std::shared_ptr<V1GenerateBrokerReportRequest> generate_broker_request,
-    const std::shared_ptr<V1GetBrokerReportRequest> get_broker_request) const {
+    const std::shared_ptr<V1GetBrokerReportRequest> get_broker_request) {
 
     auto body = std::make_shared<V1BrokerReportRequest>();
 
@@ -88,7 +88,7 @@ ServiceReply<V1GetDividendsForeignIssuerResponse>
 InvestApiOperationsClient::GetDividendsForeignIssuer(
     const std::shared_ptr<V1GenerateDividendsForeignIssuerReportRequest>
         generate_div_foreign_issuer_report,
-    const std::shared_ptr<V1GetDividendsForeignIssuerReportRequest> get_div_foreign_issuer_report) const {
+    const std::shared_ptr<V1GetDividendsForeignIssuerReportRequest> get_div_foreign_issuer_report) {
 
     auto body = std::make_shared<V1GetDividendsForeignIssuerRequest>();
 
@@ -105,15 +105,15 @@ ServiceReply<V1GetOperationsByCursorResponse> InvestApiOperationsClient::GetOper
     std::string account_id, std::string instrument_id, int64_t fromseconds, int32_t fromnanos,
     int64_t toseconds, int32_t tonanos, std::string cursor, int32_t limit,
     std::vector<std::shared_ptr<V1OperationType>> operation_types, V1OperationState state,
-    bool without_comissions, bool without_trades, bool without_overnights) const {
+    bool without_comissions, bool without_trades, bool without_overnights) {
 
     auto body = std::make_shared<V1GetOperationsByCursorRequest>();
     utility::datetime from;
     utility::datetime to;
     from.from_seconds(fromseconds);
     to.from_seconds(toseconds);
-    //to.from_milliseconds();
-    //from.from_milliseconds();
+    // to.from_milliseconds();
+    // from.from_milliseconds();
     body->setFrom(from);
     body->setTo(to);
     body->setAccountId(account_id);

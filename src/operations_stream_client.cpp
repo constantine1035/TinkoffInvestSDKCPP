@@ -12,7 +12,7 @@ InvestApiOperationsStreamClient::~InvestApiOperationsStreamClient() {
 
 ServiceReply<Stream_result_of_v1PortfolioStreamResponse>
 InvestApiOperationsStreamClient::OperationsStreamServicePortfolioStream(
-    const std::vector<std::string>& accounts) const {
+    const std::vector<std::string>& accounts) {
     auto body = std::make_shared<V1PortfolioStreamRequest>();
     body->setAccounts(accounts);
 
@@ -24,7 +24,7 @@ InvestApiOperationsStreamClient::OperationsStreamServicePortfolioStream(
 
 ServiceReply<Stream_result_of_v1PositionsStreamResponse>
 InvestApiOperationsStreamClient::OperationsStreamServicePositionsStream(
-    const std::vector<std::string>& accounts) const {
+    const std::vector<std::string>& accounts) {
     auto body = std::make_shared<V1PositionsStreamRequest>();
     body->setAccounts(accounts);
 

@@ -19,10 +19,10 @@ public:
     ~InvestApiOperationsStreamClient() override;
 
     ServiceReply<Stream_result_of_v1PortfolioStreamResponse> OperationsStreamServicePortfolioStream(
-        const std::vector<std::string>& accounts) const;
+        const std::vector<std::string>& accounts);
 
     ServiceReply<Stream_result_of_v1PositionsStreamResponse> OperationsStreamServicePositionsStream(
-        const std::vector<std::string>& accounts) const;
+        const std::vector<std::string>& accounts);
 };
 
 }  // namespace tinkoff_invest_cppsdk

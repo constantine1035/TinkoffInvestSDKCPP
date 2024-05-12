@@ -14,7 +14,7 @@ InvestApiSandboxClient::~InvestApiSandboxClient() {
 
 ServiceReply<V1CancelOrderResponse> InvestApiSandboxClient::SandboxServiceCancelSandboxOrder(
     const std::string &account_id, const std::string &order_id, bool is_async_req, int retry_max,
-    std::function<void(const ServiceReply<V1CancelOrderResponse> &)> callback) const {
+    std::function<void(const ServiceReply<V1CancelOrderResponse> &)> callback) {
 
     auto body = std::make_shared<V1CancelOrderRequest>();
     body->setAccountId(account_id);
@@ -31,7 +31,7 @@ ServiceReply<V1CancelOrderResponse> InvestApiSandboxClient::SandboxServiceCancel
 
 ServiceReply<Object> InvestApiSandboxClient::SandboxServiceCloseSandboxAccountSync(
     const std::string &account_id, bool is_async_req, int retry_max,
-    std::function<void(const ServiceReply<Object> &)> callback) const {
+    std::function<void(const ServiceReply<Object> &)> callback) {
 
     auto body = std::make_shared<V1CloseSandboxAccountRequest>();
     body->setAccountId(account_id);
@@ -47,7 +47,7 @@ ServiceReply<Object> InvestApiSandboxClient::SandboxServiceCloseSandboxAccountSy
 
 ServiceReply<V1GetAccountsResponse> InvestApiSandboxClient::SandboxServiceGetSandboxAccounts(
     bool is_async_req, int retry_max,
-    std::function<void(const ServiceReply<V1GetAccountsResponse> &)> callback) const {
+    std::function<void(const ServiceReply<V1GetAccountsResponse> &)> callback) {
 
     auto body = std::make_shared<Object>();
 
@@ -63,7 +63,7 @@ ServiceReply<V1GetAccountsResponse> InvestApiSandboxClient::SandboxServiceGetSan
 ServiceReply<V1OperationsResponse> InvestApiSandboxClient::SandboxServiceGetSandboxOperations(
     const std::string &account_id, const std::string &figi, utility::datetime from,
     utility::datetime to, std::shared_ptr<V1OperationState> state, bool is_async_req, int retry_max,
-    std::function<void(const ServiceReply<V1OperationsResponse> &)> callback) const {
+    std::function<void(const ServiceReply<V1OperationsResponse> &)> callback) {
 
     auto body = std::make_shared<V1OperationsRequest>();
     body->setAccountId(account_id);
@@ -88,7 +88,7 @@ InvestApiSandboxClient::SandboxServiceGetSandboxOperationsByCursor(
     const std::vector<std::shared_ptr<V1OperationType>> &operation_types,
     std::shared_ptr<V1OperationState> state, bool without_commissions, bool without_trades,
     bool without_overnights, bool is_async_req, int retry_max,
-    std::function<void(const ServiceReply<V1GetOperationsByCursorResponse> &)> callback) const {
+    std::function<void(const ServiceReply<V1GetOperationsByCursorResponse> &)> callback) {
 
     auto body = std::make_shared<V1GetOperationsByCursorRequest>();
     body->setAccountId(account_id);
@@ -113,7 +113,7 @@ InvestApiSandboxClient::SandboxServiceGetSandboxOperationsByCursor(
 
 ServiceReply<V1OrderState> InvestApiSandboxClient::SandboxServiceGetSandboxOrderState(
     const std::string &account_id, const std::string &order_id, bool is_async_req, int retry_max,
-    std::function<void(const ServiceReply<V1OrderState> &)> callback) const {
+    std::function<void(const ServiceReply<V1OrderState> &)> callback) {
 
     auto body = std::make_shared<V1GetOrderStateRequest>();
     body->setAccountId(account_id);
@@ -130,7 +130,7 @@ ServiceReply<V1OrderState> InvestApiSandboxClient::SandboxServiceGetSandboxOrder
 
 ServiceReply<V1GetOrdersResponse> InvestApiSandboxClient::SandboxServiceGetSandboxOrders(
     const std::string &account_id, bool is_async_req, int retry_max,
-    std::function<void(const ServiceReply<V1GetOrdersResponse> &)> callback) const {
+    std::function<void(const ServiceReply<V1GetOrdersResponse> &)> callback) {
 
     auto body = std::make_shared<V1GetOrdersRequest>();
     body->setAccountId(account_id);
@@ -147,7 +147,7 @@ ServiceReply<V1GetOrdersResponse> InvestApiSandboxClient::SandboxServiceGetSandb
 ServiceReply<V1PortfolioResponse> InvestApiSandboxClient::SandboxServiceGetSandboxPortfolio(
     const std::string &account_id, std::shared_ptr<PortfolioRequestCurrencyRequest> currency,
     bool is_async_req, int retry_max,
-    std::function<void(const ServiceReply<V1PortfolioResponse> &)> callback) const {
+    std::function<void(const ServiceReply<V1PortfolioResponse> &)> callback) {
 
     auto body = std::make_shared<V1PortfolioRequest>();
     body->setAccountId(account_id);
@@ -164,7 +164,7 @@ ServiceReply<V1PortfolioResponse> InvestApiSandboxClient::SandboxServiceGetSandb
 
 ServiceReply<V1PositionsResponse> InvestApiSandboxClient::SandboxServiceGetSandboxPositions(
     const std::string &account_id, bool is_async_req, int retry_max,
-    std::function<void(const ServiceReply<V1PositionsResponse> &)> callback) const {
+    std::function<void(const ServiceReply<V1PositionsResponse> &)> callback) {
 
     auto body = std::make_shared<V1PositionsRequest>();
     body->setAccountId(account_id);
@@ -181,7 +181,7 @@ ServiceReply<V1PositionsResponse> InvestApiSandboxClient::SandboxServiceGetSandb
 ServiceReply<V1WithdrawLimitsResponse>
 InvestApiSandboxClient::SandboxServiceGetSandboxWithdrawLimits(
     const std::string &account_id, bool is_async_req, int retry_max,
-    std::function<void(const ServiceReply<V1WithdrawLimitsResponse> &)> callback) const {
+    std::function<void(const ServiceReply<V1WithdrawLimitsResponse> &)> callback) {
 
     auto body = std::make_shared<V1WithdrawLimitsRequest>();
     body->setAccountId(account_id);
@@ -198,7 +198,7 @@ InvestApiSandboxClient::SandboxServiceGetSandboxWithdrawLimits(
 ServiceReply<V1OpenSandboxAccountResponse>
 InvestApiSandboxClient::SandboxServiceOpenSandboxAccountSync(
     const std::string &name, bool is_async_req, int retry_max,
-    std::function<void(const ServiceReply<V1OpenSandboxAccountResponse> &)> callback) const {
+    std::function<void(const ServiceReply<V1OpenSandboxAccountResponse> &)> callback) {
 
     auto body = std::make_shared<V1OpenSandboxAccountRequest>();
     body->setName(name);
@@ -214,7 +214,7 @@ ServiceReply<V1PostOrderResponse> InvestApiSandboxClient::SandboxServicePostSand
     const std::string &quantity, const std::string &units, int32_t nano,
     std::shared_ptr<V1OrderDirection> direction, std::shared_ptr<V1OrderType> order_type,
     bool is_async_req, int retry_max,
-    std::function<void(const ServiceReply<V1PostOrderResponse> &)> callback) const {
+    std::function<void(const ServiceReply<V1PostOrderResponse> &)> callback) {
 
     auto body = std::make_shared<V1PostOrderRequest>();
 
@@ -243,7 +243,7 @@ ServiceReply<V1PostOrderResponse> InvestApiSandboxClient::SandboxServiceReplaceS
     const std::string &account_id, const std::string &order_id, const std::string &idempotency_key,
     const std::string &quantity, const std::string &units, int32_t nano,
     std::shared_ptr<V1PriceType> price_type, bool is_async_req, int retry_max,
-    std::function<void(const ServiceReply<V1PostOrderResponse> &)> callback) const {
+    std::function<void(const ServiceReply<V1PostOrderResponse> &)> callback) {
 
     auto body = std::make_shared<V1ReplaceOrderRequest>();
 
@@ -270,7 +270,7 @@ ServiceReply<V1PostOrderResponse> InvestApiSandboxClient::SandboxServiceReplaceS
 ServiceReply<V1SandboxPayInResponse> InvestApiSandboxClient::SandboxServicePayIn(
     const std::string &account_id, const std::string &currency, const std::string &units,
     int32_t nano, bool is_async_req, int retry_max,
-    std::function<void(const ServiceReply<V1SandboxPayInResponse> &)> callback) const {
+    std::function<void(const ServiceReply<V1SandboxPayInResponse> &)> callback) {
 
     auto body = std::make_shared<V1SandboxPayInRequest>();
 
