@@ -21,8 +21,8 @@ public:
     /// Метод получения расписания торгов торговых площадок
     ServiceReply<V1TradingSchedulesResponse> TradingSchedules(std::string exchange,
                                                               int64_t fromseconds,
-                                                              int32_t fromnanos, int64_t toseconds,
-                                                              int32_t tonanos);
+                                                              int32_t frommilisecs, int64_t toseconds,
+                                                              int32_t tomilisecs);
 
     /// Метод получения облигации по её идентификатору
     ServiceReply<V1BondResponse> BondBy(const std::shared_ptr<V1InstrumentIdType> id_type,
@@ -34,13 +34,13 @@ public:
 
     /// Метод получения графика выплат купонов по облигации
     ServiceReply<V1GetBondCouponsResponse> GetBondCoupons(std::string figi, int64_t fromseconds,
-                                                          int32_t fromnanos, int64_t toseconds,
-                                                          int32_t tonanos);
+                                                          int32_t frommilisecs, int64_t toseconds,
+                                                          int32_t tomilisecs);
 
     /// Метод получения событий по облигации
     ServiceReply<V1GetBondEventsResponse> GetBondEvents(
         std::string instrument_id, const std::shared_ptr<GetBondEventsRequestEventType> type,
-        int64_t fromseconds, int32_t fromnanos, int64_t toseconds, int32_t tonanos);
+        int64_t fromseconds, int32_t frommilisecs, int64_t toseconds, int32_t tomilisecs);
 
     /// Метод получения валюты по её идентификатору
     ServiceReply<V1CurrencyResponse> CurrencyBy(const std::shared_ptr<V1InstrumentIdType> id_type,
@@ -91,9 +91,9 @@ public:
     /// Метод получения накопленного купонного дохода по облигации
     ServiceReply<V1GetAccruedInterestsResponse> GetAccruedInterests(std::string figi,
                                                                     int64_t fromseconds,
-                                                                    int32_t fromnanos,
+                                                                    int32_t frommilisecs,
                                                                     int64_t toseconds,
-                                                                    int32_t tonanos);
+                                                                    int32_t tomilisecs);
 
     /// Метод получения размера гарантийного обеспечения по фьючерсам
     ServiceReply<V1GetFuturesMarginResponse> GetFuturesMargin(std::string figi);
@@ -104,8 +104,8 @@ public:
 
     /// Метод для получения событий выплаты дивидендов по инструменту
     ServiceReply<V1GetDividendsResponse> GetDividends(std::string figi, int64_t fromseconds,
-                                                      int32_t fromnanos, int64_t toseconds,
-                                                      int32_t tonanos);
+                                                      int32_t frommilisecs, int64_t toseconds,
+                                                      int32_t tomilisecs);
 
     /// Метод получения актива по его идентификатору
     ServiceReply<V1AssetResponse> GetAssetBy(std::string id);
@@ -142,8 +142,8 @@ public:
 
     /// Метод получения расписания выхода отчетностей эмитентов
     ServiceReply<V1GetAssetReportsResponse> GetAssetReports(std::string instrument_id,
-                                                            int64_t fromseconds, int32_t fromnanos,
-                                                            int64_t toseconds, int32_t tonanos);
+                                                            int64_t fromseconds, int32_t frommilisecs,
+                                                            int64_t toseconds, int32_t tomilisecs);
 
     /// Метод получения мнения аналитиков по инструменту
     ServiceReply<V1GetConsensusForecastsResponse> GetConsensusForecasts(

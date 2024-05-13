@@ -21,8 +21,8 @@ public:
     /// Метод получения списка операций по счёту.При работе с данным методом необходимо учитывать
     /// особенности взаимодействия с данным методом.
     ServiceReply<V1OperationsResponse> GetOperations(std::string account_id, int64_t fromseconds,
-                                                     int32_t fromnanos, int64_t toseconds,
-                                                     int32_t tonanos, std::string figi,
+                                                     int32_t frommilisecs, int64_t toseconds,
+                                                     int32_t tomilisecs, std::string figi,
                                                      const std::shared_ptr<V1OperationState> state);
 
     /// Метод получения портфеля по счёту.
@@ -50,8 +50,8 @@ public:
     /// Метод получения списка операций по счёту с пагинацией. При работе с данным методом
     /// необходимо учитывать особенности взаимодействия с данным методом.
     ServiceReply<V1GetOperationsByCursorResponse> GetOperationsByCursor(
-        std::string account_id, std::string instrument_id, int64_t fromseconds, int32_t fromnanos,
-        int64_t toseconds, int32_t tonanos, std::string cursor, int32_t limit,
+        std::string account_id, std::string instrument_id, int64_t fromseconds, int32_t frommilisecs,
+        int64_t toseconds, int32_t tomilisecs, std::string cursor, int32_t limit,
         std::vector<std::shared_ptr<V1OperationType>> operation_types, V1OperationState state,
         bool without_comissions, bool without_trades, bool without_overnights);
 };

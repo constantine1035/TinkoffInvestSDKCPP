@@ -11,16 +11,16 @@ InvestApiOperationsClient::~InvestApiOperationsClient() {
 }
 
 ServiceReply<V1OperationsResponse> InvestApiOperationsClient::GetOperations(
-    std::string account_id, int64_t fromseconds, int32_t fromnanos, int64_t toseconds,
-    int32_t tonanos, std::string figi, const std::shared_ptr<V1OperationState> state) {
+    std::string account_id, int64_t fromseconds, int32_t frommilisecs, int64_t toseconds,
+    int32_t tomilisecs, std::string figi, const std::shared_ptr<V1OperationState> state) {
 
     auto body = std::make_shared<V1OperationsRequest>();
     utility::datetime from;
     utility::datetime to;
     from.from_seconds(fromseconds);
     to.from_seconds(toseconds);
-    // to.from_milliseconds();
-    // from.from_milliseconds();
+    to.from_milliseconds(tomilisecs);
+    from.from_milliseconds(frommilisecs);
     body->setFigi(figi);
     body->setAccountId(account_id);
     body->setState(state);
@@ -102,8 +102,8 @@ InvestApiOperationsClient::GetDividendsForeignIssuer(
 };
 
 ServiceReply<V1GetOperationsByCursorResponse> InvestApiOperationsClient::GetOperationsByCursor(
-    std::string account_id, std::string instrument_id, int64_t fromseconds, int32_t fromnanos,
-    int64_t toseconds, int32_t tonanos, std::string cursor, int32_t limit,
+    std::string account_id, std::string instrument_id, int64_t fromseconds, int32_t frommilisecs,
+    int64_t toseconds, int32_t tomilisecs, std::string cursor, int32_t limit,
     std::vector<std::shared_ptr<V1OperationType>> operation_types, V1OperationState state,
     bool without_comissions, bool without_trades, bool without_overnights) {
 
@@ -112,8 +112,8 @@ ServiceReply<V1GetOperationsByCursorResponse> InvestApiOperationsClient::GetOper
     utility::datetime to;
     from.from_seconds(fromseconds);
     to.from_seconds(toseconds);
-    // to.from_milliseconds();
-    // from.from_milliseconds();
+    to.from_milliseconds(tomilisecs);
+    from.from_milliseconds(frommilisecs);
     body->setFrom(from);
     body->setTo(to);
     body->setAccountId(account_id);
