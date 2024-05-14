@@ -93,11 +93,11 @@ protected:
     void InitService() {
         if (id == ServiceId::SandboxService) {
             GetClientService(id) = MakeService<id, ServiceType>(kSandboxBaseUrl, token_);
-        }
-        if (id == ServiceId::MarketDataStreamService || id == ServiceId::OperationsStreamService ||
+        } /*else if (id == ServiceId::MarketDataStreamService || id == ServiceId::OperationsStreamService ||
             id == ServiceId::OrdersStreamService) {
+            std::cout << "!!!!" << std::endl;
             GetClientService(id) = MakeService<id, ServiceType>(kWebSocketBaseUrl, token_, true);
-        } else {
+        }*/ else {
             GetClientService(id) = MakeService<id, ServiceType>(kDefaultBaseUrl, token_);
         }
     }

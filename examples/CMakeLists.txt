@@ -4,3 +4,4 @@ project(examples)
 
 add_subdirectory(sandbox)
 add_subdirectory(marketdata)
+add_subdirectory(marketdata_stream)

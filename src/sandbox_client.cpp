@@ -29,7 +29,7 @@ ServiceReply<V1CancelOrderResponse> InvestApiSandboxClient::SandboxServiceCancel
     return MakeRequestSync<ServiceId::SandboxService>(req, body, retry_max, callback);
 }
 
-ServiceReply<Object> InvestApiSandboxClient::SandboxServiceCloseSandboxAccountSync(
+ServiceReply<Object> InvestApiSandboxClient::SandboxServiceCloseSandboxAccount(
     const std::string &account_id, bool is_async_req, int retry_max,
     std::function<void(const ServiceReply<Object> &)> callback) {
 
@@ -196,7 +196,7 @@ InvestApiSandboxClient::SandboxServiceGetSandboxWithdrawLimits(
 }
 
 ServiceReply<V1OpenSandboxAccountResponse>
-InvestApiSandboxClient::SandboxServiceOpenSandboxAccountSync(
+InvestApiSandboxClient::SandboxServiceOpenSandboxAccount(
     const std::string &name, bool is_async_req, int retry_max,
     std::function<void(const ServiceReply<V1OpenSandboxAccountResponse> &)> callback) {
 

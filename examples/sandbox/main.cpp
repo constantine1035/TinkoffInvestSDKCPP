@@ -9,7 +9,7 @@ static const std::string token = std::getenv("MY_TOKEN");
 
 std::string OpenAccount(InvestApiClient& client) {
     std::cout << "Open sandbox account:" << std::endl;
-    auto reply_open_sandbox_account = client.SandboxServiceOpenSandboxAccountSync("qwerty");
+    auto reply_open_sandbox_account = client.SandboxServiceOpenSandboxAccount("qwerty");
 
     std::string account_id;
 
@@ -27,7 +27,7 @@ std::string OpenAccount(InvestApiClient& client) {
 
 void CloseAccount(InvestApiClient& client, const std::string& account_id) {
     std::cout << "Close sandbox account:" << std::endl;
-    auto reply_close_sandbox_account = client.SandboxServiceCloseSandboxAccountSync(account_id);
+    auto reply_close_sandbox_account = client.SandboxServiceCloseSandboxAccount(account_id);
 
     std::cout << "Status: " << reply_close_sandbox_account.status << "; " << std::endl;
 

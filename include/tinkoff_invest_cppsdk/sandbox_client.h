@@ -23,7 +23,7 @@ public:
         int retry_max = 0,
         std::function<void(const ServiceReply<V1CancelOrderResponse> &)> callback = nullptr);
 
-    ServiceReply<Object> SandboxServiceCloseSandboxAccountSync(
+    ServiceReply<Object> SandboxServiceCloseSandboxAccount(
         const std::string &account_id, bool is_async_req = true, int retry_max = 0,
         std::function<void(const ServiceReply<Object> &)> callback = nullptr);
 
@@ -68,7 +68,7 @@ public:
         const std::string &account_id, bool is_async_req = true, int retry_max = 0,
         std::function<void(const ServiceReply<V1WithdrawLimitsResponse> &)> callback = nullptr);
 
-    ServiceReply<V1OpenSandboxAccountResponse> SandboxServiceOpenSandboxAccountSync(
+    ServiceReply<V1OpenSandboxAccountResponse> SandboxServiceOpenSandboxAccount(
         const std::string &name, bool is_async_req = true, int retry_max = 0,
         std::function<void(const ServiceReply<V1OpenSandboxAccountResponse> &)> callback = nullptr);
 
