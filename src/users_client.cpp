@@ -38,42 +38,58 @@ void InvestApiUsersClient::InitStreamTracker(
 InvestApiUsersClient::~InvestApiUsersClient() {
 }
 
-ServiceReply<V1GetAccountsResponse> InvestApiUsersClient::UsersServiceGetAccounts() {
+ServiceReply<V1GetAccountsResponse> InvestApiUsersClient::UsersServiceGetAccounts(
+        bool is_async_req, int retry_max,
+        std::function<void(const ServiceReply<V1GetAccountsResponse>&)> callback) {
     auto body = std::make_shared<Object>();
 
-    std::function<pplx::task<std::shared_ptr<V1GetAccountsResponse>>(const UsersServiceApi &,
-                                                                     std::shared_ptr<Object>)>
+    std::function<pplx::task<std::shared_ptr<V1GetAccountsResponse>>(const UsersServiceApi&, std::shared_ptr<Object>)>
         req = &UsersServiceApi::usersServiceGetAccounts;
-    return MakeRequestAsync<ServiceId::UsersService>(req, body);
+    if (is_async_req) {
+        return MakeRequestAsync<ServiceId::MarketDataService>(req, body, retry_max, callback);
+    }
+    return MakeRequestSync<ServiceId::MarketDataService>(req, body, retry_max, callback);
 }
 
 ServiceReply<V1GetMarginAttributesResponse> InvestApiUsersClient::UsersServiceGetMarginAttributes(
-    const std::string &account_id) {
+    const std::string &account_id, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1GetMarginAttributesResponse>&)> callback) {
     auto body = std::make_shared<V1GetMarginAttributesRequest>();
     body->setAccountId(account_id);
 
     std::function<pplx::task<std::shared_ptr<V1GetMarginAttributesResponse>>(
-        const UsersServiceApi &, std::shared_ptr<V1GetMarginAttributesRequest>)>
+        const UsersServiceApi&, std::shared_ptr<V1GetMarginAttributesRequest>)>
         req = &UsersServiceApi::usersServiceGetMarginAttributes;
-    return MakeRequestAsync<ServiceId::UsersService>(req, body);
+    if (is_async_req) {
+        return MakeRequestAsync<ServiceId::MarketDataService>(req, body, retry_max, callback);
+    }
+    return MakeRequestSync<ServiceId::MarketDataService>(req, body, retry_max, callback);
 }
 
-ServiceReply<V1GetUserTariffResponse> InvestApiUsersClient::UsersServiceGetUserTariff() {
+ServiceReply<V1GetUserTariffResponse> InvestApiUsersClient::UsersServiceGetUserTariff(
+        bool is_async_req, int retry_max,
+        std::function<void(const ServiceReply<V1GetUserTariffResponse>&)> callback) {
     auto body = std::make_shared<Object>();
 
-    std::function<pplx::task<std::shared_ptr<V1GetUserTariffResponse>>(const UsersServiceApi &,
-                                                                       std::shared_ptr<Object>)>
+    std::function<pplx::task<std::shared_ptr<V1GetUserTariffResponse>>(const UsersServiceApi&, std::shared_ptr<Object>)>
         req = &UsersServiceApi::usersServiceGetUserTariff;
-    return MakeRequestAsync<ServiceId::UsersService>(req, body);
+    if (is_async_req) {
+        return MakeRequestAsync<ServiceId::MarketDataService>(req, body, retry_max, callback);
+    }
+    return MakeRequestSync<ServiceId::MarketDataService>(req, body, retry_max, callback);
 }
 
-ServiceReply<V1GetInfoResponse> InvestApiUsersClient::UsersServiceGetInfo() {
+ServiceReply<V1GetInfoResponse> InvestApiUsersClient::UsersServiceGetInfo(
+        bool is_async_req, int retry_max,
+        std::function<void(const ServiceReply<V1GetInfoResponse>&)> callback) {
     auto body = std::make_shared<Object>();
 
-    std::function<pplx::task<std::shared_ptr<V1GetInfoResponse>>(const UsersServiceApi &,
-                                                                 std::shared_ptr<Object>)>
+    std::function<pplx::task<std::shared_ptr<V1GetInfoResponse>>(const UsersServiceApi&, std::shared_ptr<Object>)>
         req = &UsersServiceApi::usersServiceGetInfo;
-    return MakeRequestAsync<ServiceId::UsersService>(req, body);
+    if (is_async_req) {
+        return MakeRequestAsync<ServiceId::MarketDataService>(req, body, retry_max, callback);
+    }
+    return MakeRequestSync<ServiceId::MarketDataService>(req, body, retry_max, callback);
 }
 
 }  // namespace tinkoff_invest_cppsdk
