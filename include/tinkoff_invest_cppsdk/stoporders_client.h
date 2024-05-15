@@ -31,7 +31,8 @@ public:
         std::function<void(const ServiceReply<V1GetStopOrdersResponse> &)> callback = nullptr);
 
     ServiceReply<V1CancelStopOrderResponse> StopOrdersServiceCancelStopOrder(
-        const std::string &account_id, const std::string &stop_order_id, bool is_async_req = true, int retry_max = 0,
+        const std::string &account_id, const std::string &stop_order_id, bool is_async_req = true,
+        int retry_max = 0,
         std::function<void(const ServiceReply<V1CancelStopOrderResponse> &)> callback = nullptr);
 };
 

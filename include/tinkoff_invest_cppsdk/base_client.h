@@ -16,6 +16,7 @@
 #include "tinkoff_invest_cppsdk/request_rate_limiter.h"
 
 #include <pplx/pplxinterface.h>
+#include <cpprest/ws_client.h>
 #include <array>
 #include <exception>
 #include <functional>
@@ -33,6 +34,8 @@ using org::openapitools::client::api::ApiClient;
 using org::openapitools::client::api::ApiConfiguration;
 using org::openapitools::client::api::ApiException;
 using tinkoff_invest_cppsdk::ServiceReply;
+using web::websockets::client::websocket_callback_client;
+using web::websockets::client::websocket_client_config;
 
 class InvestApiBaseClient {
 public:
@@ -75,29 +78,33 @@ protected:
 
     template <ServiceId id, class ServiceType>
     std::shared_ptr<some_service_t> MakeService(const std::string& base_url,
-                                                const std::string& token,
-                                                bool is_web_socket = false) const {
-        auto config = std::make_shared<ApiConfiguration>();
-        config->getDefaultHeaders()["Authorization"] = "Bearer " + token;
-        if (is_web_socket) {
-            config->getDefaultHeaders()["Web-Socket-Protocol"] = "json-proto";
+                                                const std::string& token) const {
+        if constexpr (id == ServiceId::MarketDataStreamService ||
+                      id == ServiceId::OperationsStreamService ||
+                      id == ServiceId::OrdersStreamService) {
+            websocket_client_config config;
+            config.headers().add(U("Web-Socket-Protocol"), U("json"));
+            config.headers().add(U("Authorization"), U("Bearer " + token));
+
+            auto client = std::make_shared<websocket_callback_client>(config);
+
+            return std::make_shared<some_service_t>(ServiceType(client));
+        } else {
+            auto config = std::make_shared<ApiConfiguration>();
+            config->getDefaultHeaders()["Authorization"] = "Bearer " + token;
+            config->setBaseUrl(base_url);
+
+            auto client = std::make_shared<ApiClient>(config);
+
+            return std::make_shared<some_service_t>(ServiceType(client));
         }
-        config->setBaseUrl(base_url);
-
-        auto client = std::make_shared<ApiClient>(config);
-
-        return std::make_shared<some_service_t>(ServiceType(client));
     }
 
     template <ServiceId id, class ServiceType>
     void InitService() {
         if (id == ServiceId::SandboxService) {
             GetClientService(id) = MakeService<id, ServiceType>(kSandboxBaseUrl, token_);
-        } /*else if (id == ServiceId::MarketDataStreamService || id == ServiceId::OperationsStreamService ||
-            id == ServiceId::OrdersStreamService) {
-            std::cout << "!!!!" << std::endl;
-            GetClientService(id) = MakeService<id, ServiceType>(kWebSocketBaseUrl, token_, true);
-        }*/ else {
+        } else {
             GetClientService(id) = MakeService<id, ServiceType>(kDefaultBaseUrl, token_);
         }
     }
@@ -243,6 +250,28 @@ protected:
             .wait();
 
         return reply;
+    }
+
+    template <ServiceId id, class ServiceType, class RequestType, class ResponseType>
+    void MakeWebSocketRequest(
+        std::function<void(const ServiceType&, std::shared_ptr<RequestType>,
+                           std::vector<ServiceReply<ResponseType>>&)>
+            req,
+        std::shared_ptr<RequestType> body, std::vector<ServiceReply<ResponseType>>& responses,
+        int retry_max = 0,
+        std::function<void(const ServiceReply<ResponseType>&)> callback = nullptr) {
+
+        auto service = std::get<ServiceType>(*GetClientService(id));
+
+        stream_tracker_.IncreaseStreamCount(static_cast<int>(id));
+
+        /*if constexpr (id == ServiceId::MarketDataStreamService) {
+            stream_subscription_tracker_.
+        }*/
+
+        req(service, body, responses);
+
+        stream_tracker_.DegreaseStreamCount(static_cast<int>(id));
     }
 };
 

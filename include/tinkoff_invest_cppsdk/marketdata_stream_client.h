@@ -18,17 +18,15 @@ public:
 
     ~InvestApiMarketdataStreamClient() override;
 
-    ServiceReply<Stream_result_of_v1MarketDataResponse>
-    MarketDataStreamServiceMarketDataServerSideStream(
-        std::shared_ptr<V1MarketDataServerSideStreamRequest> body, bool is_async_req = true,
-        int retry_max = 0,
-        std::function<void(const ServiceReply<Stream_result_of_v1MarketDataResponse> &)> callback =
-            nullptr);
+    void MarketDataStreamServiceMarketDataServerSideStream(
+        std::shared_ptr<V1MarketDataServerSideStreamRequest> body,
+        std::vector<ServiceReply<V1MarketDataResponse>> &responses, int retry_max = 0,
+        std::function<void(const ServiceReply<V1MarketDataResponse> &)> callback = nullptr);
 
-    ServiceReply<Stream_result_of_v1MarketDataResponse> MarketDataStreamServiceMarketDataStream(
-        std::shared_ptr<V1MarketDataRequest> body, bool is_async_req = true, int retry_max = 0,
-        std::function<void(const ServiceReply<Stream_result_of_v1MarketDataResponse> &)> callback =
-            nullptr);
+    void MarketDataStreamServiceMarketDataStream(
+        std::shared_ptr<V1MarketDataRequest> body,
+        std::vector<ServiceReply<V1MarketDataResponse>> &responses, int retry_max = 0,
+        std::function<void(const ServiceReply<V1MarketDataResponse> &)> callback = nullptr);
 };
 
 }  // namespace tinkoff_invest_cppsdk

@@ -11,20 +11,16 @@ InvestApiInstrumentsClient::~InvestApiInstrumentsClient() {
 }
 
 ServiceReply<V1TradingSchedulesResponse> InvestApiInstrumentsClient::TradingSchedules(
-        std::string exchange, int64_t fromseconds, int32_t frommilisecs, int64_t toseconds,
-        int32_t tomilisecs, bool is_async_req, int retry_max,
-        std::function<void(const ServiceReply<V1TradingSchedulesResponse> &)> callback) {
+    utility::datetime from, utility::datetime to, std::string exchange,
+    bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1TradingSchedulesResponse> &)> callback) {
 
     auto body = std::make_shared<V1TradingSchedulesRequest>();
-    utility::datetime from;
-    utility::datetime to;
-    from.from_seconds(fromseconds);
-    to.from_seconds(toseconds);
-    to.from_milliseconds(tomilisecs);
-    from.from_milliseconds(frommilisecs);
     body->setFrom(from);
     body->setTo(to);
-    body->setExchange(exchange);
+    if (exchange != "none") {
+        body->setExchange(exchange);
+    }
 
     std::function<pplx::task<std::shared_ptr<V1TradingSchedulesResponse>>(
         const InstrumentsServiceApi &, std::shared_ptr<V1TradingSchedulesRequest>)>
@@ -73,16 +69,11 @@ ServiceReply<V1BondsResponse> InvestApiInstrumentsClient::Bonds(
 
 /// Метод получения графика выплат купонов по облигации
 ServiceReply<V1GetBondCouponsResponse> InvestApiInstrumentsClient::GetBondCoupons(
-        std::string figi, int64_t fromseconds, int32_t frommilisecs, int64_t toseconds, int32_t tomilisecs,
-        bool is_async_req, int retry_max, std::function<void(const ServiceReply<V1GetBondCouponsResponse> &)> callback) {
+    std::string figi, utility::datetime from, utility::datetime to,
+    bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1GetBondCouponsResponse> &)> callback) {
 
     auto body = std::make_shared<V1GetBondCouponsRequest>();
-    utility::datetime from;
-    utility::datetime to;
-    from.from_seconds(fromseconds);
-    to.from_seconds(toseconds);
-    to.from_milliseconds(tomilisecs);
-    from.from_milliseconds(frommilisecs);
     body->setFrom(from);
     body->setTo(to);
     body->setFigi(figi);
@@ -98,17 +89,12 @@ ServiceReply<V1GetBondCouponsResponse> InvestApiInstrumentsClient::GetBondCoupon
 
 /// Метод получения событий по облигации
 ServiceReply<V1GetBondEventsResponse> InvestApiInstrumentsClient::GetBondEvents(
-        std::string instrument_id, const std::shared_ptr<GetBondEventsRequestEventType> type,
-        int64_t fromseconds, int32_t frommilisecs, int64_t toseconds, int32_t tomilisecs,
-        bool is_async_req, int retry_max, std::function<void(const ServiceReply<V1GetBondEventsResponse> &)> callback) {
+    std::string instrument_id, const std::shared_ptr<GetBondEventsRequestEventType> type,
+    utility::datetime from, utility::datetime to,
+    bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1GetBondEventsResponse> &)> callback) {
 
     auto body = std::make_shared<V1GetBondEventsRequest>();
-    utility::datetime from;
-    utility::datetime to;
-    from.from_seconds(fromseconds);
-    to.from_seconds(toseconds);
-    to.from_milliseconds(tomilisecs);
-    from.from_milliseconds(frommilisecs);
     body->setFrom(from);
     body->setTo(to);
     body->setInstrumentId(instrument_id);
@@ -338,16 +324,10 @@ ServiceReply<V1IndicativesResponse> InvestApiInstrumentsClient::Indicatives(
 
 /// Метод получения накопленного купонного дохода по облигации
 ServiceReply<V1GetAccruedInterestsResponse> InvestApiInstrumentsClient::GetAccruedInterests(
-        std::string figi, int64_t fromseconds, int32_t frommilisecs, int64_t toseconds, int32_t tomilisecs,
+        std::string figi, utility::datetime from, utility::datetime to,
         bool is_async_req, int retry_max, std::function<void(const ServiceReply<V1GetAccruedInterestsResponse> &)> callback) {
 
     auto body = std::make_shared<V1GetAccruedInterestsRequest>();
-    utility::datetime from;
-    utility::datetime to;
-    from.from_seconds(fromseconds);
-    to.from_seconds(toseconds);
-    to.from_milliseconds(tomilisecs);
-    from.from_milliseconds(frommilisecs);
     body->setFrom(from);
     body->setTo(to);
     body->setFigi(figi);
@@ -399,16 +379,10 @@ ServiceReply<V1InstrumentResponse> InvestApiInstrumentsClient::GetInstrumentBy(
 
 /// Метод для получения событий выплаты дивидендов по инструменту
 ServiceReply<V1GetDividendsResponse> InvestApiInstrumentsClient::GetDividends(
-        std::string figi, int64_t fromseconds, int32_t frommilisecs, int64_t toseconds, int32_t tomilisecs,
+        std::string figi, utility::datetime from, utility::datetime to,
         bool is_async_req, int retry_max, std::function<void(const ServiceReply<V1GetDividendsResponse> &)> callback) {
 
     auto body = std::make_shared<V1GetDividendsRequest>();
-    utility::datetime from;
-    utility::datetime to;
-    from.from_seconds(fromseconds);
-    to.from_seconds(toseconds);
-    to.from_milliseconds(tomilisecs);
-    from.from_milliseconds(frommilisecs);
     body->setFrom(from);
     body->setTo(to);
     body->setFigi(figi);
@@ -578,16 +552,10 @@ ServiceReply<V1GetAssetFundamentalsResponse> InvestApiInstrumentsClient::GetAsse
 
 /// Метод получения расписания выхода отчетностей эмитентов
 ServiceReply<V1GetAssetReportsResponse> InvestApiInstrumentsClient::GetAssetReports(
-        std::string instrument_id, int64_t fromseconds, int32_t frommilisecs, int64_t toseconds, int32_t tomilisecs,
+        std::string instrument_id, utility::datetime from, utility::datetime to,
         bool is_async_req, int retry_max, std::function<void(const ServiceReply<V1GetAssetReportsResponse> &)> callback) {
 
     auto body = std::make_shared<V1GetAssetReportsRequest>();
-    utility::datetime from;
-    utility::datetime to;
-    from.from_seconds(fromseconds);
-    to.from_seconds(toseconds);
-    to.from_milliseconds(tomilisecs);
-    from.from_milliseconds(frommilisecs);
     body->setFrom(from);
     body->setTo(to);
     body->setInstrumentId(instrument_id);

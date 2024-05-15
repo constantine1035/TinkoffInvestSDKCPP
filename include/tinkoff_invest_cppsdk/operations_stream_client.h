@@ -14,17 +14,19 @@ namespace TINKOFFINVESTSDKCPP_EXPORT tinkoff_invest_cppsdk {
 
 class InvestApiOperationsStreamClient : public InvestApiBaseClient {
 public:
-    explicit InvestApiOperationsStreamClient(const std::string& token);
+    explicit InvestApiOperationsStreamClient(const std::string &token);
 
     ~InvestApiOperationsStreamClient() override;
 
-    ServiceReply<Stream_result_of_v1PortfolioStreamResponse> OperationsStreamServicePortfolioStream(
-        const std::vector<std::string>& accounts, int retry_max = 0,
-        std::function<void(const ServiceReply<Stream_result_of_v1PortfolioStreamResponse> &)> callback = nullptr);
+    void OperationsStreamServicePortfolioStream(
+        const std::vector<std::string> &accounts,
+        std::vector<ServiceReply<V1PortfolioStreamResponse>> &responses, int retry_max = 0,
+        std::function<void(const ServiceReply<V1PortfolioStreamResponse> &)> callback = nullptr);
 
-    ServiceReply<Stream_result_of_v1PositionsStreamResponse> OperationsStreamServicePositionsStream(
-        const std::vector<std::string>& accounts, int retry_max = 0,
-        std::function<void(const ServiceReply<Stream_result_of_v1PositionsStreamResponse> &)> callback = nullptr);
+    void OperationsStreamServicePositionsStream(
+        const std::vector<std::string> &accounts,
+        std::vector<ServiceReply<V1PositionsStreamResponse>> &responses, int retry_max = 0,
+        std::function<void(const ServiceReply<V1PositionsStreamResponse> &)> callback = nullptr);
 };
 
 }  // namespace tinkoff_invest_cppsdk

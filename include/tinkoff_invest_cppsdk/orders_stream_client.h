@@ -18,9 +18,12 @@ public:
 
     ~InvestApiOrdersStreamClient() override;
 
-    ServiceReply<Stream_result_of_v1TradesStreamResponse> OrdersStreamServiceTradesStream(
-        const std::vector<std::string>& accounts, int retry_max = 0,
-        std::function<void(const ServiceReply<Stream_result_of_v1TradesStreamResponse> &)> callback = nullptr);
+    void OrdersStreamServiceTradesStream(
+        const std::vector<std::string>& accounts,
+        std::vector<ServiceReply<V1TradesStreamResponse>> &responses,
+        int retry_max = 0,
+        std::function<void(const ServiceReply<V1TradesStreamResponse> &)> callback =
+            nullptr);
 };
 
 }  // namespace tinkoff_invest_cppsdk
