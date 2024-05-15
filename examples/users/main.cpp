@@ -41,9 +41,7 @@ void GetMarginAttributes(InvestApiClient &client, std::string account_id) {
         PrintMoneyValue(reply.response.getCorrectedMargin());
         std::cout << "\n\n";
     } else {
-        std::cout << "Error code: " << reply.error_code << ";" << std::endl;
-        std::cout << "Error msg: '" << reply.error_message << "';" << std::endl;
-        std::cout << "Error place: '" << reply.error_place << "';" << std::endl;
+        ErrorDescript(reply);
     }
 }
 
