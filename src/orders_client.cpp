@@ -33,7 +33,8 @@ ServiceReply<V1PostOrderResponse> InvestApiOrdersClient::OrdersServicePostOrder(
     if (is_async_req) {
         return MakeRequestAsync<ServiceId::OrdersService>(req, body, retry_max, callback);
     }
-    return MakeRequestSync<ServiceId::OrdersService>(req, body, retry_max, callback);}
+    return MakeRequestSync<ServiceId::OrdersService>(req, body, retry_max, callback);
+}
 
 ServiceReply<V1CancelOrderResponse> InvestApiOrdersClient::OrdersServiceCancelOrder(
     const std::string &account_id, const std::string &order_id, bool is_async_req, int retry_max,
@@ -49,7 +50,8 @@ ServiceReply<V1CancelOrderResponse> InvestApiOrdersClient::OrdersServiceCancelOr
     if (is_async_req) {
         return MakeRequestAsync<ServiceId::OrdersService>(req, body, retry_max, callback);
     }
-    return MakeRequestSync<ServiceId::OrdersService>(req, body, retry_max, callback);}
+    return MakeRequestSync<ServiceId::OrdersService>(req, body, retry_max, callback);
+}
 
 ServiceReply<V1OrderState> InvestApiOrdersClient::OrdersServiceGetOrderState(
     const std::string &account_id, const std::string &order_id, bool is_async_req, int retry_max,
@@ -65,7 +67,8 @@ ServiceReply<V1OrderState> InvestApiOrdersClient::OrdersServiceGetOrderState(
     if (is_async_req) {
         return MakeRequestAsync<ServiceId::OrdersService>(req, body, retry_max, callback);
     }
-    return MakeRequestSync<ServiceId::OrdersService>(req, body, retry_max, callback);}
+    return MakeRequestSync<ServiceId::OrdersService>(req, body, retry_max, callback);
+}
 
 ServiceReply<V1GetOrdersResponse> InvestApiOrdersClient::OrdersServiceGetOrders(
     const std::string &account_id, bool is_async_req, int retry_max,
@@ -80,7 +83,8 @@ ServiceReply<V1GetOrdersResponse> InvestApiOrdersClient::OrdersServiceGetOrders(
     if (is_async_req) {
         return MakeRequestAsync<ServiceId::OrdersService>(req, body, retry_max, callback);
     }
-    return MakeRequestSync<ServiceId::OrdersService>(req, body, retry_max, callback);}
+    return MakeRequestSync<ServiceId::OrdersService>(req, body, retry_max, callback);
+}
 
 ServiceReply<V1PostOrderResponse> InvestApiOrdersClient::OrdersServiceReplaceOrder(
     const std::string &account_id, const std::string &order_id, const std::string &idempotency_key,
@@ -102,6 +106,7 @@ ServiceReply<V1PostOrderResponse> InvestApiOrdersClient::OrdersServiceReplaceOrd
     if (is_async_req) {
         return MakeRequestAsync<ServiceId::OrdersService>(req, body, retry_max, callback);
     }
-    return MakeRequestSync<ServiceId::OrdersService>(req, body, retry_max, callback);}
+    return MakeRequestSync<ServiceId::OrdersService>(req, body, retry_max, callback);
+}
 
 }  // namespace tinkoff_invest_cppsdk
