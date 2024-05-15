@@ -19,20 +19,20 @@ public:
     ~InvestApiUsersClient() override;
 
     ServiceReply<V1GetAccountsResponse> UsersServiceGetAccounts(
-            bool is_async_req = true, int retry_max = 0,
-            std::function<void(const ServiceReply<V1GetAccountsResponse> &)> callback = nullptr);
+        bool is_async_req = true, int retry_max = 0,
+        std::function<void(const ServiceReply<V1GetAccountsResponse>&)> callback = nullptr);
 
     ServiceReply<V1GetMarginAttributesResponse> UsersServiceGetMarginAttributes(
-            const std::string& account_id, bool is_async_req = true, int retry_max = 0,
-            std::function<void(const ServiceReply<V1GetMarginAttributesResponse> &)> callback = nullptr);
+        const std::string& account_id, bool is_async_req = true, int retry_max = 0,
+        std::function<void(const ServiceReply<V1GetMarginAttributesResponse>&)> callback = nullptr);
 
     ServiceReply<V1GetUserTariffResponse> UsersServiceGetUserTariff(
-            bool is_async_req = true, int retry_max = 0,
-            std::function<void(const ServiceReply<V1GetUserTariffResponse> &)> callback = nullptr);
+        bool is_async_req = true, int retry_max = 0,
+        std::function<void(const ServiceReply<V1GetUserTariffResponse>&)> callback = nullptr);
 
     ServiceReply<V1GetInfoResponse> UsersServiceGetInfo(
-            bool is_async_req = true, int retry_max = 0,
-            std::function<void(const ServiceReply<V1GetInfoResponse> &)> callback = nullptr);
+        bool is_async_req = true, int retry_max = 0,
+        std::function<void(const ServiceReply<V1GetInfoResponse>&)> callback = nullptr);
 
 protected:
     void InitLimiters();

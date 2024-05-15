@@ -38,8 +38,8 @@ include_directories(${GEN_DIR}/include)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 include_directories(include)
 
-file(GLOB SERVICES_SRC_FILES "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
-file(GLOB SERVICES_HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/*.h" "${CMAKE_CURRENT_SOURCE_DIR}/include/tinkoff_invest_cppsdk/*.h")
+file(GLOB_RECURSE SERVICES_SRC_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
+file(GLOB_RECURSE SERVICES_HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/include/tinkoff_invest_cppsdk/*.h")
 
 add_library(${PROJECT_NAME}
         ${SERVICES_SRC_FILES}

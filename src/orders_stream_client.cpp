@@ -4,23 +4,26 @@ namespace tinkoff_invest_cppsdk {
 
 InvestApiOrdersStreamClient::InvestApiOrdersStreamClient(const std::string& token)
     : InvestApiBaseClient(token) {
-    InitService<ServiceId::OrdersStreamService, OrdersStreamServiceApi>();
+    InitService<ServiceId::OrdersStreamService, OrdersStreamServiceWebSocketApi>();
 }
 
 InvestApiOrdersStreamClient::~InvestApiOrdersStreamClient() {
 }
 
-ServiceReply<Stream_result_of_v1TradesStreamResponse>
-InvestApiOrdersStreamClient::OrdersStreamServiceTradesStream(
-    const std::vector<std::string>& accounts, int retry_max,
-    std::function<void(const ServiceReply<Stream_result_of_v1TradesStreamResponse> &)> callback) {
+void InvestApiOrdersStreamClient::OrdersStreamServiceTradesStream(
+    const std::vector<std::string>& accounts,
+    std::vector<ServiceReply<V1TradesStreamResponse>>& responses, int retry_max,
+    std::function<void(const ServiceReply<V1TradesStreamResponse>&)> callback) {
+
     auto body = std::make_shared<V1TradesStreamRequest>();
     body->setAccounts(accounts);
 
-    std::function<pplx::task<std::shared_ptr<Stream_result_of_v1TradesStreamResponse>>(
-        const OrdersStreamServiceApi&, std::shared_ptr<V1TradesStreamRequest>)>
-        req = &OrdersStreamServiceApi::ordersStreamServiceTradesStream;
-    return MakeRequestAsync<ServiceId::OrdersStreamService>(req, body, retry_max, callback);
+    std::function<void(const OrdersStreamServiceWebSocketApi &,
+                       std::shared_ptr<V1TradesStreamRequest>,
+                       std::vector<ServiceReply<V1TradesStreamResponse>> &)>
+        req = &OrdersStreamServiceWebSocketApi::OrdersStreamServiceTradesStream;
+    return MakeWebSocketRequest<ServiceId::OrdersStreamService>(req, body, responses, retry_max,
+                                                                callback);
 }
 
 }  // namespace tinkoff_invest_cppsdk
