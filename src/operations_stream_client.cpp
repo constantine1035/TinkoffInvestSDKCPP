@@ -12,26 +12,28 @@ InvestApiOperationsStreamClient::~InvestApiOperationsStreamClient() {
 
 ServiceReply<Stream_result_of_v1PortfolioStreamResponse>
 InvestApiOperationsStreamClient::OperationsStreamServicePortfolioStream(
-    const std::vector<std::string>& accounts) {
+    const std::vector<std::string>& accounts, int retry_max,
+    std::function<void(const ServiceReply<Stream_result_of_v1PortfolioStreamResponse> &)> callback) {
     auto body = std::make_shared<V1PortfolioStreamRequest>();
     body->setAccounts(accounts);
 
     std::function<pplx::task<std::shared_ptr<Stream_result_of_v1PortfolioStreamResponse>>(
         const OperationsStreamServiceApi&, std::shared_ptr<V1PortfolioStreamRequest>)>
         req = &OperationsStreamServiceApi::operationsStreamServicePortfolioStream;
-    return MakeRequestAsync<ServiceId::OperationsStreamService>(req, body);
+    return MakeRequestAsync<ServiceId::OperationsStreamService>(req, body, retry_max, callback);
 }
 
 ServiceReply<Stream_result_of_v1PositionsStreamResponse>
 InvestApiOperationsStreamClient::OperationsStreamServicePositionsStream(
-    const std::vector<std::string>& accounts) {
+    const std::vector<std::string>& accounts, int retry_max,
+    std::function<void(const ServiceReply<Stream_result_of_v1PositionsStreamResponse> &)> callback) {
     auto body = std::make_shared<V1PositionsStreamRequest>();
     body->setAccounts(accounts);
 
     std::function<pplx::task<std::shared_ptr<Stream_result_of_v1PositionsStreamResponse>>(
         const OperationsStreamServiceApi&, std::shared_ptr<V1PositionsStreamRequest>)>
         req = &OperationsStreamServiceApi::operationsStreamServicePositionsStream;
-    return MakeRequestAsync<ServiceId::OperationsStreamService>(req, body);
+    return MakeRequestAsync<ServiceId::OperationsStreamService>(req, body, retry_max, callback);
 }
 
 }  // namespace tinkoff_invest_cppsdk
