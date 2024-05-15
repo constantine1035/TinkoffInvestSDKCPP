@@ -18,7 +18,9 @@ ServiceReply<V1TradingSchedulesResponse> InvestApiInstrumentsClient::TradingSche
     auto body = std::make_shared<V1TradingSchedulesRequest>();
     body->setFrom(from);
     body->setTo(to);
-    body->setExchange(exchange);
+    if (exchange != "none") {
+        body->setExchange(exchange);
+    }
 
     std::function<pplx::task<std::shared_ptr<V1TradingSchedulesResponse>>(
         const InstrumentsServiceApi &, std::shared_ptr<V1TradingSchedulesRequest>)>
