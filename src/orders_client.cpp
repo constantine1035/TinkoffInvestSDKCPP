@@ -37,7 +37,7 @@ ServiceReply<V1PostOrderResponse> InvestApiOrdersClient::OrdersServicePostOrder(
 
 ServiceReply<V1CancelOrderResponse> InvestApiOrdersClient::OrdersServiceCancelOrder(
     const std::string &account_id, const std::string &order_id, bool is_async_req, int retry_max,
-    std::function<void(const ServiceReply<V1CancelOrderResponse> &)> callbackv) {
+    std::function<void(const ServiceReply<V1CancelOrderResponse> &)> callback) {
     auto body = std::make_shared<V1CancelOrderRequest>();
     body->setAccountId(account_id);
     body->setOrderId(order_id);
@@ -51,14 +51,14 @@ ServiceReply<V1CancelOrderResponse> InvestApiOrdersClient::OrdersServiceCancelOr
     }
     return MakeRequestSync<ServiceId::OrdersService>(req, body, retry_max, callback);}
 
-ServiceReply<Contractv1OrderState> InvestApiOrdersClient::OrdersServiceGetOrderState(
+ServiceReply<V1OrderState> InvestApiOrdersClient::OrdersServiceGetOrderState(
     const std::string &account_id, const std::string &order_id, bool is_async_req, int retry_max,
-    std::function<void(const ServiceReply<Contractv1OrderState> &)> callback) {
+    std::function<void(const ServiceReply<V1OrderState> &)> callback) {
     auto body = std::make_shared<V1GetOrderStateRequest>();
     body->setAccountId(account_id);
     body->setOrderId(order_id);
 
-    std::function<pplx::task<std::shared_ptr<Contractv1OrderState>>(
+    std::function<pplx::task<std::shared_ptr<V1OrderState>>(
         const OrdersServiceApi &, std::shared_ptr<V1GetOrderStateRequest>)>
         req = &OrdersServiceApi::ordersServiceGetOrderState;
 

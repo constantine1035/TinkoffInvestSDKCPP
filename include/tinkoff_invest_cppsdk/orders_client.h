@@ -29,9 +29,9 @@ ServiceReply<V1CancelOrderResponse> OrdersServiceCancelOrder(
         const std::string &account_id, const std::string &order_id, bool is_async_req = true,
         int retry_max = 0, std::function<void(const ServiceReply<V1CancelOrderResponse> &)> callback = nullptr);
 
-ServiceReply<Contractv1OrderState> OrdersServiceGetOrderState(
+ServiceReply<V1OrderState> OrdersServiceGetOrderState(
         const std::string &account_id, const std::string &order_id, bool is_async_req = true, int retry_max = 0,
-        std::function<void(const ServiceReply<Contractv1OrderState> &)> callback = nullptr);
+        std::function<void(const ServiceReply<V1OrderState> &)> callback = nullptr);
 
 ServiceReply<V1GetOrdersResponse> OrdersServiceGetOrders(
         const std::string &account_id, bool is_async_req = true, int retry_max = 0,
