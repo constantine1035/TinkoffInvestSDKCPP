@@ -5,7 +5,7 @@
 
 using namespace tinkoff_invest_cppsdk;
 
-static const std::string token = "t.9DjFbOC06vcgI55ijIJJTganmdmcMw2NOk1xplPO-NkKMUWHjIy8eamhr1rmdVt5YoDMYYWArqCZyrD_oGodNQ";
+static const std::string token = std::getenv("MY_TOKEN");
 
 template<class T>
 void ErrorDescript(T reply) {
