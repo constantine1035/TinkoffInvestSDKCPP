@@ -20,8 +20,8 @@ public:
 
     /// Метод получения расписания торгов торговых площадок
     ServiceReply<V1TradingSchedulesResponse> TradingSchedules(
-            std::string exchange, int64_t fromseconds, int32_t frommilisecs, int64_t toseconds, int32_t tomilisecs,
-            bool is_async_req = true, int retry_max = 0,
+            utility::datetime from, utility::datetime to, std::string exchange = "none",
+        bool is_async_req = true, int retry_max = 0,
             std::function<void(const ServiceReply<V1TradingSchedulesResponse> &)> callback = nullptr);
 
     /// Метод получения облигации по её идентификатору
@@ -38,14 +38,14 @@ public:
 
     /// Метод получения графика выплат купонов по облигации
     ServiceReply<V1GetBondCouponsResponse> GetBondCoupons(
-            std::string figi, int64_t fromseconds, int32_t frommilisecs, int64_t toseconds, int32_t tomilisecs,
+            std::string figi, utility::datetime from, utility::datetime to,
             bool is_async_req = true, int retry_max = 0,
             std::function<void(const ServiceReply<V1GetBondCouponsResponse> &)> callback = nullptr);
 
     /// Метод получения событий по облигации
     ServiceReply<V1GetBondEventsResponse> GetBondEvents(
         std::string instrument_id, const std::shared_ptr<GetBondEventsRequestEventType> type,
-        int64_t fromseconds, int32_t frommilisecs, int64_t toseconds, int32_t tomilisecs,
+        utility::datetime from, utility::datetime to,
         bool is_async_req = true, int retry_max = 0,
         std::function<void(const ServiceReply<V1GetBondEventsResponse> &)> callback = nullptr);
 
@@ -122,7 +122,7 @@ public:
 
     /// Метод получения накопленного купонного дохода по облигации
     ServiceReply<V1GetAccruedInterestsResponse> GetAccruedInterests(
-            std::string figi, int64_t fromseconds, int32_t frommilisecs, int64_t toseconds, int32_t tomilisecs,
+            std::string figi, utility::datetime from, utility::datetime to,
             bool is_async_req = true, int retry_max = 0,
             std::function<void(const ServiceReply<V1GetAccruedInterestsResponse> &)> callback = nullptr);
 
@@ -139,7 +139,7 @@ public:
 
     /// Метод для получения событий выплаты дивидендов по инструменту
     ServiceReply<V1GetDividendsResponse> GetDividends(
-            std::string figi, int64_t fromseconds, int32_t frommilisecs, int64_t toseconds, int32_t tomilisecs,
+            std::string figi, utility::datetime from, utility::datetime to,
             bool is_async_req = true, int retry_max = 0,
             std::function<void(const ServiceReply<V1GetDividendsResponse> &)> callback = nullptr);
 
@@ -194,7 +194,7 @@ public:
 
     /// Метод получения расписания выхода отчетностей эмитентов
     ServiceReply<V1GetAssetReportsResponse> GetAssetReports(
-            std::string instrument_id, int64_t fromseconds, int32_t frommilisecs, int64_t toseconds, int32_t tomilisecs,
+            std::string instrument_id, utility::datetime from, utility::datetime to,
             bool is_async_req = true, int retry_max = 0,
             std::function<void(const ServiceReply<V1GetAssetReportsResponse> &)> callback = nullptr);
 
