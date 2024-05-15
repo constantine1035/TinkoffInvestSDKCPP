@@ -46,9 +46,9 @@ ServiceReply<V1GetAccountsResponse> InvestApiUsersClient::UsersServiceGetAccount
     std::function<pplx::task<std::shared_ptr<V1GetAccountsResponse>>(const UsersServiceApi&, std::shared_ptr<Object>)>
         req = &UsersServiceApi::usersServiceGetAccounts;
     if (is_async_req) {
-        return MakeRequestAsync<ServiceId::MarketDataService>(req, body, retry_max, callback);
+        return MakeRequestAsync<ServiceId::UsersService>(req, body, retry_max, callback);
     }
-    return MakeRequestSync<ServiceId::MarketDataService>(req, body, retry_max, callback);
+    return MakeRequestSync<ServiceId::UsersService>(req, body, retry_max, callback);
 }
 
 ServiceReply<V1GetMarginAttributesResponse> InvestApiUsersClient::UsersServiceGetMarginAttributes(
@@ -61,9 +61,9 @@ ServiceReply<V1GetMarginAttributesResponse> InvestApiUsersClient::UsersServiceGe
         const UsersServiceApi&, std::shared_ptr<V1GetMarginAttributesRequest>)>
         req = &UsersServiceApi::usersServiceGetMarginAttributes;
     if (is_async_req) {
-        return MakeRequestAsync<ServiceId::MarketDataService>(req, body, retry_max, callback);
+        return MakeRequestAsync<ServiceId::UsersService>(req, body, retry_max, callback);
     }
-    return MakeRequestSync<ServiceId::MarketDataService>(req, body, retry_max, callback);
+    return MakeRequestSync<ServiceId::UsersService>(req, body, retry_max, callback);
 }
 
 ServiceReply<V1GetUserTariffResponse> InvestApiUsersClient::UsersServiceGetUserTariff(
@@ -74,9 +74,9 @@ ServiceReply<V1GetUserTariffResponse> InvestApiUsersClient::UsersServiceGetUserT
     std::function<pplx::task<std::shared_ptr<V1GetUserTariffResponse>>(const UsersServiceApi&, std::shared_ptr<Object>)>
         req = &UsersServiceApi::usersServiceGetUserTariff;
     if (is_async_req) {
-        return MakeRequestAsync<ServiceId::MarketDataService>(req, body, retry_max, callback);
+        return MakeRequestAsync<ServiceId::UsersService>(req, body, retry_max, callback);
     }
-    return MakeRequestSync<ServiceId::MarketDataService>(req, body, retry_max, callback);
+    return MakeRequestSync<ServiceId::UsersService>(req, body, retry_max, callback);
 }
 
 ServiceReply<V1GetInfoResponse> InvestApiUsersClient::UsersServiceGetInfo(
@@ -87,9 +87,9 @@ ServiceReply<V1GetInfoResponse> InvestApiUsersClient::UsersServiceGetInfo(
     std::function<pplx::task<std::shared_ptr<V1GetInfoResponse>>(const UsersServiceApi&, std::shared_ptr<Object>)>
         req = &UsersServiceApi::usersServiceGetInfo;
     if (is_async_req) {
-        return MakeRequestAsync<ServiceId::MarketDataService>(req, body, retry_max, callback);
+        return MakeRequestAsync<ServiceId::UsersService>(req, body, retry_max, callback);
     }
-    return MakeRequestSync<ServiceId::MarketDataService>(req, body, retry_max, callback);
+    return MakeRequestSync<ServiceId::UsersService>(req, body, retry_max, callback);
 }
 
 }  // namespace tinkoff_invest_cppsdk
