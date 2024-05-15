@@ -15,7 +15,8 @@ ServiceReply<V1PostStopOrderResponse> InvestApiStopOrdersClient::StopOrdersServi
     std::shared_ptr<V1Quotation> stop_price, std::shared_ptr<V1StopOrderDirection> direction,
     const std::string &account_id, std::shared_ptr<V1StopOrderExpirationType> expiration_type,
     std::shared_ptr<V1StopOrderType> stop_order_type, const std::string &expire_date,
-    const std::string &instrument_id) {
+    const std::string &instrument_id, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1PostStopOrderResponse> &)> callback) {
     auto body = std::make_shared<V1PostStopOrderRequest>();
     body->setFigi(figi);
     body->setQuantity(quantity);
@@ -28,22 +29,30 @@ ServiceReply<V1PostStopOrderResponse> InvestApiStopOrdersClient::StopOrdersServi
     std::function<pplx::task<std::shared_ptr<V1PostStopOrderResponse>>(
         const StopOrdersServiceApi &, std::shared_ptr<V1PostStopOrderRequest>)>
         req = &StopOrdersServiceApi::stopOrdersServicePostStopOrder;
-    return MakeRequestAsync<ServiceId::StopOrdersService>(req, body);
-}
+
+    if (is_async_req) {
+        return MakeRequestAsync<ServiceId::StopOrdersService>(req, body, retry_max, callback);
+    }
+    return MakeRequestSync<ServiceId::StopOrdersService>(req, body, retry_max, callback);}
 
 ServiceReply<V1GetStopOrdersResponse> InvestApiStopOrdersClient::StopOrdersServiceGetStopOrders(
-    const std::string &account_id) {
+    const std::string &account_id, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1GetStopOrdersResponse> &)> callback) {
     auto body = std::make_shared<V1GetStopOrdersRequest>();
     body->setAccountId(account_id);
 
     std::function<pplx::task<std::shared_ptr<V1GetStopOrdersResponse>>(
         const StopOrdersServiceApi &, std::shared_ptr<V1GetStopOrdersRequest>)>
         req = &StopOrdersServiceApi::stopOrdersServiceGetStopOrders;
-    return MakeRequestAsync<ServiceId::StopOrdersService>(req, body);
-}
+
+    if (is_async_req) {
+        return MakeRequestAsync<ServiceId::StopOrdersService>(req, body, retry_max, callback);
+    }
+    return MakeRequestSync<ServiceId::StopOrdersService>(req, body, retry_max, callback);}
 
 ServiceReply<V1CancelStopOrderResponse> InvestApiStopOrdersClient::StopOrdersServiceCancelStopOrder(
-    const std::string &account_id, const std::string &order_id) {
+    const std::string &account_id, const std::string &order_id, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1CancelStopOrderResponse> &)> callback) {
     auto body = std::make_shared<V1CancelStopOrderRequest>();
     body->setAccountId(account_id);
     body->setStopOrderId(order_id);
@@ -51,7 +60,10 @@ ServiceReply<V1CancelStopOrderResponse> InvestApiStopOrdersClient::StopOrdersSer
     std::function<pplx::task<std::shared_ptr<V1CancelStopOrderResponse>>(
         const StopOrdersServiceApi &, std::shared_ptr<V1CancelStopOrderRequest>)>
         req = &StopOrdersServiceApi::stopOrdersServiceCancelStopOrder;
-    return MakeRequestAsync<ServiceId::StopOrdersService>(req, body);
-}
+
+    if (is_async_req) {
+        return MakeRequestAsync<ServiceId::StopOrdersService>(req, body, retry_max, callback);
+    }
+    return MakeRequestSync<ServiceId::StopOrdersService>(req, body, retry_max, callback);}
 
 }  // namespace tinkoff_invest_cppsdk
