@@ -1,0 +1,122 @@
+#include <../../include/tinkoff_invest_cppsdk/client.h>
+#include <iostream>
+#include <vector>
+#include <numeric>
+
+using namespace tinkoff_invest_cppsdk;
+
+struct CurrData {
+    long double price;
+    std::shared_ptr<V1Quotation> price_;
+    bool can_buy = false;
+    bool can_sell = false;
+    std::string uid;
+
+};
+
+// Function to calculate the Simple Moving Average
+double CalculateSMA(const std::vector<long double>& prices, int period) {
+    if (prices.size() < period) return 0.0;
+    double sum = std::accumulate(prices.end() - period, prices.end(), 0.0);
+    return sum / period;
+}
+
+// Fetching current price from the SDK
+CurrData getCurrentPrice(tinkoff_invest_cppsdk::InvestApiClient &client, std::string isin) {
+    std::shared_ptr<V1InstrumentIdType> type = std::make_shared<V1InstrumentIdType>();
+    V1InstrumentIdType::eV1InstrumentIdType a = V1InstrumentIdType::eV1InstrumentIdType::V1InstrumentIdType_TYPE_UID;
+    type->setValue(a);
+    auto reply = client.ShareBy(type, "none", isin);
+    V1MoneyValue nom = *reply.response.getInstrument()->getNominal();
+    auto price = std::make_shared<V1Quotation>();
+    price->setNano(nom.getNano());
+    price->setUnits(nom.getUnits());
+    long double frac = nom.getNano();
+    while (frac > 1) {
+        frac = frac / 10;
+    }
+    long double units = std::stoi(nom.getUnits()); //for some reason units are returned as string, even though they're supposed to be int
+    return {units + frac, price, reply.response.getInstrument()->isBuyAvailableFlag(), reply.response.getInstrument()->isSellAvailableFlag(), reply.response.getInstrument()->getUid()};
+
+}
+
+void PlaceBuyOrder(tinkoff_invest_cppsdk::InvestApiClient &client, std::shared_ptr<V1Quotation> price, std::string orderid, std::string instrid) {
+    auto account = client.UsersServiceGetAccounts().response.getAccounts()[0];
+    auto dirtype = std::make_shared<V1OrderDirection>();
+    dirtype->setValue(V1OrderDirection::eV1OrderDirection::V1OrderDirection_BUY);
+    auto ordtype = std::make_shared<V1OrderType>();
+    ordtype->setValue(V1OrderType::eV1OrderType::V1OrderType_BESTPRICE);
+    //auto timeinforce = std::make_shared<V1TimeInForceType>();
+    //timeinforce->setValue(V1TimeInForceType::eV1TimeInForceType::V1TimeInForceType_UNSPECIFIED);
+    //auto pricetype = std::make_shared<V1PriceType>();
+    //pricetype->setValue(V1PriceType::eV1PriceType::V1PriceType_CURRENCY);
+    auto responce = client.OrdersServicePostOrder("", "1", price, dirtype, account->getId(), ordtype, orderid, instrid, 0, 0);
+}
+
+void PlaceSellOrder(tinkoff_invest_cppsdk::InvestApiClient &client, std::shared_ptr<V1Quotation> price, std::string orderid, std::string instrid) {
+    auto account = client.UsersServiceGetAccounts().response.getAccounts()[0];
+    auto dirtype = std::make_shared<V1OrderDirection>();
+    dirtype->setValue(V1OrderDirection::eV1OrderDirection::V1OrderDirection_SELL);
+    auto ordtype = std::make_shared<V1OrderType>();
+    ordtype->setValue(V1OrderType::eV1OrderType::V1OrderType_BESTPRICE);
+    //auto timeinforce = std::make_shared<V1TimeInForceType>();
+    //timeinforce->setValue(V1TimeInForceType::eV1TimeInForceType::V1TimeInForceType_UNSPECIFIED);
+    //auto pricetype = std::make_shared<V1PriceType>();
+    //pricetype->setValue(V1PriceType::eV1PriceType::V1PriceType_CURRENCY);
+    auto responce = client.OrdersServicePostOrder("", "1", price, dirtype, account->getId(), ordtype, orderid, instrid, 0, 0);
+}
+
+// Trading bot class
+class TradingBot {
+public:
+    TradingBot(int period, std::string token, std::string stock) : client(InvestApiClient(token)) {
+        smaPeriod = period;
+        lastPrice = 0.0;
+        isHolding = false;
+        stocks = stock;
+    }
+
+    void run() {
+        CurrData current = getCurrentPrice(client, stocks);
+        if (historical.size() >= smaPeriod) {
+            ordid += 1;
+            double sma = CalculateSMA(historical, smaPeriod);
+
+            std::cout << "Current Price: " << current.price << " | SMA: " << sma << std::endl;
+
+            if (current.price > sma && !isHolding && current.can_buy) {
+                PlaceBuyOrder(client, current.price_, std::to_string(ordid), current.uid);
+                isHolding = true;
+            } else if (current.price < sma && isHolding && current.can_sell) {
+                PlaceSellOrder(client, current.price_, std::to_string(ordid), current.uid);
+                isHolding = false;
+            }
+
+            lastPrice = current.price;
+            historical.push_back(current.price);
+        } else {
+            historical.push_back(current.price);
+        }
+    }
+
+private:
+    std::vector<long double> historical;
+    InvestApiClient client;
+    std::string stocks;
+    int smaPeriod;
+    double lastPrice;
+    bool isHolding;
+    int64_t ordid = 892873959892;
+};
+
+int main() {
+    std::string token;
+    std::string stocks = "RU000A107UL4";
+    int smaPeriod = 14; // Example period for SMA
+    TradingBot bot(smaPeriod, token, stocks);
+
+    while(1) {
+        bot.run();
+        sleep(30);
+    }
+}
