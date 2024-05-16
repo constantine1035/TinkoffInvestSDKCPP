@@ -7,11 +7,11 @@
 using namespace tinkoff_invest_cppsdk;
 
 struct CurrData {
-    long double price;
-    std::shared_ptr<V1Quotation> price_;
+    long double price = 0;
+    std::shared_ptr<V1Quotation> price_ = {};
     bool can_buy = false;
     bool can_sell = false;
-    std::string uid;
+    std::string uid = "";
 
 };
 
@@ -25,10 +25,12 @@ double CalculateSMA(const std::vector<long double>& prices, int period) {
 // Fetching current price from the SDK
 CurrData getCurrentPrice(tinkoff_invest_cppsdk::InvestApiClient &client, std::string isin) {
     std::shared_ptr<V1InstrumentIdType> type = std::make_shared<V1InstrumentIdType>();
-    V1InstrumentIdType::eV1InstrumentIdType a = V1InstrumentIdType::eV1InstrumentIdType::V1InstrumentIdType_TYPE_UID;
-    type->setValue(a);
-    auto reply = client.ShareBy(type, "none", isin);
-    V1MoneyValue nom = *reply.response.getInstrument()->getNominal();
+    type->setValue(V1InstrumentIdType::eV1InstrumentIdType::V1InstrumentIdType_TYPE_TICKER);
+    auto reply = client.ShareBy(type, "TQBR", "TCSG");
+    if (reply.status == pplx::canceled) {
+        return {};
+    }
+    auto nom = (*(reply.response.getInstrument())->getNominal());
     auto price = std::make_shared<V1Quotation>();
     price->setNano(nom.getNano());
     price->setUnits(nom.getUnits());
@@ -71,29 +73,29 @@ void PlaceSellOrder(tinkoff_invest_cppsdk::InvestApiClient &client, std::shared_
 class TradingBot {
 public:
     TradingBot(int period, std::string token, std::string stock) : client(InvestApiClient(token, InvestApiClient::TradingMode::Sandbox)) {
-        smaPeriod = period;
-        lastPrice = 0.0;
-        isHolding = false;
+        sma_period = period;
+        last_price = 0.0;
+        is_holding = false;
         stocks = stock;
     }
 
     void run() {
         CurrData current = getCurrentPrice(client, stocks);
-        if (historical.size() >= smaPeriod) {
+        if (historical.size() >= sma_period) {
             ordid += 1;
-            double sma = CalculateSMA(historical, smaPeriod);
+            double sma = CalculateSMA(historical, sma_period);
 
             std::cout << "Current Price: " << current.price << " | SMA: " << sma << std::endl;
 
-            if (current.price > sma && !isHolding && current.can_buy) {
+            if (current.price > sma && !is_holding && current.can_buy) {
                 PlaceBuyOrder(client, current.price_, std::to_string(ordid), current.uid);
-                isHolding = true;
-            } else if (current.price < sma && isHolding && current.can_sell) {
+                is_holding = true;
+            } else if (current.price < sma && is_holding && current.can_sell) {
                 PlaceSellOrder(client, current.price_, std::to_string(ordid), current.uid);
-                isHolding = false;
+                is_holding = false;
             }
 
-            lastPrice = current.price;
+            last_price = current.price;
             historical.push_back(current.price);
         } else {
             historical.push_back(current.price);
@@ -104,17 +106,17 @@ private:
     std::vector<long double> historical;
     InvestApiClient client;
     std::string stocks;
-    int smaPeriod;
-    double lastPrice;
-    bool isHolding;
+    int sma_period;
+    double last_price;
+    bool is_holding;
     int64_t ordid = 892873959892;
 };
 
 int main() {
-    std::string token = std::getenv("MY_TOKEN");
-    std::string stocks = "RU000A107UL4";
-    int smaPeriod = 14; // Example period for SMA
-    TradingBot bot(smaPeriod, token, stocks);
+    std::string token = "t.IdCqP4i7nt_GLlh9qAb_XUMfrc__JU4sOG7hRCeClHPcAgpepu201O3RgObKtNY2MuEeYflaTM6bYkxpQA9zjw";
+    std::string stocks = "US87238U2033";
+    int sma_period = 14; // Example period for SMA
+    TradingBot bot(sma_period, token, stocks);
 
     while(1) {
         bot.run();
