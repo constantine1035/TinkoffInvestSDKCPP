@@ -34,8 +34,10 @@ int main() {
     V1OrderType order_type;
     order_type.setValue(V1OrderType::eV1OrderType::V1OrderType_MARKET);
     std::string account_id = client.UsersServiceGetAccounts().response.getAccounts()[0]->getId();
-    auto reply = client.OrdersServicePostOrder(instrument, "5", 0, std::make_shared<V1OrderDirection>(direction),
-                                               account_id, std::make_shared<V1OrderType>(order_type), "1", instrument);
+    std::string order_id = "123e4567-e89b-12d3-a456-426655440000"; //id ордера генерируется самостоятельно для возможности последующего отслеживания
+    auto reply = client.OrdersServicePostOrder(
+            instrument, "5", 0, std::make_shared<V1OrderDirection>(direction), account_id,
+            std::make_shared<V1OrderType>(order_type), order_id, instrument);
     std::cout << "Status: " << reply.status << ";" << std::endl;
     if (reply.status == pplx::task_group_status::completed) {
         std::cout << reply.response.toJson().serialize() << std::endl;
