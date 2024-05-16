@@ -85,7 +85,7 @@ void WithdrawLimits(InvestApiClient& client, const std::string& account_id) {
 }
 
 void OpenCloseAccount() {
-    InvestApiClient client(token);
+    InvestApiClient client(token, InvestApiClient::TradingMode::Sandbox);
 
     auto account_id = OpenAccount(client);
 
@@ -93,7 +93,7 @@ void OpenCloseAccount() {
 }
 
 void PaiInAndGetWithdrawLimits() {
-    InvestApiClient client(token);
+    InvestApiClient client(token, InvestApiClient::TradingMode::Sandbox);
 
     auto account_id = OpenAccount(client);
 

@@ -17,7 +17,7 @@ using web::websockets::client::websocket_callback_client;
 static const std::string token = std::getenv("MY_TOKEN");
 
 void SubscribeCandles() {
-    InvestApiClient client(token);
+    InvestApiClient client(token, InvestApiClient::TradingMode::Sandbox);
 
     auto body = std::make_shared<V1MarketDataRequest>();
     auto sub = std::make_shared<V1SubscribeCandlesRequest>();

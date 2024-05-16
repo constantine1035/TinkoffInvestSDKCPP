@@ -14,7 +14,7 @@ namespace TINKOFFINVESTSDKCPP_EXPORT tinkoff_invest_cppsdk {
 
 class InvestApiStopOrdersClient : public InvestApiBaseClient {
 public:
-    explicit InvestApiStopOrdersClient(const std::string &token);
+    explicit InvestApiStopOrdersClient(const std::string &token, TradingMode trading_mode);
 
     ~InvestApiStopOrdersClient() override;
 

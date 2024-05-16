@@ -46,7 +46,7 @@ void GetMarginAttributes(InvestApiClient &client, std::string account_id) {
 }
 
 int main() {
-    InvestApiClient client(token);
+    InvestApiClient client(token, InvestApiClient::TradingMode::Sandbox);
 
     //print all opened accounts id
     auto reply = client.UsersServiceGetAccounts();

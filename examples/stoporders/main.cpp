@@ -23,7 +23,7 @@ void PrintQuotation(std::shared_ptr<V1Quotation> val) {
 }
 
 int main() {
-    InvestApiClient client(token);
+    InvestApiClient client(token, InvestApiClient::TradingMode::Sandbox);
 
     std::string instrument = "BBG004730N88";
     V1Quotation quotation;

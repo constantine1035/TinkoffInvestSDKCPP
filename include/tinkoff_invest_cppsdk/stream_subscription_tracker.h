@@ -25,11 +25,9 @@ public:
 
     void DegreaseStreamCount(int quantity);
 
-    int GetStreamCount() const;
-
 protected:
-    mutable std::mutex mutex_;
     int subscription_counts_;
+    mutable std::mutex mutex_;
 };
 
 }  // namespace tinkoff_invest_cppsdk

@@ -2,8 +2,8 @@
 
 namespace tinkoff_invest_cppsdk {
 
-InvestApiInstrumentsClient::InvestApiInstrumentsClient(const std::string &token)
-    : InvestApiBaseClient(token) {
+InvestApiInstrumentsClient::InvestApiInstrumentsClient(const std::string &token, TradingMode trading_mode)
+    : InvestApiBaseClient(token, trading_mode) {
     InitService<ServiceId::InstrumentsService, InstrumentsServiceApi>();
 }
 
@@ -11,9 +11,8 @@ InvestApiInstrumentsClient::~InvestApiInstrumentsClient() {
 }
 
 ServiceReply<V1TradingSchedulesResponse> InvestApiInstrumentsClient::TradingSchedules(
-    utility::datetime from, utility::datetime to, std::string exchange,
-    bool is_async_req, int retry_max,
-    std::function<void(const ServiceReply<V1TradingSchedulesResponse> &)> callback) {
+    utility::datetime from, utility::datetime to, const std::string &exchange, bool is_async_req,
+    int retry_max, std::function<void(const ServiceReply<V1TradingSchedulesResponse> &)> callback) {
 
     auto body = std::make_shared<V1TradingSchedulesRequest>();
     body->setFrom(from);
@@ -33,8 +32,9 @@ ServiceReply<V1TradingSchedulesResponse> InvestApiInstrumentsClient::TradingSche
 
 /// Метод получения облигации по её идентификатору
 ServiceReply<V1BondResponse> InvestApiInstrumentsClient::BondBy(
-        const std::shared_ptr<V1InstrumentIdType> id_type, std::string class_code, std::string id,
-        bool is_async_req, int retry_max, std::function<void(const ServiceReply<V1BondResponse> &)> callback) {
+    const std::shared_ptr<V1InstrumentIdType> id_type, const std::string &class_code,
+    const std::string &id, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1BondResponse> &)> callback) {
 
     auto body = std::make_shared<V1InstrumentRequest>();
     body->setIdType(id_type);
@@ -52,8 +52,8 @@ ServiceReply<V1BondResponse> InvestApiInstrumentsClient::BondBy(
 
 /// Метод получения списка облигаций
 ServiceReply<V1BondsResponse> InvestApiInstrumentsClient::Bonds(
-        const std::shared_ptr<V1InstrumentStatus> instrument_status,
-        bool is_async_req, int retry_max, std::function<void(const ServiceReply<V1BondsResponse> &)> callback) {
+    const std::shared_ptr<V1InstrumentStatus> instrument_status, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1BondsResponse> &)> callback) {
 
     auto body = std::make_shared<V1InstrumentsRequest>();
     body->setInstrumentStatus(instrument_status);
@@ -69,9 +69,8 @@ ServiceReply<V1BondsResponse> InvestApiInstrumentsClient::Bonds(
 
 /// Метод получения графика выплат купонов по облигации
 ServiceReply<V1GetBondCouponsResponse> InvestApiInstrumentsClient::GetBondCoupons(
-    std::string figi, utility::datetime from, utility::datetime to,
-    bool is_async_req, int retry_max,
-    std::function<void(const ServiceReply<V1GetBondCouponsResponse> &)> callback) {
+    const std::string &figi, utility::datetime from, utility::datetime to, bool is_async_req,
+    int retry_max, std::function<void(const ServiceReply<V1GetBondCouponsResponse> &)> callback) {
 
     auto body = std::make_shared<V1GetBondCouponsRequest>();
     body->setFrom(from);
@@ -89,9 +88,8 @@ ServiceReply<V1GetBondCouponsResponse> InvestApiInstrumentsClient::GetBondCoupon
 
 /// Метод получения событий по облигации
 ServiceReply<V1GetBondEventsResponse> InvestApiInstrumentsClient::GetBondEvents(
-    std::string instrument_id, const std::shared_ptr<GetBondEventsRequestEventType> type,
-    utility::datetime from, utility::datetime to,
-    bool is_async_req, int retry_max,
+    const std::string &instrument_id, const std::shared_ptr<GetBondEventsRequestEventType> type,
+    utility::datetime from, utility::datetime to, bool is_async_req, int retry_max,
     std::function<void(const ServiceReply<V1GetBondEventsResponse> &)> callback) {
 
     auto body = std::make_shared<V1GetBondEventsRequest>();
@@ -111,8 +109,9 @@ ServiceReply<V1GetBondEventsResponse> InvestApiInstrumentsClient::GetBondEvents(
 
 /// Метод получения валюты по её идентификатору
 ServiceReply<V1CurrencyResponse> InvestApiInstrumentsClient::CurrencyBy(
-        const std::shared_ptr<V1InstrumentIdType> id_type, std::string class_code, std::string id,
-        bool is_async_req, int retry_max, std::function<void(const ServiceReply<V1CurrencyResponse> &)> callback) {
+    const std::shared_ptr<V1InstrumentIdType> id_type, const std::string &class_code,
+    const std::string &id, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1CurrencyResponse> &)> callback) {
 
     auto body = std::make_shared<V1InstrumentRequest>();
     body->setIdType(id_type);
@@ -130,8 +129,8 @@ ServiceReply<V1CurrencyResponse> InvestApiInstrumentsClient::CurrencyBy(
 
 /// Метод получения списка валют
 ServiceReply<V1CurrenciesResponse> InvestApiInstrumentsClient::Currencies(
-        const std::shared_ptr<V1InstrumentStatus> instrument_status,
-        bool is_async_req, int retry_max, std::function<void(const ServiceReply<V1CurrenciesResponse> &)> callback) {
+    const std::shared_ptr<V1InstrumentStatus> instrument_status, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1CurrenciesResponse> &)> callback) {
 
     auto body = std::make_shared<V1InstrumentsRequest>();
     body->setInstrumentStatus(instrument_status);
@@ -147,8 +146,9 @@ ServiceReply<V1CurrenciesResponse> InvestApiInstrumentsClient::Currencies(
 
 /// Метод получения инвестиционного фонда по его идентификатору
 ServiceReply<V1EtfResponse> InvestApiInstrumentsClient::EtfBy(
-        const std::shared_ptr<V1InstrumentIdType> id_type, std::string class_code, std::string id,
-        bool is_async_req, int retry_max, std::function<void(const ServiceReply<V1EtfResponse> &)> callback) {
+    const std::shared_ptr<V1InstrumentIdType> id_type, const std::string &class_code,
+    const std::string &id, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1EtfResponse> &)> callback) {
 
     auto body = std::make_shared<V1InstrumentRequest>();
     body->setIdType(id_type);
@@ -166,8 +166,8 @@ ServiceReply<V1EtfResponse> InvestApiInstrumentsClient::EtfBy(
 
 /// Метод получения списка инвестиционных фондов
 ServiceReply<V1EtfsResponse> InvestApiInstrumentsClient::Etfs(
-        const std::shared_ptr<V1InstrumentStatus> instrument_status,
-        bool is_async_req, int retry_max, std::function<void(const ServiceReply<V1EtfsResponse> &)> callback) {
+    const std::shared_ptr<V1InstrumentStatus> instrument_status, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1EtfsResponse> &)> callback) {
 
     auto body = std::make_shared<V1InstrumentsRequest>();
     body->setInstrumentStatus(instrument_status);
@@ -183,8 +183,9 @@ ServiceReply<V1EtfsResponse> InvestApiInstrumentsClient::Etfs(
 
 /// Метод получения фьючерса по его идентификатору
 ServiceReply<V1FutureResponse> InvestApiInstrumentsClient::FutureBy(
-        const std::shared_ptr<V1InstrumentIdType> id_type, std::string class_code, std::string id,
-        bool is_async_req, int retry_max, std::function<void(const ServiceReply<V1FutureResponse> &)> callback) {
+    const std::shared_ptr<V1InstrumentIdType> id_type, const std::string &class_code,
+    const std::string &id, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1FutureResponse> &)> callback) {
 
     auto body = std::make_shared<V1InstrumentRequest>();
     body->setIdType(id_type);
@@ -202,8 +203,8 @@ ServiceReply<V1FutureResponse> InvestApiInstrumentsClient::FutureBy(
 
 /// Метод получения списка фьючерсов
 ServiceReply<V1FuturesResponse> InvestApiInstrumentsClient::Futures(
-        const std::shared_ptr<V1InstrumentStatus> instrument_status,
-        bool is_async_req, int retry_max, std::function<void(const ServiceReply<V1FuturesResponse> &)> callback) {
+    const std::shared_ptr<V1InstrumentStatus> instrument_status, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1FuturesResponse> &)> callback) {
 
     auto body = std::make_shared<V1InstrumentsRequest>();
     body->setInstrumentStatus(instrument_status);
@@ -219,8 +220,9 @@ ServiceReply<V1FuturesResponse> InvestApiInstrumentsClient::Futures(
 
 /// Метод получения опциона по его идентификатору
 ServiceReply<V1OptionResponse> InvestApiInstrumentsClient::OptionBy(
-        const std::shared_ptr<V1InstrumentIdType> id_type, std::string class_code, std::string id,
-        bool is_async_req, int retry_max, std::function<void(const ServiceReply<V1OptionResponse> &)> callback) {
+    const std::shared_ptr<V1InstrumentIdType> id_type, const std::string &class_code,
+    const std::string &id, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1OptionResponse> &)> callback) {
 
     auto body = std::make_shared<V1InstrumentRequest>();
     body->setIdType(id_type);
@@ -238,8 +240,8 @@ ServiceReply<V1OptionResponse> InvestApiInstrumentsClient::OptionBy(
 
 /// Deprecated Метод получения списка опционов
 ServiceReply<V1OptionsResponse> InvestApiInstrumentsClient::Options(
-        const std::shared_ptr<V1InstrumentStatus> instrument_status,
-        bool is_async_req, int retry_max, std::function<void(const ServiceReply<V1OptionsResponse> &)> callback) {
+    const std::shared_ptr<V1InstrumentStatus> instrument_status, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1OptionsResponse> &)> callback) {
 
     auto body = std::make_shared<V1InstrumentsRequest>();
     body->setInstrumentStatus(instrument_status);
@@ -255,8 +257,9 @@ ServiceReply<V1OptionsResponse> InvestApiInstrumentsClient::Options(
 
 /// Метод получения списка опционов
 ServiceReply<V1OptionsResponse> InvestApiInstrumentsClient::OptionsBy(
-        std::string basic_asset_uid, std::string basic_asset_position_uid,
-        bool is_async_req, int retry_max, std::function<void(const ServiceReply<V1OptionsResponse> &)> callback) {
+    const std::string &basic_asset_uid, const std::string &basic_asset_position_uid,
+    bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1OptionsResponse> &)> callback) {
 
     auto body = std::make_shared<V1FilterOptionsRequest>();
     body->setBasicAssetUid(basic_asset_uid);
@@ -273,8 +276,9 @@ ServiceReply<V1OptionsResponse> InvestApiInstrumentsClient::OptionsBy(
 
 /// Метод получения акции по её идентификатору
 ServiceReply<V1ShareResponse> InvestApiInstrumentsClient::ShareBy(
-        const std::shared_ptr<V1InstrumentIdType> id_type, std::string class_code, std::string id,
-        bool is_async_req, int retry_max, std::function<void(const ServiceReply<V1ShareResponse> &)> callback) {
+    const std::shared_ptr<V1InstrumentIdType> id_type, const std::string &class_code,
+    const std::string &id, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1ShareResponse> &)> callback) {
 
     auto body = std::make_shared<V1InstrumentRequest>();
     body->setIdType(id_type);
@@ -292,8 +296,8 @@ ServiceReply<V1ShareResponse> InvestApiInstrumentsClient::ShareBy(
 
 /// Метод получения списка акций
 ServiceReply<V1SharesResponse> InvestApiInstrumentsClient::Shares(
-        const std::shared_ptr<V1InstrumentStatus> instrument_status,
-        bool is_async_req, int retry_max, std::function<void(const ServiceReply<V1SharesResponse> &)> callback) {
+    const std::shared_ptr<V1InstrumentStatus> instrument_status, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1SharesResponse> &)> callback) {
 
     auto body = std::make_shared<V1InstrumentsRequest>();
     body->setInstrumentStatus(instrument_status);
@@ -309,7 +313,8 @@ ServiceReply<V1SharesResponse> InvestApiInstrumentsClient::Shares(
 
 /// Метод получения индикативных инструментов (индексов, товаров и др.)
 ServiceReply<V1IndicativesResponse> InvestApiInstrumentsClient::Indicatives(
-        bool is_async_req, int retry_max, std::function<void(const ServiceReply<V1IndicativesResponse> &)> callback) {
+    bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1IndicativesResponse> &)> callback) {
 
     auto body = std::make_shared<Object>();
 
@@ -324,8 +329,9 @@ ServiceReply<V1IndicativesResponse> InvestApiInstrumentsClient::Indicatives(
 
 /// Метод получения накопленного купонного дохода по облигации
 ServiceReply<V1GetAccruedInterestsResponse> InvestApiInstrumentsClient::GetAccruedInterests(
-        std::string figi, utility::datetime from, utility::datetime to,
-        bool is_async_req, int retry_max, std::function<void(const ServiceReply<V1GetAccruedInterestsResponse> &)> callback) {
+    const std::string &figi, utility::datetime from, utility::datetime to, bool is_async_req,
+    int retry_max,
+    std::function<void(const ServiceReply<V1GetAccruedInterestsResponse> &)> callback) {
 
     auto body = std::make_shared<V1GetAccruedInterestsRequest>();
     body->setFrom(from);
@@ -343,8 +349,8 @@ ServiceReply<V1GetAccruedInterestsResponse> InvestApiInstrumentsClient::GetAccru
 
 /// Метод получения размера гарантийного обеспечения по фьючерсам
 ServiceReply<V1GetFuturesMarginResponse> InvestApiInstrumentsClient::GetFuturesMargin(
-        std::string figi, bool is_async_req, int retry_max,
-        std::function<void(const ServiceReply<V1GetFuturesMarginResponse> &)> callback) {
+    const std::string &figi, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1GetFuturesMarginResponse> &)> callback) {
 
     auto body = std::make_shared<V1GetFuturesMarginRequest>();
     body->setFigi(figi);
@@ -360,8 +366,9 @@ ServiceReply<V1GetFuturesMarginResponse> InvestApiInstrumentsClient::GetFuturesM
 
 /// Метод получения основной информации об инструменте
 ServiceReply<V1InstrumentResponse> InvestApiInstrumentsClient::GetInstrumentBy(
-        const std::shared_ptr<V1InstrumentIdType> id_type, std::string class_code, std::string id,
-        bool is_async_req, int retry_max, std::function<void(const ServiceReply<V1InstrumentResponse> &)> callback) {
+    const std::shared_ptr<V1InstrumentIdType> id_type, const std::string &class_code,
+    const std::string &id, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1InstrumentResponse> &)> callback) {
 
     auto body = std::make_shared<V1InstrumentRequest>();
     body->setIdType(id_type);
@@ -379,8 +386,8 @@ ServiceReply<V1InstrumentResponse> InvestApiInstrumentsClient::GetInstrumentBy(
 
 /// Метод для получения событий выплаты дивидендов по инструменту
 ServiceReply<V1GetDividendsResponse> InvestApiInstrumentsClient::GetDividends(
-        std::string figi, utility::datetime from, utility::datetime to,
-        bool is_async_req, int retry_max, std::function<void(const ServiceReply<V1GetDividendsResponse> &)> callback) {
+    const std::string &figi, utility::datetime from, utility::datetime to, bool is_async_req,
+    int retry_max, std::function<void(const ServiceReply<V1GetDividendsResponse> &)> callback) {
 
     auto body = std::make_shared<V1GetDividendsRequest>();
     body->setFrom(from);
@@ -398,8 +405,8 @@ ServiceReply<V1GetDividendsResponse> InvestApiInstrumentsClient::GetDividends(
 
 /// Метод получения актива по его идентификатору
 ServiceReply<V1AssetResponse> InvestApiInstrumentsClient::GetAssetBy(
-        std::string id, bool is_async_req, int retry_max,
-        std::function<void(const ServiceReply<V1AssetResponse> &)> callback) {
+    const std::string &id, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1AssetResponse> &)> callback) {
 
     auto body = std::make_shared<V1AssetRequest>();
     body->setId(id);
@@ -415,8 +422,8 @@ ServiceReply<V1AssetResponse> InvestApiInstrumentsClient::GetAssetBy(
 
 /// Метод получения списка активов
 ServiceReply<V1AssetsResponse> InvestApiInstrumentsClient::GetAssets(
-        const std::shared_ptr<V1InstrumentType> instrument_id_type,
-        bool is_async_req, int retry_max, std::function<void(const ServiceReply<V1AssetsResponse> &)> callback) {
+    const std::shared_ptr<V1InstrumentType> instrument_id_type, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1AssetsResponse> &)> callback) {
 
     auto body = std::make_shared<V1AssetsRequest>();
     body->setInstrumentType(instrument_id_type);
@@ -432,7 +439,8 @@ ServiceReply<V1AssetsResponse> InvestApiInstrumentsClient::GetAssets(
 
 /// Метод получения избранных инструментов
 ServiceReply<V1GetFavoritesResponse> InvestApiInstrumentsClient::GetFavorites(
-        bool is_async_req, int retry_max, std::function<void(const ServiceReply<V1GetFavoritesResponse> &)> callback) {
+    bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1GetFavoritesResponse> &)> callback) {
 
     auto body = std::make_shared<Object>();
 
@@ -448,8 +456,8 @@ ServiceReply<V1GetFavoritesResponse> InvestApiInstrumentsClient::GetFavorites(
 /// Метод редактирования избранных инструментов
 ServiceReply<V1EditFavoritesResponse> InvestApiInstrumentsClient::EditFavorites(
     std::vector<std::shared_ptr<V1EditFavoritesRequestInstrument>> instruments,
-    const std::shared_ptr<V1EditFavoritesActionType> action_type,
-    bool is_async_req, int retry_max, std::function<void(const ServiceReply<V1EditFavoritesResponse> &)> callback) {
+    const std::shared_ptr<V1EditFavoritesActionType> action_type, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1EditFavoritesResponse> &)> callback) {
 
     auto body = std::make_shared<V1EditFavoritesRequest>();
     body->setInstruments(instruments);
@@ -466,7 +474,8 @@ ServiceReply<V1EditFavoritesResponse> InvestApiInstrumentsClient::EditFavorites(
 
 /// Метод получения списка стран
 ServiceReply<V1GetCountriesResponse> InvestApiInstrumentsClient::GetCountries(
-        bool is_async_req, int retry_max, std::function<void(const ServiceReply<V1GetCountriesResponse> &)> callback) {
+    bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1GetCountriesResponse> &)> callback) {
 
     auto body = std::make_shared<Object>();
 
@@ -481,9 +490,9 @@ ServiceReply<V1GetCountriesResponse> InvestApiInstrumentsClient::GetCountries(
 
 /// Метод поиска инструмента
 ServiceReply<V1FindInstrumentResponse> InvestApiInstrumentsClient::FindInstrument(
-        std::string query, const std::shared_ptr<V1InstrumentType> instrument_kind,
-        bool api_trade_available_flag, bool is_async_req, int retry_max,
-        std::function<void(const ServiceReply<V1FindInstrumentResponse> &)> callback) {
+    const std::string &query, const std::shared_ptr<V1InstrumentType> instrument_kind,
+    bool api_trade_available_flag, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1FindInstrumentResponse> &)> callback) {
 
     auto body = std::make_shared<V1FindInstrumentRequest>();
     body->setQuery(query);
@@ -501,8 +510,8 @@ ServiceReply<V1FindInstrumentResponse> InvestApiInstrumentsClient::FindInstrumen
 
 /// Метод получения списка брендов
 ServiceReply<V1GetBrandsResponse> InvestApiInstrumentsClient::GetBrands(
-        const std::shared_ptr<V1Page> paging, bool is_async_req, int retry_max,
-        std::function<void(const ServiceReply<V1GetBrandsResponse> &)> callback) {
+    const std::shared_ptr<V1Page> paging, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1GetBrandsResponse> &)> callback) {
 
     auto body = std::make_shared<V1GetBrandsRequest>();
     body->setPaging(paging);
@@ -518,8 +527,8 @@ ServiceReply<V1GetBrandsResponse> InvestApiInstrumentsClient::GetBrands(
 
 /// Метод получения бренда по его идентификатору
 ServiceReply<V1Brand> InvestApiInstrumentsClient::GetBrandBy(
-        std::string id, bool is_async_req, int retry_max,
-        std::function<void(const ServiceReply<V1Brand> &)> callback) {
+    const std::string &id, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1Brand> &)> callback) {
 
     auto body = std::make_shared<V1GetBrandRequest>();
     body->setId(id);
@@ -535,8 +544,8 @@ ServiceReply<V1Brand> InvestApiInstrumentsClient::GetBrandBy(
 
 /// Метод получения фундаментальных показателей по активу
 ServiceReply<V1GetAssetFundamentalsResponse> InvestApiInstrumentsClient::GetAssetFundamentals(
-        std::vector<std::string> assets, bool is_async_req, int retry_max,
-        std::function<void(const ServiceReply<V1GetAssetFundamentalsResponse> &)> callback) {
+    std::vector<std::string> assets, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1GetAssetFundamentalsResponse> &)> callback) {
 
     auto body = std::make_shared<V1GetAssetFundamentalsRequest>();
     body->setAssets(assets);
@@ -552,8 +561,9 @@ ServiceReply<V1GetAssetFundamentalsResponse> InvestApiInstrumentsClient::GetAsse
 
 /// Метод получения расписания выхода отчетностей эмитентов
 ServiceReply<V1GetAssetReportsResponse> InvestApiInstrumentsClient::GetAssetReports(
-        std::string instrument_id, utility::datetime from, utility::datetime to,
-        bool is_async_req, int retry_max, std::function<void(const ServiceReply<V1GetAssetReportsResponse> &)> callback) {
+    const std::string &instrument_id, utility::datetime from, utility::datetime to,
+    bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1GetAssetReportsResponse> &)> callback) {
 
     auto body = std::make_shared<V1GetAssetReportsRequest>();
     body->setFrom(from);
@@ -571,8 +581,8 @@ ServiceReply<V1GetAssetReportsResponse> InvestApiInstrumentsClient::GetAssetRepo
 
 /// Метод получения мнения аналитиков по инструменту
 ServiceReply<V1GetConsensusForecastsResponse> InvestApiInstrumentsClient::GetConsensusForecasts(
-        const std::shared_ptr<V1Page> paging, bool is_async_req, int retry_max,
-        std::function<void(const ServiceReply<V1GetConsensusForecastsResponse> &)> callback) {
+    const std::shared_ptr<V1Page> paging, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1GetConsensusForecastsResponse> &)> callback) {
 
     auto body = std::make_shared<V1GetConsensusForecastsRequest>();
     body->setPaging(paging);
@@ -588,8 +598,8 @@ ServiceReply<V1GetConsensusForecastsResponse> InvestApiInstrumentsClient::GetCon
 
 /// Метод получения прогнозов инвестдомов по инструменту
 ServiceReply<V1GetForecastResponse> InvestApiInstrumentsClient::GetForecastBy(
-        std::string instrument_id, bool is_async_req, int retry_max,
-        std::function<void(const ServiceReply<V1GetForecastResponse> &)> callback) {
+    const std::string &instrument_id, bool is_async_req, int retry_max,
+    std::function<void(const ServiceReply<V1GetForecastResponse> &)> callback) {
 
     auto body = std::make_shared<V1GetForecastRequest>();
     body->setInstrumentId(instrument_id);

@@ -14,7 +14,7 @@ namespace TINKOFFINVESTSDKCPP_EXPORT tinkoff_invest_cppsdk {
 
 class InvestApiUsersClient : public InvestApiBaseClient {
 public:
-    explicit InvestApiUsersClient(const std::string& token);
+    explicit InvestApiUsersClient(const std::string& token, TradingMode trading_mode);
 
     ~InvestApiUsersClient() override;
 

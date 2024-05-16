@@ -1,7 +1,8 @@
-#include <../../include/tinkoff_invest_cppsdk/client.h>
+#include <tinkoff_invest_cppsdk/client.h>
 #include <iostream>
 #include <vector>
 #include <numeric>
+#include <cstdlib>
 
 using namespace tinkoff_invest_cppsdk;
 
@@ -69,7 +70,7 @@ void PlaceSellOrder(tinkoff_invest_cppsdk::InvestApiClient &client, std::shared_
 // Trading bot class
 class TradingBot {
 public:
-    TradingBot(int period, std::string token, std::string stock) : client(InvestApiClient(token)) {
+    TradingBot(int period, std::string token, std::string stock) : client(InvestApiClient(token, InvestApiClient::TradingMode::Sandbox)) {
         smaPeriod = period;
         lastPrice = 0.0;
         isHolding = false;
@@ -110,7 +111,7 @@ private:
 };
 
 int main() {
-    std::string token;
+    std::string token = std::getenv("MY_TOKEN");
     std::string stocks = "RU000A107UL4";
     int smaPeriod = 14; // Example period for SMA
     TradingBot bot(smaPeriod, token, stocks);

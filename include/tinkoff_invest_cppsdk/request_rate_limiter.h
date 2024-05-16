@@ -12,9 +12,9 @@
 #include "tinkoff_invest_cppsdk/types_and_constants.h"
 
 #include <array>
+#include <condition_variable>
 #include <mutex>
 #include <thread>
-#include <condition_variable>
 
 #include "tinkoffinvestsdkcpp_export.h"
 
@@ -22,20 +22,14 @@ namespace TINKOFFINVESTSDKCPP_EXPORT tinkoff_invest_cppsdk {
 
 using org::openapitools::client::api::ApiException;
 
-class RequestRateLimiter {
+class BaseRequestRateLimiter {
 public:
-    RequestRateLimiter();
+    virtual ~BaseRequestRateLimiter();
+};
 
-    ~RequestRateLimiter();
-
-    void SetLimits(const std::array<int, kUnaryLimitsSize> &limits);
-
-    void IncrementRequestCount(int request_id);
-
-    int GetRequestCount(int request_id) const;
-
-protected:
-    enum class UnaryLimitId {
+class ProdRequestRateLimiter : public BaseRequestRateLimiter {
+public:
+    enum class UnaryProdLimitId {
         InstrumentsService,
         MarketDataService,
         OperationsService,
@@ -48,8 +42,44 @@ protected:
         UsersService
     };
 
-    std::array<int, kUnaryLimitsSize> limits_;
-    std::array<int, kUnaryLimitsSize> request_counts_;
+    ProdRequestRateLimiter();
+
+    ~ProdRequestRateLimiter() override;
+
+    void SetLimits(const std::array<int, kUnaryProdLimitsSize> &limits);
+
+    void IncrementRequestCount(UnaryProdLimitId request_id);
+
+protected:
+    std::array<int, kUnaryProdLimitsSize> limits_;
+    std::array<int, kUnaryProdLimitsSize> request_counts_;
+    mutable std::mutex mutex_;
+    std::thread monitor_thread_;
+    std::condition_variable cv_;
+    bool stop_monitor_thread_;
+
+    void ResetRequestCount();
+};
+
+class SandboxRequestRateLimiter : public BaseRequestRateLimiter {
+public:
+    enum class UnarySandboxLimitId {
+        InstrumentsService,
+        MarketDataService,
+        OtherServices,
+    };
+
+    SandboxRequestRateLimiter();
+
+    ~SandboxRequestRateLimiter() override;
+
+    void SetLimits(const std::array<int, kUnarySandboxLimitsSize> &limits);
+
+    void IncrementRequestCount(UnarySandboxLimitId request_id);
+
+protected:
+    std::array<int, kUnarySandboxLimitsSize> limits_;
+    std::array<int, kUnarySandboxLimitsSize> request_counts_;
     mutable std::mutex mutex_;
     std::thread monitor_thread_;
     std::condition_variable cv_;

@@ -25,7 +25,7 @@ void TradingSchedules(InvestApiClient &client, utility::datetime from, utility::
 }
 
 int main() {
-    InvestApiClient client(token);
+    InvestApiClient client(token, InvestApiClient::TradingMode::Sandbox);
     utility::datetime from;
     from = from.from_string("2024-05-16T00:00:00Z", utility::datetime::ISO_8601);
     utility::datetime to;

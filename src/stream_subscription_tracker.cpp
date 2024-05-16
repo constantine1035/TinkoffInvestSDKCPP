@@ -15,14 +15,9 @@ void StreamSubscriptionTracker::IncreaseStreamSubscriptionCount(int quantity) {
 void StreamSubscriptionTracker::DegreaseStreamCount(int quantity) {
     std::lock_guard<std::mutex> lock(mutex_);
     subscription_counts_ -= quantity;
-    if (subscription_counts_ > kSubscriptionLimit) {
+    if (subscription_counts_ < 0) {
         throw ApiException(429, "Subscriptions counts < 0.");
     }
-}
-
-int StreamSubscriptionTracker::GetStreamCount() const {
-    std::lock_guard<std::mutex> lock(mutex_);
-    return subscription_counts_;
 }
 
 }  // namespace tinkoff_invest_cppsdk

@@ -4,8 +4,8 @@
 
 namespace tinkoff_invest_cppsdk {
 
-InvestApiSandboxClient::InvestApiSandboxClient(const std::string &token)
-    : InvestApiBaseClient(token) {
+InvestApiSandboxClient::InvestApiSandboxClient(const std::string &token, TradingMode trading_mode)
+    : InvestApiBaseClient(token, trading_mode) {
     InitService<ServiceId::SandboxService, SandboxServiceApi>();
 }
 

@@ -2,7 +2,11 @@
 
 namespace tinkoff_invest_cppsdk {
 
-InvestApiBaseClient::InvestApiBaseClient(const std::string& token) : token_(token) {
+InvestApiBaseClient::InvestApiBaseClient(const std::string& token, TradingMode trading_mode)
+    : token_(token),
+      trading_mode_(trading_mode),
+      stream_tracker_(std::make_unique<StreamTracker>()),
+      stream_subscription_tracker_(std::make_unique<StreamSubscriptionTracker>()) {
 }
 
 InvestApiBaseClient::~InvestApiBaseClient() {

@@ -2,8 +2,8 @@
 
 namespace tinkoff_invest_cppsdk {
 
-InvestApiStopOrdersClient::InvestApiStopOrdersClient(const std::string &token)
-    : InvestApiBaseClient(token) {
+InvestApiStopOrdersClient::InvestApiStopOrdersClient(const std::string &token, TradingMode trading_mode)
+    : InvestApiBaseClient(token, trading_mode) {
     InitService<ServiceId::StopOrdersService, StopOrdersServiceApi>();
 }
 
@@ -17,6 +17,7 @@ ServiceReply<V1PostStopOrderResponse> InvestApiStopOrdersClient::StopOrdersServi
     std::shared_ptr<V1StopOrderType> stop_order_type, const std::string &expire_date,
     const std::string &instrument_id, bool is_async_req, int retry_max,
     std::function<void(const ServiceReply<V1PostStopOrderResponse> &)> callback) {
+
     auto body = std::make_shared<V1PostStopOrderRequest>();
     body->setFigi(figi);
     body->setQuantity(quantity);
@@ -38,6 +39,7 @@ ServiceReply<V1PostStopOrderResponse> InvestApiStopOrdersClient::StopOrdersServi
 ServiceReply<V1GetStopOrdersResponse> InvestApiStopOrdersClient::StopOrdersServiceGetStopOrders(
     const std::string &account_id, bool is_async_req, int retry_max,
     std::function<void(const ServiceReply<V1GetStopOrdersResponse> &)> callback) {
+
     auto body = std::make_shared<V1GetStopOrdersRequest>();
     body->setAccountId(account_id);
 
@@ -53,6 +55,7 @@ ServiceReply<V1GetStopOrdersResponse> InvestApiStopOrdersClient::StopOrdersServi
 ServiceReply<V1CancelStopOrderResponse> InvestApiStopOrdersClient::StopOrdersServiceCancelStopOrder(
     const std::string &account_id, const std::string &order_id, bool is_async_req, int retry_max,
     std::function<void(const ServiceReply<V1CancelStopOrderResponse> &)> callback) {
+
     auto body = std::make_shared<V1CancelStopOrderRequest>();
     body->setAccountId(account_id);
     body->setStopOrderId(order_id);

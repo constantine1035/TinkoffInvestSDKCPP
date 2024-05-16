@@ -10,7 +10,7 @@ static const std::string token = std::getenv("MY_TOKEN");
 void GetCandles(const std::string &instrument_id, utility::datetime from,
                 utility::datetime to, std::shared_ptr<V1CandleInterval> interval) {
     //  Создаем клиента.
-    InvestApiClient client(token);
+    InvestApiClient client(token, InvestApiClient::TradingMode::Sandbox);
 
     // Отправляем запрос.
     auto reply = client.MarketDataServiceGetCandles(instrument_id, from, to, interval);
@@ -32,7 +32,7 @@ void GetCandles(const std::string &instrument_id, utility::datetime from,
 
 void GetOrderBook(const std::string &instrument_id, int32_t depth) {
     //  Создаем клиента.
-    InvestApiClient client(token);
+    InvestApiClient client(token, InvestApiClient::TradingMode::Sandbox);
 
     // Отправляем запрос.
     auto reply = client.MarketDataServiceGetOrderBook(instrument_id, depth);

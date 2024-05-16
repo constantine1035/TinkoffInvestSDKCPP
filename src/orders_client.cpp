@@ -2,8 +2,8 @@
 
 namespace tinkoff_invest_cppsdk {
 
-InvestApiOrdersClient::InvestApiOrdersClient(const std::string &token)
-    : InvestApiBaseClient(token) {
+InvestApiOrdersClient::InvestApiOrdersClient(const std::string &token, TradingMode trading_mode)
+    : InvestApiBaseClient(token, trading_mode) {
     InitService<ServiceId::OrdersService, OrdersServiceApi>();
 }
 

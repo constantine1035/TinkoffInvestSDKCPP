@@ -2,8 +2,8 @@
 
 namespace tinkoff_invest_cppsdk {
 
-InvestApiOperationsStreamClient::InvestApiOperationsStreamClient(const std::string &token)
-    : InvestApiBaseClient(token) {
+InvestApiOperationsStreamClient::InvestApiOperationsStreamClient(const std::string &token, TradingMode trading_mode)
+    : InvestApiBaseClient(token, trading_mode) {
     InitService<ServiceId::OperationsStreamService, OperationsStreamServiceWebSocketApi>();
 }
 

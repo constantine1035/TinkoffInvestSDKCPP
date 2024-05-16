@@ -22,15 +22,6 @@ using org::openapitools::client::api::ApiException;
 
 class StreamTracker {
 public:
-    void SetLimits(const std::array<int, kStreamLimitsSize> &limits);
-
-    void IncreaseStreamCount(int stream_id);
-
-    void DegreaseStreamCount(int stream_id);
-
-    int GetStreamCount(int stream_id) const;
-
-protected:
     enum class StreamLimitId {
         MarketDataStream,  //  md_stream_service
         TradesStream,      //  orders_stream_service
@@ -38,6 +29,13 @@ protected:
         PositionsStream    //  operations_stream_service
     };
 
+    void SetLimits(const std::array<int, kStreamLimitsSize> &limits);
+
+    void IncreaseStreamCount(StreamLimitId stream_id);
+
+    void DegreaseStreamCount(StreamLimitId stream_id);
+
+protected:
     std::array<int, kStreamLimitsSize> limits_;
     std::array<int, kStreamLimitsSize> stream_counts_;
     mutable std::mutex mutex_;

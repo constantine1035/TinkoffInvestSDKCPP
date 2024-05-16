@@ -16,7 +16,8 @@
 namespace TINKOFFINVESTSDKCPP_EXPORT tinkoff_invest_cppsdk {
 
 inline constexpr int kNumberOfServices = 10;
-inline constexpr int kUnaryLimitsSize = 10;
+inline constexpr int kUnaryProdLimitsSize = 10;
+inline constexpr int kUnarySandboxLimitsSize = 3;
 inline constexpr int kStreamLimitsSize = 4;
 inline constexpr int kSubscriptionLimit = 300;
 inline constexpr int kPingDelay = 120000;

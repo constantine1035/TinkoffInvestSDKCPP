@@ -39,11 +39,6 @@ using web::websockets::client::websocket_client_config;
 
 class InvestApiBaseClient {
 public:
-    explicit InvestApiBaseClient(const std::string& token);
-
-    virtual ~InvestApiBaseClient();
-
-protected:
     enum class ServiceId {
         InstrumentsService,
         MarketDataService,
@@ -57,12 +52,23 @@ protected:
         UsersService
     };
 
+    enum class TradingMode {
+        Sandbox,
+        Prod,
+    };
+
+    explicit InvestApiBaseClient(const std::string& token, TradingMode trading_mode);
+
+    virtual ~InvestApiBaseClient();
+
+protected:
     std::string token_;
     std::array<std::shared_ptr<const some_service_t>, kNumberOfServices> services_;
+    TradingMode trading_mode_;
     mutable std::mutex mutex_;
-    StreamTracker stream_tracker_;
-    StreamSubscriptionTracker stream_subscription_tracker_;
-    RequestRateLimiter request_rate_limiter_;
+    std::unique_ptr<StreamTracker> stream_tracker_;
+    std::unique_ptr<StreamSubscriptionTracker> stream_subscription_tracker_;
+    std::unique_ptr<BaseRequestRateLimiter> request_rate_limiter_;
 
     template <class RequestType>
     void UpdateStreamTracker(int quantity) {
@@ -102,7 +108,7 @@ protected:
 
     template <ServiceId id, class ServiceType>
     void InitService() {
-        if (id == ServiceId::SandboxService) {
+        if (trading_mode_ == TradingMode::Sandbox) {
             GetClientService(id) = MakeService<id, ServiceType>(kSandboxBaseUrl, token_);
         } else {
             GetClientService(id) = MakeService<id, ServiceType>(kDefaultBaseUrl, token_);
@@ -263,15 +269,11 @@ protected:
 
         auto service = std::get<ServiceType>(*GetClientService(id));
 
-        stream_tracker_.IncreaseStreamCount(static_cast<int>(id));
-
         /*if constexpr (id == ServiceId::MarketDataStreamService) {
             stream_subscription_tracker_.
         }*/
 
         req(service, body, responses);
-
-        stream_tracker_.DegreaseStreamCount(static_cast<int>(id));
     }
 };
 
