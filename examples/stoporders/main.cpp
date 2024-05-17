@@ -48,7 +48,7 @@ int main() {
                                                        std::make_shared<V1StopOrderDirection>(direction),
                                                        account_id,
                                                        std::make_shared<V1StopOrderExpirationType>(expiration_type),
-                                                       std::make_shared<V1StopOrderType>(order_type), "1", instrument);
+                                                       std::make_shared<V1StopOrderType>(order_type), "", instrument);
     std::cout << "Status: " << reply.status << ";" << std::endl;
     if (reply.status == pplx::task_group_status::completed) {
         std::cout << reply.response.toJson().serialize() << std::endl;
