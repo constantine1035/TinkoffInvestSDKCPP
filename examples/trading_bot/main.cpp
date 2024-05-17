@@ -22,11 +22,10 @@ double CalculateSMA(const std::vector<long double>& prices, int period) {
     return sum / period;
 }
 
-// Fetching current price from the SDK
 CurrData getCurrentPrice(tinkoff_invest_cppsdk::InvestApiClient &client, std::string isin) {
     std::shared_ptr<V1InstrumentIdType> type = std::make_shared<V1InstrumentIdType>();
-    type->setValue(V1InstrumentIdType::eV1InstrumentIdType::V1InstrumentIdType_TYPE_TICKER);
-    auto reply = client.ShareBy(type, "TQBR", "TCSG");
+    type->setValue(V1InstrumentIdType::eV1InstrumentIdType::V1InstrumentIdType_TYPE_FIGI);
+    auto reply = client.ShareBy(type, "", "BBG004730N88");
     if (reply.status == pplx::canceled) {
         return {};
     }
@@ -39,13 +38,21 @@ CurrData getCurrentPrice(tinkoff_invest_cppsdk::InvestApiClient &client, std::st
         frac = frac / 10;
     }
     long double units = std::stoi(nom.getUnits()); //for some reason units are returned as string, even though they're supposed to be int
-    return {units + frac, price, reply.response.getInstrument()->isBuyAvailableFlag(), reply.response.getInstrument()->isSellAvailableFlag(), reply.response.getInstrument()->getUid()};
+    return {units + frac, price, reply.response.getInstrument()->isBuyAvailableFlag(), reply.response.getInstrument()->isSellAvailableFlag(), reply.response.getInstrument()->getFigi()};
 
 }
 
 void PlaceBuyOrder(tinkoff_invest_cppsdk::InvestApiClient &client, std::shared_ptr<V1Quotation> price, std::string orderid, std::string instrid) {
-    auto account = client.UsersServiceGetAccounts().response.getAccounts()[0];
+    auto resp = client.UsersServiceGetAccounts().response.getAccounts();
+    std::shared_ptr<V1Account> account;
+    if (resp.size() > 0) {
+        account = resp[0];
+    } else {
+        return;
+    }
     auto dirtype = std::make_shared<V1OrderDirection>();
+    client.SandboxServicePayIn(account->getId(), "rub", "1360000", 500000000);
+
     dirtype->setValue(V1OrderDirection::eV1OrderDirection::V1OrderDirection_BUY);
     auto ordtype = std::make_shared<V1OrderType>();
     ordtype->setValue(V1OrderType::eV1OrderType::V1OrderType_BESTPRICE);
@@ -53,11 +60,19 @@ void PlaceBuyOrder(tinkoff_invest_cppsdk::InvestApiClient &client, std::shared_p
     //timeinforce->setValue(V1TimeInForceType::eV1TimeInForceType::V1TimeInForceType_UNSPECIFIED);
     //auto pricetype = std::make_shared<V1PriceType>();
     //pricetype->setValue(V1PriceType::eV1PriceType::V1PriceType_CURRENCY);
-    auto responce = client.OrdersServicePostOrder("", "1", price, dirtype, account->getId(), ordtype, orderid, instrid, 0, 0);
+    auto responce = client.OrdersServicePostOrder("BBG004730N88", "1", price, dirtype, account->getId(), ordtype, "", "BBG004730N88", 0, 0);
+    std::cout << "Bought Stock\n";
+
 }
 
 void PlaceSellOrder(tinkoff_invest_cppsdk::InvestApiClient &client, std::shared_ptr<V1Quotation> price, std::string orderid, std::string instrid) {
-    auto account = client.UsersServiceGetAccounts().response.getAccounts()[0];
+    auto resp = client.UsersServiceGetAccounts().response.getAccounts();
+    std::shared_ptr<V1Account> account;
+    if (resp.size() > 0) {
+        account = resp[0];
+    } else {
+        return;
+    }
     auto dirtype = std::make_shared<V1OrderDirection>();
     dirtype->setValue(V1OrderDirection::eV1OrderDirection::V1OrderDirection_SELL);
     auto ordtype = std::make_shared<V1OrderType>();
@@ -66,7 +81,8 @@ void PlaceSellOrder(tinkoff_invest_cppsdk::InvestApiClient &client, std::shared_
     //timeinforce->setValue(V1TimeInForceType::eV1TimeInForceType::V1TimeInForceType_UNSPECIFIED);
     //auto pricetype = std::make_shared<V1PriceType>();
     //pricetype->setValue(V1PriceType::eV1PriceType::V1PriceType_CURRENCY);
-    auto responce = client.OrdersServicePostOrder("", "1", price, dirtype, account->getId(), ordtype, orderid, instrid, 0, 0);
+    auto responce = client.OrdersServicePostOrder("BBG004730N88", "1", price, dirtype, account->getId(), ordtype, "", "BBG004730N88", 0, 0);
+    std::cout << "Sold Stock\n";
 }
 
 // Trading bot class
@@ -75,24 +91,23 @@ public:
     TradingBot(int period, std::string token, std::string stock) : client(InvestApiClient(token, InvestApiClient::TradingMode::Sandbox)) {
         sma_period = period;
         last_price = 0.0;
-        is_holding = false;
         stocks = stock;
     }
 
     void run() {
         CurrData current = getCurrentPrice(client, stocks);
-        if (historical.size() >= sma_period) {
+         if (historical.size() >= sma_period) {
             ordid += 1;
             double sma = CalculateSMA(historical, sma_period);
 
             std::cout << "Current Price: " << current.price << " | SMA: " << sma << std::endl;
 
-            if (current.price > sma && !is_holding && current.can_buy) {
+            if (current.price >= sma && holding < 4 && current.can_buy) {
                 PlaceBuyOrder(client, current.price_, std::to_string(ordid), current.uid);
-                is_holding = true;
-            } else if (current.price < sma && is_holding && current.can_sell) {
+                holding++;
+            } else if (current.price < sma && holding > 0 && current.can_sell) {
                 PlaceSellOrder(client, current.price_, std::to_string(ordid), current.uid);
-                is_holding = false;
+                holding--;
             }
 
             last_price = current.price;
@@ -108,14 +123,16 @@ private:
     std::string stocks;
     int sma_period;
     double last_price;
-    bool is_holding;
+    int holding = 0;
     int64_t ordid = 892873959892;
 };
 
 int main() {
-    std::string token = "t.IdCqP4i7nt_GLlh9qAb_XUMfrc__JU4sOG7hRCeClHPcAgpepu201O3RgObKtNY2MuEeYflaTM6bYkxpQA9zjw";
+    std::string token = std::getenv("MY_TOKEN");
     std::string stocks = "US87238U2033";
-    int sma_period = 14; // Example period for SMA
+    //InvestApiClient client(token, InvestApiClient::TradingMode::Sandbox);
+    //auto responce = client.SandboxServiceOpenSandboxAccount({"myacc"}, true,  2);
+    int sma_period = 1; // Example period for SMA
     TradingBot bot(sma_period, token, stocks);
 
     while(1) {
