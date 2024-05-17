@@ -195,6 +195,24 @@ protected:
         }
     }
 
+    template <class RequestType>
+    int CalcSubscribes(std::shared_ptr<RequestType> body) {
+        int subs = 0;
+        if (body->subscribeCandlesRequestIsSet()) {
+            subs += body->getSubscribeCandlesRequest()->getInstruments().size();
+        }
+        if (body->subscribeOrderBookRequestIsSet()) {
+            subs += body->getSubscribeOrderBookRequest()->getInstruments().size();
+        }
+        if (body->subscribeTradesRequestIsSet()) {
+            subs += body->getSubscribeTradesRequest()->getInstruments().size();
+        }
+        if (body->subscribeLastPriceRequestIsSet()) {
+            subs += body->getSubscribeLastPriceRequest()->getInstruments().size();
+        }
+        return subs;
+    }
+
     template <ServiceId id, class ServiceType>
     std::shared_ptr<some_service_t> MakeService(const std::string &base_url,
                                                 const std::string &token) const {
@@ -345,6 +363,8 @@ protected:
 
         if constexpr (id == ServiceId::MarketDataStreamService) {
             stream_tracker_->IncrementStreamCount(StreamTracker::StreamLimitId::MarketDataStream);
+            int subs = CalcSubscribes(body);
+            stream_subscription_tracker_->IncreaseStreamSubscriptionCount(subs);
         } else if constexpr (id == ServiceId::OrdersStreamService) {
             stream_tracker_->IncrementStreamCount(StreamTracker::StreamLimitId::TradesStream);
         } else if constexpr (std::is_same_v<RequestType, V1PortfolioStreamRequest>) {
@@ -376,6 +396,8 @@ protected:
 
         if constexpr (id == ServiceId::MarketDataStreamService) {
             stream_tracker_->DecrementStreamCount(StreamTracker::StreamLimitId::MarketDataStream);
+            int subs = CalcSubscribes(body);
+            stream_subscription_tracker_->DegreaseStreamCount(subs);
         } else if constexpr (id == ServiceId::OrdersStreamService) {
             stream_tracker_->DecrementStreamCount(StreamTracker::StreamLimitId::TradesStream);
         } else if constexpr (std::is_same_v<RequestType, V1PortfolioStreamRequest>) {
