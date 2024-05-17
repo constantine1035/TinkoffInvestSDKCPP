@@ -7,6 +7,14 @@ InvestApiBaseClient::InvestApiBaseClient(const std::string& token, TradingMode t
       trading_mode_(trading_mode),
       stream_tracker_(std::make_unique<StreamTracker>()),
       stream_subscription_tracker_(std::make_unique<StreamSubscriptionTracker>()) {
+    if (trading_mode_ == TradingMode::Sandbox) {
+        request_rate_limiter_ = std::make_unique<SandboxRequestRateLimiter>();
+        dynamic_cast<SandboxRequestRateLimiter*>(request_rate_limiter_.get())->SetLimits({0, 0, 1});
+    } else {
+        request_rate_limiter_ = std::make_unique<ProdRequestRateLimiter>();
+        dynamic_cast<ProdRequestRateLimiter *>(request_rate_limiter_.get())
+            ->SetLimits({0, 0, 0, 0, 0, 0, 0, 0, 0, 1});
+    }
 }
 
 InvestApiBaseClient::~InvestApiBaseClient() {

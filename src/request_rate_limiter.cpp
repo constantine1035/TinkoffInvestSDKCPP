@@ -28,8 +28,17 @@ void ProdRequestRateLimiter::IncrementRequestCount(UnaryProdLimitId request_id) 
     std::lock_guard<std::mutex> lock(mutex_);
     int id = static_cast<int>(request_id);
     ++request_counts_[id];
-    if (request_counts_[id] > limits_[id]) {
-        throw ApiException(429, "Too many unary requests. RequestId: " + std::to_string(id));
+    while (request_counts_[id] > limits_[id]) {
+        std::this_thread::sleep_for(std::chrono::seconds(10));
+    }
+}
+
+void ProdRequestRateLimiter::DecrementRequestCount(UnaryProdLimitId request_id) {
+    std::lock_guard<std::mutex> lock(mutex_);
+    int id = static_cast<int>(request_id);
+    --request_counts_[id];
+    if (request_counts_[id] < 0) {
+        throw ApiException(429, "unary requests < 0. RequestId: " + std::to_string(id));
     }
 }
 
@@ -64,8 +73,17 @@ void SandboxRequestRateLimiter::IncrementRequestCount(UnarySandboxLimitId reques
     std::lock_guard<std::mutex> lock(mutex_);
     int id = static_cast<int>(request_id);
     ++request_counts_[id];
-    if (request_counts_[id] > limits_[id]) {
-        throw ApiException(429, "Too many unary requests. RequestId: " + std::to_string(id));
+    while (request_counts_[id] > limits_[id]) {
+        std::this_thread::sleep_for(std::chrono::seconds(10));
+    }
+}
+
+void SandboxRequestRateLimiter::DecrementRequestCount(UnarySandboxLimitId request_id) {
+    std::lock_guard<std::mutex> lock(mutex_);
+    int id = static_cast<int>(request_id);
+    --request_counts_[id];
+    if (request_counts_[id] < 0) {
+        throw ApiException(429, "unary requests < 0. RequestId: " + std::to_string(id));
     }
 }
 

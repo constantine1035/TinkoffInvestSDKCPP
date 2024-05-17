@@ -31,9 +31,9 @@ public:
 
     void SetLimits(const std::array<int, kStreamLimitsSize> &limits);
 
-    void IncreaseStreamCount(StreamLimitId stream_id);
+    void IncrementStreamCount(StreamLimitId stream_id);
 
-    void DegreaseStreamCount(StreamLimitId stream_id);
+    void DecrementStreamCount(StreamLimitId stream_id);
 
 protected:
     std::array<int, kStreamLimitsSize> limits_;

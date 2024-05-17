@@ -35,7 +35,8 @@ class InvestApiClient : public InvestApiInstrumentsClient,
                         public InvestApiUsersClient {
 public:
     inline explicit InvestApiClient(const std::string& token, TradingMode trading_mode)
-        : InvestApiInstrumentsClient(token, trading_mode),
+        : InvestApiBaseClient(token, trading_mode),
+          InvestApiInstrumentsClient(token, trading_mode),
           InvestApiMarketdataClient(token, trading_mode),
           InvestApiMarketdataStreamClient(token, trading_mode),
           InvestApiOperationsClient(token, trading_mode),
@@ -45,6 +46,8 @@ public:
           InvestApiSandboxClient(token, trading_mode),
           InvestApiStopOrdersClient(token, trading_mode),
           InvestApiUsersClient(token, trading_mode) {
+
+        InitLimiters();
     }
 
     inline ~InvestApiClient() override {
