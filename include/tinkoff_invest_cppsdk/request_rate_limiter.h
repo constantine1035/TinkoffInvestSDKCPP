@@ -50,6 +50,8 @@ public:
 
     void IncrementRequestCount(UnaryProdLimitId request_id);
 
+    void DecrementRequestCount(UnaryProdLimitId request_id);
+
 protected:
     std::array<int, kUnaryProdLimitsSize> limits_;
     std::array<int, kUnaryProdLimitsSize> request_counts_;
@@ -76,6 +78,8 @@ public:
     void SetLimits(const std::array<int, kUnarySandboxLimitsSize> &limits);
 
     void IncrementRequestCount(UnarySandboxLimitId request_id);
+
+    void DecrementRequestCount(UnarySandboxLimitId request_id);
 
 protected:
     std::array<int, kUnarySandboxLimitsSize> limits_;

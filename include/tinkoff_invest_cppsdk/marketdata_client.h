@@ -12,7 +12,7 @@
 
 namespace TINKOFFINVESTSDKCPP_EXPORT tinkoff_invest_cppsdk {
 
-class InvestApiMarketdataClient : public InvestApiBaseClient {
+class InvestApiMarketdataClient : virtual public InvestApiBaseClient {
 public:
     explicit InvestApiMarketdataClient(const std::string &token, TradingMode trading_mode);
 

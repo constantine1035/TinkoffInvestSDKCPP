@@ -5,8 +5,6 @@ namespace tinkoff_invest_cppsdk {
 InvestApiUsersClient::InvestApiUsersClient(const std::string &token, TradingMode trading_mode)
     : InvestApiBaseClient(token, trading_mode) {
     InitService<ServiceId::UsersService, UsersServiceApi>();
-
-    InitLimiters();
 }
 
 void InvestApiUsersClient::InitLimiters() {
@@ -27,7 +25,6 @@ void InvestApiUsersClient::InitRequestRateLimiter(
         for (size_t i = 0; i < kUnarySandboxLimitsSize; ++i) {
             request_limits[i] = client_request_limits[i]->getLimitPerMinute();
         }
-        request_rate_limiter_ = std::make_unique<SandboxRequestRateLimiter>();
         dynamic_cast<SandboxRequestRateLimiter *>(request_rate_limiter_.get())
             ->SetLimits(request_limits);
     } else {
